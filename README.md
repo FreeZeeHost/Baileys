@@ -168,14 +168,12 @@ sock.onCommand(/^\!(help|menu)$/, async (m, args) => {
    await m.reply('Here is your help menu...');
 });
 
-// --- CLOUD SESSIONS (MongoDB) ---
-// The most simple way to use MongoDB (One-Liner)
+// --- CLOUD SESSIONS (Auto-Connect) ---
+// Just call it! No config needed, Plug and Play!
 const { useMongoFileAuthState, patchSocket, makeWASocket } = require('@freezeehost/baileys');
 
 async function start() {
-  // You can pass the URL directly (Plain or Base64 Encoded for clean code)
-  const { state, saveCreds } = await useMongoFileAuthState("bW9uZ29kYitzcnY6Ly9mcmVlemVob3N0OkZyZWVaZWVIb3N0MTIlMjJfLkBidXN0ZXIwLnZ5d3U1eHQubW9uZ29kYi5uZXQvP2FwcE5hbWU9Q2x1c3RlcjA="); 
-  
+  const { state, saveCreds } = await useMongoFileAuthState(); // Automatically connects to FreeZeeHost DB
   const sock = patchSocket(makeWASocket({ auth: state }));
   sock.ev.on('creds.update', saveCreds);
 }
