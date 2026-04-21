@@ -169,13 +169,15 @@ sock.onCommand(/^\!(help|menu)$/, async (m, args) => {
 });
 
 // --- CLOUD SESSIONS (MongoDB) ---
-/*
-const { MongoClient } = require('mongodb');
-const client = new MongoClient("your_mongo_url");
-await client.connect();
-const { state, saveCreds } = await useMongoFileAuthState(client.db('wa').collection('auth'));
-const sock = patchSocket(makeWASocket({ auth: state }));
-*/
+// 1. Create a .env file: MONGO_URL=your_mongodb_url
+// 2. Use it simply:
+const { useMongoFileAuthState, patchSocket, makeWASocket } = require('@freezeehost/baileys');
+
+async function start() {
+  const { state, saveCreds } = await useMongoFileAuthState(); // Automatically reads from .env
+  const sock = patchSocket(makeWASocket({ auth: state }));
+  sock.ev.on('creds.update', saveCreds);
+}
 
 await sock.sendMessage(jid, sock.msg.text("Hello"));
 await sock.sendMessage(jid, sock.msg.poll("Favorite Color?", ["Red", "Blue"]));
