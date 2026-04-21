@@ -1,6 +1,6 @@
 import { proto } from '../WAProto';
 import makeWASocket from './Socket';
-import { Browsers, fetchLatestBaileysVersion, useMultiFileAuthState, useMongoFileAuthState, delay, patchSocket, makeSessionManager, withStealthMode, withSmartQueue, withMiddleware, withMediaEngine } from './Utils';
+import { Browsers, fetchLatestBaileysVersion, useMultiFileAuthState, useMongoFileAuthState, delay, patchSocket, makeSessionManager, withStealthMode, withSmartQueue, withMiddleware, withMediaEngine, makeFreeZeeSocket } from './Utils';
 import { DisconnectReason } from './Types';
 import { makeInMemoryStore } from './Store';
 import { jidDecode, jidEncode } from './WABinary';
@@ -29,6 +29,7 @@ export {
     withSmartQueue, 
     withMiddleware, 
     withMediaEngine,
+    makeFreeZeeSocket,
     DisconnectReason,
     makeInMemoryStore,
     jidDecode,
