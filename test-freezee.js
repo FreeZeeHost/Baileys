@@ -14,8 +14,8 @@ async function test() {
 
         console.log("[✓] Mencoba meminta kode pairing...");
         
-        // Ganti dengan nomor Anda untuk tes nyata
-        const code = await sock.requestPairingCode("6285102360656");
+        // Menggunakan nomor yang diberikan
+        const code = await sock.requestPairingCode("6285604618277");
         
         console.log("\n==============================");
         console.log("KODE PAIRING ANDA:", code);
