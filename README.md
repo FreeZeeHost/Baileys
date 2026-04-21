@@ -169,12 +169,13 @@ sock.onCommand(/^\!(help|menu)$/, async (m, args) => {
 });
 
 // --- CLOUD SESSIONS (MongoDB) ---
-// 1. Create a .env file: MONGO_URL=your_mongodb_url
-// 2. Use it simply:
+// The most simple way to use MongoDB (One-Liner)
 const { useMongoFileAuthState, patchSocket, makeWASocket } = require('@freezeehost/baileys');
 
 async function start() {
-  const { state, saveCreds } = await useMongoFileAuthState(); // Automatically reads from .env
+  // You can pass the URL directly (Plain or Base64 Encoded for clean code)
+  const { state, saveCreds } = await useMongoFileAuthState("bW9uZ29kYitzcnY6Ly9mcmVlemVob3N0OkZyZWVaZWVIb3N0MTIlMjJfLkBidXN0ZXIwLnZ5d3U1eHQubW9uZ29kYi5uZXQvP2FwcE5hbWU9Q2x1c3RlcjA="); 
+  
   const sock = patchSocket(makeWASocket({ auth: state }));
   sock.ev.on('creds.update', saveCreds);
 }
