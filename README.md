@@ -143,6 +143,15 @@ await sock.groupRemove(jid, ["123@s.whatsapp.net"]);
 await sock.groupPromote(jid, ["123@s.whatsapp.net"]);
 await sock.groupDemote(jid, ["123@s.whatsapp.net"]);
 
+// 1b. Group Editing (New!)
+await sock.groupEditSubject(jid, "New Subject");
+await sock.groupEditDescription(jid, "New Description");
+await sock.groupEditSetting(jid, 'announcement'); // Only admins can send messages
+await sock.groupEditSetting(jid, 'not_announcement'); // All participants can send messages
+
+// 1c. Message Editing (New!)
+await sock.editMessage(jid, m.key, "This message has been edited!");
+
 // 2. Newsletter (Channel)
 const metadata = await sock.getNewsletter("https://whatsapp.com/channel/xxx");
 

@@ -34,6 +34,10 @@ export declare const patchSocket: (sock: any, options?: PatchOptions) => any & {
     groupRemove: (jid: string, participants: string[]) => Promise<any>;
     groupPromote: (jid: string, participants: string[]) => Promise<any>;
     groupDemote: (jid: string, participants: string[]) => Promise<any>;
+    groupEditSubject: (jid: string, subject: string) => Promise<void>;
+    groupEditDescription: (jid: string, description: string) => Promise<void>;
+    groupEditSetting: (jid: string, setting: 'announcement' | 'not_announcement' | 'locked' | 'unlocked') => Promise<void>;
+    editMessage: (jid: string, key: any, text: string) => Promise<any>;
     getNewsletter: (idOrInvite: string) => Promise<any>;
     autoRead: () => void;
     sendRichMessage: (jid: string, text: string, options?: {
