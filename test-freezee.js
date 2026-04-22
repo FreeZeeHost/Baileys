@@ -1,30 +1,16 @@
-const { makeFreeZeeSocket, Browsers } = require('./lib');
-const pino = require('pino');
+const { makeFreeZeeSocket } = require('./lib');
 
 async function test() {
-    console.log("--- TESTING FREEZEEHOST BAILEYS ---");
-    
+    console.log("--- FINAL TEST: ULTRA PLUG-AND-PLAY ---");
     try {
-        // Langsung panggil wrapper sakti
-        const sock = await makeFreeZeeSocket({
-            logger: pino({ level: 'info' }),
-            printQRInTerminal: true,
-            browser: Browsers.ubuntu('Chrome')
-        });
-
-        console.log("[✓] Mencoba meminta kode pairing...");
-        
-        // Menggunakan nomor yang diberikan
-        const code = await sock.requestPairingCode("6285604618277");
-        
+        const sock = await makeFreeZeeSocket();
+        console.log("[✓] Mencoba meminta kode pairing (Menunggu 5 detik agar enkripsi matang)...");
+        const code = await sock.requestPairingCode("6285755077227");
         console.log("\n==============================");
         console.log("KODE PAIRING ANDA:", code);
         console.log("==============================\n");
-        console.log("[!] Masukkan kode tersebut ke WhatsApp di HP Anda.");
-
     } catch (err) {
-        console.error("[✗] Terjadi kesalahan saat tes:", err.message);
+        console.error("[✗] Gagal:", err.message);
     }
 }
-
 test();

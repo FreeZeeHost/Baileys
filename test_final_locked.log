@@ -1,0 +1,22 @@
+
+[38;2;135;206;235m███████╗██████╗ ███████╗███████╗███████╗███████╗███████╗██╗  ██╗ ██████╗ ███████╗████████╗[0m
+[38;2;135;206;235m██╔════╝██╔══██╗██╔════╝██╔════╝╚══███╔╝██╔════╝██╔════╝██║  ██║██╔═══██╗██╔════╝╚══██╔══╝[0m
+[38;2;135;206;235m█████╗  ██████╔╝█████╗  █████╗    ███╔╝ █████╗  █████╗  ███████║██║   ██║███████╗   ██║   [0m
+[38;2;135;206;235m██╔══╝  ██╔══██╗██╔══╝  ██╔══╝   ███╔╝  ██╔══╝  ██╔══╝  ██╔══██║██║   ██║╚════██║   ██║   [0m
+[38;2;135;206;235m██║     ██║  ██║███████╗███████╗███████╗███████╗███████╗██║  ██║╚██████╔╝███████║   ██║   [0m
+[38;2;135;206;235m╚═╝     ╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝╚══════╝╚══════╝╚═╝  ╚═╝ ╚═════╝ ╚══════╝   ╚═╝   [0m
+
+--- FINAL TEST: ULTRA PLUG-AND-PLAY ---
+[32m[✓] MongoDB Connected Successfully to: freezee-baileys[0m
+[✓] Mencoba meminta kode pairing (Menunggu 5 detik agar enkripsi matang)...
+[PAIRING] Mempersiapkan enkripsi untuk 6285604618277...
+{"level":30,"time":"2026-04-22T10:47:48.829Z","pid":241746,"hostname":"FreeZeeHost","class":"baileys","browser":["Mac OS","Safari","13.5.2"],"helloMsg":{"clientHello":{"ephemeral":"R0cIMYJjH/6KSpNu5qDMyfrWrvajq5txSndCX5teVAE="}},"msg":"connected to WA"}
+{"level":30,"time":"2026-04-22T10:47:49.093Z","pid":241746,"hostname":"FreeZeeHost","class":"baileys","node":{"passive":false,"userAgent":{"platform":"WEB","appVersion":{"primary":2,"secondary":3000,"tertiary":1027934701},"mcc":"000","mnc":"000","osVersion":"0.1","device":"Desktop","osBuildNumber":"0.1","releaseChannel":"RELEASE","localeLanguageIso6391":"en","localeCountryIso31661Alpha2":"ID"},"webInfo":{"webSubPlatform":"WEB_BROWSER"},"connectType":"WIFI_UNKNOWN","connectReason":"USER_ACTIVATED","devicePairingData":{"eRegid":"AAAIfQ==","eKeytype":"BQ==","eIdent":"YF4gZgcWpf5s1t5FswuLEhVxjBV53FxgUvRMTUNL8Fc=","eSkeyId":"AAAB","eSkeyVal":"jwFGmofDwlqMwmXvRmv/zrdnVP6LKKilZwpA41xMpDY=","eSkeySig":"sA6p5OzLd7zau2NYj5xAoKWxsxTjgAAl4RuehnIYIL1DA8gjOL0ie0JSpeTxShBhJ7AUybvlh3HnVKAMFFXjBg==","buildHash":"VLsNToSifLU6uyYzJzwXCA==","deviceProps":"CgZNYWMgT1MYASAB"},"pull":false},"msg":"not logged in, attempting registration..."}
+
+[DEBUG] WhatsApp Rejection Reason: 405 { reason: '405', location: 'cln' }
+{"level":30,"time":"2026-04-22T10:47:51.676Z","pid":241746,"hostname":"FreeZeeHost","class":"baileys","trace":"Error: Connection Failure\n    at WebSocketClient.<anonymous> (/home/freezeehost/baileys/package/lib/Socket/socket.js:783:13)\n    at WebSocketClient.emit (node:events:508:20)\n    at /home/freezeehost/baileys/package/lib/Socket/socket.js:485:35\n    at Object.decodeFrame (/home/freezeehost/baileys/package/lib/Utils/noise-handler.js:146:17)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async WebSocketClient.onMessageReceived (/home/freezeehost/baileys/package/lib/Socket/socket.js:466:9)","msg":"connection errored"}
+[PAIRING] Reconnecting... (Attempt 1/5)
+[PAIRING] Reconnecting... (Attempt 2/5)
+[PAIRING] Reconnecting... (Attempt 3/5)
+[PAIRING] Reconnecting... (Attempt 4/5)
+[PAIRING] Reconnecting... (Attempt 5/5)

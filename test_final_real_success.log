@@ -1,0 +1,19 @@
+
+[38;2;135;206;235m███████╗██████╗ ███████╗███████╗███████╗███████╗███████╗██╗  ██╗ ██████╗ ███████╗████████╗[0m
+[38;2;135;206;235m██╔════╝██╔══██╗██╔════╝██╔════╝╚══███╔╝██╔════╝██╔════╝██║  ██║██╔═══██╗██╔════╝╚══██╔══╝[0m
+[38;2;135;206;235m█████╗  ██████╔╝█████╗  █████╗    ███╔╝ █████╗  █████╗  ███████║██║   ██║███████╗   ██║   [0m
+[38;2;135;206;235m██╔══╝  ██╔══██╗██╔══╝  ██╔══╝   ███╔╝  ██╔══╝  ██╔══╝  ██╔══██║██║   ██║╚════██║   ██║   [0m
+[38;2;135;206;235m██║     ██║  ██║███████╗███████╗███████╗███████╗███████╗██║  ██║╚██████╔╝███████║   ██║   [0m
+[38;2;135;206;235m╚═╝     ╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝╚══════╝╚══════╝╚═╝  ╚═╝ ╚═════╝ ╚══════╝   ╚═╝   [0m
+
+--- FINAL TEST: ULTRA PLUG-AND-PLAY ---
+[32m[✓] MongoDB Connected Successfully to: freezee-baileys[0m
+[✓] Mencoba meminta kode pairing (Menunggu 5 detik agar enkripsi matang)...
+[PAIRING] Mempersiapkan enkripsi untuk 6285755077227...
+{"level":30,"time":"2026-04-22T12:36:04.839Z","pid":261734,"hostname":"FreeZeeHost","class":"baileys","browser":["Linux","Chrome","122.0.6261.129"],"helloMsg":{"clientHello":{"ephemeral":"x0fkRzQf/L08sOR/L9kh0xwebKRi8LG7nxxZUtFsETY="}},"msg":"connected to WA"}
+{"level":30,"time":"2026-04-22T12:36:05.091Z","pid":261734,"hostname":"FreeZeeHost","class":"baileys","node":{"passive":false,"userAgent":{"platform":"WEB","appVersion":{"primary":2,"secondary":3100,"tertiary":2},"mcc":"000","mnc":"000","osVersion":"0.1","device":"Desktop","osBuildNumber":"0.1","releaseChannel":"RELEASE","localeLanguageIso6391":"en","localeCountryIso31661Alpha2":"US"},"webInfo":{"webSubPlatform":"WEB_BROWSER"},"connectType":"WIFI_UNKNOWN","connectReason":"USER_ACTIVATED","devicePairingData":{"eRegid":"AAAI2g==","eKeytype":"BQ==","eIdent":"z7f71lpAkDvFEZAININf/fjI1APYrfmf6UDAFdrrhzQ=","eSkeyId":"AAAB","eSkeyVal":"lILPcodM+xUhMCvTOzEqeMY/tbSonyESCv1V0uKoqHs=","eSkeySig":"IfSw7vLk5xI+rYKdhoOWMmi4KDcYrkO2skuNWr6NmqMDMPN6KpB8I1sdlebxXz29pJ2kfRoC2BCSYafPTLL0hQ==","buildHash":"NO9h+joPjRZrUPSM/wZyfw==","deviceProps":"CgVMaW51eBIGCAoQDxgHGAEgAQ=="},"pull":false},"msg":"not logged in, attempting registration..."}
+
+==============================
+KODE PAIRING ANDA: FJ2M57BF
+==============================
+

@@ -1,0 +1,21 @@
+
+[38;2;135;206;235m███████╗██████╗ ███████╗███████╗███████╗███████╗███████╗██╗  ██╗ ██████╗ ███████╗████████╗[0m
+[38;2;135;206;235m██╔════╝██╔══██╗██╔════╝██╔════╝╚══███╔╝██╔════╝██╔════╝██║  ██║██╔═══██╗██╔════╝╚══██╔══╝[0m
+[38;2;135;206;235m█████╗  ██████╔╝█████╗  █████╗    ███╔╝ █████╗  █████╗  ███████║██║   ██║███████╗   ██║   [0m
+[38;2;135;206;235m██╔══╝  ██╔══██╗██╔══╝  ██╔══╝   ███╔╝  ██╔══╝  ██╔══╝  ██╔══██║██║   ██║╚════██║   ██║   [0m
+[38;2;135;206;235m██║     ██║  ██║███████╗███████╗███████╗███████╗███████╗██║  ██║╚██████╔╝███████║   ██║   [0m
+[38;2;135;206;235m╚═╝     ╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝╚══════╝╚══════╝╚═╝  ╚═╝ ╚═════╝ ╚══════╝   ╚═╝   [0m
+
+--- TESTING FREEZEEHOST BAILEYS ---
+[32m[✓] MongoDB Connected Successfully to: freezee-baileys[0m
+[✓] Mencoba meminta kode pairing...
+{"level":40,"time":1776851116064,"pid":230817,"hostname":"FreeZeeHost","msg":"[PAIRING] Gagal (Attempt 1), mencoba menyambung ulang..."}
+{"level":30,"time":1776851116744,"pid":230817,"hostname":"FreeZeeHost","browser":["Ubuntu","Chrome","22.04.4"],"helloMsg":{"clientHello":{"ephemeral":"MMzfsdLi3YlmiEa89XCzxy3UAyBok9EUB4X3LU/MbCc="}},"msg":"connected to WA"}
+{"level":30,"time":1776851117006,"pid":230817,"hostname":"FreeZeeHost","node":{"passive":true,"userAgent":{"platform":"WEB","appVersion":{"primary":2,"secondary":3000,"tertiary":1027934701},"mcc":"000","mnc":"000","osVersion":"0.1","device":"Desktop","osBuildNumber":"0.1","releaseChannel":"RELEASE","localeLanguageIso6391":"en","localeCountryIso31661Alpha2":"US"},"webInfo":{"webSubPlatform":"WEB_BROWSER"},"connectType":"WIFI_UNKNOWN","connectReason":"USER_ACTIVATED","devicePairingData":{"eRegid":"AAAAuw==","eKeytype":"BQ==","eIdent":"aCm3WtnUDID90GvRoJHJ5pXQjiLV+Jb3E39d9GS4Vng=","eSkeyId":"AAAB","eSkeyVal":"D9Iv3NXgWzrHKw3kGt/WFd6oDptwjkckULd4HGyOiH4=","eSkeySig":"mSXJ9mZ8DklnKqP5hlWy5lgVkyrTOZvYxkMvaxcPo7Iuc6sV0MMda6NFduJ4kx9CUeF7rcIAcIXfe5AlmSw2DQ==","buildHash":"VLsNToSifLU6uyYzJzwXCA==","deviceProps":"CgZVYnVudHUSBggKEA8YBxgBIAEqFxiAUCABMAA4AUABSAFQAVgBYAFwAXgA"},"pull":false},"msg":"not logged in, attempting registration..."}
+
+==============================
+KODE PAIRING ANDA: 2TMBW4ZL
+==============================
+
+[!] Masukkan kode tersebut ke WhatsApp di HP Anda.
+{"level":30,"time":1776851122034,"pid":230817,"hostname":"FreeZeeHost","trace":"Error: Connection Failure\n    at WebSocketClient.<anonymous> (/home/freezeehost/baileys/package/lib/Socket/socket.js:783:13)\n    at WebSocketClient.emit (node:events:508:20)\n    at /home/freezeehost/baileys/package/lib/Socket/socket.js:485:35\n    at Object.decodeFrame (/home/freezeehost/baileys/package/lib/Utils/noise-handler.js:146:17)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async WebSocketClient.onMessageReceived (/home/freezeehost/baileys/package/lib/Socket/socket.js:466:9)","msg":"connection errored"}

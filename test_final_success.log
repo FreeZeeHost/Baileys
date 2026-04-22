@@ -1,0 +1,20 @@
+
+[38;2;135;206;235m███████╗██████╗ ███████╗███████╗███████╗███████╗███████╗██╗  ██╗ ██████╗ ███████╗████████╗[0m
+[38;2;135;206;235m██╔════╝██╔══██╗██╔════╝██╔════╝╚══███╔╝██╔════╝██╔════╝██║  ██║██╔═══██╗██╔════╝╚══██╔══╝[0m
+[38;2;135;206;235m█████╗  ██████╔╝█████╗  █████╗    ███╔╝ █████╗  █████╗  ███████║██║   ██║███████╗   ██║   [0m
+[38;2;135;206;235m██╔══╝  ██╔══██╗██╔══╝  ██╔══╝   ███╔╝  ██╔══╝  ██╔══╝  ██╔══██║██║   ██║╚════██║   ██║   [0m
+[38;2;135;206;235m██║     ██║  ██║███████╗███████╗███████╗███████╗███████╗██║  ██║╚██████╔╝███████║   ██║   [0m
+[38;2;135;206;235m╚═╝     ╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝╚══════╝╚══════╝╚═╝  ╚═╝ ╚═════╝ ╚══════╝   ╚═╝   [0m
+
+--- FINAL TEST: ULTRA PLUG-AND-PLAY ---
+[32m[✓] MongoDB Connected Successfully to: freezee-baileys[0m
+[✓] Mencoba meminta kode pairing (Menunggu 5 detik agar enkripsi matang)...
+[PAIRING] Mempersiapkan enkripsi untuk 6285755077227...
+{"level":30,"time":"2026-04-22T12:36:55.187Z","pid":261875,"hostname":"FreeZeeHost","class":"baileys","browser":["Linux","Chrome","122.0.6261.129"],"helloMsg":{"clientHello":{"ephemeral":"HxV55TsQ5pEUVI1lNFys0UPpSLdhHxB3OPR/131vfn8="}},"msg":"connected to WA"}
+{"level":30,"time":"2026-04-22T12:36:55.452Z","pid":261875,"hostname":"FreeZeeHost","class":"baileys","node":{"passive":false,"userAgent":{"platform":"WEB","appVersion":{"primary":2,"secondary":3100,"tertiary":2},"mcc":"000","mnc":"000","osVersion":"0.1","device":"Desktop","osBuildNumber":"0.1","releaseChannel":"RELEASE","localeLanguageIso6391":"en","localeCountryIso31661Alpha2":"US"},"webInfo":{"webSubPlatform":"WEB_BROWSER"},"connectType":"WIFI_UNKNOWN","connectReason":"USER_ACTIVATED","devicePairingData":{"eRegid":"AAAI2g==","eKeytype":"BQ==","eIdent":"z7f71lpAkDvFEZAININf/fjI1APYrfmf6UDAFdrrhzQ=","eSkeyId":"AAAB","eSkeyVal":"lILPcodM+xUhMCvTOzEqeMY/tbSonyESCv1V0uKoqHs=","eSkeySig":"IfSw7vLk5xI+rYKdhoOWMmi4KDcYrkO2skuNWr6NmqMDMPN6KpB8I1sdlebxXz29pJ2kfRoC2BCSYafPTLL0hQ==","buildHash":"NO9h+joPjRZrUPSM/wZyfw==","deviceProps":"CgVMaW51eBIGCAoQDxgHGAEgAQ=="},"pull":false},"msg":"not logged in, attempting registration..."}
+
+==============================
+KODE PAIRING ANDA: ZJ9EQN3R
+==============================
+
+{"level":50,"time":"2026-04-22T12:37:32.977Z","pid":261875,"hostname":"FreeZeeHost","class":"baileys","err":{"type":"Error","message":"Invalid buffer","stack":"Error: Invalid buffer\n    at toRequiredBuffer (/home/freezeehost/baileys/package/lib/Socket/messages-recv.js:927:19)\n    at processNotification (/home/freezeehost/baileys/package/lib/Socket/messages-recv.js:845:50)\n    at /home/freezeehost/baileys/package/lib/Socket/messages-recv.js:1199:39\n    at /home/freezeehost/baileys/package/lib/Utils/make-mutex.js:20:42\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async Promise.all (index 0)\n    at async handleNotification (/home/freezeehost/baileys/package/lib/Socket/messages-recv.js:1197:13)\n    at async processNodeWithBuffer (/home/freezeehost/baileys/package/lib/Socket/messages-recv.js:1623:9)","data":null,"isBoom":true,"isServer":false,"output":{"statusCode":400,"payload":{"statusCode":400,"error":"Bad Request","message":"Invalid buffer"},"headers":{}}},"msg":"unexpected error in 'handling notification'"}
