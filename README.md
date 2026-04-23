@@ -20,31 +20,25 @@
 <br>
 
 ## 📚 Table of Contents  
-- [Features](#-features)  
+- [Premium Features (FreeZeeHost Exclusive)](#-premium-features-exclusive)
 - [Installation](#-installation)  
 - [Quick Start](#-quick-start)  
-- [Premium Features](#-premium-features-exclusive)
-- [Documentation](#-documentation)  
-  - [Interactive Messages (Buttons, Carousel, Shop)](#-interactive-messages)
-  - [Sending Messages](#-sending-messages)  
-  - [Event Handling](#-handling-events)  
+- [Connecting Account](#-connecting-account)
+- [Handling Events](#-handling-events)
+- [Sending Messages](#-sending-messages)
+  - [Rich Messages (Buttons, Polls, Carousel)](#-rich-messages-interactive)
+  - [Media Messages (Album, Stickers)](#-media-messages)
+- [Status/Story Detector](#-real-time-status-detector)
+- [Groups & Management](#-groups)
+- [Privacy Settings](#-privacy)
 - [Disclaimer](#-disclaimer)  
 
 <br>
 
-## 🌟 Features
-- ✅ **Multi-Device Support** (Pairing Code & QR)
-- 🔄 **Real-Time Messaging** (text, media, polls, buttons)  
-- 🛠️ **Group & Channel Management** (create, modify, invite)  
-- 🔒 **End-to-End Encryption**  
-- 📦 **Session Persistence** (File & MongoDB)  
-
-<br>
-
-## 🔥 Updated New (22 April 2026)
-- 🛡️ **Anti Bad Session**: Atomic writes & auto-repair for session data.
+## 💎 Premium Features (Exclusive)
+- 🛡️ **Anti Bad Session**: Atomic writes & auto-repair for corrupted session data.
 - 🔁 **Smart Session Manager**: Embedded MongoDB (Zero-Config Plug & Play).
-- 🥷 **Stealth Mode**: Automated humanized typing/recording delays.
+- 🥷 **Stealth Mode**: Automated humanized typing/recording delays (Anti-Ban).
 - ⏳ **Smart Anti-Spam Queue**: Adaptive message delivery with random delays.
 - 🚀 **Pre-Boot Loading UI**: Elegant visual initialization progress (0-100%).
 - 📡 **Real-time Status Detector**: Instant WhatsApp Story/Status capture.
@@ -53,9 +47,7 @@
 <br>
 
 ## 🌱 Owner’s Notice  
-Proyek ini bersifat **publik**, dikembangkan berdasarkan library **Whiskeysocket** dengan peningkatan signifikan oleh administrator FreeZeeHost. Tujuan utama adalah **memudahkan pengguna serta memperbaiki kesalahan bot yang sebelumnya sering dialami**.  
-
-Terimakasih, salam hangat, **FreeZeeHost**!
+Proyek ini dikembangkan berdasarkan library **Whiskeysocket** dengan peningkatan signifikan oleh administrator FreeZeeHost untuk **memudahkan pengguna serta memperbaiki kesalahan bot yang sebelumnya sering dialami**.  
 
 <br>
 
@@ -90,39 +82,102 @@ startBot()
 
 <br>
 
-## 💎 Premium Features (Exclusive)
+## 🛠️ Advanced Patcher (Simplified API)
+The easiest way to supercharge your socket with all the new features.
 
-### 1. Smart Anti-Spam & Stealth
-Every message sent will have a 1.5s - 3.5s random delay and auto-typing presence to mimic human behavior.
 ```javascript
-// Urgent message (Bypass Queue)
-await sock.sendMessage(jid, { text: "Urgently needed!" }, { urgent: true })
+const { patchSocket } = require('@freezeehost/baileys');
+const sock = patchSocket(makeWASocket({ auth: state }));
 
-// Send Album
-await sock.sendAlbumMessage(jid, [
-  { type: 'image', data: { url: '...' }, caption: 'First' },
-  { type: 'video', data: { url: '...' } }
-], "Album Caption")
+// --- NEW SIMPLIFIED FUNCTIONS ---
+
+// 1. Group Management
+await sock.groupAdd(jid, ["123@s.whatsapp.net"]);
+await sock.groupRemove(jid, ["123@s.whatsapp.net"]);
+await sock.groupPromote(jid, ["123@s.whatsapp.net"]);
+await sock.groupDemote(jid, ["123@s.whatsapp.net"]);
+
+// 2. Message Editing
+await sock.editMessage(jid, m.key, "This message has been edited!");
+
+// 3. Command Router (The easiest way to build bot commands)
+sock.onCommand('.ping', async (m, args) => {
+   await m.reply('Pong! Bot is active.');
+});
+
+// 4. Memory Optimization
+sock.autoOptimize(); // Clear expired cache to keep bot fast
 ```
 
-### 2. Real-time Status/Story Detector
+<br>
+
+## 📡 Real-time Status Detector
+Capture every WhatsApp Story instantly.
 ```javascript
 sock.onStatusUpdate(async (m) => {
-    console.log("New Status from:", m.statusData.sender)
-    // Auto-save status to yourself (getsw)
+    console.log("Status detected from:", m.statusData.sender)
+    console.log("Caption:", m.statusData.caption)
+    
+    // Auto-save status (getsw)
     await sock.sendMessage(sock.user.id, { forward: m })
 })
 ```
 
----
-
 <br>
 
-## 👨‍💻 Documentation & Usage
+## 📨 Sending Messages
 
-### 📩 Sending Messages
+### --- RICH MESSAGES (Interactive) ---
 <details>
-<summary><strong>📝 Text & Media</strong></summary>
+<summary><strong>📊 Polls & Buttons</strong></summary>
+
+```javascript
+// 1. Create Poll
+await sock.msg.poll(jid, "Your favorite fruit?", ["Apple", "Mango", "Durian"], 1)
+
+// 2. Buttons (Native Flow)
+await sock.msg.buttons(jid, "Select Option", "Footer text", [
+    { buttonId: 'id1', buttonText: { displayText: 'Option 1' }, type: 1 }
+])
+```
+</details>
+
+<details>
+<summary><strong>📱 Carousel & Shop Flow</strong></summary>
+
+```javascript
+// Carousel (Multiple Cards)
+await sock.msg.carousel(jid, [
+  {
+    image: { url: 'https://...' },
+    title: 'Product 1',
+    body: 'Details here',
+    buttons: [{ name: 'quick_reply', buttonParamsJson: '...' }]
+  }
+])
+
+// Shop Message
+await sock.sendMessage(jid, {      
+  text: 'Check our store',
+  shop: { surface: 1, id: 'fb_store_id' }
+})
+```
+</details>
+
+<details>
+<summary><strong>📊 Tables (Exclusive)</strong></summary>
+
+```javascript
+await sock.msg.nativeTable(jid, "Price List", [
+  { title: "Item 1", description: "Rp 1.000" },
+  { title: "Item 2", description: "Rp 2.000" }
+])
+```
+</details>
+
+### --- MEDIA MESSAGES ---
+<details>
+<summary><strong>🖼️ Image, Video & Audio</strong></summary>
 
 ```javascript
 // Simple Text
@@ -137,53 +192,73 @@ await sock.sendMessage(jid, { video: { url: '...' }, viewOnce: true })
 </details>
 
 <details>
-<summary><strong>📊 Polls & Buttons</strong></summary>
+<summary><strong>📸 Album & Sticker Packs</strong></summary>
 
 ```javascript
-// Create Poll
-await sock.msg.poll(jid, "Your favorite fruit?", ["Apple", "Mango", "Durian"], 1)
+// Send Album (Multiple Media)
+await sock.sendAlbumMessage(jid, [
+  { type: 'image', data: { url: '...' }, caption: 'First' },
+  { type: 'video', data: { url: '...' } }
+], "Album Caption")
 
-// Buttons (Native Flow)
-await sock.msg.buttons(jid, "Select Option", "Footer text", [
-    { buttonId: 'id1', buttonText: { displayText: 'Option 1' }, type: 1 }
-])
-```
-</details>
-
-<details>
-<summary><strong>📱 Interactive Messages (Carousel & Shop)</strong></summary>
-
-```javascript
-// Carousel (Multiple Cards)
-await sock.msg.carousel(jid, [
-  {
-    image: { url: 'https://...' },
-    title: 'Product 1',
-    body: 'Details here',
-    buttons: [{ name: 'quick_reply', buttonParamsJson: '...' }]
-  }
-])
-
-// Native Table (Exclusive)
-await sock.msg.nativeTable(jid, "Price List", [
-  { title: "Item 1", description: "Rp 1.000" },
-  { title: "Item 2", description: "Rp 2.000" }
-])
+// Send Sticker Pack
+await sock.sendStickerPack(jid, [
+  'https://url1.webp', 'https://url2.webp'
+], { packname: 'My Pack', author: 'FreeZee' });
 ```
 </details>
 
 <br>
 
-## 📡 Handling Events
+## 🛡️ Smart Anti-Spam Queue
+Automated: Every message sent will have a **1.5s - 3.5s random delay** and auto-typing presence to mimic human behavior.
 ```javascript
-sock.ev.on('messages.upsert', ({ messages }) => {
-  console.log('Received:', messages[0].message)
-})
-
-sock.ev.on('messages.update', (m) => {
-  if (m.pollUpdates) console.log('Poll update:', m.pollUpdates)
-})
+// Bypass Queue (Urgent Message)
+await sock.sendMessage(jid, { text: "URGENT!" }, { urgent: true })
 ```
+
+<br>
+
+## 🌐 Connecting Account
+<details>
+<summary><strong>🔢 Connect with Pairing Code</strong></summary>
+
+```javascript
+const number = "62xxxx"
+const code = await sock.requestPairingCode(number)
+console.log("Your Code:", code)
+```
+</details>
+
+<details>
+<summary><strong>🔗 Connect with QR Code</strong></summary>
+
+```javascript
+const sock = makeFreeZeeSocket({ printQRInTerminal: true })
+```
+</details>
+
+<br>
+
+## 🔒 Privacy & Settings
+<details>
+<summary><strong>🛡️ Block/Unblock</strong></summary>
+
+```javascript
+await sock.updateBlockStatus(jid, 'block')
+await sock.updateBlockStatus(jid, 'unblock')
+```
+</details>
+
+<details>
+<summary><strong>👤 Profile Update</strong></summary>
+
+```javascript
+await sock.updateProfileStatus('Online 24/7')
+await sock.updateProfileName('My Bot Name')
+await sock.updateProfilePicture(jid, { url: './new-pfp.jpg' })
+```
+</details>
 
 <br>
 
