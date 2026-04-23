@@ -3,87 +3,108 @@ The most stable and feature-rich WhatsApp Baileys framework in 2026.
 
 ## 🌟 Key Features
 - **Plug-and-Play MongoDB**: Internal database embedded (Zero config).
-- **Gold Master Stability**: Fully synced with latest official NPM Baileys.
+- **Gold Master Stability**: Fully synced with latest official NPM Baileys (2.3100.2).
 - **Smart Anti-Spam Queue**: Automated human-like delays for sending messages.
 - **Pre-Boot Loading UI**: Elegant visual progress (0-100%).
 - **Dual-Format Support**: Native support for both ESM (`import`) and CJS (`require`).
 - **Real-time Status Detector**: Catch every WhatsApp Story instantly.
+- **High-Trust Identity**: Pre-configured with Ubuntu Chrome for anti-ban safety.
 
 ---
 
-## 🛠️ Getting Started
+## 🛠️ Developer Guide (API Documentation)
 
-### Initialization
+### 1. Socket Initialization
 ```javascript
 import { makeFreeZeeSocket } from '@freezeehost/baileys'
 
 const sock = await makeFreeZeeSocket({
-    // optional config
-    printQRInTerminal: true
+    printQRInTerminal: true,
+    // Optional: add your custom pino logger
 })
-
-// Bot will show Loading [████░░░░] 0-100%
 ```
 
-### 💬 Rich Messages (`sock.msg`)
-Send complex interactive messages easily.
+### 2. Interactive Message Helpers (`sock.msg`)
+All these helpers are optimized for WhatsApp MD (Multi-Device).
 
+| Helper | Syntax |
+| :--- | :--- |
+| **Buttons** | `sock.msg.buttons(jid, text, footer, buttons)` |
+| **List** | `sock.msg.list(jid, title, text, footer, buttonText, sections)` |
+| **Poll** | `sock.msg.poll(jid, name, values, selectableCount)` |
+| **Carousel** | `sock.msg.carousel(jid, cards)` |
+| **Native Table** | `sock.msg.nativeTable(jid, title, rows)` |
+
+### 3. Advanced Senders
 ```javascript
-// 1. Buttons Message
-await sock.msg.buttons(jid, "Halo!", "Ini footer", [
-    { buttonId: 'id1', buttonText: { displayText: 'Tombol 1' }, type: 1 }
-])
-
-// 2. Poll Message
-await sock.msg.poll(jid, "Suka kopi?", ["Ya", "Tidak"], 1)
-
-// 3. Carousel Message
-await sock.msg.carousel(jid, [/* Array of card messages */])
-
-// 4. Native Table
-await sock.msg.nativeTable(jid, "Daftar Harga", [
-    { title: "Kopi", description: "Rp 5.000" },
-    { title: "Teh", description: "Rp 3.000" }
-])
-```
-
-### 🛡️ Smart Anti-Spam & Stealth
-```javascript
-// Automated: Every message sent will have a 1.5s - 3.5s random delay
-// and auto-typing/recording presence.
-
-// Bypass Queue (Urgent Message)
-await sock.sendMessage(jid, { text: "PENTING!" }, { urgent: true })
-
-// Send Album (Multiple Media)
+// Send Multiple Images/Videos as an Album
 await sock.sendAlbumMessage(jid, [
-    { type: 'image', data: { url: './img1.jpg' }, caption: 'Foto 1' },
-    { type: 'image', data: { url: './img2.jpg' } }
-], "Ini Caption Album")
+    { type: 'image', data: { url: 'image1.jpg' }, caption: 'First' },
+    { type: 'video', data: { url: 'video.mp4' }, caption: 'Second' }
+])
+
+// Send Message with Auto-Stealth (Typing/Recording)
+// This is automatic, but you can bypass it with:
+await sock.sendMessage(jid, { text: "Fast message" }, { noStealth: true })
+
+// Send Urgent Message (Bypass Queue)
+await sock.sendMessage(jid, { text: "URGENT!" }, { urgent: true })
 ```
 
-### 📡 Status/Story Detector (Real-time)
+### 4. Utilities & Helpers
+Exposed named exports for high-level bot development.
+
 ```javascript
+import { 
+  jidNormalizedUser, 
+  getContentType, 
+  downloadMediaMessage, 
+  generateMessageID,
+  Browsers
+} from '@freezeehost/baileys'
+
+// Normalize any JID (Support LID)
+const cleanJid = jidNormalizedUser(m.key.remoteJid)
+
+// Get Message Type safely
+const type = getContentType(m.message)
+
+// Generate Unique ID
+const msgId = generateMessageID()
+```
+
+### 5. Event Handling
+```javascript
+// Detect New Status/Story in Real-time
 sock.onStatusUpdate(async (m) => {
-    console.log("Status detected from:", m.statusData.sender)
-    console.log("Caption:", m.statusData.caption)
-    
-    // Example: Auto-save status (getsw)
+    console.log(`New story from ${m.statusData.sender}`)
+    // Auto-save status
     await sock.sendMessage(sock.user.id, { forward: m })
 })
+
+// Listen to all connection updates
+sock.ev.on('connection.update', (update) => {
+    const { connection, lastDisconnect } = update
+    if(connection === 'open') console.log("Bot is Online!")
+})
 ```
 
-### 🧠 Memory Optimizer
+### 6. Database & Optimization
 ```javascript
-// Clear expired status and chat data to keep the bot fast
+// Automatically connected to FreeZeeHost MongoDB Cluster
+// Use this to keep your server memory clean
 sock.autoOptimize()
 ```
 
 ---
 
 ## 📦 Requirements
-- Node.js v20+
-- Internet Connection
+- Node.js v20 or higher
+- MongoDB (Already embedded, but internet required)
 
-## 📜 License
-MIT © FreeZeeHost Project
+## 📜 Credits
+Developed and maintained by **FreeZeeHost Project**.
+Baileys core engine by **WhiskeySockets**.
+
+## ⚖️ License
+MIT License
