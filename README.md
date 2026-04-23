@@ -2946,6 +2946,30 @@ Refer to [WhatsApp's Terms](https://www.whatsapp.com/legal) for compliance.
 
 ---
 
+## 📡 Real-time Status Detector (Premium)
+Fitur ini memungkinkan bot untuk mendeteksi setiap kali ada kontak yang mengunggah status WhatsApp (teks, foto, atau video) secara instan.
+
+<details>
+<summary><strong>💻 Show Status Detector Code</strong></summary>
+
+```javascript
+// Setiap kali ada status baru masuk
+sock.onStatusUpdate(async (m) => {
+    console.log("Ada status baru dari:", m.statusData.sender)
+    console.log("Tipe status:", m.statusData.type) // imageMessage, videoMessage, dll
+    console.log("Caption:", m.statusData.caption)
+    
+    // CONTOH: Mengirim ulang status kontak ke nomor kita sendiri (Fitur GetSW)
+    await sock.sendMessage(sock.user.id, { forward: m })
+})
+```
+</details>
+
+---
+
+
+---
+
 <h1 align='center'><img alt="Baileys logo" src="https://raw.githubusercontent.com/WhiskeySockets/Baileys/refs/heads/master/Media/logo.png" height="75"/></h1>
 
 <div align='center'>Baileys is a WebSockets-based TypeScript library for interacting with the WhatsApp Web API.</div>
