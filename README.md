@@ -30,6 +30,9 @@
 
 ## 🚀 Quick Start (Premium Experience)
 
+<details>
+<summary><strong>💻 Click to Show Code</strong></summary>
+
 ```javascript
 import { makeFreeZeeSocket } from '@freezeehost/baileys'
 
@@ -43,6 +46,7 @@ async function start() {
 }
 start()
 ```
+</details>
 
 ---
 <br>
@@ -98,19 +102,31 @@ To run the example script, download or clone the repo and then type the followin
 ## Install
 
 Use the stable version:
+<details>
+<summary><strong>💻 Click to Show Code</strong></summary>
+
 ```
 yarn add @freezeehost/baileys
 ```
+</details>
 
 Use the edge version (no guarantee of stability, but latest fixes + features)
+<details>
+<summary><strong>💻 Click to Show Code</strong></summary>
+
 ```
 yarn add github:WhiskeySockets/Baileys
 ```
+</details>
 
 Then import your code using:
+<details>
+<summary><strong>💻 Click to Show Code</strong></summary>
+
 ```ts
 import makeFreeZeeSocket from '@freezeehost/baileys'
 ```
+</details>
 
 # Links
 
@@ -237,6 +253,9 @@ WhatsApp provides a multi-device API that allows Baileys to be authenticated as 
 > [!TIP]
 > You can customize browser name if you connect with **QR-CODE**, with `Browser` constant, we have some browsers config, **see [here](https://baileys.whiskeysockets.io/types/BrowsersMap.html)**
 
+<details>
+<summary><strong>💻 Click to Show Code</strong></summary>
+
 ```ts
 import makeFreeZeeSocket from '@freezeehost/baileys'
 
@@ -246,6 +265,7 @@ const sock = makeFreeZeeSocket({
     printQRInTerminal: true
 })
 ```
+</details>
 
 If the connection is successful, you will see a QR code printed on your terminal screen, scan it with WhatsApp on your phone and you'll be logged in!
 
@@ -256,6 +276,9 @@ If the connection is successful, you will see a QR code printed on your terminal
 > Pairing Code isn't Mobile API, it's a method to connect Whatsapp Web without QR-CODE, you can connect only with one device, see [here](https://faq.whatsapp.com/1324084875126592/?cms_platform=web)
 
 The phone number can't have `+` or `()` or `-`, only numbers, you must provide country code
+
+<details>
+<summary><strong>💻 Click to Show Code</strong></summary>
 
 ```ts
 import makeFreeZeeSocket from '@freezeehost/baileys'
@@ -271,12 +294,16 @@ if (!sock.authState.creds.registered) {
     console.log(code)
 }
 ```
+</details>
 
 ### Receive Full History
 
 1. Set `syncFullHistory` as `true`
 2. Baileys, by default, use chrome browser config
     - If you'd like to emulate a desktop connection (and receive more message history), this browser setting to your Socket config:
+
+<details>
+<summary><strong>💻 Click to Show Code</strong></summary>
 
 ```ts
 const sock = makeFreeZeeSocket({
@@ -286,6 +313,7 @@ const sock = makeFreeZeeSocket({
     syncFullHistory: true
 })
 ```
+</details>
 
 ## Important Notes About Socket Config
 
@@ -298,6 +326,9 @@ const sock = makeFreeZeeSocket({
 
 ## Caching Group Metadata (Recommended)
 - If you use baileys for groups, we recommend you to set `cachedGroupMetadata` in socket config, you need to implement a cache like this:
+
+<details>
+<summary><strong>💻 Click to Show Code</strong></summary>
 
     ```ts
     const groupCache = new NodeCache({stdTTL: 5 * 60, useClones: false})
@@ -316,27 +347,39 @@ const sock = makeFreeZeeSocket({
         groupCache.set(event.id, metadata)
     })
     ```
+</details>
 
 ### Improve Retry System & Decrypt Poll Votes
 - If you want to improve sending message, retrying when error occurs and decrypt poll votes, you need to have a store and set `getMessage` config in socket like this:
+<details>
+<summary><strong>💻 Click to Show Code</strong></summary>
+
     ```ts
     const sock = makeFreeZeeSocket({
         getMessage: async (key) => await getMessageFromStore(key)
     })
     ```
+</details>
 
 ### Receive Notifications in Whatsapp App
 - If you want to receive notifications in whatsapp app, set `markOnlineOnConnect` to `false`
+<details>
+<summary><strong>💻 Click to Show Code</strong></summary>
+
     ```ts
     const sock = makeFreeZeeSocket({
         markOnlineOnConnect: false
     })
     ```
+</details>
 ## Saving & Restoring Sessions
 
 You obviously don't want to keep scanning the QR code every time you want to connect.
 
 So, you can load the credentials to log back in:
+<details>
+<summary><strong>💻 Click to Show Code</strong></summary>
+
 ```ts
 import makeFreeZeeSocket, { useMultiFileAuthState } from '@freezeehost/baileys'
 
@@ -349,6 +392,7 @@ const sock = makeFreeZeeSocket({ auth: state })
 // this will be called as soon as the credentials are updated
 sock.ev.on('creds.update', saveCreds)
 ```
+</details>
 
 > [!IMPORTANT]
 > `useMultiFileAuthState` is a utility function to help save the auth state in a single folder, this function serves as a good guide to help write auth & key states for SQL/no-SQL databases, which I would recommend in any production grade system.
@@ -365,12 +409,16 @@ They're all nicely typed up, so you shouldn't have any issues with an Intellisen
 > **The events are [these](https://baileys.whiskeysockets.io/types/BaileysEventMap.html)**, it's important you see all events
 
 You can listen to these events like this:
+<details>
+<summary><strong>💻 Click to Show Code</strong></summary>
+
 ```ts
 const sock = makeFreeZeeSocket()
 sock.ev.on('messages.upsert', ({ messages }) => {
     console.log('got messages', messages)
 })
 ```
+</details>
 
 ### Example to Start
 
@@ -379,6 +427,9 @@ sock.ev.on('messages.upsert', ({ messages }) => {
 
 > [!NOTE]
 > For reliable serialization of the authentication state, especially when storing as JSON, always use the BufferJSON utility.
+
+<details>
+<summary><strong>💻 Click to Show Code</strong></summary>
 
 ```ts
 import makeFreeZeeSocket, { DisconnectReason, useMultiFileAuthState } from '@freezeehost/baileys'
@@ -419,6 +470,7 @@ async function connectToWhatsApp () {
 // run in main file
 connectToWhatsApp()
 ```
+</details>
 
 > [!IMPORTANT]
 > In `messages.upsert` it's recommended to use a loop like `for (const message of event.messages)` to handle all messages in array
@@ -427,6 +479,9 @@ connectToWhatsApp()
 
 - By default poll votes are encrypted and handled in `messages.update`
 - That's a simple example
+<details>
+<summary><strong>💻 Click to Show Code</strong></summary>
+
 ```ts
 sock.ev.on('messages.update', event => {
     for(const { key, update } of event) {
@@ -445,6 +500,7 @@ sock.ev.on('messages.update', event => {
     }
 })
 ```
+</details>
 
 - `getMessage` is a [store](#implementing-a-data-store) implementation (in your end)
 
@@ -464,6 +520,9 @@ sock.ev.on('messages.update', event => {
 > I highly recommend building your own data store, as storing someone's entire chat history in memory is a terrible waste of RAM.
 
 It can be used as follows:
+
+<details>
+<summary><strong>💻 Click to Show Code</strong></summary>
 
 ```ts
 import makeFreeZeeSocket, { makeInMemoryStore } from '@freezeehost/baileys'
@@ -493,6 +552,7 @@ sock.ev.on('contacts.upsert', () => {
 })
 
 ```
+</details>
 
 The store also provides some simple functions such as `loadMessages` that utilize the store to speed up data retrieval.
 
@@ -520,6 +580,9 @@ The store also provides some simple functions such as `loadMessages` that utiliz
     - **[Here](https://baileys.whiskeysockets.io/types/AnyMessageContent.html) you can see all message contents supported, like text message**
     - **[Here](https://baileys.whiskeysockets.io/types/MiscMessageGenerationOptions.html) you can see all options supported, like quote message**
 
+<details>
+<summary><strong>💻 Click to Show Code</strong></summary>
+
     ```ts
     const jid: string
     const content: AnyMessageContent
@@ -527,21 +590,33 @@ The store also provides some simple functions such as `loadMessages` that utiliz
 
     sock.sendMessage(jid, content, options)
     ```
+</details>
 
 ### Non-Media Messages
 
 #### Text Message
+<details>
+<summary><strong>💻 Click to Show Code</strong></summary>
+
 ```ts
 await sock.sendMessage(jid, { text: 'hello word' })
 ```
+</details>
 
 #### Quote Message (works with all types)
+<details>
+<summary><strong>💻 Click to Show Code</strong></summary>
+
 ```ts
 await sock.sendMessage(jid, { text: 'hello word' }, { quoted: message })
 ```
+</details>
 
 #### Mention User (works with most types)
 - @number is to mention in text, it's optional
+<details>
+<summary><strong>💻 Click to Show Code</strong></summary>
+
 ```ts
 await sock.sendMessage(
     jid,
@@ -551,15 +626,23 @@ await sock.sendMessage(
     }
 )
 ```
+</details>
 
 #### Forward Messages
 - You need to have message object, can be retrieved from [store](#implementing-a-data-store) or use a [message](https://baileys.whiskeysockets.io/types/WAMessage.html) object
+<details>
+<summary><strong>💻 Click to Show Code</strong></summary>
+
 ```ts
 const msg = getMessageFromStore() // implement this on your end
 await sock.sendMessage(jid, { forward: msg }) // WA forward the message!
 ```
+</details>
 
 #### Location Message
+<details>
+<summary><strong>💻 Click to Show Code</strong></summary>
+
 ```ts
 await sock.sendMessage(
     jid,
@@ -571,7 +654,11 @@ await sock.sendMessage(
     }
 )
 ```
+</details>
 #### Contact Message
+<details>
+<summary><strong>💻 Click to Show Code</strong></summary>
+
 ```ts
 const vcard = 'BEGIN:VCARD\n' // metadata of the contact card
             + 'VERSION:3.0\n'
@@ -590,9 +677,13 @@ await sock.sendMessage(
     }
 )
 ```
+</details>
 
 #### Reaction Message
 - You need to pass the key of message, you can retrieve from [store](#implementing-a-data-store) or use a [key](https://baileys.whiskeysockets.io/types/WAMessageKey.html) object
+<details>
+<summary><strong>💻 Click to Show Code</strong></summary>
+
 ```ts
 await sock.sendMessage(
     jid,
@@ -604,6 +695,7 @@ await sock.sendMessage(
     }
 )
 ```
+</details>
 
 #### Pin Message
 - You need to pass the key of message, you can retrieve from [store](#implementing-a-data-store) or use a [key](https://baileys.whiskeysockets.io/types/WAMessageKey.html) object
@@ -615,6 +707,9 @@ await sock.sendMessage(
 | 24h    | 86.400        |
 | 7d     | 604.800       |
 | 30d    | 2.592.000     |
+
+<details>
+<summary><strong>💻 Click to Show Code</strong></summary>
 
 ```ts
 await sock.sendMessage(
@@ -628,8 +723,12 @@ await sock.sendMessage(
     }
 )
 ```
+</details>
 
 #### Poll Message
+<details>
+<summary><strong>💻 Click to Show Code</strong></summary>
+
 ```ts
 await sock.sendMessage(
     jid,
@@ -643,6 +742,7 @@ await sock.sendMessage(
     }
 )
 ```
+</details>
 
 ### Sending Messages with Link Previews
 
@@ -650,6 +750,9 @@ await sock.sendMessage(
 2. Baileys has a function to generate the content for these link previews
 3. To enable this function's usage, add `link-preview-js` as a dependency to your project with `yarn add link-preview-js`
 4. Send a link:
+<details>
+<summary><strong>💻 Click to Show Code</strong></summary>
+
 ```ts
 await sock.sendMessage(
     jid,
@@ -658,6 +761,7 @@ await sock.sendMessage(
     }
 )
 ```
+</details>
 
 ### Media Messages
 
@@ -673,6 +777,9 @@ Sending media (video, stickers, images) is easier & more efficient than ever.
 
 #### Gif Message
 - Whatsapp doesn't support `.gif` files, that's why we send gifs as common `.mp4` video with `gifPlayback` flag
+<details>
+<summary><strong>💻 Click to Show Code</strong></summary>
+
 ```ts
 await sock.sendMessage(
     jid,
@@ -683,8 +790,12 @@ await sock.sendMessage(
     }
 )
 ```
+</details>
 
 #### Video Message
+<details>
+<summary><strong>💻 Click to Show Code</strong></summary>
+
 ```ts
 await sock.sendMessage(
     id,
@@ -697,19 +808,31 @@ await sock.sendMessage(
     }
 )
 ```
+</details>
 
 #### Audio Message
 - To audio message work in all devices you need to convert with some tool like `ffmpeg` with this flags:
+<details>
+<summary><strong>💻 Click to Show Code</strong></summary>
+
     ```bash
         codec: libopus //ogg file
         ac: 1 //one channel
         avoid_negative_ts
         make_zero
     ```
+</details>
     - Example:
+<details>
+<summary><strong>💻 Click to Show Code</strong></summary>
+
     ```bash
     ffmpeg -i input.mp4 -avoid_negative_ts make_zero -ac 1 output.ogg
     ```
+</details>
+<details>
+<summary><strong>💻 Click to Show Code</strong></summary>
+
 ```ts
 await sock.sendMessage(
     jid,
@@ -721,8 +844,12 @@ await sock.sendMessage(
     }
 )
 ```
+</details>
 
 #### Image Message
+<details>
+<summary><strong>💻 Click to Show Code</strong></summary>
+
 ```ts
 await sock.sendMessage(
     id,
@@ -734,10 +861,14 @@ await sock.sendMessage(
     }
 )
 ```
+</details>
 
 #### View Once Message
 
 - You can send all messages above as `viewOnce`, you only need to pass `viewOnce: true` in content object
+
+<details>
+<summary><strong>💻 Click to Show Code</strong></summary>
 
 ```ts
 await sock.sendMessage(
@@ -751,6 +882,7 @@ await sock.sendMessage(
     }
 )
 ```
+</details>
 
 ## Modify Messages
 
@@ -763,22 +895,30 @@ await sock.sendMessage(
 
 ## Deleting Messages (for everyone)
 
+<details>
+<summary><strong>💻 Click to Show Code</strong></summary>
+
 ```ts
 const msg = await sock.sendMessage(jid, { text: 'hello word' })
 await sock.sendMessage(jid, { delete: msg.key })
 ```
+</details>
 
 **Note:** deleting for oneself is supported via `chatModify`, see in [this section](#modifying-chats)
 
 ### Editing Messages
 
 - You can pass all editable contents here
+<details>
+<summary><strong>💻 Click to Show Code</strong></summary>
+
 ```ts
 await sock.sendMessage(jid, {
       text: 'updated text goes here',
       edit: response.key,
     });
 ```
+</details>
 
 ## Manipulating Media Messages
 
@@ -796,6 +936,9 @@ await sock.sendMessage(jid, {
 ### Downloading Media Messages
 
 If you want to save the media you received
+<details>
+<summary><strong>💻 Click to Show Code</strong></summary>
+
 ```ts
 import { createWriteStream } from 'fs'
 import { downloadMediaMessage, getContentType } from '@freezeehost/baileys'
@@ -824,21 +967,30 @@ sock.ev.on('messages.upsert', async ({ [m] }) => {
     }
 }
 ```
+</details>
 
 ### Re-upload Media Message to Whatsapp
 
 - WhatsApp automatically removes old media from their servers. For the device to access said media -- a re-upload is required by another device that has it. This can be accomplished using:
+<details>
+<summary><strong>💻 Click to Show Code</strong></summary>
+
 ```ts
 await sock.updateMediaMessage(msg)
 ```
+</details>
 
 ## Reject Call
 
 - You can obtain `callId` and `callFrom` from `call` event
 
+<details>
+<summary><strong>💻 Click to Show Code</strong></summary>
+
 ```ts
 await sock.rejectCall(callId, callFrom)
 ```
+</details>
 
 ## Send States in Chat
 
@@ -847,11 +999,15 @@ await sock.rejectCall(callId, callFrom)
 - You cannot mark an entire 'chat' read as it were with Baileys Web.
 This means you have to keep track of unread messages.
 
+<details>
+<summary><strong>💻 Click to Show Code</strong></summary>
+
 ```ts
 const key: WAMessageKey
 // can pass multiple keys to read multiple messages as well
 await sock.readMessages([key])
 ```
+</details>
 
 The message ID is the unique identifier of the message that you are marking as read.
 On a `WAMessage`, the `messageID` can be accessed using ```messageID = message.key.id```.
@@ -862,9 +1018,13 @@ On a `WAMessage`, the `messageID` can be accessed using ```messageID = message.k
 - The presence expires after about 10 seconds.
 - This lets the person/group with `jid` know whether you're online, offline, typing etc.
 
+<details>
+<summary><strong>💻 Click to Show Code</strong></summary>
+
 ```ts
 await sock.sendPresenceUpdate('available', jid)
 ```
+</details>
 
 > [!NOTE]
 > If a desktop client is active, WA doesn't send push notifications to the device. If you would like to receive said notifications -- mark your Baileys client offline using `sock.sendPresenceUpdate('unavailable')`
@@ -877,10 +1037,14 @@ WA uses an encrypted form of communication to send chat/app updates. This has be
 > If you mess up one of your updates, WA can log you out of all your devices and you'll have to log in again.
 
 ### Archive a Chat
+<details>
+<summary><strong>💻 Click to Show Code</strong></summary>
+
 ```ts
 const lastMsgInChat = await getLastMessageInChat(jid) // implement this on your end
 await sock.chatModify({ archive: true, lastMessages: [lastMsgInChat] }, jid)
 ```
+</details>
 ### Mute/Unmute a Chat
 
 - Supported times:
@@ -891,20 +1055,31 @@ await sock.chatModify({ archive: true, lastMessages: [lastMsgInChat] }, jid)
 | 8h     | 86.400.000     |
 | 7d     | 604.800.000    |
 
+<details>
+<summary><strong>💻 Click to Show Code</strong></summary>
+
 ```ts
 // mute for 8 hours
 await sock.chatModify({ mute: 8 * 60 * 60 * 1000 }, jid)
 // unmute
 await sock.chatModify({ mute: null }, jid)
 ```
+</details>
 ### Mark a Chat Read/Unread
+<details>
+<summary><strong>💻 Click to Show Code</strong></summary>
+
 ```ts
 const lastMsgInChat = await getLastMessageInChat(jid) // implement this on your end
 // mark it unread
 await sock.chatModify({ markRead: false, lastMessages: [lastMsgInChat] }, jid)
 ```
+</details>
 
 ### Delete a Message for Me
+<details>
+<summary><strong>💻 Click to Show Code</strong></summary>
+
 ```ts
 await sock.chatModify(
     {
@@ -922,7 +1097,11 @@ await sock.chatModify(
 )
 
 ```
+</details>
 ### Delete a Chat
+<details>
+<summary><strong>💻 Click to Show Code</strong></summary>
+
 ```ts
 const lastMsgInChat = await getLastMessageInChat(jid) // implement this on your end
 await sock.chatModify({
@@ -937,7 +1116,11 @@ await sock.chatModify({
     jid
 )
 ```
+</details>
 ### Pin/Unpin a Chat
+<details>
+<summary><strong>💻 Click to Show Code</strong></summary>
+
 ```ts
 await sock.chatModify({
         pin: true // or `false` to unpin
@@ -945,7 +1128,11 @@ await sock.chatModify({
     jid
 )
 ```
+</details>
 ### Star/Unstar a Message
+<details>
+<summary><strong>💻 Click to Show Code</strong></summary>
+
 ```ts
 await sock.chatModify({
         star: {
@@ -961,6 +1148,7 @@ await sock.chatModify({
     jid
 )
 ```
+</details>
 
 ### Disappearing Messages
 
@@ -974,6 +1162,9 @@ await sock.chatModify({
 | 90d    | 7.776.000  |
 
 - You need to pass in **Seconds**, default is 7 days
+
+<details>
+<summary><strong>💻 Click to Show Code</strong></summary>
 
 ```ts
 // turn on disappearing messages
@@ -992,6 +1183,7 @@ await sock.sendMessage(
     { disappearingMessagesInChat: false }
 )
 ```
+</details>
 
 ## User Querys
 
@@ -1003,14 +1195,21 @@ await sock.sendMessage(
 </details>
 
 ## Check If ID Exists in Whatsapp
+<details>
+<summary><strong>💻 Click to Show Code</strong></summary>
+
 ```ts
 const [result] = await sock.onWhatsApp(jid)
 if (result.exists) console.log (`${jid} exists on WhatsApp, as jid: ${result.jid}`)
 ```
+</details>
 
 ### Query Chat History (groups too)
 
 - You need to have oldest message in chat
+<details>
+<summary><strong>💻 Click to Show Code</strong></summary>
+
 ```ts
 const msg = await getOldestMessageInChat(jid) // implement this on your end
 await sock.fetchMessageHistory(
@@ -1019,16 +1218,24 @@ await sock.fetchMessageHistory(
     msg.messageTimestamp
 )
 ```
+</details>
 - Messages will be received in `messaging.history-set` event
 
 ### Fetch Status
+<details>
+<summary><strong>💻 Click to Show Code</strong></summary>
+
 ```ts
 const status = await sock.fetchStatus(jid)
 console.log('status: ' + status)
 ```
+</details>
 
 ### Fetch Profile Picture (groups too)
 - To get the display picture of some person/group
+<details>
+<summary><strong>💻 Click to Show Code</strong></summary>
+
 ```ts
 // for low res picture
 const ppUrl = await sock.profilePictureUrl(jid)
@@ -1037,14 +1244,22 @@ console.log(ppUrl)
 // for high res picture
 const ppUrl = await sock.profilePictureUrl(jid, 'image')
 ```
+</details>
 
 ### Fetch Bussines Profile (such as description or category)
+<details>
+<summary><strong>💻 Click to Show Code</strong></summary>
+
 ```ts
 const profile = await sock.getBusinessProfile(jid)
 console.log('business description: ' + profile.description + ', category: ' + profile.category)
 ```
+</details>
 
 ### Fetch Someone's Presence (if they're typing or online)
+<details>
+<summary><strong>💻 Click to Show Code</strong></summary>
+
 ```ts
 // the presence update is fetched and called here
 sock.ev.on('presence.update', console.log)
@@ -1052,6 +1267,7 @@ sock.ev.on('presence.update', console.log)
 // request updates for a chat
 await sock.presenceSubscribe(jid)
 ```
+</details>
 
 ## Change Profile
 
@@ -1063,18 +1279,26 @@ await sock.presenceSubscribe(jid)
 </details>
 
 ## Change Profile Status
+<details>
+<summary><strong>💻 Click to Show Code</strong></summary>
+
 ```ts
 await sock.updateProfileStatus('Hello World!')
 ```
+</details>
 ### Change Profile
 
 <details>
 <summary><strong>📂 Click to Show Change Profile Details</strong></summary>
 
 Name
+<details>
+<summary><strong>💻 Click to Show Code</strong></summary>
+
 ```ts
 await sock.updateProfileName('My name')
 ```
+</details>
 #
 
 </details>
@@ -1085,13 +1309,21 @@ await sock.updateProfileName('My name')
 > [!NOTE]
 > Like media messages, you can pass `{ stream: Stream }` or `{ url: Url }` or `Buffer` directly, you can see more [here](https://baileys.whiskeysockets.io/types/WAMediaUpload.html)
 
+<details>
+<summary><strong>💻 Click to Show Code</strong></summary>
+
 ```ts
 await sock.updateProfilePicture(jid, { url: './new-profile-picture.jpeg' })
 ```
+</details>
 ### Remove display picture (groups too)
+<details>
+<summary><strong>💻 Click to Show Code</strong></summary>
+
 ```ts
 await sock.removeProfilePicture(jid)
 ```
+</details>
 
 ## Groups
 
@@ -1105,13 +1337,20 @@ await sock.removeProfilePicture(jid)
 </details>
 
 ## Create a Group
+<details>
+<summary><strong>💻 Click to Show Code</strong></summary>
+
 ```ts
 // title & participants
 const group = await sock.groupCreate('My Fab Group', ['1234@s.whatsapp.net', '4564@s.whatsapp.net'])
 console.log('created group with id: ' + group.gid)
 await sock.sendMessage(group.id, { text: 'hello there' }) // say hello to everyone on the group
 ```
+</details>
 ### Add/Remove or Demote/Promote
+<details>
+<summary><strong>💻 Click to Show Code</strong></summary>
+
 ```ts
 // id & people to add to the group (will throw error if it fails)
 await sock.groupParticipantsUpdate(
@@ -1120,15 +1359,27 @@ await sock.groupParticipantsUpdate(
     'add' // replace this parameter with 'remove' or 'demote' or 'promote'
 )
 ```
+</details>
 ### Change Subject (name)
+<details>
+<summary><strong>💻 Click to Show Code</strong></summary>
+
 ```ts
 await sock.groupUpdateSubject(jid, 'New Subject!')
 ```
+</details>
 ### Change Description
+<details>
+<summary><strong>💻 Click to Show Code</strong></summary>
+
 ```ts
 await sock.groupUpdateDescription(jid, 'New Description!')
 ```
+</details>
 ### Change Settings
+<details>
+<summary><strong>💻 Click to Show Code</strong></summary>
+
 ```ts
 // only allow admins to send messages
 await sock.groupSettingUpdate(jid, 'announcement')
@@ -1139,49 +1390,85 @@ await sock.groupSettingUpdate(jid, 'unlocked')
 // only allow admins to modify the group's settings
 await sock.groupSettingUpdate(jid, 'locked')
 ```
+</details>
 ### Leave a Group
+<details>
+<summary><strong>💻 Click to Show Code</strong></summary>
+
 ```ts
 // will throw error if it fails
 await sock.groupLeave(jid)
 ```
+</details>
 ### Get Invite Code
 - To create link with code use `'https://chat.whatsapp.com/' + code`
+<details>
+<summary><strong>💻 Click to Show Code</strong></summary>
+
 ```ts
 const code = await sock.groupInviteCode(jid)
 console.log('group code: ' + code)
 ```
+</details>
 ### Revoke Invite Code
+<details>
+<summary><strong>💻 Click to Show Code</strong></summary>
+
 ```ts
 const code = await sock.groupRevokeInvite(jid)
 console.log('New group code: ' + code)
 ```
+</details>
 ### Join Using Invitation Code
 - Code can't have `https://chat.whatsapp.com/`, only code
+<details>
+<summary><strong>💻 Click to Show Code</strong></summary>
+
 ```ts
 const response = await sock.groupAcceptInvite(code)
 console.log('joined to: ' + response)
 ```
+</details>
 ### Get Group Info by Invite Code
+<details>
+<summary><strong>💻 Click to Show Code</strong></summary>
+
 ```ts
 const response = await sock.groupGetInviteInfo(code)
 console.log('group information: ' + response)
 ```
+</details>
 ### Query Metadata (participants, name, description...)
+<details>
+<summary><strong>💻 Click to Show Code</strong></summary>
+
 ```ts
 const metadata = await sock.groupMetadata(jid)
 console.log(metadata.id + ', title: ' + metadata.subject + ', description: ' + metadata.desc)
 ```
+</details>
 ### Join using `groupInviteMessage`
+<details>
+<summary><strong>💻 Click to Show Code</strong></summary>
+
 ```ts
 const response = await sock.groupAcceptInviteV4(jid, groupInviteMessage)
 console.log('joined to: ' + response)
 ```
+</details>
 ### Get Request Join List
+<details>
+<summary><strong>💻 Click to Show Code</strong></summary>
+
 ```ts
 const response = await sock.groupRequestParticipantsList(jid)
 console.log(response)
 ```
+</details>
 ### Approve/Reject Request Join
+<details>
+<summary><strong>💻 Click to Show Code</strong></summary>
+
 ```ts
 const response = await sock.groupRequestParticipantsUpdate(
     jid, // group id
@@ -1190,11 +1477,16 @@ const response = await sock.groupRequestParticipantsUpdate(
 )
 console.log(response)
 ```
+</details>
 ### Get All Participating Groups Metadata
+<details>
+<summary><strong>💻 Click to Show Code</strong></summary>
+
 ```ts
 const response = await sock.groupFetchAllParticipating()
 console.log(response)
 ```
+</details>
 ### Toggle Ephemeral
 
 - Ephemeral can be:
@@ -1206,17 +1498,25 @@ console.log(response)
 | 7d     | 604.800    |
 | 90d    | 7.776.000  |
 
+<details>
+<summary><strong>💻 Click to Show Code</strong></summary>
+
 ```ts
 await sock.groupToggleEphemeral(jid, 86400)
 ```
+</details>
 
 ### Change Add Mode
+<details>
+<summary><strong>💻 Click to Show Code</strong></summary>
+
 ```ts
 await sock.groupMemberAddMode(
     jid,
     'all_member_add' // or 'admin_add'
 )
 ```
+</details>
 
 ## Privacy
 
@@ -1228,50 +1528,86 @@ await sock.groupMemberAddMode(
 </details>
 
 ## Block/Unblock User
+<details>
+<summary><strong>💻 Click to Show Code</strong></summary>
+
 ```ts
 await sock.updateBlockStatus(jid, 'block') // Block user
 await sock.updateBlockStatus(jid, 'unblock') // Unblock user
 ```
+</details>
 ### Get Privacy Settings
+<details>
+<summary><strong>💻 Click to Show Code</strong></summary>
+
 ```ts
 const privacySettings = await sock.fetchPrivacySettings(true)
 console.log('privacy settings: ' + privacySettings)
 ```
+</details>
 ### Get BlockList
+<details>
+<summary><strong>💻 Click to Show Code</strong></summary>
+
 ```ts
 const response = await sock.fetchBlocklist()
 console.log(response)
 ```
+</details>
 ### Update LastSeen Privacy
+<details>
+<summary><strong>💻 Click to Show Code</strong></summary>
+
 ```ts
 const value = 'all' // 'contacts' | 'contact_blacklist' | 'none'
 await sock.updateLastSeenPrivacy(value)
 ```
+</details>
 ### Update Online Privacy
+<details>
+<summary><strong>💻 Click to Show Code</strong></summary>
+
 ```ts
 const value = 'all' // 'match_last_seen'
 await sock.updateOnlinePrivacy(value)
 ```
+</details>
 ### Update Profile Picture Privacy
+<details>
+<summary><strong>💻 Click to Show Code</strong></summary>
+
 ```ts
 const value = 'all' // 'contacts' | 'contact_blacklist' | 'none'
 await sock.updateProfilePicturePrivacy(value)
 ```
+</details>
 ### Update Status Privacy
+<details>
+<summary><strong>💻 Click to Show Code</strong></summary>
+
 ```ts
 const value = 'all' // 'contacts' | 'contact_blacklist' | 'none'
 await sock.updateStatusPrivacy(value)
 ```
+</details>
 ### Update Read Receipts Privacy
+<details>
+<summary><strong>💻 Click to Show Code</strong></summary>
+
 ```ts
 const value = 'all' // 'none'
 await sock.updateReadReceiptsPrivacy(value)
 ```
+</details>
 ### Update Groups Add Privacy
+<details>
+<summary><strong>💻 Click to Show Code</strong></summary>
+
 ```ts
 const value = 'all' // 'contacts' | 'contact_blacklist'
 await sock.updateGroupsAddPrivacy(value)
 ```
+</details>
 ### Update Default Disappearing Mode
 
 - Like [this](#disappearing-messages), ephemeral can be:
@@ -1283,15 +1619,22 @@ await sock.updateGroupsAddPrivacy(value)
 | 7d     | 604.800    |
 | 90d    | 7.776.000  |
 
+<details>
+<summary><strong>💻 Click to Show Code</strong></summary>
+
 ```ts
 const ephemeral = 86400
 await sock.updateDefaultDisappearingMode(ephemeral)
 ```
+</details>
 
 ## Broadcast Lists & Stories
 
 ### Send Broadcast & Stories
 - Messages can be sent to broadcasts & stories. You need to add the following message options in sendMessage, like this:
+<details>
+<summary><strong>💻 Click to Show Code</strong></summary>
+
 ```ts
 await sock.sendMessage(
     jid,
@@ -1309,6 +1652,7 @@ await sock.sendMessage(
     }
 )
 ```
+</details>
 - Message body can be a `extendedTextMessage` or `imageMessage` or `videoMessage` or `voiceMessage`, see [here](https://baileys.whiskeysockets.io/types/AnyRegularMessageContent.html)
 - You can add `backgroundColor` and other options in the message options, see [here](https://baileys.whiskeysockets.io/types/MiscMessageGenerationOptions.html)
 - `broadcast: true` enables broadcast mode
@@ -1318,10 +1662,14 @@ await sock.sendMessage(
 - Right now, WA Web does not support creating broadcast lists, but you can still delete them.
 - Broadcast IDs are in the format `12345678@broadcast`
 ### Query a Broadcast List's Recipients & Name
+<details>
+<summary><strong>💻 Click to Show Code</strong></summary>
+
 ```ts
 const bList = await sock.getBroadcastListInfo('1234@broadcast')
 console.log (`list name: ${bList.name}, recps: ${bList.recipients}`)
 ```
+</details>
 
 ## Writing Custom Functionality
 
@@ -1336,11 +1684,15 @@ Baileys is written with custom functionality in mind. Instead of forking the pro
 
 ## Enabling Debug Level in Baileys Logs
 First, enable the logging of unhandled messages from WhatsApp by setting:
+<details>
+<summary><strong>💻 Click to Show Code</strong></summary>
+
 ```ts
 const sock = makeFreeZeeSocket({
     logger: P({ level: 'debug' }),
 })
 ```
+</details>
 This will enable you to see all sorts of messages WhatsApp sends in the console.
 
 ### How Whatsapp Communicate With Us
@@ -1349,6 +1701,9 @@ This will enable you to see all sorts of messages WhatsApp sends in the console.
 > If you want to learn whatsapp protocol, we recommend to study about Libsignal Protocol and Noise Protocol
 
 - **Example:** Functionality to track the battery percentage of your phone. You enable logging and you'll see a message about your battery pop up in the console:
+<details>
+<summary><strong>💻 Click to Show Code</strong></summary>
+
     ```
     {
         "level": 10,
@@ -1378,6 +1733,7 @@ This will enable you to see all sorts of messages WhatsApp sends in the console.
         "msg":"communication"
     }
     ```
+</details>
 
 The `'frame'` is what the message received is, it has three components:
 - `tag` -- what this frame is about (eg. message will have 'message')
@@ -1390,6 +1746,9 @@ The `'frame'` is what the message received is, it has three components:
 > [!TIP]
 > Recommended to see `onMessageReceived` function in `socket.ts` file to understand how websockets events are fired
 
+<details>
+<summary><strong>💻 Click to Show Code</strong></summary>
+
 ```ts
 // for any message with tag 'edge_routing'
 sock.ws.on('CB:edge_routing', (node: BinaryNode) => { })
@@ -1400,6 +1759,7 @@ sock.ws.on('CB:edge_routing,id:abcd', (node: BinaryNode) => { })
 // for any message with tag 'edge_routing', id attribute = abcd & first content node routing_info
 sock.ws.on('CB:edge_routing,id:abcd,routing_info', (node: BinaryNode) => { })
 ```
+</details>
 
 # License
 Copyright (c) 2025 Rajeh Taher/WhiskeySockets
