@@ -95,15 +95,22 @@ All contributions will be reviewed before merging.
 <br>
 
 ## 📥 Installation
+<details>
+<summary><strong>💻 Show 📥 Installation Code</strong></summary>
+
 ```bash
 npm install @freezeehost/baileys
 # or
 yarn add @freezeehost/baileys
 ```
+</details>
 
 <br>
 
 ## 🚀 Quick Start
+<details>
+<summary><strong>💻 Show 🚀 Quick Start Code</strong></summary>
+
 ```javascript
 const {
   default: makeFreeZeeSocket,
@@ -125,11 +132,15 @@ FreeZeeHost.ev.on('messages.upsert', ({ messages }) => {
   console.log('New message:', messages[0].message);
 });
 ```
+</details>
 
 <br>
 
 ### 🛠️ Advanced Patcher (Simplified API)
 The easiest way to supercharge your socket with all the new features.
+
+<details>
+<summary><strong>💻 Show 🛠️ Advanced Patcher (Simplified API) Code</strong></summary>
 
 ```javascript
 const { patchSocket } = require('@freezeehost/baileys');
@@ -228,8 +239,12 @@ await sock.sendStickerPack(jid, [
 // 6. Stealth & Security
 // Automatically active after patchSocket()
 ```
+</details>
 <details>
 <summary><strong>🔗 Connect with QR Code</strong></summary>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 const FreeZeeHost = makeFreeZeeSocket({
@@ -238,9 +253,13 @@ const FreeZeeHost = makeFreeZeeSocket({
 })
 ```
 </details>
+</details>
 
 <details>
 <summary><strong>🔢 Connect with Pairing Code</strong></summary>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 const FreeZeeHost = makeFreeZeeSocket({
@@ -261,6 +280,7 @@ if (!FreeZeeHost.authState.creds.registered) {
 }
 ```
 </details>
+</details>
 
 <br>
 
@@ -268,15 +288,22 @@ if (!FreeZeeHost.authState.creds.registered) {
 <details>
 <summary><strong>📌 Example to Start</strong></summary>
 
+<details>
+<summary><strong>💻 Show 📡 Handling Events Code</strong></summary>
+
 ```javascript
 FreeZeeHost.ev.on('messages.upsert', ({ messages }) => {
   console.log('New message:', messages[0].message);
 });
 ```
 </details>
+</details>
 
 <details>
 <summary><strong>🗳️ Decrypt Poll Votes</strong></summary>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 FreeZeeHost.ev.on('messages.update', (m) => {
@@ -284,10 +311,14 @@ FreeZeeHost.ev.on('messages.update', (m) => {
 });
 ```
 </details>
+</details>
 
 <br>
 
 ### 📨 Sending Messages
+
+<details>
+<summary><strong>💻 Show 📨 Sending Messages Code</strong></summary>
 
 ```javascript
 /**
@@ -313,14 +344,22 @@ const options = {};     // Optional message options
 // Send the message using the WhatsApp socket connection
 FreeZeeHost.sendMessage(jid, content, options)
 ```
+</details>
 
 <details>
 <summary><strong>📝 Text Message</strong></summary>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 // Simple Text
 await FreeZeeHost.sendMessage(jid, { text: 'Hello!' });
 ```
+</details>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 // Text with link preview
@@ -334,16 +373,24 @@ await FreeZeeHost.sendMessage(jid, {
   }
 });
 ```
+</details>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 // With Quoted Reply
 await FreeZeeHost.sendMessage(jid, { text: 'Hello Shiroko!' }, { quoted: message });
 ```
 </details>
+</details>
 
 
 <details>
 <summary><strong>🖼️ Image Message</strong></summary>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 // With local file buffer
@@ -353,6 +400,10 @@ await FreeZeeHost.sendMessage(jid, {
   mentions: ['1234567890@s.whatsapp.net'] // Tag users
 });
 ```
+</details>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 // With URL
@@ -362,9 +413,13 @@ await FreeZeeHost.sendMessage(jid, {
 });
 ```
 </details>
+</details>
 
 <details>
 <summary><strong>🎥 Video Message</strong></summary>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 // With Local File
@@ -373,6 +428,10 @@ await FreeZeeHost.sendMessage(jid, {
   caption: 'Funny clip!'
 });
 ```
+</details>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 // With URL File
@@ -381,6 +440,10 @@ await FreeZeeHost.sendMessage(jid, {
   caption: 'Streamed video'
 });
 ```
+</details>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 // View Once Message
@@ -390,9 +453,13 @@ await FreeZeeHost.sendMessage(jid, {
 });
 ```
 </details>
+</details>
 
 <details>
 <summary><strong>🎵 Audio/PTT Message</strong></summary>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 // Regular audio
@@ -401,6 +468,10 @@ await FreeZeeHost.sendMessage(jid, {
   ptt: false // For music
 });
 ```
+</details>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 // Push-to-talk (PTT)
@@ -411,9 +482,13 @@ await FreeZeeHost.sendMessage(jid, {
 });
 ```
 </details>
+</details>
 
 <details>
 <summary><strong>👤 Contact Message</strong></summary>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 const vcard = 'BEGIN:VCARD\n' // metadata of the contact card
@@ -431,9 +506,13 @@ await FreeZeeHost.sendMessage(jid, {
 })
 ```
 </details>
+</details>
 
 <details>
 <summary><strong>🔥 Sticker Message</strong></summary>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 // Simple send sticker 
@@ -444,6 +523,10 @@ await FreeZeeHost.sendSticker(jid, {
   }
 );
 ```
+</details>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 // Simple send sticker 
@@ -454,6 +537,10 @@ await FreeZeeHost.sendSticker(jid, {
   }
 );
 ```
+</details>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 // Simple send sticker 
@@ -465,9 +552,13 @@ await FreeZeeHost.sendSticker(jid, {
 );
 ```
 </details>
+</details>
 
 <details>
 <summary><strong>💥 React Message</strong></summary>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 await FreeZeeHost.sendMessage(jid, {
@@ -477,6 +568,7 @@ await FreeZeeHost.sendMessage(jid, {
   }
 })
 ```
+</details>
 </details>
 
 <details>
@@ -488,6 +580,9 @@ await FreeZeeHost.sendMessage(jid, {
 | 7d     | 604.800       |
 | 30d    | 2.592.000     |
 
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
+
 ```javascript
 // Pin Message
 await FreeZeeHost.sendMessage(jid, {
@@ -498,6 +593,10 @@ await FreeZeeHost.sendMessage(jid, {
   }
 })
 ```
+</details>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 // Keep message
@@ -509,9 +608,13 @@ await FreeZeeHost.sendMessage(jid, {
 })
 ```
 </details>
+</details>
 
 <details>
 <summary><strong>📍 Location Message</strong></summary>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 // Static location
@@ -523,6 +626,10 @@ await FreeZeeHost.sendMessage(jid, {
   }
 });
 ```
+</details>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 // Thumbnail location
@@ -535,6 +642,10 @@ await FreeZeeHost.sendMessage(jid, {
   }
 });
 ```
+</details>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 // Live location (updates in real-time)
@@ -549,9 +660,13 @@ await FreeZeeHost.sendMessage(jid, {
 });
 ```
 </details>
+</details>
 
 <details>
 <summary><strong>📞 Call Message</strong></summary>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 await FreeZeeHost.sendMessage(jid, {
@@ -562,9 +677,13 @@ await FreeZeeHost.sendMessage(jid, {
 })
 ```
 </details>
+</details>
 
 <details>
 <summary><strong>🗓️ Event Message</strong></summary>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 await FreeZeeHost.sendMessage(jid, {
@@ -584,9 +703,13 @@ await FreeZeeHost.sendMessage(jid, {
 })
 ```
 </details>
+</details>
 
 <details>
 <summary><strong>🛒 Order Message</strong></summary>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 await FreeZeeHost.sendMessage(jid, {
@@ -606,9 +729,13 @@ await FreeZeeHost.sendMessage(jid, {
 })
 ```
 </details>
+</details>
 
 <details>
 <summary><strong>📊 Poll Message</strong></summary>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 // Create a poll
@@ -620,6 +747,10 @@ await FreeZeeHost.sendMessage(jid, {
   }
 });
 ```
+</details>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 // Poll results (snapshot)
@@ -631,9 +762,13 @@ await FreeZeeHost.sendMessage(jid, {
 });
 ```
 </details>
+</details>
 
 <details>
 <summary><strong>🛍️ Product Message</strong></summary>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 await FreeZeeHost.sendMessage(jid, {
@@ -648,10 +783,14 @@ await FreeZeeHost.sendMessage(jid, {
 });
 ```
 </details>
+</details>
 
 
 <details>
 <summary><strong>💳 Payment Message</strong></summary>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 await FreeZeeHost.sendMessage(jid, {
@@ -671,10 +810,14 @@ await FreeZeeHost.sendMessage(jid, {
 })
 ```
 </details>
+</details>
 
 
 <details>
 <summary><strong>📜 Payment Invite Message</strong></summary>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 await FreeZeeHost.sendMessage(jid, { 
@@ -685,10 +828,14 @@ await FreeZeeHost.sendMessage(jid, {
 })
 ```
 </details>
+</details>
 
 
 <details>
 <summary><strong>👤 Channel Admin Invite</strong></summary>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 await FreeZeeHost.sendMessage(jid, {
@@ -702,10 +849,14 @@ await FreeZeeHost.sendMessage(jid, {
 })
 ```
 </details>
+</details>
 
 
 <details>
 <summary><strong>👥 Group Invite Message</strong></summary>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 await FreeZeeHost.sendMessage(jid, {
@@ -720,9 +871,13 @@ await FreeZeeHost.sendMessage(jid, {
 })
 ```
 </details>
+</details>
 
 <details>
 <summary><strong>🔢 Phone Number Message</strong></summary>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 // Request phone number
@@ -730,6 +885,10 @@ await FreeZeeHost.sendMessage(jid, {
   requestPhoneNumber: {}
 })
 ```
+</details>
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
+
 ```javascript
 // Share phone number
 await FreeZeeHost.sendMessage(jid, {
@@ -737,9 +896,13 @@ await FreeZeeHost.sendMessage(jid, {
 })
 ```
 </details>
+</details>
 
 <details>
 <summary><strong>↪️  Reply Button Message</strong></summary>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 // Reply List Message
@@ -752,6 +915,10 @@ await FreeZeeHost.sendMessage(jid, {
   type: 'list'
 })
 ```
+</details>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 // Reply Button Message
@@ -763,6 +930,10 @@ await FreeZeeHost.sendMessage(jid, {
   type: 'plain'
 })
 ```
+</details>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 // Reply Template Message
@@ -775,6 +946,10 @@ await FreeZeeHost.sendMessage(jid, {
   type: 'template'
 })
 ```
+</details>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 // Reply Interactive Message
@@ -791,9 +966,13 @@ await FreeZeeHost.sendMessage(jid, {
 })
 ```
 </details>
+</details>
 
 <details>
 <summary><strong>#️⃣ Status Mentions Message</strong></summary>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 await FreeZeeHost.sendStatusMentions({
@@ -804,9 +983,13 @@ await FreeZeeHost.sendStatusMentions({
 }, ["123@s.whatsapp.net", "123@s.whatsapp.net"])
 ```
 </details>
+</details>
 
 <details>
 <summary><strong>📸 Album Message</strong></summary>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 await FreeZeeHost.sendAlbumMessage(jid,
@@ -829,6 +1012,7 @@ await FreeZeeHost.sendAlbumMessage(jid,
 { quoted: message, delay: 3000 })
 ```
 </details>
+</details>
 
 <details>
 <summary><strong>👨‍💻 Interactive Message</strong></summary>
@@ -842,6 +1026,9 @@ await FreeZeeHost.sendAlbumMessage(jid,
   <img src="https://files.catbox.moe/pdeeq8.png" alt="Example Shop Message" width="450"/>
   <p>Preview the shop message display, usually used to direct customers to the Facebook page or account.</td>
 </div>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 // Headers Text
@@ -857,6 +1044,10 @@ await FreeZeeHost.sendMessage(jid, {
   }
 })
 ```
+</details>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 // Headers Image
@@ -876,6 +1067,10 @@ await FreeZeeHost.sendMessage(jid, {
   viewOnce: true
 })
 ```
+</details>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 // Headers Video
@@ -895,6 +1090,10 @@ await FreeZeeHost.sendMessage(jid, {
   viewOnce: true
 })
 ```
+</details>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 // Headers Document
@@ -916,6 +1115,10 @@ await FreeZeeHost.sendMessage(jid, {
   viewOnce: true
 })
 ```
+</details>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 // Headers Location
@@ -937,6 +1140,10 @@ await FreeZeeHost.sendMessage(jid, {
   viewOnce: true
 })
 ```
+</details>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 // Headers Product
@@ -968,6 +1175,7 @@ await FreeZeeHost.sendMessage(jid, {
 })
 ```
 </details>
+</details>
 
 <details>
 <summary><strong>Carosell Message</strong></summary>
@@ -976,6 +1184,9 @@ await FreeZeeHost.sendMessage(jid, {
   <img src="https://files.catbox.moe/cf3hxd.png" alt="Example Carosell Message" width="450"/>
   <p>Preview the carosel message display, a scrollable message card that displays various items.</td>
 </div>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 await FreeZeeHost.sendMessage(jid, {
@@ -1026,6 +1237,7 @@ await FreeZeeHost.sendMessage(jid, {
 })
 ```
 </details>
+</details>
 
 <details>
 <summary><strong>Native Flow Message</strong></summary>
@@ -1034,6 +1246,9 @@ await FreeZeeHost.sendMessage(jid, {
 
 <details>
 <summary><strong>header_type</strong></summary>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 // Headers text
@@ -1045,6 +1260,10 @@ await FreeZeeHost.sendMessage(jid, {
   interactive: native_flow_button
 })
 ```
+</details>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 // Headers image
@@ -1058,6 +1277,10 @@ await FreeZeeHost.sendMessage(jid, {
   interactive: native_flow_button
 })
 ```
+</details>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 // Headers Video
@@ -1071,6 +1294,10 @@ await FreeZeeHost.sendMessage(jid, {
   interactive: native_flow_button
 })
 ```
+</details>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 // Headers Document
@@ -1086,6 +1313,10 @@ await FreeZeeHost.sendMessage(jid, {
   interactive: native_flow_button
 })
 ```
+</details>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 // Headers Location
@@ -1103,6 +1334,10 @@ await FreeZeeHost.sendMessage(jid, {
   interactive: native_flow_button
 })
 ```
+</details>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 // Headers Product
@@ -1130,6 +1365,7 @@ await FreeZeeHost.sendMessage(jid, {
 })
 ```
 </details>
+</details>
 
 <details>
 <summary><strong>native_flow_button</strong></summary>
@@ -1153,6 +1389,9 @@ await FreeZeeHost.sendMessage(jid, {
   </tbody>
 </table>
 
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
+
 ```javascript
 const native_flow_button = [{
   name: 'quick_reply',
@@ -1162,6 +1401,7 @@ const native_flow_button = [{
   })
 }]
 ```
+</details>
 ---
 
 <table border="1">
@@ -1183,6 +1423,9 @@ const native_flow_button = [{
   </tbody>
 </table>
 
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
+
 ```javascript
 const native_flow_button = [{
   name: 'cta_url',
@@ -1193,6 +1436,7 @@ const native_flow_button = [{
   })
 }]
 ```
+</details>
 ---
 
 <table border="1">
@@ -1214,6 +1458,9 @@ const native_flow_button = [{
   </tbody>
 </table>
 
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
+
 ```javascript
 const native_flow_button = [{
   name: 'cta_copy',
@@ -1223,6 +1470,7 @@ const native_flow_button = [{
   })
 }]
 ```
+</details>
 ---
 
 <table border="1">
@@ -1244,6 +1492,9 @@ const native_flow_button = [{
   </tbody>
 </table>
 
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
+
 ```javascript
 const native_flow_button = [{
   name: 'cta_call',
@@ -1253,6 +1504,7 @@ const native_flow_button = [{
   })
 }]
 ```
+</details>
 ---
 
 <table border="1">
@@ -1274,6 +1526,9 @@ const native_flow_button = [{
   </tbody>
 </table>
 
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
+
 ```javascript
 const native_flow_button = [{
   name: 'cta_catalog',
@@ -1282,6 +1537,7 @@ const native_flow_button = [{
   })
 }]
 ```
+</details>
 ---
 
 <table border="1">
@@ -1303,6 +1559,9 @@ const native_flow_button = [{
   </tbody>
 </table>
 
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
+
 ```javascript
 const native_flow_button = [{
   name: 'cta_reminder',
@@ -1311,6 +1570,7 @@ const native_flow_button = [{
   })
 }]
 ```
+</details>
 ---
 
 <table border="1">
@@ -1332,6 +1592,9 @@ const native_flow_button = [{
   </tbody>
 </table>
 
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
+
 ```javascript
 const native_flow_button = [{
   name: 'cta_cancel_reminder',
@@ -1340,6 +1603,7 @@ const native_flow_button = [{
   })
 }]
 ```
+</details>
 ---
 
 <table border="1">
@@ -1361,6 +1625,9 @@ const native_flow_button = [{
   </tbody>
 </table>
 
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
+
 ```javascript
 const native_flow_button = [{
   name: 'address_message',
@@ -1369,6 +1636,7 @@ const native_flow_button = [{
   })
 }]
 ```
+</details>
 ---
 
 <table border="1">
@@ -1390,6 +1658,9 @@ const native_flow_button = [{
   </tbody>
 </table>
 
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
+
 ```javascript
 const native_flow_button = [{
   name: 'send_location',
@@ -1398,6 +1669,7 @@ const native_flow_button = [{
   })
 }]
 ```
+</details>
 ---
 
 <table border="1">
@@ -1419,6 +1691,9 @@ const native_flow_button = [{
   </tbody>
 </table>
 
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
+
 ```javascript
 const native_flow_button = [{
   name: 'open_webview',
@@ -1431,6 +1706,7 @@ const native_flow_button = [{
   })
 }]
 ```
+</details>
 ---
 
 <table border="1">
@@ -1452,6 +1728,9 @@ const native_flow_button = [{
   </tbody>
 </table>
 
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
+
 ```javascript
 const native_flow_button = [{
   name: 'mpm',
@@ -1460,6 +1739,7 @@ const native_flow_button = [{
   })
 }]
 ```
+</details>
 ---
 
 <table border="1">
@@ -1481,6 +1761,9 @@ const native_flow_button = [{
   </tbody>
 </table>
 
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
+
 ```javascript
 const native_flow_button = [{
   name: 'wa_payment_transaction_details',
@@ -1489,6 +1772,7 @@ const native_flow_button = [{
   })
 }]
 ```
+</details>
 ---
 
 <table border="1">
@@ -1510,6 +1794,9 @@ const native_flow_button = [{
   </tbody>
 </table>
 
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
+
 ```javascript
 const native_flow_button = [{
   name: 'automated_greeting_message_view_catalog',
@@ -1519,6 +1806,7 @@ const native_flow_button = [{
   })
 }]
 ```
+</details>
 ---
 
 <table border="1">
@@ -1539,6 +1827,9 @@ const native_flow_button = [{
     </tr>
   </tbody>
 </table>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 const native_flow_button = [{
@@ -1567,6 +1858,7 @@ const native_flow_button = [{
   })
 }]
 ```
+</details>
 ---
 
 <table border="1">
@@ -1587,6 +1879,9 @@ const native_flow_button = [{
     </tr>
   </tbody>
 </table>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 const native_flow_button = [{
@@ -1616,9 +1911,13 @@ const native_flow_button = [{
 </details>
 </details>
 </details>
+</details>
 
 <details>
 <summary><strong>🛍️ Product Message</strong></summary>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 await FreeZeeHost.sendMessage(jid, {
@@ -1633,6 +1932,7 @@ await FreeZeeHost.sendMessage(jid, {
 });
 ```
 </details>
+</details>
 
 <details>
 <summary><strong>🎭 Buttons Messages</strong></summary>
@@ -1644,6 +1944,9 @@ await FreeZeeHost.sendMessage(jid, {
 <details>
 <summary><strong>header_type</strong></summary>
 
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
+
 ```javascript
 // Button Headers Text
 await FreeZeeHost.sendMessage(jid, {
@@ -1652,6 +1955,10 @@ await FreeZeeHost.sendMessage(jid, {
   footer: '© WhatsApp Baileys'
 });
 ```
+</details>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 // Button Headers Image
@@ -1662,6 +1969,10 @@ await FreeZeeHost.sendMessage(jid, {
   footer: '© WhatsApp Baileys'
 });
 ```
+</details>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 // Button Headers Video
@@ -1672,6 +1983,10 @@ await FreeZeeHost.sendMessage(jid, {
   footer: '© WhatsApp Baileys'
 });
 ```
+</details>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 // Button Headers Location
@@ -1686,9 +2001,13 @@ await FreeZeeHost.sendMessage(jid, {
 });
 ```
 </details>
+</details>
 
 <details>
 <summary><strong>button_params</strong></summary>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 // Button Params Default
@@ -1706,6 +2025,10 @@ const button_params = [{
   type: 1
 }]
 ```
+</details>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 // Button Params NativeFlow
@@ -1733,9 +2056,13 @@ const button_params = [{
 ```
 </details>
 </details>
+</details>
 
 <details>
 <summary><strong>🎭 List Messages </strong></summary>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 // Single Select
@@ -1750,6 +2077,10 @@ await FreeZeeHost.sendMessage(jid, {
   buttonText: 'Browse'
 });
 ```
+</details>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 // Product List
@@ -1769,6 +2100,7 @@ await FreeZeeHost.sendMessage(jid, {
 })
 ```
 </details>
+</details>
 
 <br>
 
@@ -1776,11 +2108,18 @@ await FreeZeeHost.sendMessage(jid, {
 <details>
 <summary><strong>📋 Newsletter Metadata</strong></summary>
 
+<details>
+<summary><strong>💻 Show 📣 Newsletter Code</strong></summary>
+
 ```javascript
 // code can't have "https://whatsapp.com/channel/", only code
 const newsletter = await FreeZeeHost.newsletterMetadata("invite", "0029Vb6w7eO9sBIEUYRgeC30")
 console.log("Newsletter metadata:", newsletter)
 ```
+</details>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 // from jid newsletter
@@ -1788,128 +2127,193 @@ const newsletter = await FreeZeeHost.newsletterMetadata("jid", "1203634215706470
 console.log("Newsletter metadata:", newsletter)
 ```
 </details>
+</details>
 
 <details>
 <summary><strong>👥 Newsletter Follow</strong></summary>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 await FreeZeeHost.newsletterFollow("120363421570647022@newsletter")
 ```
 </details>
+</details>
 
 <details>
 <summary><strong>👥 Newsletter Unfollow</strong></summary>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 await FreeZeeHost.newsletterUnfollow("120363421570647022@newsletter")
 ```
 </details>
+</details>
 
 <details>
 <summary><strong>🔈 Newsletter Mute</strong></summary>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 await FreeZeeHost.newsletterMute("120363421570647022@newsletter")
 ```
 </details>
+</details>
 
 <details>
 <summary><strong>🔊 Newsletter Unmute</strong></summary>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 await FreeZeeHost.newsletterUnmute("120363421570647022@newsletter")
 ```
 </details>
+</details>
 
 <details>
 <summary><strong>❤️ Newsletter Reaction Mode</strong></summary>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 // Allow all emoji
 await FreeZeeHost.newsletterReactionMode("120363421570647022@newsletter", "ALL")
 ```
+</details>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 // Allow special emoji (👍, ❤️, 😯, 😢, 🙏)
 await FreeZeeHost.newsletterReactionMode("120363421570647022@newsletter", "BASIC")
 ```
+</details>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 // No reaction allowed
 await FreeZeeHost.newsletterReactionMode("120363421570647022@newsletter", "NONE")
 ```
 </details>
+</details>
 
 <details>
 <summary><strong>📋 Update Description</strong></summary>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 await FreeZeeHost.newsletterUpdateDescription("120363421570647022@newsletter", "News description here!")
 ```
 </details>
+</details>
 
 <details>
 <summary><strong>👤 Update Name Newsletter</strong></summary>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 await FreeZeeHost.newsletterUpdateName("120363421570647022@newsletter", "New newsletter name!")
 ```
 </details>
+</details>
 
 <details>
 <summary><strong>🖼️ Change Profile Newsletter</strong></summary>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 // Change
 await FreeZeeHost.newsletterUpdatePicture("120363421570647022@newsletter", { url: 'https://example.com/image.jpg' })
 ```
+</details>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 // Remove
 await FreeZeeHost.newsletterRemovePicture("120363421570647022@newsletter")
 ```
 </details>
+</details>
 
 <details>
 <summary><strong>📣 Newsletter Create</strong></summary>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 const newsletter = await FreeZeeHost.newsletterCreate("Here is name newsletter!", "Here is description!", { url: 'https://example.com/image.jpg' })
 console.log("Here is data new created newsletter:", newsletter)
 ```
 </details>
+</details>
 
 <details>
 <summary><strong>🔥 List Newsletter Join</strong></summary>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 const list_newsletter = await FreeZeeHost.newsletterFetchAllParticipating()
 console.log("Your list newsletter join:", list_newsletter)
 ```
 </details>
+</details>
 
 <details>
 <summary><strong>😎 Newsletter Change Owner</strong></summary>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 await FreeZeeHost.newsletterChangeOwner("120363421570647022@newsletter", "123@lid")
 ```
 </details>
+</details>
 
 <details>
 <summary><strong>😂 Newsletter Demote</strong></summary>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 await FreeZeeHost.newsletterDemote("120363421570647022@newsletter", "123@lid")
 ```
 </details>
+</details>
 
 <details>
 <summary><strong>🌟 Newsletter Reaction Message</strong></summary>
 
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
+
 ```javascript
 await FreeZeeHost.newsletterReactMessage("120363421570647022@newsletter", "12", "🦖")
 ```
+</details>
 </details>
 
 <br>
@@ -1918,38 +2322,61 @@ await FreeZeeHost.newsletterReactMessage("120363421570647022@newsletter", "12", 
 <details>
 <summary><strong>🔄 Create Group</strong></summary>
 
+<details>
+<summary><strong>💻 Show 🛠️ Groups Code</strong></summary>
+
 ```javascript
 const group = await FreeZeeHost.groupCreate("New Group Title", ["123@s.whatsapp.net", "456@s.whatsapp.net"]);
 console.log("New group create data:", group)
 ```
 </details>
+</details>
 
 <details>
 <summary><strong>⚙️ Change Group Settings</strong></summary>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 // only allow admins to send messages
 await FreeZeeHost.groupSettingUpdate(jid, 'announcement')
 ```
+</details>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 // allow everyone to send messages
 await FreeZeeHost.groupSettingUpdate(jid, 'not_announcement')
 ```
+</details>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 // allow everyone to modify the group's settings -- like display picture etc.
 await FreeZeeHost.groupSettingUpdate(jid, 'unlocked')
 ```
+</details>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 // only allow admins to modify the group's settings
 await FreeZeeHost.groupSettingUpdate(jid, 'locked')
 ```
 </details>
+</details>
 
 <details>
 <summary><strong>💯 Add, Remove, Promote, Demote</strong></summary>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 // add member
@@ -1965,33 +2392,49 @@ await FreeZeeHost.groupParticipantsUpdate(jid, ['123@s.whatsapp.net', '456@s.wha
 await FreeZeeHost.groupParticipantsUpdate(jid, ['123@s.whatsapp.net', '456@s.whatsapp.net'], 'demote')
 ```
 </details>
+</details>
 
 <details>
 <summary><strong>👥 Change Subject Title</strong></summary>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 await FreeZeeHost.groupUpdateSubject(jid, 'New Subject Title!')
 ```
 </details>
+</details>
 
 <details>
 <summary><strong>📋 Change Description</strong></summary>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 await FreeZeeHost.groupUpdateDescription(jid, 'New Description!')
 ```
 </details>
+</details>
 
 <details>
 <summary><strong>⛔ Leave Group</strong></summary>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 await FreeZeeHost.groupLeave(jid)
 ```
 </details>
+</details>
 
 <details>
 <summary><strong>🔗 Invite Code</strong></summary>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 // to create link with code use "https://chat.whatsapp.com/" + code
@@ -1999,18 +2442,26 @@ const code = await FreeZeeHost.groupInviteCode(jid)
 console.log('group code: ' + code)
 ```
 </details>
+</details>
 
 <details>
 <summary><strong>🔁 Revoke/Reset Invite Code</strong></summary>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 const code = await FreeZeeHost.groupRevokeInvite(jid)
 console.log('New group code: ' + code)
 ```
 </details>
+</details>
 
 <details>
 <summary><strong>🟢 Join By Invite Code</strong></summary>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 // code can't have "https://chat.whatsapp.com/", only code
@@ -2018,64 +2469,93 @@ const response = await FreeZeeHost.groupAcceptInvite(code)
 console.log('joined to: ' + response)
 ```
 </details>
+</details>
 
 <details>
 <summary><strong>📋 Group Metadata By Code</strong></summary>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 const response = await FreeZeeHost.groupGetInviteInfo(code)
 console.log('group information: ' + response)
 ```
 </details>
+</details>
 
 <details>
 <summary><strong>📋 Group Metadata</strong></summary>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 const metadata = await FreeZeeHost.groupMetadata(jid) 
 console.log(metadata.id + ', title: ' + metadata.subject + ', description: ' + metadata.desc)
 ```
 </details>
+</details>
 
 <details>
 <summary><strong>🟢 Join using `groupInviteMessage`</strong></summary>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 const response = await FreeZeeHost.groupAcceptInviteV4(jid, groupInviteMessage)
 console.log('joined to: ' + response)
 ```
 </details>
+</details>
 
 <details>
 <summary><strong>👥 Join Request List</strong></summary>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 const response = await FreeZeeHost.groupRequestParticipantsList(jid)
 console.log(response)
 ```
 </details>
+</details>
 
 <details>
 <summary><strong>👥 Join Approve/Reject</strong></summary>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 // Approve
 const response = await FreeZeeHost.groupRequestParticipantsUpdate(jid, ['123@s.whatsapp.net', '456@s.whatsapp.net'], 'approve')
 ```
+</details>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 // Reject
 const response = await FreeZeeHost.groupRequestParticipantsUpdate(jid, ['123@s.whatsapp.net', '456@s.whatsapp.net'], 'reject')
 ```
 </details>
+</details>
 
 <details>
 <summary><strong>👥 Group Member List</strong></summary>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 const response = await FreeZeeHost.groupFetchAllParticipating()
 console.log(response)
 ```
+</details>
 </details>
 
 <details>
@@ -2090,23 +2570,35 @@ console.log(response)
 | 7d     | 604.800    |
 | 90d    | 7.776.000  |
 
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
+
 ```javascript
 await FreeZeeHost.groupToggleEphemeral(jid, 86400)
 ```
+</details>
 </details>
 
 <details>
 <summary><strong>👥 Member Add Mode</strong></summary>
 
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
+
 ```javascript
 // Everyone Member
 await FreeZeeHost.groupMemberAddMode(jid, 'all_member_add')
 ```
+</details>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 // Only Admin
 await FreeZeeHost.groupMemberAddMode(jid, 'admin_add')
 ```
+</details>
 </details>
 
 <br>
@@ -2115,166 +2607,266 @@ await FreeZeeHost.groupMemberAddMode(jid, 'admin_add')
 <details>
 <summary><strong>🖼️ Change Profile User or Group</strong></summary>
 
+<details>
+<summary><strong>💻 Show 🔒 Privacy Code</strong></summary>
+
 ```javascript
 // Change
 await FreeZeeHost.updateProfilePicture(jid, { url: 'https://example.com/image.jpg' })
 ```
+</details>
+
+<details>
+<summary><strong>💻 Show 🔒 Privacy Code</strong></summary>
 
 ```javascript
 // Remove
 await FreeZeeHost.removeProfilePicture(jid)
 ```
 </details>
+</details>
 
 <details>
 <summary><strong>🚫 Block/Unblock User</strong></summary>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 // Block
 await FreeZeeHost.updateBlockStatus(jid, 'block');
 ```
+</details>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 // Unblock
 await FreeZeeHost.updateBlockStatus(jid, 'unblock');
 ```
 </details>
+</details>
 
 <details>
 <summary><strong>👤 Metadata Privacy</strong></summary>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 const privacySettings = await FreeZeeHost.fetchPrivacySettings(true)
 console.log('privacy settings: ' + privacySettings)
 ```
 </details>
+</details>
 
 <details>
 <summary><strong>⛔ Metadata Blocklist</strong></summary>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 const response = await FreeZeeHost.fetchBlocklist()
 console.log(response)
 ```
 </details>
+</details>
 
 <details>
 <summary><strong>👀 Last Seen</strong></summary>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 // Everyone
 await FreeZeeHost.updateLastSeenPrivacy("all")
 ```
+</details>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 // Contacts
 await FreeZeeHost.updateLastSeenPrivacy("contacts")
 ```
+</details>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 // Contacts Blacklist
 await FreeZeeHost.updateLastSeenPrivacy("contact_blacklist")
 ```
+</details>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 // Hide
 await FreeZeeHost.updateLastSeenPrivacy("none")
 ```
 </details>
+</details>
 
 <details>
 <summary><strong>👀 Online Status</strong></summary>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 // Everyone
 await FreeZeeHost.updateOnlinePrivacy("all")
 ```
+</details>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 // Match last seen
 await FreeZeeHost.updateOnlinePrivacy("match_last_seen")
 ```
 </details>
+</details>
 
 <details>
 <summary><strong>🖼️ Profile Picture</strong></summary>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 // Everyone
 await FreeZeeHost.updateProfilePicturePrivacy("all")
 ```
+</details>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 // Contacts
 await FreeZeeHost.updateProfilePicturePrivacy("contacts")
 ```
+</details>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 // Contacts Blacklist
 await FreeZeeHost.updateProfilePicturePrivacy("contact_blacklist")
 ```
+</details>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 // Hide
 await FreeZeeHost.updateProfilePicturePrivacy("none")
 ```
 </details>
+</details>
 
 <details>
 <summary><strong>✨ Status WhatsApp</strong></summary>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 // Everyone
 await FreeZeeHost.updateStatusPrivacy("all")
 ```
+</details>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 // Contacts
 await FreeZeeHost.updateStatusPrivacy("contacts")
 ```
+</details>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 // Contacts Blacklist
 await FreeZeeHost.updateStatusPrivacy("contact_blacklist")
 ```
+</details>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 // Hide
 await FreeZeeHost.updateStatusPrivacy("none")
 ```
 </details>
+</details>
 
 <details>
 <summary><strong>👁️ Blue Tiks Read</strong></summary>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 // Show
 await FreeZeeHost.updateReadReceiptsPrivacy("all")
 ```
+</details>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 // Hide
 await FreeZeeHost.updateReadReceiptsPrivacy("none")
 ```
 </details>
+</details>
 
 <details>
 <summary><strong>👥 Group Add</strong></summary>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 // Everyone
 await FreeZeeHost.updateGroupsAddPrivacy("all")
 ```
+</details>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 // Contacts
 await FreeZeeHost.updateGroupsAddPrivacy("contacts")
 ```
+</details>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 // Contacts Blacklist
 await FreeZeeHost.updateGroupsAddPrivacy("contact_blacklist")
 ```
+</details>
 </details>
 
 <details>
@@ -2287,9 +2879,13 @@ await FreeZeeHost.updateGroupsAddPrivacy("contact_blacklist")
 | 7d     | 604.800    |
 | 90d    | 7.776.000  |
 
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
+
 ```javascript
 await FreeZeeHost.updateDefaultDisappearingMode(86400)
 ```
+</details>
 </details>
 
 <br>
@@ -2298,13 +2894,20 @@ await FreeZeeHost.updateDefaultDisappearingMode(86400)
 <details>
 <summary><strong>🔧 Debug Logs</strong></summary>
 
+<details>
+<summary><strong>💻 Show ⚙️ Advanced Code</strong></summary>
+
 ```javascript
 const FreeZeeHost = makeFreeZeeSocket({ logger: { level: 'debug' } });
 ```
 </details>
+</details>
 
 <details>
 <summary><strong>📡 Raw WebSocket Events</strong></summary>
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```javascript
 FreeZeeHost.ws.on('CB:presence', (json) => console.log('Sockets update:', json));
@@ -2318,6 +2921,7 @@ FreeZeeHost.ws.on('CB:edge_routing,id:abcd', (node) => console.log('Sockets upda
 // for any message with tag 'edge_routing', id attribute = abcd & first content node routing_info
 FreeZeeHost.ws.on('CB:edge_routing,id:abcd,routing_info', (node) => console.log('Sockets update:', node));
 ```
+</details>
 </details>
 
 <br>
@@ -2333,7 +2937,7 @@ Refer to [WhatsApp's Terms](https://www.whatsapp.com/legal) for compliance.
 ## 🔥 Premium Features (FreeZeeHost 2026 Edition)
 - 🛡️ **Anti Bad Session**: Atomic writes & auto-repair system.
 - 🔁 **Smart Session Manager**: Embedded MongoDB (Zero-Config Plug & Play).
-- 🥷 **Stealth Mode**: Automated typing/recording delays to prevent bans.
+- 🥷 **Stealth Mode**: Automated humanized typing/recording delays to prevent bans.
 - ⏳ **Smart Anti-Spam Queue**: Randomized adaptive message delivery.
 - 🚀 **Pre-Boot Loading UI**: Elegant visual initialization progress (0-100%).
 - 📡 **Real-time Status Detector**: Instant WhatsApp Story/Status capture.
@@ -2393,19 +2997,31 @@ To run the example script, download or clone the repo and then type the followin
 ## Install
 
 Use the stable version:
+<details>
+<summary><strong>💻 Show Install Code</strong></summary>
+
 ```
 yarn add @freezeehost/baileys
 ```
+</details>
 
 Use the edge version (no guarantee of stability, but latest fixes + features)
+<details>
+<summary><strong>💻 Show Install Code</strong></summary>
+
 ```
 yarn add github:WhiskeySockets/Baileys
 ```
+</details>
 
 Then import your code using:
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
+
 ```ts
 import makeFreeZeeSocket from '@freezeehost/baileys'
 ```
+</details>
 
 # Links
 
@@ -2532,6 +3148,9 @@ WhatsApp provides a multi-device API that allows Baileys to be authenticated as 
 > [!TIP]
 > You can customize browser name if you connect with **QR-CODE**, with `Browser` constant, we have some browsers config, **see [here](https://baileys.whiskeysockets.io/types/BrowsersMap.html)**
 
+<details>
+<summary><strong>💻 Show Starting socket with **QR-CODE** Code</strong></summary>
+
 ```ts
 import makeFreeZeeSocket from '@freezeehost/baileys'
 
@@ -2541,6 +3160,7 @@ const sock = makeFreeZeeSocket({
     printQRInTerminal: true
 })
 ```
+</details>
 
 If the connection is successful, you will see a QR code printed on your terminal screen, scan it with WhatsApp on your phone and you'll be logged in!
 
@@ -2551,6 +3171,9 @@ If the connection is successful, you will see a QR code printed on your terminal
 > Pairing Code isn't Mobile API, it's a method to connect Whatsapp Web without QR-CODE, you can connect only with one device, see [here](https://faq.whatsapp.com/1324084875126592/?cms_platform=web)
 
 The phone number can't have `+` or `()` or `-`, only numbers, you must provide country code
+
+<details>
+<summary><strong>💻 Show Starting socket with **Pairing Code** Code</strong></summary>
 
 ```ts
 import makeFreeZeeSocket from '@freezeehost/baileys'
@@ -2566,12 +3189,16 @@ if (!sock.authState.creds.registered) {
     console.log(code)
 }
 ```
+</details>
 
 ### Receive Full History
 
 1. Set `syncFullHistory` as `true`
 2. Baileys, by default, use chrome browser config
     - If you'd like to emulate a desktop connection (and receive more message history), this browser setting to your Socket config:
+
+<details>
+<summary><strong>💻 Show Receive Full History Code</strong></summary>
 
 ```ts
 const sock = makeFreeZeeSocket({
@@ -2581,11 +3208,15 @@ const sock = makeFreeZeeSocket({
     syncFullHistory: true
 })
 ```
+</details>
 
 ## Important Notes About Socket Config
 
 ### Caching Group Metadata (Recommended)
 - If you use baileys for groups, we recommend you to set `cachedGroupMetadata` in socket config, you need to implement a cache like this:
+
+<details>
+<summary><strong>💻 Show Caching Group Metadata (Recommended) Code</strong></summary>
 
     ```ts
     const groupCache = new NodeCache({stdTTL: 5 * 60, useClones: false})
@@ -2604,27 +3235,39 @@ const sock = makeFreeZeeSocket({
         groupCache.set(event.id, metadata)
     })
     ```
+</details>
 
 ### Improve Retry System & Decrypt Poll Votes
 - If you want to improve sending message, retrying when error occurs and decrypt poll votes, you need to have a store and set `getMessage` config in socket like this:
+<details>
+<summary><strong>💻 Show Improve Retry System & Decrypt Poll Votes Code</strong></summary>
+
     ```ts
     const sock = makeFreeZeeSocket({
         getMessage: async (key) => await getMessageFromStore(key)
     })
     ```
+</details>
 
 ### Receive Notifications in Whatsapp App
 - If you want to receive notifications in whatsapp app, set `markOnlineOnConnect` to `false`
+<details>
+<summary><strong>💻 Show Receive Notifications in Whatsapp App Code</strong></summary>
+
     ```ts
     const sock = makeFreeZeeSocket({
         markOnlineOnConnect: false
     })
     ```
+</details>
 ## Saving & Restoring Sessions
 
 You obviously don't want to keep scanning the QR code every time you want to connect.
 
 So, you can load the credentials to log back in:
+<details>
+<summary><strong>💻 Show Saving & Restoring Sessions Code</strong></summary>
+
 ```ts
 import makeFreeZeeSocket, { useMultiFileAuthState } from '@freezeehost/baileys'
 
@@ -2637,6 +3280,7 @@ const sock = makeFreeZeeSocket({ auth: state })
 // this will be called as soon as the credentials are updated
 sock.ev.on('creds.update', saveCreds)
 ```
+</details>
 
 > [!IMPORTANT]
 > `useMultiFileAuthState` is a utility function to help save the auth state in a single folder, this function serves as a good guide to help write auth & key states for SQL/no-SQL databases, which I would recommend in any production grade system.
@@ -2653,12 +3297,16 @@ They're all nicely typed up, so you shouldn't have any issues with an Intellisen
 > **The events are [these](https://baileys.whiskeysockets.io/types/BaileysEventMap.html)**, it's important you see all events
 
 You can listen to these events like this:
+<details>
+<summary><strong>💻 Show Handling Events Code</strong></summary>
+
 ```ts
 const sock = makeFreeZeeSocket()
 sock.ev.on('messages.upsert', ({ messages }) => {
     console.log('got messages', messages)
 })
 ```
+</details>
 
 ### Example to Start
 
@@ -2667,6 +3315,9 @@ sock.ev.on('messages.upsert', ({ messages }) => {
 
 > [!NOTE]
 > For reliable serialization of the authentication state, especially when storing as JSON, always use the BufferJSON utility.
+
+<details>
+<summary><strong>💻 Show Example to Start Code</strong></summary>
 
 ```ts
 import makeFreeZeeSocket, { DisconnectReason, useMultiFileAuthState } from '@freezeehost/baileys'
@@ -2707,6 +3358,7 @@ async function connectToWhatsApp () {
 // run in main file
 connectToWhatsApp()
 ```
+</details>
 
 > [!IMPORTANT]
 > In `messages.upsert` it's recommended to use a loop like `for (const message of event.messages)` to handle all messages in array
@@ -2715,6 +3367,9 @@ connectToWhatsApp()
 
 - By default poll votes are encrypted and handled in `messages.update`
 - That's a simple example
+<details>
+<summary><strong>💻 Show Decrypt Poll Votes Code</strong></summary>
+
 ```ts
 sock.ev.on('messages.update', event => {
     for(const { key, update } of event) {
@@ -2733,6 +3388,7 @@ sock.ev.on('messages.update', event => {
     }
 })
 ```
+</details>
 
 - `getMessage` is a [store](#implementing-a-data-store) implementation (in your end)
 
@@ -2749,6 +3405,9 @@ sock.ev.on('messages.update', event => {
 > I highly recommend building your own data store, as storing someone's entire chat history in memory is a terrible waste of RAM.
 
 It can be used as follows:
+
+<details>
+<summary><strong>💻 Show Implementing a Data Store Code</strong></summary>
 
 ```ts
 import makeFreeZeeSocket, { makeInMemoryStore } from '@freezeehost/baileys'
@@ -2778,6 +3437,7 @@ sock.ev.on('contacts.upsert', () => {
 })
 
 ```
+</details>
 
 The store also provides some simple functions such as `loadMessages` that utilize the store to speed up data retrieval.
 
@@ -2803,6 +3463,9 @@ The store also provides some simple functions such as `loadMessages` that utiliz
     - **[Here](https://baileys.whiskeysockets.io/types/AnyMessageContent.html) you can see all message contents supported, like text message**
     - **[Here](https://baileys.whiskeysockets.io/types/MiscMessageGenerationOptions.html) you can see all options supported, like quote message**
 
+<details>
+<summary><strong>💻 Show Sending Messages Code</strong></summary>
+
     ```ts
     const jid: string
     const content: AnyMessageContent
@@ -2810,21 +3473,33 @@ The store also provides some simple functions such as `loadMessages` that utiliz
 
     sock.sendMessage(jid, content, options)
     ```
+</details>
 
 ### Non-Media Messages
 
 #### Text Message
+<details>
+<summary><strong>💻 Show Text Message Code</strong></summary>
+
 ```ts
 await sock.sendMessage(jid, { text: 'hello word' })
 ```
+</details>
 
 #### Quote Message (works with all types)
+<details>
+<summary><strong>💻 Show Quote Message (works with all types) Code</strong></summary>
+
 ```ts
 await sock.sendMessage(jid, { text: 'hello word' }, { quoted: message })
 ```
+</details>
 
 #### Mention User (works with most types)
 - @number is to mention in text, it's optional
+<details>
+<summary><strong>💻 Show Mention User (works with most types) Code</strong></summary>
+
 ```ts
 await sock.sendMessage(
     jid,
@@ -2834,15 +3509,23 @@ await sock.sendMessage(
     }
 )
 ```
+</details>
 
 #### Forward Messages
 - You need to have message object, can be retrieved from [store](#implementing-a-data-store) or use a [message](https://baileys.whiskeysockets.io/types/WAMessage.html) object
+<details>
+<summary><strong>💻 Show Forward Messages Code</strong></summary>
+
 ```ts
 const msg = getMessageFromStore() // implement this on your end
 await sock.sendMessage(jid, { forward: msg }) // WA forward the message!
 ```
+</details>
 
 #### Location Message
+<details>
+<summary><strong>💻 Show Location Message Code</strong></summary>
+
 ```ts
 await sock.sendMessage(
     jid,
@@ -2854,7 +3537,11 @@ await sock.sendMessage(
     }
 )
 ```
+</details>
 #### Contact Message
+<details>
+<summary><strong>💻 Show Contact Message Code</strong></summary>
+
 ```ts
 const vcard = 'BEGIN:VCARD\n' // metadata of the contact card
             + 'VERSION:3.0\n'
@@ -2873,9 +3560,13 @@ await sock.sendMessage(
     }
 )
 ```
+</details>
 
 #### Reaction Message
 - You need to pass the key of message, you can retrieve from [store](#implementing-a-data-store) or use a [key](https://baileys.whiskeysockets.io/types/WAMessageKey.html) object
+<details>
+<summary><strong>💻 Show Reaction Message Code</strong></summary>
+
 ```ts
 await sock.sendMessage(
     jid,
@@ -2887,6 +3578,7 @@ await sock.sendMessage(
     }
 )
 ```
+</details>
 
 #### Pin Message
 - You need to pass the key of message, you can retrieve from [store](#implementing-a-data-store) or use a [key](https://baileys.whiskeysockets.io/types/WAMessageKey.html) object
@@ -2898,6 +3590,9 @@ await sock.sendMessage(
 | 24h    | 86.400        |
 | 7d     | 604.800       |
 | 30d    | 2.592.000     |
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```ts
 await sock.sendMessage(
@@ -2911,8 +3606,12 @@ await sock.sendMessage(
     }
 )
 ```
+</details>
 
 #### Poll Message
+<details>
+<summary><strong>💻 Show Poll Message Code</strong></summary>
+
 ```ts
 await sock.sendMessage(
     jid,
@@ -2926,6 +3625,7 @@ await sock.sendMessage(
     }
 )
 ```
+</details>
 
 ### Sending Messages with Link Previews
 
@@ -2933,6 +3633,9 @@ await sock.sendMessage(
 2. Baileys has a function to generate the content for these link previews
 3. To enable this function's usage, add `link-preview-js` as a dependency to your project with `yarn add link-preview-js`
 4. Send a link:
+<details>
+<summary><strong>💻 Show Sending Messages with Link Previews Code</strong></summary>
+
 ```ts
 await sock.sendMessage(
     jid,
@@ -2941,6 +3644,7 @@ await sock.sendMessage(
     }
 )
 ```
+</details>
 
 ### Media Messages
 
@@ -2956,6 +3660,9 @@ Sending media (video, stickers, images) is easier & more efficient than ever.
 
 #### Gif Message
 - Whatsapp doesn't support `.gif` files, that's why we send gifs as common `.mp4` video with `gifPlayback` flag
+<details>
+<summary><strong>💻 Show Gif Message Code</strong></summary>
+
 ```ts
 await sock.sendMessage(
     jid,
@@ -2966,8 +3673,12 @@ await sock.sendMessage(
     }
 )
 ```
+</details>
 
 #### Video Message
+<details>
+<summary><strong>💻 Show Video Message Code</strong></summary>
+
 ```ts
 await sock.sendMessage(
     id,
@@ -2980,19 +3691,31 @@ await sock.sendMessage(
     }
 )
 ```
+</details>
 
 #### Audio Message
 - To audio message work in all devices you need to convert with some tool like `ffmpeg` with this flags:
+<details>
+<summary><strong>💻 Show Audio Message Code</strong></summary>
+
     ```bash
         codec: libopus //ogg file
         ac: 1 //one channel
         avoid_negative_ts
         make_zero
     ```
+</details>
     - Example:
+<details>
+<summary><strong>💻 Show Audio Message Code</strong></summary>
+
     ```bash
     ffmpeg -i input.mp4 -avoid_negative_ts make_zero -ac 1 output.ogg
     ```
+</details>
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
+
 ```ts
 await sock.sendMessage(
     jid,
@@ -3004,8 +3727,12 @@ await sock.sendMessage(
     }
 )
 ```
+</details>
 
 #### Image Message
+<details>
+<summary><strong>💻 Show Image Message Code</strong></summary>
+
 ```ts
 await sock.sendMessage(
     id,
@@ -3017,10 +3744,14 @@ await sock.sendMessage(
     }
 )
 ```
+</details>
 
 #### View Once Message
 
 - You can send all messages above as `viewOnce`, you only need to pass `viewOnce: true` in content object
+
+<details>
+<summary><strong>💻 Show View Once Message Code</strong></summary>
 
 ```ts
 await sock.sendMessage(
@@ -3034,27 +3765,36 @@ await sock.sendMessage(
     }
 )
 ```
+</details>
 
 ## Modify Messages
 
 ### Deleting Messages (for everyone)
 
+<details>
+<summary><strong>💻 Show Deleting Messages (for everyone) Code</strong></summary>
+
 ```ts
 const msg = await sock.sendMessage(jid, { text: 'hello word' })
 await sock.sendMessage(jid, { delete: msg.key })
 ```
+</details>
 
 **Note:** deleting for oneself is supported via `chatModify`, see in [this section](#modifying-chats)
 
 ### Editing Messages
 
 - You can pass all editable contents here
+<details>
+<summary><strong>💻 Show Editing Messages Code</strong></summary>
+
 ```ts
 await sock.sendMessage(jid, {
       text: 'updated text goes here',
       edit: response.key,
     });
 ```
+</details>
 
 ## Manipulating Media Messages
 
@@ -3065,6 +3805,9 @@ await sock.sendMessage(jid, {
 ### Downloading Media Messages
 
 If you want to save the media you received
+<details>
+<summary><strong>💻 Show Downloading Media Messages Code</strong></summary>
+
 ```ts
 import { createWriteStream } from 'fs'
 import { downloadMediaMessage, getContentType } from '@freezeehost/baileys'
@@ -3093,21 +3836,30 @@ sock.ev.on('messages.upsert', async ({ [m] }) => {
     }
 }
 ```
+</details>
 
 ### Re-upload Media Message to Whatsapp
 
 - WhatsApp automatically removes old media from their servers. For the device to access said media -- a re-upload is required by another device that has it. This can be accomplished using:
+<details>
+<summary><strong>💻 Show Re-upload Media Message to Whatsapp Code</strong></summary>
+
 ```ts
 await sock.updateMediaMessage(msg)
 ```
+</details>
 
 ## Reject Call
 
 - You can obtain `callId` and `callFrom` from `call` event
 
+<details>
+<summary><strong>💻 Show Reject Call Code</strong></summary>
+
 ```ts
 await sock.rejectCall(callId, callFrom)
 ```
+</details>
 
 ## Send States in Chat
 
@@ -3116,11 +3868,15 @@ await sock.rejectCall(callId, callFrom)
 - You cannot mark an entire 'chat' read as it were with Baileys Web.
 This means you have to keep track of unread messages.
 
+<details>
+<summary><strong>💻 Show Reading Messages Code</strong></summary>
+
 ```ts
 const key: WAMessageKey
 // can pass multiple keys to read multiple messages as well
 await sock.readMessages([key])
 ```
+</details>
 
 The message ID is the unique identifier of the message that you are marking as read.
 On a `WAMessage`, the `messageID` can be accessed using ```messageID = message.key.id```.
@@ -3131,9 +3887,13 @@ On a `WAMessage`, the `messageID` can be accessed using ```messageID = message.k
 - The presence expires after about 10 seconds.
 - This lets the person/group with `jid` know whether you're online, offline, typing etc.
 
+<details>
+<summary><strong>💻 Show Update Presence Code</strong></summary>
+
 ```ts
 await sock.sendPresenceUpdate('available', jid)
 ```
+</details>
 
 > [!NOTE]
 > If a desktop client is active, WA doesn't send push notifications to the device. If you would like to receive said notifications -- mark your Baileys client offline using `sock.sendPresenceUpdate('unavailable')`
@@ -3146,10 +3906,14 @@ WA uses an encrypted form of communication to send chat/app updates. This has be
 > If you mess up one of your updates, WA can log you out of all your devices and you'll have to log in again.
 
 ### Archive a Chat
+<details>
+<summary><strong>💻 Show Archive a Chat Code</strong></summary>
+
 ```ts
 const lastMsgInChat = await getLastMessageInChat(jid) // implement this on your end
 await sock.chatModify({ archive: true, lastMessages: [lastMsgInChat] }, jid)
 ```
+</details>
 ### Mute/Unmute a Chat
 
 - Supported times:
@@ -3160,20 +3924,31 @@ await sock.chatModify({ archive: true, lastMessages: [lastMsgInChat] }, jid)
 | 8h     | 86.400.000     |
 | 7d     | 604.800.000    |
 
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
+
 ```ts
 // mute for 8 hours
 await sock.chatModify({ mute: 8 * 60 * 60 * 1000 }, jid)
 // unmute
 await sock.chatModify({ mute: null }, jid)
 ```
+</details>
 ### Mark a Chat Read/Unread
+<details>
+<summary><strong>💻 Show Mark a Chat Read/Unread Code</strong></summary>
+
 ```ts
 const lastMsgInChat = await getLastMessageInChat(jid) // implement this on your end
 // mark it unread
 await sock.chatModify({ markRead: false, lastMessages: [lastMsgInChat] }, jid)
 ```
+</details>
 
 ### Delete a Message for Me
+<details>
+<summary><strong>💻 Show Delete a Message for Me Code</strong></summary>
+
 ```ts
 await sock.chatModify(
     {
@@ -3191,7 +3966,11 @@ await sock.chatModify(
 )
 
 ```
+</details>
 ### Delete a Chat
+<details>
+<summary><strong>💻 Show Delete a Chat Code</strong></summary>
+
 ```ts
 const lastMsgInChat = await getLastMessageInChat(jid) // implement this on your end
 await sock.chatModify({
@@ -3206,7 +3985,11 @@ await sock.chatModify({
     jid
 )
 ```
+</details>
 ### Pin/Unpin a Chat
+<details>
+<summary><strong>💻 Show Pin/Unpin a Chat Code</strong></summary>
+
 ```ts
 await sock.chatModify({
         pin: true // or `false` to unpin
@@ -3214,7 +3997,11 @@ await sock.chatModify({
     jid
 )
 ```
+</details>
 ### Star/Unstar a Message
+<details>
+<summary><strong>💻 Show Star/Unstar a Message Code</strong></summary>
+
 ```ts
 await sock.chatModify({
         star: {
@@ -3230,6 +4017,7 @@ await sock.chatModify({
     jid
 )
 ```
+</details>
 
 ### Disappearing Messages
 
@@ -3243,6 +4031,9 @@ await sock.chatModify({
 | 90d    | 7.776.000  |
 
 - You need to pass in **Seconds**, default is 7 days
+
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
 
 ```ts
 // turn on disappearing messages
@@ -3261,18 +4052,26 @@ await sock.sendMessage(
     { disappearingMessagesInChat: false }
 )
 ```
+</details>
 
 ## User Querys
 
 ### Check If ID Exists in Whatsapp
+<details>
+<summary><strong>💻 Show Check If ID Exists in Whatsapp Code</strong></summary>
+
 ```ts
 const [result] = await sock.onWhatsApp(jid)
 if (result.exists) console.log (`${jid} exists on WhatsApp, as jid: ${result.jid}`)
 ```
+</details>
 
 ### Query Chat History (groups too)
 
 - You need to have oldest message in chat
+<details>
+<summary><strong>💻 Show Query Chat History (groups too) Code</strong></summary>
+
 ```ts
 const msg = await getOldestMessageInChat(jid) // implement this on your end
 await sock.fetchMessageHistory(
@@ -3281,16 +4080,24 @@ await sock.fetchMessageHistory(
     msg.messageTimestamp
 )
 ```
+</details>
 - Messages will be received in `messaging.history-set` event
 
 ### Fetch Status
+<details>
+<summary><strong>💻 Show Fetch Status Code</strong></summary>
+
 ```ts
 const status = await sock.fetchStatus(jid)
 console.log('status: ' + status)
 ```
+</details>
 
 ### Fetch Profile Picture (groups too)
 - To get the display picture of some person/group
+<details>
+<summary><strong>💻 Show Fetch Profile Picture (groups too) Code</strong></summary>
+
 ```ts
 // for low res picture
 const ppUrl = await sock.profilePictureUrl(jid)
@@ -3299,14 +4106,22 @@ console.log(ppUrl)
 // for high res picture
 const ppUrl = await sock.profilePictureUrl(jid, 'image')
 ```
+</details>
 
 ### Fetch Bussines Profile (such as description or category)
+<details>
+<summary><strong>💻 Show Fetch Bussines Profile (such as description or category) Code</strong></summary>
+
 ```ts
 const profile = await sock.getBusinessProfile(jid)
 console.log('business description: ' + profile.description + ', category: ' + profile.category)
 ```
+</details>
 
 ### Fetch Someone's Presence (if they're typing or online)
+<details>
+<summary><strong>💻 Show Fetch Someone's Presence (if they're typing or online) Code</strong></summary>
+
 ```ts
 // the presence update is fetched and called here
 sock.ev.on('presence.update', console.log)
@@ -3314,43 +4129,67 @@ sock.ev.on('presence.update', console.log)
 // request updates for a chat
 await sock.presenceSubscribe(jid)
 ```
+</details>
 
 ## Change Profile
 
 ### Change Profile Status
+<details>
+<summary><strong>💻 Show Change Profile Status Code</strong></summary>
+
 ```ts
 await sock.updateProfileStatus('Hello World!')
 ```
+</details>
 ### Change Profile Name
+<details>
+<summary><strong>💻 Show Change Profile Name Code</strong></summary>
+
 ```ts
 await sock.updateProfileName('My name')
 ```
+</details>
 ### Change Display Picture (groups too)
 - To change your display picture or a group's
 
 > [!NOTE]
 > Like media messages, you can pass `{ stream: Stream }` or `{ url: Url }` or `Buffer` directly, you can see more [here](https://baileys.whiskeysockets.io/types/WAMediaUpload.html)
 
+<details>
+<summary><strong>💻 Show Change Display Picture (groups too) Code</strong></summary>
+
 ```ts
 await sock.updateProfilePicture(jid, { url: './new-profile-picture.jpeg' })
 ```
+</details>
 ### Remove display picture (groups too)
+<details>
+<summary><strong>💻 Show Remove display picture (groups too) Code</strong></summary>
+
 ```ts
 await sock.removeProfilePicture(jid)
 ```
+</details>
 
 ## Groups
 
 - To change group properties you need to be admin
 
 ### Create a Group
+<details>
+<summary><strong>💻 Show Create a Group Code</strong></summary>
+
 ```ts
 // title & participants
 const group = await sock.groupCreate('My Fab Group', ['1234@s.whatsapp.net', '4564@s.whatsapp.net'])
 console.log('created group with id: ' + group.gid)
 await sock.sendMessage(group.id, { text: 'hello there' }) // say hello to everyone on the group
 ```
+</details>
 ### Add/Remove or Demote/Promote
+<details>
+<summary><strong>💻 Show Add/Remove or Demote/Promote Code</strong></summary>
+
 ```ts
 // id & people to add to the group (will throw error if it fails)
 await sock.groupParticipantsUpdate(
@@ -3359,15 +4198,27 @@ await sock.groupParticipantsUpdate(
     'add' // replace this parameter with 'remove' or 'demote' or 'promote'
 )
 ```
+</details>
 ### Change Subject (name)
+<details>
+<summary><strong>💻 Show Change Subject (name) Code</strong></summary>
+
 ```ts
 await sock.groupUpdateSubject(jid, 'New Subject!')
 ```
+</details>
 ### Change Description
+<details>
+<summary><strong>💻 Show Change Description Code</strong></summary>
+
 ```ts
 await sock.groupUpdateDescription(jid, 'New Description!')
 ```
+</details>
 ### Change Settings
+<details>
+<summary><strong>💻 Show Change Settings Code</strong></summary>
+
 ```ts
 // only allow admins to send messages
 await sock.groupSettingUpdate(jid, 'announcement')
@@ -3378,49 +4229,85 @@ await sock.groupSettingUpdate(jid, 'unlocked')
 // only allow admins to modify the group's settings
 await sock.groupSettingUpdate(jid, 'locked')
 ```
+</details>
 ### Leave a Group
+<details>
+<summary><strong>💻 Show Leave a Group Code</strong></summary>
+
 ```ts
 // will throw error if it fails
 await sock.groupLeave(jid)
 ```
+</details>
 ### Get Invite Code
 - To create link with code use `'https://chat.whatsapp.com/' + code`
+<details>
+<summary><strong>💻 Show Get Invite Code Code</strong></summary>
+
 ```ts
 const code = await sock.groupInviteCode(jid)
 console.log('group code: ' + code)
 ```
+</details>
 ### Revoke Invite Code
+<details>
+<summary><strong>💻 Show Revoke Invite Code Code</strong></summary>
+
 ```ts
 const code = await sock.groupRevokeInvite(jid)
 console.log('New group code: ' + code)
 ```
+</details>
 ### Join Using Invitation Code
 - Code can't have `https://chat.whatsapp.com/`, only code
+<details>
+<summary><strong>💻 Show Join Using Invitation Code Code</strong></summary>
+
 ```ts
 const response = await sock.groupAcceptInvite(code)
 console.log('joined to: ' + response)
 ```
+</details>
 ### Get Group Info by Invite Code
+<details>
+<summary><strong>💻 Show Get Group Info by Invite Code Code</strong></summary>
+
 ```ts
 const response = await sock.groupGetInviteInfo(code)
 console.log('group information: ' + response)
 ```
+</details>
 ### Query Metadata (participants, name, description...)
+<details>
+<summary><strong>💻 Show Query Metadata (participants, name, description...) Code</strong></summary>
+
 ```ts
 const metadata = await sock.groupMetadata(jid)
 console.log(metadata.id + ', title: ' + metadata.subject + ', description: ' + metadata.desc)
 ```
+</details>
 ### Join using `groupInviteMessage`
+<details>
+<summary><strong>💻 Show Join using `groupInviteMessage` Code</strong></summary>
+
 ```ts
 const response = await sock.groupAcceptInviteV4(jid, groupInviteMessage)
 console.log('joined to: ' + response)
 ```
+</details>
 ### Get Request Join List
+<details>
+<summary><strong>💻 Show Get Request Join List Code</strong></summary>
+
 ```ts
 const response = await sock.groupRequestParticipantsList(jid)
 console.log(response)
 ```
+</details>
 ### Approve/Reject Request Join
+<details>
+<summary><strong>💻 Show Approve/Reject Request Join Code</strong></summary>
+
 ```ts
 const response = await sock.groupRequestParticipantsUpdate(
     jid, // group id
@@ -3429,11 +4316,16 @@ const response = await sock.groupRequestParticipantsUpdate(
 )
 console.log(response)
 ```
+</details>
 ### Get All Participating Groups Metadata
+<details>
+<summary><strong>💻 Show Get All Participating Groups Metadata Code</strong></summary>
+
 ```ts
 const response = await sock.groupFetchAllParticipating()
 console.log(response)
 ```
+</details>
 ### Toggle Ephemeral
 
 - Ephemeral can be:
@@ -3445,65 +4337,109 @@ console.log(response)
 | 7d     | 604.800    |
 | 90d    | 7.776.000  |
 
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
+
 ```ts
 await sock.groupToggleEphemeral(jid, 86400)
 ```
+</details>
 
 ### Change Add Mode
+<details>
+<summary><strong>💻 Show Change Add Mode Code</strong></summary>
+
 ```ts
 await sock.groupMemberAddMode(
     jid,
     'all_member_add' // or 'admin_add'
 )
 ```
+</details>
 
 ## Privacy
 
 ### Block/Unblock User
+<details>
+<summary><strong>💻 Show Block/Unblock User Code</strong></summary>
+
 ```ts
 await sock.updateBlockStatus(jid, 'block') // Block user
 await sock.updateBlockStatus(jid, 'unblock') // Unblock user
 ```
+</details>
 ### Get Privacy Settings
+<details>
+<summary><strong>💻 Show Get Privacy Settings Code</strong></summary>
+
 ```ts
 const privacySettings = await sock.fetchPrivacySettings(true)
 console.log('privacy settings: ' + privacySettings)
 ```
+</details>
 ### Get BlockList
+<details>
+<summary><strong>💻 Show Get BlockList Code</strong></summary>
+
 ```ts
 const response = await sock.fetchBlocklist()
 console.log(response)
 ```
+</details>
 ### Update LastSeen Privacy
+<details>
+<summary><strong>💻 Show Update LastSeen Privacy Code</strong></summary>
+
 ```ts
 const value = 'all' // 'contacts' | 'contact_blacklist' | 'none'
 await sock.updateLastSeenPrivacy(value)
 ```
+</details>
 ### Update Online Privacy
+<details>
+<summary><strong>💻 Show Update Online Privacy Code</strong></summary>
+
 ```ts
 const value = 'all' // 'match_last_seen'
 await sock.updateOnlinePrivacy(value)
 ```
+</details>
 ### Update Profile Picture Privacy
+<details>
+<summary><strong>💻 Show Update Profile Picture Privacy Code</strong></summary>
+
 ```ts
 const value = 'all' // 'contacts' | 'contact_blacklist' | 'none'
 await sock.updateProfilePicturePrivacy(value)
 ```
+</details>
 ### Update Status Privacy
+<details>
+<summary><strong>💻 Show Update Status Privacy Code</strong></summary>
+
 ```ts
 const value = 'all' // 'contacts' | 'contact_blacklist' | 'none'
 await sock.updateStatusPrivacy(value)
 ```
+</details>
 ### Update Read Receipts Privacy
+<details>
+<summary><strong>💻 Show Update Read Receipts Privacy Code</strong></summary>
+
 ```ts
 const value = 'all' // 'none'
 await sock.updateReadReceiptsPrivacy(value)
 ```
+</details>
 ### Update Groups Add Privacy
+<details>
+<summary><strong>💻 Show Update Groups Add Privacy Code</strong></summary>
+
 ```ts
 const value = 'all' // 'contacts' | 'contact_blacklist'
 await sock.updateGroupsAddPrivacy(value)
 ```
+</details>
 ### Update Default Disappearing Mode
 
 - Like [this](#disappearing-messages), ephemeral can be:
@@ -3515,15 +4451,22 @@ await sock.updateGroupsAddPrivacy(value)
 | 7d     | 604.800    |
 | 90d    | 7.776.000  |
 
+<details>
+<summary><strong>💻 Click to Show Example Code</strong></summary>
+
 ```ts
 const ephemeral = 86400
 await sock.updateDefaultDisappearingMode(ephemeral)
 ```
+</details>
 
 ## Broadcast Lists & Stories
 
 ### Send Broadcast & Stories
 - Messages can be sent to broadcasts & stories. You need to add the following message options in sendMessage, like this:
+<details>
+<summary><strong>💻 Show Send Broadcast & Stories Code</strong></summary>
+
 ```ts
 await sock.sendMessage(
     jid,
@@ -3541,6 +4484,7 @@ await sock.sendMessage(
     }
 )
 ```
+</details>
 - Message body can be a `extendedTextMessage` or `imageMessage` or `videoMessage` or `voiceMessage`, see [here](https://baileys.whiskeysockets.io/types/AnyRegularMessageContent.html)
 - You can add `backgroundColor` and other options in the message options, see [here](https://baileys.whiskeysockets.io/types/MiscMessageGenerationOptions.html)
 - `broadcast: true` enables broadcast mode
@@ -3550,21 +4494,29 @@ await sock.sendMessage(
 - Right now, WA Web does not support creating broadcast lists, but you can still delete them.
 - Broadcast IDs are in the format `12345678@broadcast`
 ### Query a Broadcast List's Recipients & Name
+<details>
+<summary><strong>💻 Show Query a Broadcast List's Recipients & Name Code</strong></summary>
+
 ```ts
 const bList = await sock.getBroadcastListInfo('1234@broadcast')
 console.log (`list name: ${bList.name}, recps: ${bList.recipients}`)
 ```
+</details>
 
 ## Writing Custom Functionality
 Baileys is written with custom functionality in mind. Instead of forking the project & re-writing the internals, you can simply write your own extensions.
 
 ### Enabling Debug Level in Baileys Logs
 First, enable the logging of unhandled messages from WhatsApp by setting:
+<details>
+<summary><strong>💻 Show Enabling Debug Level in Baileys Logs Code</strong></summary>
+
 ```ts
 const sock = makeFreeZeeSocket({
     logger: P({ level: 'debug' }),
 })
 ```
+</details>
 This will enable you to see all sorts of messages WhatsApp sends in the console.
 
 ### How Whatsapp Communicate With Us
@@ -3573,6 +4525,9 @@ This will enable you to see all sorts of messages WhatsApp sends in the console.
 > If you want to learn whatsapp protocol, we recommend to study about Libsignal Protocol and Noise Protocol
 
 - **Example:** Functionality to track the battery percentage of your phone. You enable logging and you'll see a message about your battery pop up in the console:
+<details>
+<summary><strong>💻 Show How Whatsapp Communicate With Us Code</strong></summary>
+
     ```
     {
         "level": 10,
@@ -3602,6 +4557,7 @@ This will enable you to see all sorts of messages WhatsApp sends in the console.
         "msg":"communication"
     }
     ```
+</details>
 
 The `'frame'` is what the message received is, it has three components:
 - `tag` -- what this frame is about (eg. message will have 'message')
@@ -3614,6 +4570,9 @@ The `'frame'` is what the message received is, it has three components:
 > [!TIP]
 > Recommended to see `onMessageReceived` function in `socket.ts` file to understand how websockets events are fired
 
+<details>
+<summary><strong>💻 Show Register a Callback for Websocket Events Code</strong></summary>
+
 ```ts
 // for any message with tag 'edge_routing'
 sock.ws.on('CB:edge_routing', (node: BinaryNode) => { })
@@ -3624,6 +4583,7 @@ sock.ws.on('CB:edge_routing,id:abcd', (node: BinaryNode) => { })
 // for any message with tag 'edge_routing', id attribute = abcd & first content node routing_info
 sock.ws.on('CB:edge_routing,id:abcd,routing_info', (node: BinaryNode) => { })
 ```
+</details>
 
 # License
 Copyright (c) 2025 Rajeh Taher/WhiskeySockets
