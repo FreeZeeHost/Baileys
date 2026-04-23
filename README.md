@@ -107,7 +107,7 @@ yarn add @freezeehost/baileys
 
 ## 🚀 Quick Start
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -139,7 +139,7 @@ FreeZeeHost.ev.on('messages.upsert', ({ messages }) => {
 The easiest way to supercharge your socket with all the new features.
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -173,7 +173,7 @@ sock.autoRead(); // Automatically mark all incoming messages as read
 <summary><strong>📡 Real-time Status Detector (New!)</strong></summary>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -262,7 +262,7 @@ await sock.sendStickerPack(jid, [
 <summary><strong>🔗 Connect with QR Code</strong></summary>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -278,7 +278,7 @@ const FreeZeeHost = makeWASocket({
 <summary><strong>🔢 Connect with Pairing Code</strong></summary>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -309,7 +309,7 @@ if (!FreeZeeHost.authState.creds.registered) {
 <summary><strong>📌 Example to Start</strong></summary>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -324,7 +324,7 @@ FreeZeeHost.ev.on('messages.upsert', ({ messages }) => {
 <summary><strong>🗳️ Decrypt Poll Votes</strong></summary>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -340,7 +340,7 @@ FreeZeeHost.ev.on('messages.update', (m) => {
 ### 📨 Sending Messages
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -370,10 +370,10 @@ FreeZeeHost.sendMessage(jid, content, options)
 </details>
 
 <details>
-<summary><strong>📝 Text Message</strong></summary>
+<summary><strong>📝 Show Text Message Examples</strong></summary>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -383,7 +383,7 @@ await FreeZeeHost.sendMessage(jid, { text: 'Hello!' });
 </details>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -401,7 +401,7 @@ await FreeZeeHost.sendMessage(jid, {
 </details>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -413,10 +413,10 @@ await FreeZeeHost.sendMessage(jid, { text: 'Hello Shiroko!' }, { quoted: message
 
 
 <details>
-<summary><strong>🖼️ Image Message</strong></summary>
+<summary><strong>🖼️ Show Image Message Examples</strong></summary>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -430,7 +430,7 @@ await FreeZeeHost.sendMessage(jid, {
 </details>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -444,10 +444,10 @@ await FreeZeeHost.sendMessage(jid, {
 </details>
 
 <details>
-<summary><strong>🎥 Video Message</strong></summary>
+<summary><strong>🎥 Show Video Message Examples</strong></summary>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -460,7 +460,7 @@ await FreeZeeHost.sendMessage(jid, {
 </details>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -473,7 +473,7 @@ await FreeZeeHost.sendMessage(jid, {
 </details>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -487,10 +487,10 @@ await FreeZeeHost.sendMessage(jid, {
 </details>
 
 <details>
-<summary><strong>🎵 Audio/PTT Message</strong></summary>
+<summary><strong>🎵 Show Audio/PTT Message Examples</strong></summary>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -503,7 +503,7 @@ await FreeZeeHost.sendMessage(jid, {
 </details>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -521,7 +521,7 @@ await FreeZeeHost.sendMessage(jid, {
 <summary><strong>👤 Contact Message</strong></summary>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -543,10 +543,10 @@ await FreeZeeHost.sendMessage(jid, {
 </details>
 
 <details>
-<summary><strong>🔥 Sticker Message</strong></summary>
+<summary><strong>🔥 Show Sticker Message Examples</strong></summary>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -561,7 +561,7 @@ await FreeZeeHost.sendSticker(jid, {
 </details>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -576,7 +576,7 @@ await FreeZeeHost.sendSticker(jid, {
 </details>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -592,10 +592,10 @@ await FreeZeeHost.sendSticker(jid, {
 </details>
 
 <details>
-<summary><strong>💥 React Message</strong></summary>
+<summary><strong>💥 Show React Message Examples</strong></summary>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -619,7 +619,7 @@ await FreeZeeHost.sendMessage(jid, {
 | 30d    | 2.592.000     |
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -635,7 +635,7 @@ await FreeZeeHost.sendMessage(jid, {
 </details>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -651,10 +651,10 @@ await FreeZeeHost.sendMessage(jid, {
 </details>
 
 <details>
-<summary><strong>📍 Location Message</strong></summary>
+<summary><strong>📍 Show Location Message Examples</strong></summary>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -670,7 +670,7 @@ await FreeZeeHost.sendMessage(jid, {
 </details>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -687,7 +687,7 @@ await FreeZeeHost.sendMessage(jid, {
 </details>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -709,7 +709,7 @@ await FreeZeeHost.sendMessage(jid, {
 <summary><strong>📞 Call Message</strong></summary>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -727,7 +727,7 @@ await FreeZeeHost.sendMessage(jid, {
 <summary><strong>🗓️ Event Message</strong></summary>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -754,7 +754,7 @@ await FreeZeeHost.sendMessage(jid, {
 <summary><strong>🛒 Order Message</strong></summary>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -778,10 +778,10 @@ await FreeZeeHost.sendMessage(jid, {
 </details>
 
 <details>
-<summary><strong>📊 Poll Message</strong></summary>
+<summary><strong>📊 Show Poll Message Examples</strong></summary>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -797,7 +797,7 @@ await FreeZeeHost.sendMessage(jid, {
 </details>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -816,7 +816,7 @@ await FreeZeeHost.sendMessage(jid, {
 <summary><strong>🛍️ Product Message</strong></summary>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -839,7 +839,7 @@ await FreeZeeHost.sendMessage(jid, {
 <summary><strong>💳 Payment Message</strong></summary>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -867,7 +867,7 @@ await FreeZeeHost.sendMessage(jid, {
 <summary><strong>📜 Payment Invite Message</strong></summary>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -886,7 +886,7 @@ await FreeZeeHost.sendMessage(jid, {
 <summary><strong>👤 Channel Admin Invite</strong></summary>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -908,7 +908,7 @@ await FreeZeeHost.sendMessage(jid, {
 <summary><strong>👥 Group Invite Message</strong></summary>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -930,7 +930,7 @@ await FreeZeeHost.sendMessage(jid, {
 <summary><strong>🔢 Phone Number Message</strong></summary>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -941,7 +941,7 @@ await FreeZeeHost.sendMessage(jid, {
 ```
 </details>
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -957,7 +957,7 @@ await FreeZeeHost.sendMessage(jid, {
 <summary><strong>↪️  Reply Button Message</strong></summary>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -974,7 +974,7 @@ await FreeZeeHost.sendMessage(jid, {
 </details>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -990,7 +990,7 @@ await FreeZeeHost.sendMessage(jid, {
 </details>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -1007,7 +1007,7 @@ await FreeZeeHost.sendMessage(jid, {
 </details>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -1031,7 +1031,7 @@ await FreeZeeHost.sendMessage(jid, {
 <summary><strong>#️⃣ Status Mentions Message</strong></summary>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -1049,7 +1049,7 @@ await FreeZeeHost.sendStatusMentions({
 <summary><strong>📸 Album Message</strong></summary>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -1089,7 +1089,7 @@ await FreeZeeHost.sendAlbumMessage(jid,
 </div>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -1109,7 +1109,7 @@ await FreeZeeHost.sendMessage(jid, {
 </details>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -1133,7 +1133,7 @@ await FreeZeeHost.sendMessage(jid, {
 </details>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -1157,7 +1157,7 @@ await FreeZeeHost.sendMessage(jid, {
 </details>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -1183,7 +1183,7 @@ await FreeZeeHost.sendMessage(jid, {
 </details>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -1209,7 +1209,7 @@ await FreeZeeHost.sendMessage(jid, {
 </details>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -1253,7 +1253,7 @@ await FreeZeeHost.sendMessage(jid, {
 </div>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -1316,7 +1316,7 @@ await FreeZeeHost.sendMessage(jid, {
 <summary><strong>header_type</strong></summary>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -1332,7 +1332,7 @@ await FreeZeeHost.sendMessage(jid, {
 </details>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -1350,7 +1350,7 @@ await FreeZeeHost.sendMessage(jid, {
 </details>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -1368,7 +1368,7 @@ await FreeZeeHost.sendMessage(jid, {
 </details>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -1388,7 +1388,7 @@ await FreeZeeHost.sendMessage(jid, {
 </details>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -1410,7 +1410,7 @@ await FreeZeeHost.sendMessage(jid, {
 </details>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -1464,7 +1464,7 @@ await FreeZeeHost.sendMessage(jid, {
 </table>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -1499,7 +1499,7 @@ const native_flow_button = [{
 </table>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -1535,7 +1535,7 @@ const native_flow_button = [{
 </table>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -1570,7 +1570,7 @@ const native_flow_button = [{
 </table>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -1605,7 +1605,7 @@ const native_flow_button = [{
 </table>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -1639,7 +1639,7 @@ const native_flow_button = [{
 </table>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -1673,7 +1673,7 @@ const native_flow_button = [{
 </table>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -1707,7 +1707,7 @@ const native_flow_button = [{
 </table>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -1741,7 +1741,7 @@ const native_flow_button = [{
 </table>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -1775,7 +1775,7 @@ const native_flow_button = [{
 </table>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -1813,7 +1813,7 @@ const native_flow_button = [{
 </table>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -1847,7 +1847,7 @@ const native_flow_button = [{
 </table>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -1881,7 +1881,7 @@ const native_flow_button = [{
 </table>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -1916,7 +1916,7 @@ const native_flow_button = [{
 </table>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -1969,7 +1969,7 @@ const native_flow_button = [{
 </table>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -2006,7 +2006,7 @@ const native_flow_button = [{
 <summary><strong>🛍️ Product Message</strong></summary>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -2035,7 +2035,7 @@ await FreeZeeHost.sendMessage(jid, {
 <summary><strong>header_type</strong></summary>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -2049,7 +2049,7 @@ await FreeZeeHost.sendMessage(jid, {
 </details>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -2064,7 +2064,7 @@ await FreeZeeHost.sendMessage(jid, {
 </details>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -2079,7 +2079,7 @@ await FreeZeeHost.sendMessage(jid, {
 </details>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -2101,7 +2101,7 @@ await FreeZeeHost.sendMessage(jid, {
 <summary><strong>button_params</strong></summary>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -2123,7 +2123,7 @@ const button_params = [{
 </details>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -2158,7 +2158,7 @@ const button_params = [{
 <summary><strong>🎭 List Messages </strong></summary>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -2177,7 +2177,7 @@ await FreeZeeHost.sendMessage(jid, {
 </details>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -2207,7 +2207,7 @@ await FreeZeeHost.sendMessage(jid, {
 <summary><strong>📋 Newsletter Metadata</strong></summary>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -2218,7 +2218,7 @@ console.log("Newsletter metadata:", newsletter)
 </details>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -2233,7 +2233,7 @@ console.log("Newsletter metadata:", newsletter)
 <summary><strong>👥 Newsletter Follow</strong></summary>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -2246,7 +2246,7 @@ await FreeZeeHost.newsletterFollow("120363421570647022@newsletter")
 <summary><strong>👥 Newsletter Unfollow</strong></summary>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -2259,7 +2259,7 @@ await FreeZeeHost.newsletterUnfollow("120363421570647022@newsletter")
 <summary><strong>🔈 Newsletter Mute</strong></summary>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -2272,7 +2272,7 @@ await FreeZeeHost.newsletterMute("120363421570647022@newsletter")
 <summary><strong>🔊 Newsletter Unmute</strong></summary>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -2285,7 +2285,7 @@ await FreeZeeHost.newsletterUnmute("120363421570647022@newsletter")
 <summary><strong>❤️ Newsletter Reaction Mode</strong></summary>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -2295,7 +2295,7 @@ await FreeZeeHost.newsletterReactionMode("120363421570647022@newsletter", "ALL")
 </details>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -2305,7 +2305,7 @@ await FreeZeeHost.newsletterReactionMode("120363421570647022@newsletter", "BASIC
 </details>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -2319,7 +2319,7 @@ await FreeZeeHost.newsletterReactionMode("120363421570647022@newsletter", "NONE"
 <summary><strong>📋 Update Description</strong></summary>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -2332,7 +2332,7 @@ await FreeZeeHost.newsletterUpdateDescription("120363421570647022@newsletter", "
 <summary><strong>👤 Update Name Newsletter</strong></summary>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -2345,7 +2345,7 @@ await FreeZeeHost.newsletterUpdateName("120363421570647022@newsletter", "New new
 <summary><strong>🖼️ Change Profile Newsletter</strong></summary>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -2355,7 +2355,7 @@ await FreeZeeHost.newsletterUpdatePicture("120363421570647022@newsletter", { url
 </details>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -2369,7 +2369,7 @@ await FreeZeeHost.newsletterRemovePicture("120363421570647022@newsletter")
 <summary><strong>📣 Newsletter Create</strong></summary>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -2383,7 +2383,7 @@ console.log("Here is data new created newsletter:", newsletter)
 <summary><strong>🔥 List Newsletter Join</strong></summary>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -2397,7 +2397,7 @@ console.log("Your list newsletter join:", list_newsletter)
 <summary><strong>😎 Newsletter Change Owner</strong></summary>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -2410,7 +2410,7 @@ await FreeZeeHost.newsletterChangeOwner("120363421570647022@newsletter", "123@li
 <summary><strong>😂 Newsletter Demote</strong></summary>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -2423,7 +2423,7 @@ await FreeZeeHost.newsletterDemote("120363421570647022@newsletter", "123@lid")
 <summary><strong>🌟 Newsletter Reaction Message</strong></summary>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -2439,7 +2439,7 @@ await FreeZeeHost.newsletterReactMessage("120363421570647022@newsletter", "12", 
 <summary><strong>🔄 Create Group</strong></summary>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -2453,7 +2453,7 @@ console.log("New group create data:", group)
 <summary><strong>⚙️ Change Group Settings</strong></summary>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -2463,7 +2463,7 @@ await FreeZeeHost.groupSettingUpdate(jid, 'announcement')
 </details>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -2473,7 +2473,7 @@ await FreeZeeHost.groupSettingUpdate(jid, 'not_announcement')
 </details>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -2483,7 +2483,7 @@ await FreeZeeHost.groupSettingUpdate(jid, 'unlocked')
 </details>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -2497,7 +2497,7 @@ await FreeZeeHost.groupSettingUpdate(jid, 'locked')
 <summary><strong>💯 Add, Remove, Promote, Demote</strong></summary>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -2520,7 +2520,7 @@ await FreeZeeHost.groupParticipantsUpdate(jid, ['123@s.whatsapp.net', '456@s.wha
 <summary><strong>👥 Change Subject Title</strong></summary>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -2533,7 +2533,7 @@ await FreeZeeHost.groupUpdateSubject(jid, 'New Subject Title!')
 <summary><strong>📋 Change Description</strong></summary>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -2546,7 +2546,7 @@ await FreeZeeHost.groupUpdateDescription(jid, 'New Description!')
 <summary><strong>⛔ Leave Group</strong></summary>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -2559,7 +2559,7 @@ await FreeZeeHost.groupLeave(jid)
 <summary><strong>🔗 Invite Code</strong></summary>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -2574,7 +2574,7 @@ console.log('group code: ' + code)
 <summary><strong>🔁 Revoke/Reset Invite Code</strong></summary>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -2588,7 +2588,7 @@ console.log('New group code: ' + code)
 <summary><strong>🟢 Join By Invite Code</strong></summary>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -2603,7 +2603,7 @@ console.log('joined to: ' + response)
 <summary><strong>📋 Group Metadata By Code</strong></summary>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -2617,7 +2617,7 @@ console.log('group information: ' + response)
 <summary><strong>📋 Group Metadata</strong></summary>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -2631,7 +2631,7 @@ console.log(metadata.id + ', title: ' + metadata.subject + ', description: ' + m
 <summary><strong>🟢 Join using `groupInviteMessage`</strong></summary>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -2645,7 +2645,7 @@ console.log('joined to: ' + response)
 <summary><strong>👥 Join Request List</strong></summary>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -2659,7 +2659,7 @@ console.log(response)
 <summary><strong>👥 Join Approve/Reject</strong></summary>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -2669,7 +2669,7 @@ const response = await FreeZeeHost.groupRequestParticipantsUpdate(jid, ['123@s.w
 </details>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -2683,7 +2683,7 @@ const response = await FreeZeeHost.groupRequestParticipantsUpdate(jid, ['123@s.w
 <summary><strong>👥 Group Member List</strong></summary>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -2706,7 +2706,7 @@ console.log(response)
 | 90d    | 7.776.000  |
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -2719,7 +2719,7 @@ await FreeZeeHost.groupToggleEphemeral(jid, 86400)
 <summary><strong>👥 Member Add Mode</strong></summary>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -2729,7 +2729,7 @@ await FreeZeeHost.groupMemberAddMode(jid, 'all_member_add')
 </details>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -2746,7 +2746,7 @@ await FreeZeeHost.groupMemberAddMode(jid, 'admin_add')
 <summary><strong>🖼️ Change Profile User or Group</strong></summary>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -2756,7 +2756,7 @@ await FreeZeeHost.updateProfilePicture(jid, { url: 'https://example.com/image.jp
 </details>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -2770,7 +2770,7 @@ await FreeZeeHost.removeProfilePicture(jid)
 <summary><strong>🚫 Block/Unblock User</strong></summary>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -2780,7 +2780,7 @@ await FreeZeeHost.updateBlockStatus(jid, 'block');
 </details>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -2794,7 +2794,7 @@ await FreeZeeHost.updateBlockStatus(jid, 'unblock');
 <summary><strong>👤 Metadata Privacy</strong></summary>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -2808,7 +2808,7 @@ console.log('privacy settings: ' + privacySettings)
 <summary><strong>⛔ Metadata Blocklist</strong></summary>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -2822,7 +2822,7 @@ console.log(response)
 <summary><strong>👀 Last Seen</strong></summary>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -2832,7 +2832,7 @@ await FreeZeeHost.updateLastSeenPrivacy("all")
 </details>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -2842,7 +2842,7 @@ await FreeZeeHost.updateLastSeenPrivacy("contacts")
 </details>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -2852,7 +2852,7 @@ await FreeZeeHost.updateLastSeenPrivacy("contact_blacklist")
 </details>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -2866,7 +2866,7 @@ await FreeZeeHost.updateLastSeenPrivacy("none")
 <summary><strong>👀 Online Status</strong></summary>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -2876,7 +2876,7 @@ await FreeZeeHost.updateOnlinePrivacy("all")
 </details>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -2890,7 +2890,7 @@ await FreeZeeHost.updateOnlinePrivacy("match_last_seen")
 <summary><strong>🖼️ Profile Picture</strong></summary>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -2900,7 +2900,7 @@ await FreeZeeHost.updateProfilePicturePrivacy("all")
 </details>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -2910,7 +2910,7 @@ await FreeZeeHost.updateProfilePicturePrivacy("contacts")
 </details>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -2920,7 +2920,7 @@ await FreeZeeHost.updateProfilePicturePrivacy("contact_blacklist")
 </details>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -2934,7 +2934,7 @@ await FreeZeeHost.updateProfilePicturePrivacy("none")
 <summary><strong>✨ Status WhatsApp</strong></summary>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -2944,7 +2944,7 @@ await FreeZeeHost.updateStatusPrivacy("all")
 </details>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -2954,7 +2954,7 @@ await FreeZeeHost.updateStatusPrivacy("contacts")
 </details>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -2964,7 +2964,7 @@ await FreeZeeHost.updateStatusPrivacy("contact_blacklist")
 </details>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -2978,7 +2978,7 @@ await FreeZeeHost.updateStatusPrivacy("none")
 <summary><strong>👁️ Blue Tiks Read</strong></summary>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -2988,7 +2988,7 @@ await FreeZeeHost.updateReadReceiptsPrivacy("all")
 </details>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -3002,7 +3002,7 @@ await FreeZeeHost.updateReadReceiptsPrivacy("none")
 <summary><strong>👥 Group Add</strong></summary>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -3012,7 +3012,7 @@ await FreeZeeHost.updateGroupsAddPrivacy("all")
 </details>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -3022,7 +3022,7 @@ await FreeZeeHost.updateGroupsAddPrivacy("contacts")
 </details>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -3043,7 +3043,7 @@ await FreeZeeHost.updateGroupsAddPrivacy("contact_blacklist")
 | 90d    | 7.776.000  |
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -3059,7 +3059,7 @@ await FreeZeeHost.updateDefaultDisappearingMode(86400)
 <summary><strong>🔧 Debug Logs</strong></summary>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
@@ -3072,7 +3072,7 @@ const FreeZeeHost = makeWASocket({ logger: { level: 'debug' } });
 <summary><strong>📡 Raw WebSocket Events</strong></summary>
 
  <details>
-<summary><strong>💻 Show Code</strong></summary>
+<summary><strong>💻 Show Example Code</strong></summary>
 
 ```
 </details>javascript
