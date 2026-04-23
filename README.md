@@ -1,110 +1,200 @@
-# @freezeehost/baileys 🚀🔥
-The most stable and feature-rich WhatsApp Baileys framework in 2026.
+<div align="center">
+  <img src="https://files.catbox.moe/gw41eq.png" alt="WhatsApp Baileys" width="450"/>  
 
-## 🌟 Key Features
-- **Plug-and-Play MongoDB**: Internal database embedded (Zero config).
-- **Gold Master Stability**: Fully synced with latest official NPM Baileys (2.3100.2).
-- **Smart Anti-Spam Queue**: Automated human-like delays for sending messages.
-- **Pre-Boot Loading UI**: Elegant visual progress (0-100%).
-- **Dual-Format Support**: Native support for both ESM (`import`) and CJS (`require`).
-- **Real-time Status Detector**: Catch every WhatsApp Story instantly.
-- **High-Trust Identity**: Pre-configured with Ubuntu Chrome for anti-ban safety.
+  <h1>WhatsApp Baileys</h1>
+  <p><strong>Lightweight, Full-Featured WhatsApp Web for Node.js</strong></p>
+  
+  <p>
+    <a href="https://npmjs.com/package/@freezeehost/baileys">
+      <img src="https://img.shields.io/npm/v/@freezeehost/baileys?color=blue&logo=npm" alt="npm version">
+    </a>
+    <a href="https://github.com/freezeehost/Baileys/blob/main/LICENSE">
+      <img src="https://img.shields.io/github/license/freezeehost/Baileys?color=green" alt="License">
+    </a>
+    <a href="https://github.com/freezeehost/Baileys/stargazers">
+      <img src="https://img.shields.io/github/stars/freezeehost/Baileys?color=yellow&logo=github" alt="GitHub stars">
+    </a>
+  </p>
+</div>
 
----
+<br>
 
-## 🛠️ Developer Guide (API Documentation)
+## 📚 Table of Contents  
+- [Features](#-features)  
+- [Installation](#-installation)  
+- [Quick Start](#-quick-start)  
+- [Premium Features](#-premium-features-exclusive)
+- [Documentation](#-documentation)  
+  - [Interactive Messages (Buttons, Carousel, Shop)](#-interactive-messages)
+  - [Sending Messages](#-sending-messages)  
+  - [Event Handling](#-handling-events)  
+- [Disclaimer](#-disclaimer)  
 
-### 1. Socket Initialization
+<br>
+
+## 🌟 Features
+- ✅ **Multi-Device Support** (Pairing Code & QR)
+- 🔄 **Real-Time Messaging** (text, media, polls, buttons)  
+- 🛠️ **Group & Channel Management** (create, modify, invite)  
+- 🔒 **End-to-End Encryption**  
+- 📦 **Session Persistence** (File & MongoDB)  
+
+<br>
+
+## 🔥 Updated New (22 April 2026)
+- 🛡️ **Anti Bad Session**: Atomic writes & auto-repair for session data.
+- 🔁 **Smart Session Manager**: Embedded MongoDB (Zero-Config Plug & Play).
+- 🥷 **Stealth Mode**: Automated humanized typing/recording delays.
+- ⏳ **Smart Anti-Spam Queue**: Adaptive message delivery with random delays.
+- 🚀 **Pre-Boot Loading UI**: Elegant visual initialization progress (0-100%).
+- 📡 **Real-time Status Detector**: Instant WhatsApp Story/Status capture.
+- ✨ **Full Dual-Format**: Native support for ESM (`import`) and CJS (`require`).
+
+<br>
+
+## 🌱 Owner’s Notice  
+Proyek ini bersifat **publik**, dikembangkan berdasarkan library **Whiskeysocket** dengan peningkatan signifikan oleh administrator FreeZeeHost. Tujuan utama adalah **memudahkan pengguna serta memperbaiki kesalahan bot yang sebelumnya sering dialami**.  
+
+Terimakasih, salam hangat, **FreeZeeHost**!
+
+<br>
+
+## 📥 Installation
+```bash
+npm install @freezeehost/baileys
+```
+
+<br>
+
+## 🚀 Quick Start (Premium Experience)
+The easiest way to start using the framework with all premium features active.
+
 ```javascript
 import { makeFreeZeeSocket } from '@freezeehost/baileys'
 
-const sock = await makeFreeZeeSocket({
-    printQRInTerminal: true,
-    // Optional: add your custom pino logger
-})
+async function startBot() {
+  const sock = await makeFreeZeeSocket({
+      printQRInTerminal: true
+  })
+
+  // Bot will show loading bar [████░░░░] 0-100%
+  // Automatically connects to FreeZeeHost Cloud MongoDB
+
+  sock.ev.on('connection.update', (m) => {
+      if(m.connection === 'open') console.log("Bot Connected!")
+  })
+}
+
+startBot()
 ```
 
-### 2. Interactive Message Helpers (`sock.msg`)
-All these helpers are optimized for WhatsApp MD (Multi-Device).
+<br>
 
-| Helper | Syntax |
-| :--- | :--- |
-| **Buttons** | `sock.msg.buttons(jid, text, footer, buttons)` |
-| **List** | `sock.msg.list(jid, title, text, footer, buttonText, sections)` |
-| **Poll** | `sock.msg.poll(jid, name, values, selectableCount)` |
-| **Carousel** | `sock.msg.carousel(jid, cards)` |
-| **Native Table** | `sock.msg.nativeTable(jid, title, rows)` |
+## 💎 Premium Features (Exclusive)
 
-### 3. Advanced Senders
+### 1. Smart Anti-Spam & Stealth
+Every message sent will have a 1.5s - 3.5s random delay and auto-typing presence to mimic human behavior.
 ```javascript
-// Send Multiple Images/Videos as an Album
+// Urgent message (Bypass Queue)
+await sock.sendMessage(jid, { text: "Urgently needed!" }, { urgent: true })
+
+// Send Album
 await sock.sendAlbumMessage(jid, [
-    { type: 'image', data: { url: 'image1.jpg' }, caption: 'First' },
-    { type: 'video', data: { url: 'video.mp4' }, caption: 'Second' }
-])
-
-// Send Message with Auto-Stealth (Typing/Recording)
-// This is automatic, but you can bypass it with:
-await sock.sendMessage(jid, { text: "Fast message" }, { noStealth: true })
-
-// Send Urgent Message (Bypass Queue)
-await sock.sendMessage(jid, { text: "URGENT!" }, { urgent: true })
+  { type: 'image', data: { url: '...' }, caption: 'First' },
+  { type: 'video', data: { url: '...' } }
+], "Album Caption")
 ```
 
-### 4. Utilities & Helpers
-Exposed named exports for high-level bot development.
-
+### 2. Real-time Status/Story Detector
 ```javascript
-import { 
-  jidNormalizedUser, 
-  getContentType, 
-  downloadMediaMessage, 
-  generateMessageID,
-  Browsers
-} from '@freezeehost/baileys'
-
-// Normalize any JID (Support LID)
-const cleanJid = jidNormalizedUser(m.key.remoteJid)
-
-// Get Message Type safely
-const type = getContentType(m.message)
-
-// Generate Unique ID
-const msgId = generateMessageID()
-```
-
-### 5. Event Handling
-```javascript
-// Detect New Status/Story in Real-time
 sock.onStatusUpdate(async (m) => {
-    console.log(`New story from ${m.statusData.sender}`)
-    // Auto-save status
+    console.log("New Status from:", m.statusData.sender)
+    // Auto-save status to yourself (getsw)
     await sock.sendMessage(sock.user.id, { forward: m })
 })
-
-// Listen to all connection updates
-sock.ev.on('connection.update', (update) => {
-    const { connection, lastDisconnect } = update
-    if(connection === 'open') console.log("Bot is Online!")
-})
-```
-
-### 6. Database & Optimization
-```javascript
-// Automatically connected to FreeZeeHost MongoDB Cluster
-// Use this to keep your server memory clean
-sock.autoOptimize()
 ```
 
 ---
 
-## 📦 Requirements
-- Node.js v20 or higher
-- MongoDB (Already embedded, but internet required)
+<br>
 
-## 📜 Credits
-Developed and maintained by **FreeZeeHost Project**.
-Baileys core engine by **WhiskeySockets**.
+## 👨‍💻 Documentation & Usage
 
-## ⚖️ License
-MIT License
+### 📩 Sending Messages
+<details>
+<summary><strong>📝 Text & Media</strong></summary>
+
+```javascript
+// Simple Text
+await sock.sendMessage(jid, { text: 'Hello!' })
+
+// Image with Caption
+await sock.sendMessage(jid, { image: { url: '...' }, caption: 'Cool!' })
+
+// View Once (Ephemeral)
+await sock.sendMessage(jid, { video: { url: '...' }, viewOnce: true })
+```
+</details>
+
+<details>
+<summary><strong>📊 Polls & Buttons</strong></summary>
+
+```javascript
+// Create Poll
+await sock.msg.poll(jid, "Your favorite fruit?", ["Apple", "Mango", "Durian"], 1)
+
+// Buttons (Native Flow)
+await sock.msg.buttons(jid, "Select Option", "Footer text", [
+    { buttonId: 'id1', buttonText: { displayText: 'Option 1' }, type: 1 }
+])
+```
+</details>
+
+<details>
+<summary><strong>📱 Interactive Messages (Carousel & Shop)</strong></summary>
+
+```javascript
+// Carousel (Multiple Cards)
+await sock.msg.carousel(jid, [
+  {
+    image: { url: 'https://...' },
+    title: 'Product 1',
+    body: 'Details here',
+    buttons: [{ name: 'quick_reply', buttonParamsJson: '...' }]
+  }
+])
+
+// Native Table (Exclusive)
+await sock.msg.nativeTable(jid, "Price List", [
+  { title: "Item 1", description: "Rp 1.000" },
+  { title: "Item 2", description: "Rp 2.000" }
+])
+```
+</details>
+
+<br>
+
+## 📡 Handling Events
+```javascript
+sock.ev.on('messages.upsert', ({ messages }) => {
+  console.log('Received:', messages[0].message)
+})
+
+sock.ev.on('messages.update', (m) => {
+  if (m.pollUpdates) console.log('Poll update:', m.pollUpdates)
+})
+```
+
+<br>
+
+## ⚡ Contact Admin
+- [Site](https://zass.cloud)
+- [Channel](https://zass.cloud/wa/channel/info)
+
+<br>
+
+## ⚖️ Disclaimer
+This project is for educational and personal use only. Use it responsibly. We are not responsible for any banned accounts.
+
+## 📜 License
+MIT © **FreeZeeHost Project**
