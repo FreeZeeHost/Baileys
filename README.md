@@ -69,6 +69,326 @@ Jika Anda mengalami masalah yang berlanjut, silakan hubungi kami melalui kontak 
 Terimakasih, salam hangat, FreeZeeHost!
 <br>
 
+
+---
+
+## 🛠️ Complete API Reference (Standard Baileys)
+
+### Chat Management
+<details>
+<summary><strong>📂 Click to Show Chat Management Docs</strong></summary>
+
+WA uses an encrypted form of communication to send chat/app updates. This has been implemented mostly and you can send the following updates:
+
+> [!IMPORTANT]
+> If you mess up one of your updates, WA can log you out of all your devices and you'll have to log in again.
+
+### Archive a Chat
+```ts
+const lastMsgInChat = await getLastMessageInChat(jid) // implement this on your end
+await sock.chatModify({ archive: true, lastMessages: [lastMsgInChat] }, jid)
+```
+### Mute/Unmute a Chat
+
+- Supported times:
+
+| Time  | Miliseconds     |
+|-------|-----------------|
+| Remove | null           |
+| 8h     | 86.400.000     |
+| 7d     | 604.800.000    |
+
+```ts
+// mute for 8 hours
+await sock.chatModify({ mute: 8 * 60 * 60 * 1000 }, jid)
+// unmute
+await sock.chatModify({ mute: null }, jid)
+```
+### Mark a Chat Read/Unread
+```ts
+const lastMsgInChat = await getLastMessageInChat(jid) // implement this on your end
+// mark it unread
+await sock.chatModify({ markRead: false, lastMessages: [lastMsgInChat] }, jid)
+```
+
+### Delete a Message for Me
+```ts
+await sock.chatModify(
+    {
+        clear: {
+            messages: [
+                {
+                    id: 'ATWYHDNNWU81732J',
+                    fromMe: true,
+                    timestamp: '1654823909'
+                }
+            ]
+        }
+    },
+    jid
+)
+
+```
+### Delete a Chat
+```ts
+const lastMsgInChat = await getLastMessageInChat(jid) // implement this on your end
+await sock.chatModify({
+        delete: true,
+        lastMessages: [
+            {
+                key: lastMsgInChat.key,
+                messageTimestamp: lastMsgInChat.messageTimestamp
+            }
+        ]
+    },
+    jid
+)
+```
+### Pin/Unpin a Chat
+```ts
+await sock.chatModify({
+        pin: true // or `false` to unpin
+    },
+    jid
+)
+```
+### Star/Unstar a Message
+```ts
+await sock.chatModify({
+        star: {
+            messages: [
+                {
+                    id: 'messageID',
+                    fromMe: true // or `false`
+                }
+            ],
+            star: true // - true: Star Message; false: Unstar Message
+        }
+    },
+    jid
+)
+```
+
+### Disappearing Messages
+
+- Ephemeral can be:
+
+| Time  | Seconds        |
+|-------|----------------|
+| Remove | 0          |
+| 24h    | 86.400     |
+| 7d     | 604.800    |
+| 90d    | 7.776.000  |
+
+- You need to pass in **Seconds**, default is 7 days
+
+```ts
+// turn on disappearing messages
+await sock.sendMessage(
+    jid,
+    // this is 1 week in seconds -- how long you want messages to appear for
+    { disappearingMessagesInChat: WA_DEFAULT_EPHEMERAL }
+)
+
+// will send as a disappearing message
+await sock.sendMessage(jid, { text: 'hello' }, { ephemeralExpiration: WA_DEFAULT_EPHEMERAL })
+
+// turn off disappearing messages
+await sock.sendMessage(
+    jid,
+    { disappearingMessagesInChat: false }
+)
+```
+</details>
+
+### User Queries
+<details>
+<summary><strong>📂 Click to Show User Queries Docs</strong></summary>
+
+### Check If ID Exists in Whatsapp
+```ts
+const [result] = await sock.onWhatsApp(jid)
+if (result.exists) console.log (`${jid} exists on WhatsApp, as jid: ${result.jid}`)
+```
+
+### Query Chat History (groups too)
+
+- You need to have oldest message in chat
+```ts
+const msg = await getOldestMessageInChat(jid) // implement this on your end
+await sock.fetchMessageHistory(
+    50, //quantity (max: 50 per query)
+    msg.key,
+    msg.messageTimestamp
+)
+```
+- Messages will be received in `messaging.history-set` event
+
+### Fetch Status
+```ts
+const status = await sock.fetchStatus(jid)
+console.log('status: ' + status)
+```
+
+### Fetch Profile Picture (groups too)
+- To get the display picture of some person/group
+```ts
+// for low res picture
+const ppUrl = await sock.profilePictureUrl(jid)
+console.log(ppUrl)
+
+// for high res picture
+const ppUrl = await sock.profilePictureUrl(jid, 'image')
+```
+
+### Fetch Bussines Profile (such as description or category)
+```ts
+const profile = await sock.getBusinessProfile(jid)
+console.log('business description: ' + profile.description + ', category: ' + profile.category)
+```
+
+### Fetch Someone's Presence (if they're typing or online)
+```ts
+// the presence update is fetched and called here
+sock.ev.on('presence.update', console.log)
+
+// request updates for a chat
+await sock.presenceSubscribe(jid)
+```
+</details>
+
+### Profile Settings
+<details>
+<summary><strong>📂 Click to Show Profile Settings Docs</strong></summary>
+
+### Change Profile Status
+```ts
+await sock.updateProfileStatus('Hello World!')
+```
+### Change Profile Name
+```ts
+await sock.updateProfileName('My name')
+```
+### Change Display Picture (groups too)
+- To change your display picture or a group's
+
+> [!NOTE]
+> Like media messages, you can pass `{ stream: Stream }` or `{ url: Url }` or `Buffer` directly, you can see more [here](https://baileys.whiskeysockets.io/types/WAMediaUpload.html)
+
+```ts
+await sock.updateProfilePicture(jid, { url: './new-profile-picture.jpeg' })
+```
+### Remove display picture (groups too)
+```ts
+await sock.removeProfilePicture(jid)
+```
+</details>
+
+### Privacy Settings
+<details>
+<summary><strong>📂 Click to Show Privacy Settings Docs</strong></summary>
+
+### Block/Unblock User
+```ts
+await sock.updateBlockStatus(jid, 'block') // Block user
+await sock.updateBlockStatus(jid, 'unblock') // Unblock user
+```
+### Get Privacy Settings
+```ts
+const privacySettings = await sock.fetchPrivacySettings(true)
+console.log('privacy settings: ' + privacySettings)
+```
+### Get BlockList
+```ts
+const response = await sock.fetchBlocklist()
+console.log(response)
+```
+### Update LastSeen Privacy
+```ts
+const value = 'all' // 'contacts' | 'contact_blacklist' | 'none'
+await sock.updateLastSeenPrivacy(value)
+```
+### Update Online Privacy
+```ts
+const value = 'all' // 'match_last_seen'
+await sock.updateOnlinePrivacy(value)
+```
+### Update Profile Picture Privacy
+```ts
+const value = 'all' // 'contacts' | 'contact_blacklist' | 'none'
+await sock.updateProfilePicturePrivacy(value)
+```
+### Update Status Privacy
+```ts
+const value = 'all' // 'contacts' | 'contact_blacklist' | 'none'
+await sock.updateStatusPrivacy(value)
+```
+### Update Read Receipts Privacy
+```ts
+const value = 'all' // 'none'
+await sock.updateReadReceiptsPrivacy(value)
+```
+### Update Groups Add Privacy
+```ts
+const value = 'all' // 'contacts' | 'contact_blacklist'
+await sock.updateGroupsAddPrivacy(value)
+```
+### Update Default Disappearing Mode
+
+- Like [this](#disappearing-messages), ephemeral can be:
+
+| Time  | Seconds        |
+|-------|----------------|
+| Remove | 0          |
+| 24h    | 86.400     |
+| 7d     | 604.800    |
+| 90d    | 7.776.000  |
+
+```ts
+const ephemeral = 86400
+await sock.updateDefaultDisappearingMode(ephemeral)
+```
+</details>
+
+### Broadcast & Stories
+<details>
+<summary><strong>📂 Click to Show Broadcast & Stories Docs</strong></summary>
+
+### Send Broadcast & Stories
+- Messages can be sent to broadcasts & stories. You need to add the following message options in sendMessage, like this:
+```ts
+await sock.sendMessage(
+    jid,
+    {
+        image: {
+            url: url
+        },
+        caption: caption
+    },
+    {
+        backgroundColor: backgroundColor,
+        font: font,
+        statusJidList: statusJidList,
+        broadcast: true
+    }
+)
+```
+- Message body can be a `extendedTextMessage` or `imageMessage` or `videoMessage` or `voiceMessage`, see [here](https://baileys.whiskeysockets.io/types/AnyRegularMessageContent.html)
+- You can add `backgroundColor` and other options in the message options, see [here](https://baileys.whiskeysockets.io/types/MiscMessageGenerationOptions.html)
+- `broadcast: true` enables broadcast mode
+- `statusJidList`: a list of people that you can get which you need to provide, which are the people who will get this status message.
+
+- You can send messages to broadcast lists the same way you send messages to groups & individual chats.
+- Right now, WA Web does not support creating broadcast lists, but you can still delete them.
+- Broadcast IDs are in the format `12345678@broadcast`
+### Query a Broadcast List's Recipients & Name
+```ts
+const bList = await sock.getBroadcastListInfo('1234@broadcast')
+console.log (`list name: ${bList.name}, recps: ${bList.recipients}`)
+```
+</details>
+
+
 ## ⚡ Contact Admin
 - [Site](https://zass.cloud)
 - [Channel](https://zass.cloud/wa/channel/info)
