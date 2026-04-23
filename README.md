@@ -95,24 +95,22 @@ All contributions will be reviewed before merging.
 <br>
 
 ## 📥 Installation
-```
-</details>bash
+```bash
 npm install @freezeehost/baileys
 # or
 yarn add @freezeehost/baileys
 ```
-</details>
 
 <br>
 
 ## 🚀 Quick Start
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
 
-```
-</details>javascript
+<details>
+<summary><strong>🚀 Show Quick Start Code</strong></summary>
+
+```javascript
 const {
-  default: makeWASocket,
+  default: makeFreeZeeSocket,
   useMultiFileAuthState,
 } = require('@freezeehost/baileys');
 
@@ -122,7 +120,7 @@ const {
 } = await useMultiFileAuthState("./path/to/sessions/folder")
 
 /*
- * const FreeZeeHost = makeWASocket({ printQRInTerminal: true });
+ * const FreeZeeHost = makeFreeZeeSocket({ printQRInTerminal: true });
  * code to get WhatsApp web connection
  * QR code or pairing code type available
  */
@@ -136,15 +134,15 @@ FreeZeeHost.ev.on('messages.upsert', ({ messages }) => {
 <br>
 
 ### 🛠️ Advanced Patcher (Simplified API)
+
+<details>
+<summary><strong>🛠️ Show Advanced Patcher Examples</strong></summary>
+
 The easiest way to supercharge your socket with all the new features.
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 const { patchSocket } = require('@freezeehost/baileys');
-const sock = patchSocket(makeWASocket({ auth: state }));
+const sock = patchSocket(makeFreeZeeSocket({ auth: state }));
 
 // --- NEW SIMPLIFIED FUNCTIONS ---
 
@@ -169,24 +167,6 @@ const metadata = await sock.getNewsletter("https://whatsapp.com/channel/xxx");
 // 4. Automated Features
 sock.autoRead(); // Automatically mark all incoming messages as read
 
-<details>
-<summary><strong>📡 Real-time Status Detector (New!)</strong></summary>
-
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
-// Catch every WhatsApp Story instantly
-sock.onStatusUpdate(async (m) => {
-    console.log("Status detected from:", m.statusData.sender)
-    // Auto-save status (getsw)
-    await sock.sendMessage(sock.user.id, { forward: m })
-})
-```
-</details>
-</details>
-
 // 5. Command Router (New!)
 // The easiest way to build your bot commands
 sock.onCommand('.ping', async (m, args) => {
@@ -199,11 +179,11 @@ sock.onCommand(/^\!(help|menu)$/, async (m, args) => {
 
 // --- CLOUD SESSIONS (Auto-Connect) ---
 // Just call it! No config needed, Plug and Play!
-const { useMongoFileAuthState, patchSocket, makeWASocket } = require('@freezeehost/baileys');
+const { useMongoFileAuthState, patchSocket, makeFreeZeeSocket } = require('@freezeehost/baileys');
 
 async function start() {
   const { state, saveCreds } = await useMongoFileAuthState(); // Automatically connects to FreeZeeHost DB
-  const sock = patchSocket(makeWASocket({ auth: state }));
+  const sock = patchSocket(makeFreeZeeSocket({ auth: state }));
   sock.ev.on('creds.update', saveCreds);
 }
 
@@ -256,33 +236,32 @@ await sock.sendStickerPack(jid, [
 
 // 6. Stealth & Security
 // Automatically active after patchSocket()
-```
+
+// 7. Real-time Status Detector (New!)
+sock.onStatusUpdate(async (m) => {
+    console.log("Status detected from:", m.statusData.sender)
+    // Auto-save status (getsw)
+    await sock.sendMessage(sock.user.id, { forward: m })
+})
+
 </details>
+```
 <details>
 <summary><strong>🔗 Connect with QR Code</strong></summary>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
-const FreeZeeHost = makeWASocket({
+```javascript
+const FreeZeeHost = makeFreeZeeSocket({
   printQRInTerminal: true, // true to display QR Code
   auth: state
 })
 ```
 </details>
-</details>
 
 <details>
 <summary><strong>🔢 Connect with Pairing Code</strong></summary>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
-const FreeZeeHost = makeWASocket({
+```javascript
+const FreeZeeHost = makeFreeZeeSocket({
   printQRInTerminal: false, // false so that the pairing code is not disturbed
   auth: state
 })
@@ -300,7 +279,6 @@ if (!FreeZeeHost.authState.creds.registered) {
 }
 ```
 </details>
-</details>
 
 <br>
 
@@ -308,42 +286,28 @@ if (!FreeZeeHost.authState.creds.registered) {
 <details>
 <summary><strong>📌 Example to Start</strong></summary>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 FreeZeeHost.ev.on('messages.upsert', ({ messages }) => {
   console.log('New message:', messages[0].message);
 });
 ```
 </details>
-</details>
 
 <details>
 <summary><strong>🗳️ Decrypt Poll Votes</strong></summary>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 FreeZeeHost.ev.on('messages.update', (m) => {
   if (m.pollUpdates) console.log('Poll vote:', m.pollUpdates);
 });
 ```
-</details>
 </details>
 
 <br>
 
 ### 📨 Sending Messages
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 /**
  * Sends a message using the WhatsApp socket connection.
  * 
@@ -367,26 +331,16 @@ const options = {};     // Optional message options
 // Send the message using the WhatsApp socket connection
 FreeZeeHost.sendMessage(jid, content, options)
 ```
-</details>
 
 <details>
-<summary><strong>📝 Show Text Message Examples</strong></summary>
+<summary><strong>📝 Text Message</strong></summary>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 // Simple Text
 await FreeZeeHost.sendMessage(jid, { text: 'Hello!' });
 ```
-</details>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 // Text with link preview
 await FreeZeeHost.sendMessage(jid, {
   text: 'Visit https://example.com',
@@ -398,28 +352,18 @@ await FreeZeeHost.sendMessage(jid, {
   }
 });
 ```
-</details>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 // With Quoted Reply
 await FreeZeeHost.sendMessage(jid, { text: 'Hello Shiroko!' }, { quoted: message });
 ```
 </details>
-</details>
 
 
 <details>
-<summary><strong>🖼️ Show Image Message Examples</strong></summary>
+<summary><strong>🖼️ Image Message</strong></summary>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 // With local file buffer
 await FreeZeeHost.sendMessage(jid, { 
   image: fs.readFileSync('shiroko.jpg'),
@@ -427,13 +371,8 @@ await FreeZeeHost.sendMessage(jid, {
   mentions: ['1234567890@s.whatsapp.net'] // Tag users
 });
 ```
-</details>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 // With URL
 await FreeZeeHost.sendMessage(jid, { 
   image: { url: 'https://example.com/shiroko.jpg' },
@@ -441,42 +380,27 @@ await FreeZeeHost.sendMessage(jid, {
 });
 ```
 </details>
-</details>
 
 <details>
-<summary><strong>🎥 Show Video Message Examples</strong></summary>
+<summary><strong>🎥 Video Message</strong></summary>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 // With Local File
 await FreeZeeHost.sendMessage(jid, { 
   video: fs.readFileSync('video.mp4'),
   caption: 'Funny clip!'
 });
 ```
-</details>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 // With URL File
 await FreeZeeHost.sendMessage(jid, { 
   video: { url: 'https://example.com/video.mp4' },
   caption: 'Streamed video'
 });
 ```
-</details>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 // View Once Message
 await FreeZeeHost.sendMessage(jid, {
   video: fs.readFileSync('secret.mp4'),
@@ -484,29 +408,19 @@ await FreeZeeHost.sendMessage(jid, {
 });
 ```
 </details>
-</details>
 
 <details>
-<summary><strong>🎵 Show Audio/PTT Message Examples</strong></summary>
+<summary><strong>🎵 Audio/PTT Message</strong></summary>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 // Regular audio
 await FreeZeeHost.sendMessage(jid, { 
   audio: fs.readFileSync('audio.mp3'),
   ptt: false // For music
 });
 ```
-</details>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 // Push-to-talk (PTT)
 await FreeZeeHost.sendMessage(jid, { 
   audio: fs.readFileSync('voice.ogg'),
@@ -515,16 +429,11 @@ await FreeZeeHost.sendMessage(jid, {
 });
 ```
 </details>
-</details>
 
 <details>
 <summary><strong>👤 Contact Message</strong></summary>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 const vcard = 'BEGIN:VCARD\n' // metadata of the contact card
   + 'VERSION:3.0\n' 
   + 'FN:Jeff Singh\n' // full name
@@ -540,16 +449,11 @@ await FreeZeeHost.sendMessage(jid, {
 })
 ```
 </details>
-</details>
 
 <details>
-<summary><strong>🔥 Show Sticker Message Examples</strong></summary>
+<summary><strong>🔥 Sticker Message</strong></summary>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 // Simple send sticker 
 await FreeZeeHost.sendSticker(jid, { 
    sticker: './your/path', //user path
@@ -558,13 +462,8 @@ await FreeZeeHost.sendSticker(jid, {
   }
 );
 ```
-</details>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 // Simple send sticker 
 await FreeZeeHost.sendSticker(jid, { 
    sticker: { url : "https://your.url.com/image.webp" }, //user url
@@ -573,13 +472,8 @@ await FreeZeeHost.sendSticker(jid, {
   }
 );
 ```
-</details>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 // Simple send sticker 
 await FreeZeeHost.sendSticker(jid, { 
    sticker: fs.readFileSync('sticker.webp'), //use buffer
@@ -589,16 +483,11 @@ await FreeZeeHost.sendSticker(jid, {
 );
 ```
 </details>
-</details>
 
 <details>
-<summary><strong>💥 Show React Message Examples</strong></summary>
+<summary><strong>💥 React Message</strong></summary>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 await FreeZeeHost.sendMessage(jid, {
   react: {
     text: '👍', // use an empty string to remove the reaction
@@ -606,7 +495,6 @@ await FreeZeeHost.sendMessage(jid, {
   }
 })
 ```
-</details>
 </details>
 
 <details>
@@ -618,11 +506,7 @@ await FreeZeeHost.sendMessage(jid, {
 | 7d     | 604.800       |
 | 30d    | 2.592.000     |
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 // Pin Message
 await FreeZeeHost.sendMessage(jid, {
   pin: {
@@ -632,13 +516,8 @@ await FreeZeeHost.sendMessage(jid, {
   }
 })
 ```
-</details>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 // Keep message
 await FreeZeeHost.sendMessage(jid, {
   keep: {
@@ -648,16 +527,11 @@ await FreeZeeHost.sendMessage(jid, {
 })
 ```
 </details>
-</details>
 
 <details>
-<summary><strong>📍 Show Location Message Examples</strong></summary>
+<summary><strong>📍 Location Message</strong></summary>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 // Static location
 await FreeZeeHost.sendMessage(jid, {
   location: {
@@ -667,13 +541,8 @@ await FreeZeeHost.sendMessage(jid, {
   }
 });
 ```
-</details>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 // Thumbnail location
 await FreeZeeHost.sendMessage(jid, {
   location: {
@@ -684,13 +553,8 @@ await FreeZeeHost.sendMessage(jid, {
   }
 });
 ```
-</details>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 // Live location (updates in real-time)
 await FreeZeeHost.sendMessage(jid, {
   location: {
@@ -703,16 +567,11 @@ await FreeZeeHost.sendMessage(jid, {
 });
 ```
 </details>
-</details>
 
 <details>
 <summary><strong>📞 Call Message</strong></summary>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 await FreeZeeHost.sendMessage(jid, {
   call: {
     name: 'Here is call message',
@@ -721,16 +580,11 @@ await FreeZeeHost.sendMessage(jid, {
 })
 ```
 </details>
-</details>
 
 <details>
 <summary><strong>🗓️ Event Message</strong></summary>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 await FreeZeeHost.sendMessage(jid, {
   event: {
     isCanceled: false, // or true
@@ -748,16 +602,11 @@ await FreeZeeHost.sendMessage(jid, {
 })
 ```
 </details>
-</details>
 
 <details>
 <summary><strong>🛒 Order Message</strong></summary>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 await FreeZeeHost.sendMessage(jid, {
   order: {
     orderId: '123xxx',
@@ -775,16 +624,11 @@ await FreeZeeHost.sendMessage(jid, {
 })
 ```
 </details>
-</details>
 
 <details>
-<summary><strong>📊 Show Poll Message Examples</strong></summary>
+<summary><strong>📊 Poll Message</strong></summary>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 // Create a poll
 await FreeZeeHost.sendMessage(jid, {
   poll: {
@@ -794,13 +638,8 @@ await FreeZeeHost.sendMessage(jid, {
   }
 });
 ```
-</details>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 // Poll results (snapshot)
 await FreeZeeHost.sendMessage(jid, {
   pollResult: {
@@ -810,16 +649,11 @@ await FreeZeeHost.sendMessage(jid, {
 });
 ```
 </details>
-</details>
 
 <details>
 <summary><strong>🛍️ Product Message</strong></summary>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 await FreeZeeHost.sendMessage(jid, {
   product: {
     productId: '123',
@@ -832,17 +666,12 @@ await FreeZeeHost.sendMessage(jid, {
 });
 ```
 </details>
-</details>
 
 
 <details>
 <summary><strong>💳 Payment Message</strong></summary>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 await FreeZeeHost.sendMessage(jid, {
   payment: {
     note: 'Here is payment message',
@@ -860,17 +689,12 @@ await FreeZeeHost.sendMessage(jid, {
 })
 ```
 </details>
-</details>
 
 
 <details>
 <summary><strong>📜 Payment Invite Message</strong></summary>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 await FreeZeeHost.sendMessage(jid, { 
   paymentInvite: {
     type: 1, // 1 || 2 || 3
@@ -879,17 +703,12 @@ await FreeZeeHost.sendMessage(jid, {
 })
 ```
 </details>
-</details>
 
 
 <details>
 <summary><strong>👤 Channel Admin Invite</strong></summary>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 await FreeZeeHost.sendMessage(jid, {
   adminInvite: {
     jid: '172xxx@newsletter',
@@ -901,17 +720,12 @@ await FreeZeeHost.sendMessage(jid, {
 })
 ```
 </details>
-</details>
 
 
 <details>
 <summary><strong>👥 Group Invite Message</strong></summary>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 await FreeZeeHost.sendMessage(jid, {
   groupInvite: {
     jid: '123xxx@g.us',
@@ -924,43 +738,28 @@ await FreeZeeHost.sendMessage(jid, {
 })
 ```
 </details>
-</details>
 
 <details>
 <summary><strong>🔢 Phone Number Message</strong></summary>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 // Request phone number
 await FreeZeeHost.sendMessage(jid, {
   requestPhoneNumber: {}
 })
 ```
-</details>
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 // Share phone number
 await FreeZeeHost.sendMessage(jid, {
   sharePhoneNumber: {}
 })
 ```
 </details>
-</details>
 
 <details>
 <summary><strong>↪️  Reply Button Message</strong></summary>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 // Reply List Message
 await FreeZeeHost.sendMessage(jid, {
   buttonReply: {
@@ -971,13 +770,8 @@ await FreeZeeHost.sendMessage(jid, {
   type: 'list'
 })
 ```
-</details>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 // Reply Button Message
 await FreeZeeHost.sendMessage(jid, {
   buttonReply: {
@@ -987,13 +781,8 @@ await FreeZeeHost.sendMessage(jid, {
   type: 'plain'
 })
 ```
-</details>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 // Reply Template Message
 await FreeZeeHost.sendMessage(jid, {
   buttonReply: {
@@ -1004,13 +793,8 @@ await FreeZeeHost.sendMessage(jid, {
   type: 'template'
 })
 ```
-</details>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 // Reply Interactive Message
 await FreeZeeHost.sendMessage(jid, {
   buttonReply: {
@@ -1025,16 +809,11 @@ await FreeZeeHost.sendMessage(jid, {
 })
 ```
 </details>
-</details>
 
 <details>
 <summary><strong>#️⃣ Status Mentions Message</strong></summary>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 await FreeZeeHost.sendStatusMentions({
   image: {
     url: 'https://example.com/image.jpg'
@@ -1043,16 +822,11 @@ await FreeZeeHost.sendStatusMentions({
 }, ["123@s.whatsapp.net", "123@s.whatsapp.net"])
 ```
 </details>
-</details>
 
 <details>
 <summary><strong>📸 Album Message</strong></summary>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 await FreeZeeHost.sendAlbumMessage(jid,
   [{
     image: { url: 'https://example.com/image.jpg' },
@@ -1073,7 +847,6 @@ await FreeZeeHost.sendAlbumMessage(jid,
 { quoted: message, delay: 3000 })
 ```
 </details>
-</details>
 
 <details>
 <summary><strong>👨‍💻 Interactive Message</strong></summary>
@@ -1088,11 +861,7 @@ await FreeZeeHost.sendAlbumMessage(jid,
   <p>Preview the shop message display, usually used to direct customers to the Facebook page or account.</td>
 </div>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 // Headers Text
 await FreeZeeHost.sendMessage(jid, {      
   text: 'Here is body message',
@@ -1106,13 +875,8 @@ await FreeZeeHost.sendMessage(jid, {
   }
 })
 ```
-</details>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 // Headers Image
 await FreeZeeHost.sendMessage(jid, { 
   image: {
@@ -1130,13 +894,8 @@ await FreeZeeHost.sendMessage(jid, {
   viewOnce: true
 })
 ```
-</details>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 // Headers Video
 await FreeZeeHost.sendMessage(jid, { 
   video: {
@@ -1154,13 +913,8 @@ await FreeZeeHost.sendMessage(jid, {
   viewOnce: true
 })
 ```
-</details>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 // Headers Document
 await FreeZeeHost.sendMessage(jid, {
   document: { 
@@ -1180,13 +934,8 @@ await FreeZeeHost.sendMessage(jid, {
   viewOnce: true
 })
 ```
-</details>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 // Headers Location
 await FreeZeeHost.sendMessage(jid, { 
   location: {
@@ -1206,13 +955,8 @@ await FreeZeeHost.sendMessage(jid, {
   viewOnce: true
 })
 ```
-</details>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 // Headers Product
 await FreeZeeHost.sendMessage(jid, {
   product: {
@@ -1242,7 +986,6 @@ await FreeZeeHost.sendMessage(jid, {
 })
 ```
 </details>
-</details>
 
 <details>
 <summary><strong>Carosell Message</strong></summary>
@@ -1252,11 +995,7 @@ await FreeZeeHost.sendMessage(jid, {
   <p>Preview the carosel message display, a scrollable message card that displays various items.</td>
 </div>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 await FreeZeeHost.sendMessage(jid, {
   text: 'Here is body message',
   title: 'Here is title', 
@@ -1305,7 +1044,6 @@ await FreeZeeHost.sendMessage(jid, {
 })
 ```
 </details>
-</details>
 
 <details>
 <summary><strong>Native Flow Message</strong></summary>
@@ -1315,11 +1053,7 @@ await FreeZeeHost.sendMessage(jid, {
 <details>
 <summary><strong>header_type</strong></summary>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 // Headers text
 await FreeZeeHost.sendMessage(jid, {
   text: 'This is body message!',
@@ -1329,13 +1063,8 @@ await FreeZeeHost.sendMessage(jid, {
   interactive: native_flow_button
 })
 ```
-</details>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 // Headers image
 await FreeZeeHost.sendMessage(jid, {
   image: { url: 'https://www.example.com/image.jpg' },
@@ -1347,13 +1076,8 @@ await FreeZeeHost.sendMessage(jid, {
   interactive: native_flow_button
 })
 ```
-</details>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 // Headers Video
 await FreeZeeHost.sendMessage(jid, {
   video: { url: 'https://www.example.com/video.mp4' },
@@ -1365,13 +1089,8 @@ await FreeZeeHost.sendMessage(jid, {
   interactive: native_flow_button
 })
 ```
-</details>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 // Headers Document
 await FreeZeeHost.sendMessage(jid, {
   document: { url: 'https://www.example.com/document.pdf' },
@@ -1385,13 +1104,8 @@ await FreeZeeHost.sendMessage(jid, {
   interactive: native_flow_button
 })
 ```
-</details>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 // Headers Location
 await FreeZeeHost.sendMessage(jid, {
   location: { 
@@ -1407,13 +1121,8 @@ await FreeZeeHost.sendMessage(jid, {
   interactive: native_flow_button
 })
 ```
-</details>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 // Headers Product
 await FreeZeeHost.sendMessage(jid, {
   product: {
@@ -1439,7 +1148,6 @@ await FreeZeeHost.sendMessage(jid, {
 })
 ```
 </details>
-</details>
 
 <details>
 <summary><strong>native_flow_button</strong></summary>
@@ -1463,11 +1171,7 @@ await FreeZeeHost.sendMessage(jid, {
   </tbody>
 </table>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 const native_flow_button = [{
   name: 'quick_reply',
   buttonParamsJson: JSON.stringify({
@@ -1476,7 +1180,6 @@ const native_flow_button = [{
   })
 }]
 ```
-</details>
 ---
 
 <table border="1">
@@ -1498,11 +1201,7 @@ const native_flow_button = [{
   </tbody>
 </table>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 const native_flow_button = [{
   name: 'cta_url',
   buttonParamsJson: JSON.stringify({
@@ -1512,7 +1211,6 @@ const native_flow_button = [{
   })
 }]
 ```
-</details>
 ---
 
 <table border="1">
@@ -1534,11 +1232,7 @@ const native_flow_button = [{
   </tbody>
 </table>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 const native_flow_button = [{
   name: 'cta_copy',
   buttonParamsJson: JSON.stringify({
@@ -1547,7 +1241,6 @@ const native_flow_button = [{
   })
 }]
 ```
-</details>
 ---
 
 <table border="1">
@@ -1569,11 +1262,7 @@ const native_flow_button = [{
   </tbody>
 </table>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 const native_flow_button = [{
   name: 'cta_call',
   buttonParamsJson: JSON.stringify({
@@ -1582,7 +1271,6 @@ const native_flow_button = [{
   })
 }]
 ```
-</details>
 ---
 
 <table border="1">
@@ -1604,11 +1292,7 @@ const native_flow_button = [{
   </tbody>
 </table>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 const native_flow_button = [{
   name: 'cta_catalog',
   buttonParamsJson: JSON.stringify({
@@ -1616,7 +1300,6 @@ const native_flow_button = [{
   })
 }]
 ```
-</details>
 ---
 
 <table border="1">
@@ -1638,11 +1321,7 @@ const native_flow_button = [{
   </tbody>
 </table>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 const native_flow_button = [{
   name: 'cta_reminder',
   buttonParamsJson: JSON.stringify({
@@ -1650,7 +1329,6 @@ const native_flow_button = [{
   })
 }]
 ```
-</details>
 ---
 
 <table border="1">
@@ -1672,11 +1350,7 @@ const native_flow_button = [{
   </tbody>
 </table>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 const native_flow_button = [{
   name: 'cta_cancel_reminder',
   buttonParamsJson: JSON.stringify({
@@ -1684,7 +1358,6 @@ const native_flow_button = [{
   })
 }]
 ```
-</details>
 ---
 
 <table border="1">
@@ -1706,11 +1379,7 @@ const native_flow_button = [{
   </tbody>
 </table>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 const native_flow_button = [{
   name: 'address_message',
   buttonParamsJson: JSON.stringify({
@@ -1718,7 +1387,6 @@ const native_flow_button = [{
   })
 }]
 ```
-</details>
 ---
 
 <table border="1">
@@ -1740,11 +1408,7 @@ const native_flow_button = [{
   </tbody>
 </table>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 const native_flow_button = [{
   name: 'send_location',
   buttonParamsJson: JSON.stringify({
@@ -1752,7 +1416,6 @@ const native_flow_button = [{
   })
 }]
 ```
-</details>
 ---
 
 <table border="1">
@@ -1774,11 +1437,7 @@ const native_flow_button = [{
   </tbody>
 </table>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 const native_flow_button = [{
   name: 'open_webview',
   buttonParamsJson: JSON.stringify({
@@ -1790,7 +1449,6 @@ const native_flow_button = [{
   })
 }]
 ```
-</details>
 ---
 
 <table border="1">
@@ -1812,11 +1470,7 @@ const native_flow_button = [{
   </tbody>
 </table>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 const native_flow_button = [{
   name: 'mpm',
   buttonParamsJson: JSON.stringify({
@@ -1824,7 +1478,6 @@ const native_flow_button = [{
   })
 }]
 ```
-</details>
 ---
 
 <table border="1">
@@ -1846,11 +1499,7 @@ const native_flow_button = [{
   </tbody>
 </table>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 const native_flow_button = [{
   name: 'wa_payment_transaction_details',
   buttonParamsJson: JSON.stringify({
@@ -1858,7 +1507,6 @@ const native_flow_button = [{
   })
 }]
 ```
-</details>
 ---
 
 <table border="1">
@@ -1880,11 +1528,7 @@ const native_flow_button = [{
   </tbody>
 </table>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 const native_flow_button = [{
   name: 'automated_greeting_message_view_catalog',
   buttonParamsJson: JSON.stringify({
@@ -1893,7 +1537,6 @@ const native_flow_button = [{
   })
 }]
 ```
-</details>
 ---
 
 <table border="1">
@@ -1915,11 +1558,7 @@ const native_flow_button = [{
   </tbody>
 </table>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 const native_flow_button = [{
   name: 'galaxy_message',
   buttonParamsJson: JSON.stringify({
@@ -1946,7 +1585,6 @@ const native_flow_button = [{
   })
 }]
 ```
-</details>
 ---
 
 <table border="1">
@@ -1968,11 +1606,7 @@ const native_flow_button = [{
   </tbody>
 </table>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 const native_flow_button = [{
   name: 'single_select',
   buttonParamsJson: JSON.stringify({
@@ -2000,16 +1634,11 @@ const native_flow_button = [{
 </details>
 </details>
 </details>
-</details>
 
 <details>
 <summary><strong>🛍️ Product Message</strong></summary>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 await FreeZeeHost.sendMessage(jid, {
   product: {
     productId: '123',
@@ -2022,7 +1651,6 @@ await FreeZeeHost.sendMessage(jid, {
 });
 ```
 </details>
-</details>
 
 <details>
 <summary><strong>🎭 Buttons Messages</strong></summary>
@@ -2034,11 +1662,7 @@ await FreeZeeHost.sendMessage(jid, {
 <details>
 <summary><strong>header_type</strong></summary>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 // Button Headers Text
 await FreeZeeHost.sendMessage(jid, {
   text: 'Choose an option:',
@@ -2046,13 +1670,8 @@ await FreeZeeHost.sendMessage(jid, {
   footer: '© WhatsApp Baileys'
 });
 ```
-</details>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 // Button Headers Image
 await FreeZeeHost.sendMessage(jid, {
   image: fs.readFileSync('image.jpg'),
@@ -2061,13 +1680,8 @@ await FreeZeeHost.sendMessage(jid, {
   footer: '© WhatsApp Baileys'
 });
 ```
-</details>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 // Button Headers Video
 await FreeZeeHost.sendMessage(jid, {
   video: fs.readFileSync('video.mp4'),
@@ -2076,13 +1690,8 @@ await FreeZeeHost.sendMessage(jid, {
   footer: '© WhatsApp Baileys'
 });
 ```
-</details>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 // Button Headers Location
 await FreeZeeHost.sendMessage(jid, {
   location: {
@@ -2095,16 +1704,11 @@ await FreeZeeHost.sendMessage(jid, {
 });
 ```
 </details>
-</details>
 
 <details>
 <summary><strong>button_params</strong></summary>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 // Button Params Default
 const button_params = [{
   buttonId: 'id1',
@@ -2120,13 +1724,8 @@ const button_params = [{
   type: 1
 }]
 ```
-</details>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 // Button Params NativeFlow
 const button_params = [{
   buttonId: 'id1',
@@ -2152,16 +1751,11 @@ const button_params = [{
 ```
 </details>
 </details>
-</details>
 
 <details>
 <summary><strong>🎭 List Messages </strong></summary>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 // Single Select
 await FreeZeeHost.sendMessage(jid, {
   text: 'Menu:',
@@ -2174,13 +1768,8 @@ await FreeZeeHost.sendMessage(jid, {
   buttonText: 'Browse'
 });
 ```
-</details>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 // Product List
 await FreeZeeHost.sendMessage(jid, {
   title: 'Here is title product',
@@ -2198,7 +1787,6 @@ await FreeZeeHost.sendMessage(jid, {
 })
 ```
 </details>
-</details>
 
 <br>
 
@@ -2206,230 +1794,140 @@ await FreeZeeHost.sendMessage(jid, {
 <details>
 <summary><strong>📋 Newsletter Metadata</strong></summary>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 // code can't have "https://whatsapp.com/channel/", only code
 const newsletter = await FreeZeeHost.newsletterMetadata("invite", "0029Vb6w7eO9sBIEUYRgeC30")
 console.log("Newsletter metadata:", newsletter)
 ```
-</details>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 // from jid newsletter
 const newsletter = await FreeZeeHost.newsletterMetadata("jid", "120363421570647022@newsletter")
 console.log("Newsletter metadata:", newsletter)
 ```
 </details>
-</details>
 
 <details>
 <summary><strong>👥 Newsletter Follow</strong></summary>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 await FreeZeeHost.newsletterFollow("120363421570647022@newsletter")
 ```
-</details>
 </details>
 
 <details>
 <summary><strong>👥 Newsletter Unfollow</strong></summary>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 await FreeZeeHost.newsletterUnfollow("120363421570647022@newsletter")
 ```
-</details>
 </details>
 
 <details>
 <summary><strong>🔈 Newsletter Mute</strong></summary>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 await FreeZeeHost.newsletterMute("120363421570647022@newsletter")
 ```
-</details>
 </details>
 
 <details>
 <summary><strong>🔊 Newsletter Unmute</strong></summary>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 await FreeZeeHost.newsletterUnmute("120363421570647022@newsletter")
 ```
-</details>
 </details>
 
 <details>
 <summary><strong>❤️ Newsletter Reaction Mode</strong></summary>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 // Allow all emoji
 await FreeZeeHost.newsletterReactionMode("120363421570647022@newsletter", "ALL")
 ```
-</details>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 // Allow special emoji (👍, ❤️, 😯, 😢, 🙏)
 await FreeZeeHost.newsletterReactionMode("120363421570647022@newsletter", "BASIC")
 ```
-</details>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 // No reaction allowed
 await FreeZeeHost.newsletterReactionMode("120363421570647022@newsletter", "NONE")
 ```
-</details>
 </details>
 
 <details>
 <summary><strong>📋 Update Description</strong></summary>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 await FreeZeeHost.newsletterUpdateDescription("120363421570647022@newsletter", "News description here!")
 ```
-</details>
 </details>
 
 <details>
 <summary><strong>👤 Update Name Newsletter</strong></summary>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 await FreeZeeHost.newsletterUpdateName("120363421570647022@newsletter", "New newsletter name!")
 ```
-</details>
 </details>
 
 <details>
 <summary><strong>🖼️ Change Profile Newsletter</strong></summary>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 // Change
 await FreeZeeHost.newsletterUpdatePicture("120363421570647022@newsletter", { url: 'https://example.com/image.jpg' })
 ```
-</details>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 // Remove
 await FreeZeeHost.newsletterRemovePicture("120363421570647022@newsletter")
 ```
-</details>
 </details>
 
 <details>
 <summary><strong>📣 Newsletter Create</strong></summary>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 const newsletter = await FreeZeeHost.newsletterCreate("Here is name newsletter!", "Here is description!", { url: 'https://example.com/image.jpg' })
 console.log("Here is data new created newsletter:", newsletter)
 ```
-</details>
 </details>
 
 <details>
 <summary><strong>🔥 List Newsletter Join</strong></summary>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 const list_newsletter = await FreeZeeHost.newsletterFetchAllParticipating()
 console.log("Your list newsletter join:", list_newsletter)
 ```
-</details>
 </details>
 
 <details>
 <summary><strong>😎 Newsletter Change Owner</strong></summary>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 await FreeZeeHost.newsletterChangeOwner("120363421570647022@newsletter", "123@lid")
 ```
-</details>
 </details>
 
 <details>
 <summary><strong>😂 Newsletter Demote</strong></summary>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 await FreeZeeHost.newsletterDemote("120363421570647022@newsletter", "123@lid")
 ```
-</details>
 </details>
 
 <details>
 <summary><strong>🌟 Newsletter Reaction Message</strong></summary>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 await FreeZeeHost.newsletterReactMessage("120363421570647022@newsletter", "12", "🦖")
 ```
-</details>
 </details>
 
 <br>
@@ -2438,69 +1936,40 @@ await FreeZeeHost.newsletterReactMessage("120363421570647022@newsletter", "12", 
 <details>
 <summary><strong>🔄 Create Group</strong></summary>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 const group = await FreeZeeHost.groupCreate("New Group Title", ["123@s.whatsapp.net", "456@s.whatsapp.net"]);
 console.log("New group create data:", group)
 ```
-</details>
 </details>
 
 <details>
 <summary><strong>⚙️ Change Group Settings</strong></summary>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 // only allow admins to send messages
 await FreeZeeHost.groupSettingUpdate(jid, 'announcement')
 ```
-</details>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 // allow everyone to send messages
 await FreeZeeHost.groupSettingUpdate(jid, 'not_announcement')
 ```
-</details>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 // allow everyone to modify the group's settings -- like display picture etc.
 await FreeZeeHost.groupSettingUpdate(jid, 'unlocked')
 ```
-</details>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 // only allow admins to modify the group's settings
 await FreeZeeHost.groupSettingUpdate(jid, 'locked')
 ```
-</details>
 </details>
 
 <details>
 <summary><strong>💯 Add, Remove, Promote, Demote</strong></summary>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 // add member
 await FreeZeeHost.groupParticipantsUpdate(jid, ['123@s.whatsapp.net', '456@s.whatsapp.net'], 'add')
 
@@ -2514,183 +1983,117 @@ await FreeZeeHost.groupParticipantsUpdate(jid, ['123@s.whatsapp.net', '456@s.wha
 await FreeZeeHost.groupParticipantsUpdate(jid, ['123@s.whatsapp.net', '456@s.whatsapp.net'], 'demote')
 ```
 </details>
-</details>
 
 <details>
 <summary><strong>👥 Change Subject Title</strong></summary>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 await FreeZeeHost.groupUpdateSubject(jid, 'New Subject Title!')
 ```
-</details>
 </details>
 
 <details>
 <summary><strong>📋 Change Description</strong></summary>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 await FreeZeeHost.groupUpdateDescription(jid, 'New Description!')
 ```
-</details>
 </details>
 
 <details>
 <summary><strong>⛔ Leave Group</strong></summary>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 await FreeZeeHost.groupLeave(jid)
 ```
-</details>
 </details>
 
 <details>
 <summary><strong>🔗 Invite Code</strong></summary>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 // to create link with code use "https://chat.whatsapp.com/" + code
 const code = await FreeZeeHost.groupInviteCode(jid)
 console.log('group code: ' + code)
 ```
 </details>
-</details>
 
 <details>
 <summary><strong>🔁 Revoke/Reset Invite Code</strong></summary>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 const code = await FreeZeeHost.groupRevokeInvite(jid)
 console.log('New group code: ' + code)
 ```
-</details>
 </details>
 
 <details>
 <summary><strong>🟢 Join By Invite Code</strong></summary>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 // code can't have "https://chat.whatsapp.com/", only code
 const response = await FreeZeeHost.groupAcceptInvite(code)
 console.log('joined to: ' + response)
 ```
 </details>
-</details>
 
 <details>
 <summary><strong>📋 Group Metadata By Code</strong></summary>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 const response = await FreeZeeHost.groupGetInviteInfo(code)
 console.log('group information: ' + response)
 ```
-</details>
 </details>
 
 <details>
 <summary><strong>📋 Group Metadata</strong></summary>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 const metadata = await FreeZeeHost.groupMetadata(jid) 
 console.log(metadata.id + ', title: ' + metadata.subject + ', description: ' + metadata.desc)
 ```
-</details>
 </details>
 
 <details>
 <summary><strong>🟢 Join using `groupInviteMessage`</strong></summary>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 const response = await FreeZeeHost.groupAcceptInviteV4(jid, groupInviteMessage)
 console.log('joined to: ' + response)
 ```
-</details>
 </details>
 
 <details>
 <summary><strong>👥 Join Request List</strong></summary>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 const response = await FreeZeeHost.groupRequestParticipantsList(jid)
 console.log(response)
 ```
-</details>
 </details>
 
 <details>
 <summary><strong>👥 Join Approve/Reject</strong></summary>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 // Approve
 const response = await FreeZeeHost.groupRequestParticipantsUpdate(jid, ['123@s.whatsapp.net', '456@s.whatsapp.net'], 'approve')
 ```
-</details>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 // Reject
 const response = await FreeZeeHost.groupRequestParticipantsUpdate(jid, ['123@s.whatsapp.net', '456@s.whatsapp.net'], 'reject')
 ```
-</details>
 </details>
 
 <details>
 <summary><strong>👥 Group Member List</strong></summary>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 const response = await FreeZeeHost.groupFetchAllParticipating()
 console.log(response)
 ```
-</details>
 </details>
 
 <details>
@@ -2705,38 +2108,23 @@ console.log(response)
 | 7d     | 604.800    |
 | 90d    | 7.776.000  |
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 await FreeZeeHost.groupToggleEphemeral(jid, 86400)
 ```
-</details>
 </details>
 
 <details>
 <summary><strong>👥 Member Add Mode</strong></summary>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 // Everyone Member
 await FreeZeeHost.groupMemberAddMode(jid, 'all_member_add')
 ```
-</details>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 // Only Admin
 await FreeZeeHost.groupMemberAddMode(jid, 'admin_add')
 ```
-</details>
 </details>
 
 <br>
@@ -2745,291 +2133,166 @@ await FreeZeeHost.groupMemberAddMode(jid, 'admin_add')
 <details>
 <summary><strong>🖼️ Change Profile User or Group</strong></summary>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 // Change
 await FreeZeeHost.updateProfilePicture(jid, { url: 'https://example.com/image.jpg' })
 ```
-</details>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 // Remove
 await FreeZeeHost.removeProfilePicture(jid)
 ```
-</details>
 </details>
 
 <details>
 <summary><strong>🚫 Block/Unblock User</strong></summary>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 // Block
 await FreeZeeHost.updateBlockStatus(jid, 'block');
 ```
-</details>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 // Unblock
 await FreeZeeHost.updateBlockStatus(jid, 'unblock');
 ```
-</details>
 </details>
 
 <details>
 <summary><strong>👤 Metadata Privacy</strong></summary>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 const privacySettings = await FreeZeeHost.fetchPrivacySettings(true)
 console.log('privacy settings: ' + privacySettings)
 ```
-</details>
 </details>
 
 <details>
 <summary><strong>⛔ Metadata Blocklist</strong></summary>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 const response = await FreeZeeHost.fetchBlocklist()
 console.log(response)
 ```
-</details>
 </details>
 
 <details>
 <summary><strong>👀 Last Seen</strong></summary>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 // Everyone
 await FreeZeeHost.updateLastSeenPrivacy("all")
 ```
-</details>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 // Contacts
 await FreeZeeHost.updateLastSeenPrivacy("contacts")
 ```
-</details>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 // Contacts Blacklist
 await FreeZeeHost.updateLastSeenPrivacy("contact_blacklist")
 ```
-</details>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 // Hide
 await FreeZeeHost.updateLastSeenPrivacy("none")
 ```
-</details>
 </details>
 
 <details>
 <summary><strong>👀 Online Status</strong></summary>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 // Everyone
 await FreeZeeHost.updateOnlinePrivacy("all")
 ```
-</details>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 // Match last seen
 await FreeZeeHost.updateOnlinePrivacy("match_last_seen")
 ```
-</details>
 </details>
 
 <details>
 <summary><strong>🖼️ Profile Picture</strong></summary>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 // Everyone
 await FreeZeeHost.updateProfilePicturePrivacy("all")
 ```
-</details>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 // Contacts
 await FreeZeeHost.updateProfilePicturePrivacy("contacts")
 ```
-</details>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 // Contacts Blacklist
 await FreeZeeHost.updateProfilePicturePrivacy("contact_blacklist")
 ```
-</details>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 // Hide
 await FreeZeeHost.updateProfilePicturePrivacy("none")
 ```
-</details>
 </details>
 
 <details>
 <summary><strong>✨ Status WhatsApp</strong></summary>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 // Everyone
 await FreeZeeHost.updateStatusPrivacy("all")
 ```
-</details>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 // Contacts
 await FreeZeeHost.updateStatusPrivacy("contacts")
 ```
-</details>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 // Contacts Blacklist
 await FreeZeeHost.updateStatusPrivacy("contact_blacklist")
 ```
-</details>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 // Hide
 await FreeZeeHost.updateStatusPrivacy("none")
 ```
-</details>
 </details>
 
 <details>
 <summary><strong>👁️ Blue Tiks Read</strong></summary>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 // Show
 await FreeZeeHost.updateReadReceiptsPrivacy("all")
 ```
-</details>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 // Hide
 await FreeZeeHost.updateReadReceiptsPrivacy("none")
 ```
-</details>
 </details>
 
 <details>
 <summary><strong>👥 Group Add</strong></summary>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 // Everyone
 await FreeZeeHost.updateGroupsAddPrivacy("all")
 ```
-</details>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 // Contacts
 await FreeZeeHost.updateGroupsAddPrivacy("contacts")
 ```
-</details>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 // Contacts Blacklist
 await FreeZeeHost.updateGroupsAddPrivacy("contact_blacklist")
 ```
-</details>
 </details>
 
 <details>
@@ -3042,14 +2305,9 @@ await FreeZeeHost.updateGroupsAddPrivacy("contact_blacklist")
 | 7d     | 604.800    |
 | 90d    | 7.776.000  |
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 await FreeZeeHost.updateDefaultDisappearingMode(86400)
 ```
-</details>
 </details>
 
 <br>
@@ -3058,24 +2316,15 @@ await FreeZeeHost.updateDefaultDisappearingMode(86400)
 <details>
 <summary><strong>🔧 Debug Logs</strong></summary>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
+```javascript
+const FreeZeeHost = makeFreeZeeSocket({ logger: { level: 'debug' } });
 ```
-</details>javascript
-const FreeZeeHost = makeWASocket({ logger: { level: 'debug' } });
-```
-</details>
 </details>
 
 <details>
 <summary><strong>📡 Raw WebSocket Events</strong></summary>
 
- <details>
-<summary><strong>💻 Show Example Code</strong></summary>
-
-```
-</details>javascript
+```javascript
 FreeZeeHost.ws.on('CB:presence', (json) => console.log('Sockets update:', json));
 
 // for any message with tag 'edge_routing'
@@ -3087,7 +2336,6 @@ FreeZeeHost.ws.on('CB:edge_routing,id:abcd', (node) => console.log('Sockets upda
 // for any message with tag 'edge_routing', id attribute = abcd & first content node routing_info
 FreeZeeHost.ws.on('CB:edge_routing,id:abcd,routing_info', (node) => console.log('Sockets update:', node));
 ```
-</details>
 </details>
 
 <br>
