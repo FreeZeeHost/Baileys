@@ -2965,6 +2965,31 @@ sock.onStatusUpdate(async (m) => {
 ```
 </details>
 
+<details>
+<summary><strong>📡 Show Interactive Status Store (GetSW) Docs</strong></summary>
+
+Fitur ini otomatis menyimpan riwayat status kontak ke dalam memori sementara (24 jam) agar bisa dipanggil kapan saja secara interaktif.
+
+```javascript
+// 1. Ambil daftar semua orang yang mengunggah status
+const senders = sock.getAllStatusSenders()
+console.log("Kontak yang update status:", senders)
+
+// 2. Ambil semua status dari kontak tertentu (misal kontak pertama)
+const jid = senders[0]
+const stories = sock.getStatusesFrom(jid)
+
+stories.forEach((m, index) => {
+    console.log(`[${index}] Tipe: ${m.statusData.type} - Caption: ${m.statusData.caption}`)
+})
+
+// 3. Kirim ulang status pilihan ke diri sendiri (Fitur GetSW)
+const pilihan = stories[0]
+await sock.sendMessage(sock.user.id, { forward: pilihan })
+```
+</details>
+
+
 ---
 
 
