@@ -1,0 +1,12 @@
+--- FINAL TEST: ULTRA PLUG-AND-PLAY ---
+>>>> [1/4] Menghubungkan ke Cloud Storage...
+>>>> [2/4] Cloud Storage Terhubung!
+>>>> [4/4] Bot Siap melayani perintah!
+[✓] Mencoba meminta kode pairing (Menunggu 5 detik agar enkripsi matang)...
+{"level":30,"time":1777073145266,"pid":181720,"hostname":"FreeZeeHost","class":"baileys","browser":["Ubuntu","Chrome","22.04.4"],"helloMsg":{"clientHello":{"ephemeral":"1Ii4Ozc230Djj68cfnsA2gu30oN1AhfGtgQ/bVNRbCw="}},"msg":"connected to WA"}
+>>>> [2/4] Database Terhubung!
+{"level":30,"time":1777073145534,"pid":181720,"hostname":"FreeZeeHost","class":"baileys","node":{"passive":false,"userAgent":{"platform":"WEB","appVersion":{"primary":2,"secondary":3100,"tertiary":2},"mcc":"000","mnc":"000","osVersion":"0.1","device":"Desktop","osBuildNumber":"0.1","releaseChannel":"RELEASE","localeLanguageIso6391":"en","localeCountryIso31661Alpha2":"US"},"webInfo":{"webSubPlatform":"WEB_BROWSER"},"connectType":"WIFI_UNKNOWN","connectReason":"USER_ACTIVATED","devicePairingData":{"eIdent":"6jeTfpf3pYvMtedAfgOmWWM9ARrlM2ydN4fAO+qdri4=","eSkeyVal":"RsH/oLw1iBrmr9ZTNj74NjBZQxjykgY+I25OJHP63QI=","eSkeySig":"NP8Z2T5tw6zGEj9FcEsDa3byGaGpFCsv6PBoiCzaR+eLVnQ+hlxTTNaR2mGKkNm3rM3fO3UwLQc1yHUpLIWshA==","buildHash":"NO9h+joPjRZrUPSM/wZyfw==","deviceProps":"CgZVYnVudHUSBggKEA8YBxgBIAE="}},"msg":"not logged in, attempting registration..."}
+
+[DEBUG] WhatsApp Rejection Reason: 400 { reason: '400', location: 'atn' }
+{"level":30,"time":1777073148150,"pid":181720,"hostname":"FreeZeeHost","class":"baileys","trace":"Error: Connection Failure\n    at WebSocketClient.<anonymous> (/home/freezeehost/baileys/package/lib/Socket/socket.js:783:13)\n    at WebSocketClient.emit (node:events:508:20)\n    at /home/freezeehost/baileys/package/lib/Socket/socket.js:485:35\n    at Object.decodeFrame (/home/freezeehost/baileys/package/lib/Utils/noise-handler.js:146:17)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async WebSocketClient.onMessageReceived (/home/freezeehost/baileys/package/lib/Socket/socket.js:466:9)","msg":"connection errored"}
+[✗] Gagal: Connection Closed

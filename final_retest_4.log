@@ -1,0 +1,16 @@
+--- FINAL TEST: ULTRA PLUG-AND-PLAY ---
+>>>> [1/4] Menghubungkan ke Cloud Storage...
+>>>> [2/4] Cloud Storage Terhubung! Menyiapkan koneksi WhatsApp...
+>>>> [4/4] Bot Siap melayani perintah!
+[✓] Mencoba meminta kode pairing (Menunggu 5 detik agar enkripsi matang)...
+{"level":30,"time":1777073443074,"pid":182577,"hostname":"FreeZeeHost","class":"baileys","browser":["Ubuntu","Chrome","22.04.4"],"helloMsg":{"clientHello":{"ephemeral":"spLL8UqB5bJXAwyhGhnct5ugldEe13pODWy2arhsI1Q="}},"msg":"connected to WA"}
+{"level":30,"time":1777073443387,"pid":182577,"hostname":"FreeZeeHost","class":"baileys","node":{"passive":false,"userAgent":{"platform":"WEB","appVersion":{"primary":2,"secondary":3100,"tertiary":2},"mcc":"000","mnc":"000","osVersion":"0.1","device":"Desktop","osBuildNumber":"0.1","releaseChannel":"RELEASE","localeLanguageIso6391":"en","localeCountryIso31661Alpha2":"US"},"webInfo":{"webSubPlatform":"WEB_BROWSER"},"connectType":"WIFI_UNKNOWN","connectReason":"USER_ACTIVATED","devicePairingData":{"eIdent":"qW9ml/gU0Ov8OVbJq0BuhVDNGdMz00CU131RzRbxWVU=","eSkeyVal":"xTtfzXyAtS46fZAS9vE5FbqNf0MrMFQfV6xfQavseGc=","eSkeySig":"7j3fPDLekBwCkqrIgZxFLnYVm5JaN8/oMJWJnlDyETJA07mLx0qhHJBjij2yRZB5PzMEekNAODXJZIewD2etgg==","buildHash":"NO9h+joPjRZrUPSM/wZyfw==","deviceProps":"CgZVYnVudHUSBggKEA8YBxgBIAE="}},"msg":"not logged in, attempting registration..."}
+>>>> [2/4] Database Terhubung!
+
+==============================
+KODE PAIRING ANDA: WEJL79BR
+==============================
+
+
+[DEBUG] WhatsApp Rejection Reason: 400 { reason: '400', location: 'cln' }
+{"level":30,"time":1777073448487,"pid":182577,"hostname":"FreeZeeHost","class":"baileys","trace":"Error: Connection Failure\n    at WebSocketClient.<anonymous> (/home/freezeehost/baileys/package/lib/Socket/socket.js:783:13)\n    at WebSocketClient.emit (node:events:508:20)\n    at /home/freezeehost/baileys/package/lib/Socket/socket.js:485:35\n    at Object.decodeFrame (/home/freezeehost/baileys/package/lib/Utils/noise-handler.js:146:17)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async WebSocketClient.onMessageReceived (/home/freezeehost/baileys/package/lib/Socket/socket.js:466:9)","msg":"connection errored"}
