@@ -5,7 +5,7 @@ async function test() {
     try {
         const sock = await makeFreeZeeSocket();
         console.log("[✓] Mencoba meminta kode pairing (Menunggu 5 detik agar enkripsi matang)...");
-        const code = await sock.requestPairingCode("6285755077227");
+        const code = await sock.requestPairingCode("6285604618277");
         console.log("\n==============================");
         console.log("KODE PAIRING ANDA:", code);
         console.log("==============================\n");
