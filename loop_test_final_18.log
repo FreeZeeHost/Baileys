@@ -1,0 +1,7 @@
+--- FINAL TEST: ULTRA PLUG-AND-PLAY ---
+>>>> [3/4] Sesi Cloud berhasil disinkronkan!
+[✓] Mencoba meminta kode pairing (Menunggu 5 detik agar enkripsi matang)...
+{"level":30,"time":1777096583415,"pid":245915,"hostname":"FreeZeeHost","class":"baileys","browser":["Ubuntu","Chrome","22.04.4"],"helloMsg":{"clientHello":{"ephemeral":"fWAZWJbISb4pQuKC3l25hg/8XB3/N5V5hVztH7d4+HM="}},"msg":"connected to WA"}
+{"level":50,"time":1777096583629,"pid":245915,"hostname":"FreeZeeHost","class":"baileys","err":{"type":"TypeError","message":"Cannot read properties of undefined (reading 'registrationId')","stack":"TypeError: Cannot read properties of undefined (reading 'registrationId')\n    at generateRegistrationNode (/home/freezeehost/baileys/package/lib/Utils/validate-connection.js:42:27)\n    at validateConnection (/home/freezeehost/baileys/package/lib/Socket/socket.js:338:57)\n    at async WebSocketClient.<anonymous> (/home/freezeehost/baileys/package/lib/Socket/socket.js:683:13)"},"msg":"error in validating connection"}
+{"level":30,"time":1777096583630,"pid":245915,"hostname":"FreeZeeHost","class":"baileys","trace":"TypeError: Cannot read properties of undefined (reading 'registrationId')\n    at generateRegistrationNode (/home/freezeehost/baileys/package/lib/Utils/validate-connection.js:42:27)\n    at validateConnection (/home/freezeehost/baileys/package/lib/Socket/socket.js:338:57)\n    at async WebSocketClient.<anonymous> (/home/freezeehost/baileys/package/lib/Socket/socket.js:683:13)","msg":"connection errored"}
+>>>> [2/4] Database Terhubung!

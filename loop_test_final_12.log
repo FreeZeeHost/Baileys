@@ -1,0 +1,10 @@
+--- FINAL TEST: ULTRA PLUG-AND-PLAY ---
+>>>> [3/4] Sesi Cloud berhasil disinkronkan!
+[✓] Mencoba meminta kode pairing (Menunggu 5 detik agar enkripsi matang)...
+>>>> [2/4] Database Terhubung!
+{"level":30,"time":1777095762747,"pid":243313,"hostname":"FreeZeeHost","class":"baileys","browser":["Ubuntu","Chrome","22.04.4"],"helloMsg":{"clientHello":{"ephemeral":"RbS/jMO/PSdi5oM89ZW1npj19ugauDsTzWue0Y6DEzE="}},"msg":"connected to WA"}
+{"level":30,"time":1777095763130,"pid":243313,"hostname":"FreeZeeHost","class":"baileys","node":{"passive":false,"userAgent":{"platform":"WEB","appVersion":{"primary":2,"secondary":3100,"tertiary":2},"mcc":"000","mnc":"000","osVersion":"0.1","device":"Desktop","osBuildNumber":"0.1","releaseChannel":"RELEASE","localeLanguageIso6391":"en","localeCountryIso31661Alpha2":"US"},"webInfo":{"webSubPlatform":"WEB_BROWSER"},"connectType":"WIFI_UNKNOWN","connectReason":"USER_ACTIVATED","devicePairingData":{"eIdent":"1sn1PDBC6ASoI8zVfZWnBFkxhjUB8NVBiHdh8h853RE=","eSkeyVal":"f49XL75obT6qRQ2qZIjyoHyV0VY3SIFBz+3ot0hJAGc=","eSkeySig":"KgDeQCPlGhblDKbDYLYeDY5GkjJ00/eXQdm8HlfHjyrnNFipzAYcTeX9qr7xb7RuEMpIp2R7PsM0KW4U29PshQ==","buildHash":"xEauBiqjwsZJtQsy2Yl8zg==","deviceProps":"CgZVYnVudHUSBggKEA8YBxgBIAE="}},"msg":"not logged in, attempting registration..."}
+
+[DEBUG] WhatsApp Rejection Reason: 400 { reason: '400', location: 'odn' }
+{"level":30,"time":1777095764169,"pid":243313,"hostname":"FreeZeeHost","class":"baileys","trace":"Error: Connection Failure\n    at WebSocketClient.<anonymous> (/home/freezeehost/baileys/package/lib/Socket/socket.js:783:13)\n    at WebSocketClient.emit (node:events:508:20)\n    at /home/freezeehost/baileys/package/lib/Socket/socket.js:485:35\n    at Object.decodeFrame (/home/freezeehost/baileys/package/lib/Utils/noise-handler.js:146:17)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async WebSocketClient.onMessageReceived (/home/freezeehost/baileys/package/lib/Socket/socket.js:466:9)","msg":"connection errored"}
+[✗] Gagal: Connection Closed
