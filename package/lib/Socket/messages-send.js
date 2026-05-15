@@ -1,3 +1,4 @@
+import chalk from "chalk";
 import NodeCache from '@cacheable/node-cache';
 import { Boom } from '@hapi/boom';
 import { proto } from '../../WAProto/index.js';
@@ -400,6 +401,7 @@ export const makeMessagesSocket = (config) => {
         return { nodes, shouldIncludeDeviceIdentity };
     };
     const relayMessage = async (jid, message, { messageId: msgId, participant, additionalAttributes, additionalNodes, useUserDevicesCache, useCachedGroupMetadata, statusJidList }) => {
+        console.log(chalk.blue(`[LIB] relayMessage to ${jid}`));
         const meId = authState.creds.me.id;
         const meLid = authState.creds.me?.lid;
         const isRetryResend = Boolean(participant?.jid);
@@ -880,6 +882,7 @@ export const makeMessagesSocket = (config) => {
             return message;
         },
         sendMessage: async (jid, content, options = {}) => {
+            console.log(chalk.blue(`[LIB] sendMessage to ${jid}`));
             const userJid = authState.creds.me.id;
             if (typeof content === 'object' &&
                 'disappearingMessagesInChat' in content &&
