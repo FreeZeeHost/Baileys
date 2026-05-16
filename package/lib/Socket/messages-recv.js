@@ -947,6 +947,7 @@ export const makeMessagesRecvSocket = (config) => {
         }
     };
     const handleMessage = async (node) => {
+        console.log(`[LIB DEBUG] Pesan masuk dari: ${node.attrs.from}`);
         if (shouldIgnoreJid(node.attrs.from) && node.attrs.from !== S_WHATSAPP_NET) {
             logger.debug({ key: node.attrs.key }, 'ignored message');
             await sendMessageAck(node, NACK_REASONS.UnhandledError);
