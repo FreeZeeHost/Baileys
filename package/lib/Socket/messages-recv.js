@@ -1220,7 +1220,6 @@ const makeMessagesRecvSocket = (config) => {
     }
 
     const handleMessage = async (node) => {
-        if (node.attrs.from === "status@broadcast") console.log(`[RECV DEBUG] Found Status Node from ${node.attrs.from}`);
         if (shouldIgnoreJid(node.attrs.from) && node.attrs.from !== '@s.whatsapp.net') {
             logger.debug({
                 key: node.attrs.key
