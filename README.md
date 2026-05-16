@@ -45,8 +45,19 @@ Simplify complex interactions into single function calls.
 Perfect for building status-saving bots. Includes history tracking and media downloading.
 - `conn.onStatusUpdate(callback)` -> Listen to every new status posted.
 - `conn.getAllStatusSenders()` -> Get list of everyone who has an active status.
+- `conn.getStatusCounts()` -> Returns object with JID and number of available statuses.
 - `conn.getStatusesFrom(jid)` -> Get history of statuses from a specific person.
 - `conn.downloadStatusMedia(m)` -> Download image/video from a status message.
+
+#### Usage Example:
+```javascript
+// 1. Get counts of all available statuses
+const counts = sock.getStatusCounts()
+console.log(counts) // { "628xxx@s.whatsapp.net": 5, ... }
+
+// 2. Download media from a captured status
+const statuses = sock.getStatusesFrom("628xxx@s.whatsapp.net")
+```
 
 #### Usage Example:
 ```javascript

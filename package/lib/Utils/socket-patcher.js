@@ -75,6 +75,14 @@ exports.patchSocket = (sock) => {
         });
     };
 
+        sock.getStatusCounts = () => {
+        const counts = {};
+        for (const jid in statusStore) {
+            counts[jid] = statusStore[jid].length;
+        }
+        return counts;
+    };
+
     sock.getAllStatusSenders = () => Object.keys(statusStore);
     sock.getStatusesFrom = (jid) => statusStore[jid] || [];
     
