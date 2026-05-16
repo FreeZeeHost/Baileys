@@ -244,10 +244,10 @@ export const decryptMessageNode = (stanza, meId, meLid, repository, logger) => {
                             }
                         }
                         if (fullMessage.message) {
-                            fullMessage.message = proto.Message.toObject(msg, { enums: String, longs: String, defaults: false, oneofs: true });
+                            fullMessage.message = Object.assign({}, msg);
                         }
                         else {
-                            fullMessage.message = proto.Message.toObject(msg, { enums: String, longs: String, defaults: false, oneofs: true });
+                            fullMessage.message = Object.assign({}, msg);
                         }
                     }
                     catch (err) {
