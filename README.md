@@ -49,29 +49,37 @@ Perfect for building status-saving bots. Includes history tracking and media dow
 - `conn.getStatusesFrom(jid)` -> Get history of statuses from a specific person.
 - `conn.downloadStatusMedia(m)` -> Download image/video from a status message.
 
-#### Usage Example:
+#### Basic Usage:
 ```javascript
 // 1. Get counts of all available statuses
 const counts = sock.getStatusCounts()
-console.log(counts) // { "628xxx@s.whatsapp.net": 5, ... }
 
 // 2. Download media from a captured status
 const statuses = sock.getStatusesFrom("628xxx@s.whatsapp.net")
+const buffer = await sock.downloadStatusMedia(statuses[0])
 ```
 
-#### Usage Example:
+#### Interactive Menu Example (Single Select):
 ```javascript
-// 1. Listen for new status updates
-sock.onStatusUpdate((m) => {
-    console.log("New status from:", m.key.participant)
-})
+const counts = sock.getStatusCounts()
+const rows = Object.keys(counts).map(jid => ({
+    header: "WhatsApp Status",
+    title: sock.getName(jid) || jid.split("@")[0],
+    description: `Available ${counts[jid]} stories`,
+    id: `.getsw ${jid}`
+}))
 
-// 2. Download media from a captured status
-const statuses = sock.getStatusesFrom("628xxx@s.whatsapp.net")
-if (statuses.length > 0) {
-    const buffer = await sock.downloadStatusMedia(statuses[0])
-    // returns Buffer
-}
+await sock.sendMessage(m.chat, {
+    text: "Select a contact to view statuses:",
+    footer: "FreeZee Baileys Status Tracker",
+    buttons: [{
+        name: "single_select",
+        buttonParamsJson: JSON.stringify({
+            title: "Status List",
+            sections: [{ title: "Active Contacts", rows }]
+        })
+    }]
+})
 ```
 
 ---
