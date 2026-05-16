@@ -1,26 +1,24 @@
-import { DEFAULT_CONNECTION_CONFIG } from '../Defaults/index.js';
-import { makeCommunitiesSocket } from './communities.js';
+"use strict"
 
-export * from './socket.js';
-export * from './messages-send.js';
-export * from './messages-recv.js';
-export * from './chats.js';
-export * from './groups.js';
-export * from './newsletter.js';
-export * from './business.js';
-export * from './community.js';
-export * from './usync.js';
+Object.defineProperty(exports, "__esModule", { value: true })
 
+const Defaults_1 = require("../Defaults")
+const community_1 = require("./community")
+
+// export the last socket layer
 const makeWASocket = (config) => {
-    const newConfig = {
-        ...DEFAULT_CONNECTION_CONFIG,
-        ...config
-    };
-    if (config.shouldSyncHistoryMessage === undefined) {
-        newConfig.shouldSyncHistoryMessage = () => !!newConfig.syncFullHistory;
+	const newConfig = {
+    	...Defaults_1.DEFAULT_CONNECTION_CONFIG,
+   	 ...config
     }
-    return makeCommunitiesSocket(newConfig);
-};
+    
+    // If the user hasn't provided their own history sync function,
+    // let's create a default one that respects the syncFullHistory flag.
+    if (config.shouldSyncHistoryMessage === undefined) {
+        newConfig.shouldSyncHistoryMessage = () => !!newConfig.syncFullHistory
+    }
 
-export { makeWASocket };
-export default makeWASocket;
+    return community_1.makeCommunitiesSocket(newConfig)
+}
+
+exports.default = makeWASocket

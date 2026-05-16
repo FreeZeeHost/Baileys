@@ -1,7 +1,6 @@
 {
-  "name": "@freezeehost/baileys",
-  "version": "2.1.5",
-  "type": "module",
+  "name": "@ryuu-reinzz/baileys",
+  "version": "2.1.4",
   "description": "Baileys is a lightweight JavaScript library for interacting with the WhatsApp Web API using WebSocket.",
   "keywords": [
     "facebook",
@@ -11,14 +10,14 @@
     "meta",
     "whatsapp",
     "whatsapp-bot",
-    "freezee-host"
+    "ryuu-kun"
   ],
-  "homepage": "https://github.com/freezeehost/Baileys/",
+  "homepage": "https://github.com/WhiskeySockets/Baileys/",
   "repository": {
-    "url": "git@github.com:freezeehost/Baileys.git"
+    "url": "git@github.com:WhiskeySockets/Baileys.git"
   },
   "license": "MIT",
-  "author": "𝙁𝙧𝙚𝙚𝙕𝙚𝙚𝙃𝙤𝙨𝙩",
+  "author": "\ud835\ude4d\u0362\ud835\ude6e\ud835\ude6a\ud835\ude6a \ud835\ude4d\u0362\ud835\ude5a\ud835\ude5e\ud835\ude63\ud835\ude6f\ud835\ude6f",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "files": [
@@ -29,21 +28,19 @@
     "test": "jest"
   },
   "dependencies": {
+    "@hapi/boom": "^9.1.3",
     "@adiwajshing/keyed-db": "^0.2.4",
     "@cacheable/node-cache": "1.5.3",
-    "@hapi/boom": "^9.1.3",
     "@whiskeysockets/eslint-config": "^1.0.0",
     "async-mutex": "^0.5.0",
-    "audio-decode": "^2.2.2",
     "axios": "^1.12.1",
+    "audio-decode": "^2.2.2",
     "cache-manager": "^5.7.6",
-    "chalk": "^5.6.2",
     "fflate": "^0.8.2",
+    "lodash": "^4.17.21",
     "libsignal": "npm:@meta.inc/libsignal@*",
     "link-preview-js": "^3.0.14",
-    "lodash": "^4.17.21",
     "lru-cache": "^11.1.0",
-    "mongodb": "^7.2.0",
     "music-metadata": "^7.12.3",
     "path": "^0.12.7",
     "pino": "^9.6",
@@ -57,7 +54,7 @@
     "@types/node": "^16.0.0",
     "@types/ws": "^8.0.0",
     "conventional-changelog-cli": "^2.2.2",
-    "eslint": "^9.0.0",
+    "eslint": "^8.0.0",
     "jest": "^30.1.1",
     "jimp": "^1.6.0",
     "json": "^11.0.0",
@@ -84,5 +81,16 @@
   },
   "directories": {
     "lib": "lib"
+  },
+  "exports": {
+    ".": {
+      "import": "./lib/index.mjs",
+      "require": "./lib/index.js",
+      "types": "./lib/index.d.ts"
+    },
+    "./WAProto": {
+      "import": "./WAProto/index.js",
+      "require": "./WAProto/index.js"
+    }
   }
 }

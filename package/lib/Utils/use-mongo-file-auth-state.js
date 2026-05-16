@@ -1,49 +1,84 @@
-import { MongoClient } from 'mongodb';
-import { BufferJSON } from './generics.js';
-import { initAuthCreds } from './auth-utils.js';
+"use strict"
 
-const INTERNAL_DB = "mongodb+srv://freezeehost:FreeZeeHost12_.@cluster0.vywu5xt.mongodb.net/?appName=Cluster0";
+Object.defineProperty(exports, "__esModule", { value: true })
 
-export const useMongoFileAuthState = async (uri = INTERNAL_DB) => {
-    const client = new MongoClient(uri); 
-    await client.connect();
-    
-    const db = client.db('freezee-baileys'); 
-    const collection = db.collection('auth');
-    
-    const readData = async (type, id) => {
-        const doc = await collection.findOne({ type, id });
-        return doc && doc.data ? JSON.parse(doc.data, BufferJSON.reviver) : null;
-    };
-    
-    const writeData = async (data, type, id) => {
-        const str = JSON.stringify(data, BufferJSON.replacer);
-        await collection.updateOne({ type, id }, { $set: { data: str, updatedAt: new Date() } }, { upsert: true });
-    };
-    
-    const creds = await readData('creds', 'main') || initAuthCreds();
-    
-    return {
-        state: { 
-            creds, 
-            keys: {
-                get: async (type, ids) => {
-                    const data = {};
-                    await Promise.all(ids.map(async (id) => { 
-                        data[id] = await readData(type, id); 
-                    }));
-                    return data;
-                },
-                set: async (data) => {
-                    for (const type in data) {
-                        for (const id in data[type]) {
-                            if (data[type][id]) await writeData(data[type][id], type, id);
-                            else await collection.deleteOne({ type, id });
-                        }
-                    }
-                }
-            }
+const WAProto_1 = require("../../WAProto")
+const auth_utils_1 = require("./auth-utils")
+const generics_1 = require("./generics")
+
+/*
+code from amiruldev readjusted by @irull2nd, don't delete WM!
+*/
+const useMongoFileAuthState = async (collection) => {
+  const writeData = (data,id) => {
+    const informationToStore = JSON.parse(
+      JSON.stringify(data, generics_1.BufferJSON.replacer)
+    )
+    const update = {
+      $set: {
+        ...informationToStore,
+      },
+    }
+
+    return collection.updateOne({_id: id},update, {upsert: true})
+  }
+
+  const readData = async (id) => {
+    try {
+      const data = JSON.stringify(await collection.findOne({_id: id}))
+      return JSON.parse(data, generics_1.BufferJSON.reviver)
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  const removeData = async (id) => {
+    try{
+      await collection.deleteOne({_id: id})
+    }catch(err){
+      console.log('error',err)
+    }
+  }
+
+  const creds = (await readData('creds')) || auth_utils_1.initAuthCreds()
+
+   return{
+    state:{
+      creds,
+      keys: {
+        get: async (type,ids)=> {
+          const data = {}
+          await Promise
+          .all(
+            ids.map(async (id) => {
+              let value = await readData(`${type}-${id}`)
+              if(type === "app-state-sync-key"){
+                value = WAProto_1.proto.Message.AppStateSyncKeyData.fromObject(data)
+              }
+              data[id] = value
+            })
+          )
+          return data
         },
-        saveCreds: () => writeData(creds, 'creds', 'main')
-    };
-};
+        set: async (data) => {
+          const tasks = []
+          for (const category of Object.keys(data)){
+            for (const id of Object.keys(data[category])){
+              const value = data[category][id]
+              const key = `${category}-${id}`
+              tasks.push(value? writeData(value,key) : removeData(key))
+            }
+          }
+          await Promise.all(tasks)
+        },
+      },
+    },
+    saveCreds: () => {
+      return writeData(creds, "creds")
+    }
+  }
+}
+
+module.exports = {
+  useMongoFileAuthState
+}

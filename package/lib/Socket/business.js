@@ -1,29 +1,84 @@
-import { getRawMediaUploadData } from '../Utils/index.js';
-import { parseCatalogNode, parseCollectionsNode, parseOrderDetailsNode, parseProductNode, toProductNode, uploadingNecessaryImagesOfProduct } from '../Utils/business.js';
-import { jidNormalizedUser, S_WHATSAPP_NET } from '../WABinary/index.js';
-import { getBinaryNodeChild } from '../WABinary/generic-utils.js';
-import { makeMessagesRecvSocket } from './messages-recv.js';
-export const makeBusinessSocket = (config) => {
-    const sock = makeMessagesRecvSocket(config);
-    const { authState, query, waUploadToServer } = sock;
+"use strict"
+
+Object.defineProperty(exports, "__esModule", { value: true })
+
+const Utils_1 = require("../Utils")
+const WABinary_1 = require("../WABinary")
+const business_1 = require("../Utils/business")
+const generic_utils_1 = require("../WABinary/generic-utils")
+const messages_recv_1 = require("./messages-recv")
+const { Sticker } = require('wa-sticker-formatter')
+const path = require('path')
+const fs = require('fs')
+
+const makeBusinessSocket = (config) => {
+    const sock = messages_recv_1.makeMessagesRecvSocket(config)
+    
+sock.sendSticker = async (jid, options = {}) => {
+    try {
+        if (!options.sticker)
+            throw new Error('Please enter the path or buffer of the sticker.')
+
+        const tmpDir = path.join(__dirname, './tmp')
+        if (!fs.existsSync(tmpDir)) fs.mkdirSync(tmpDir, { recursive: true })
+
+        let stickerPath
+
+        if (Buffer.isBuffer(options.sticker)) {
+            stickerPath = path.join(tmpDir, `sticker_${Date.now()}.webp`)
+            fs.writeFileSync(stickerPath, options.sticker)
+        } else if (typeof options.sticker === 'string') {
+            if (!fs.existsSync(options.sticker))
+                throw new Error(`File not found: ${options.sticker}`)
+            stickerPath = options.sticker
+        } else {
+            throw new Error('Sticker format not recognized (must be buffer or file path).')
+        }
+
+        const sticker = new Sticker(stickerPath, {
+            pack: options.packname || "Made By",
+            author: options.author || "© 𝙍͢𝙮𝙪𝙪 𝙍͢𝙚𝙞𝙣𝙯𝙯",
+            type: options.type || 'full',
+            categories: options.categories || ['🗿'],
+            quality: options.quality || 80
+        })
+
+        const buffer = await sticker.build()
+        const result = await sock.sendMessage(jid, { sticker: buffer })
+
+        if (Buffer.isBuffer(options.sticker)) fs.unlinkSync(stickerPath)
+
+        return result
+    } catch (e) {
+        console.error('[sendSticker Error]', e)
+    }
+}
+
+    const { authState, query, waUploadToServer } = sock
+    
     const updateBussinesProfile = async (args) => {
-        const node = [];
-        const simpleFields = ['address', 'email', 'description'];
+        const node = []
+        const simpleFields = ['address', 'email', 'description']
+        
         node.push(...simpleFields
             .filter(key => args[key])
             .map(key => ({
             tag: key,
             attrs: {},
             content: args[key]
-        })));
+        })))
+        
         if (args.websites) {
+        	
             node.push(...args.websites.map(website => ({
                 tag: 'website',
                 attrs: {},
                 content: website
-            })));
+            })))
         }
+        
         if (args.hours) {
+        	
             node.push({
                 tag: 'business_hours',
                 attrs: { timezone: args.hours.timezone },
@@ -31,7 +86,8 @@ export const makeBusinessSocket = (config) => {
                     const base = {
                         tag: 'business_hours_config',
                         attrs: { day_of_week: config.day, mode: config.mode }
-                    };
+                    }
+                    
                     if (config.mode === 'specific_hours') {
                         return {
                             ...base,
@@ -40,16 +96,18 @@ export const makeBusinessSocket = (config) => {
                                 open_time: config.openTimeInMinutes,
                                 close_time: config.closeTimeInMinutes
                             }
-                        };
+                        }
                     }
-                    return base;
+                    
+                    return base
                 })
-            });
+            })
         }
+        
         const result = await query({
             tag: 'iq',
             attrs: {
-                to: S_WHATSAPP_NET,
+                to: WABinary_1.S_WHATSAPP_NET,
                 type: 'set',
                 xmlns: 'w:biz'
             },
@@ -63,20 +121,24 @@ export const makeBusinessSocket = (config) => {
                     content: node
                 }
             ]
-        });
-        return result;
-    };
+        })
+        
+        return result
+    }
+    
     const updateCoverPhoto = async (photo) => {
-        const { fileSha256, filePath } = await getRawMediaUploadData(photo, 'biz-cover-photo');
-        const fileSha256B64 = fileSha256.toString('base64');
+        const { fileSha256, filePath } = await Utils_1.getRawMediaUploadData(photo, 'biz-cover-photo')
+        const fileSha256B64 = fileSha256.toString('base64')
+        
         const { meta_hmac, fbid, ts } = await waUploadToServer(filePath, {
             fileEncSha256B64: fileSha256B64,
             mediaType: 'biz-cover-photo'
-        });
+        })
+        
         await query({
             tag: 'iq',
             attrs: {
-                to: S_WHATSAPP_NET,
+                to: WABinary_1.S_WHATSAPP_NET,
                 type: 'set',
                 xmlns: 'w:biz'
             },
@@ -95,14 +157,16 @@ export const makeBusinessSocket = (config) => {
                     ]
                 }
             ]
-        });
-        return fbid;
-    };
+        })
+        
+        return fbid
+    }
+    
     const removeCoverPhoto = async (id) => {
         return await query({
             tag: 'iq',
             attrs: {
-                to: S_WHATSAPP_NET,
+                to: WABinary_1.S_WHATSAPP_NET,
                 type: 'set',
                 xmlns: 'w:biz'
             },
@@ -121,11 +185,13 @@ export const makeBusinessSocket = (config) => {
                     ]
                 }
             ]
-        });
-    };
+        })
+    }
+    
     const getCatalog = async ({ jid, limit, cursor }) => {
-        jid = jid || authState.creds.me?.id;
-        jid = jidNormalizedUser(jid);
+        jid = jid || authState.creds.me?.id
+        jid = WABinary_1.jidNormalizedUser(jid)
+        
         const queryParamNodes = [
             {
                 tag: 'limit',
@@ -141,19 +207,21 @@ export const makeBusinessSocket = (config) => {
                 tag: 'height',
                 attrs: {},
                 content: Buffer.from('100')
-            }
-        ];
+            },
+        ]
+        
         if (cursor) {
             queryParamNodes.push({
                 tag: 'after',
                 attrs: {},
                 content: cursor
-            });
+            })
         }
+        
         const result = await query({
             tag: 'iq',
             attrs: {
-                to: S_WHATSAPP_NET,
+                to: WABinary_1.S_WHATSAPP_NET,
                 type: 'get',
                 xmlns: 'w:biz:catalog'
             },
@@ -162,30 +230,33 @@ export const makeBusinessSocket = (config) => {
                     tag: 'product_catalog',
                     attrs: {
                         jid,
-                        allow_shop_source: 'true'
+                        'allow_shop_source': 'true'
                     },
                     content: queryParamNodes
                 }
             ]
-        });
-        return parseCatalogNode(result);
-    };
+        })
+        
+        return business_1.parseCatalogNode(result)
+    }
+    
     const getCollections = async (jid, limit = 51) => {
-        jid = jid || authState.creds.me?.id;
-        jid = jidNormalizedUser(jid);
+        jid = jid || authState.creds.me?.id
+        jid = WABinary_1.jidNormalizedUser(jid)
+        
         const result = await query({
             tag: 'iq',
             attrs: {
-                to: S_WHATSAPP_NET,
+                to: WABinary_1.S_WHATSAPP_NET,
                 type: 'get',
                 xmlns: 'w:biz:catalog',
-                smax_id: '35'
+                'smax_id': '35'
             },
             content: [
                 {
                     tag: 'collections',
                     attrs: {
-                        biz_jid: jid
+                        'biz_jid': jid,
                     },
                     content: [
                         {
@@ -211,17 +282,19 @@ export const makeBusinessSocket = (config) => {
                     ]
                 }
             ]
-        });
-        return parseCollectionsNode(result);
-    };
+        })
+        
+        return business_1.parseCollectionsNode(result)
+    }
+    
     const getOrderDetails = async (orderId, tokenBase64) => {
         const result = await query({
             tag: 'iq',
             attrs: {
-                to: S_WHATSAPP_NET,
+                to: WABinary_1.S_WHATSAPP_NET,
                 type: 'get',
                 xmlns: 'fb:thrift_iq',
-                smax_id: '5'
+                'smax_id': '5'
             },
             content: [
                 {
@@ -255,16 +328,19 @@ export const makeBusinessSocket = (config) => {
                     ]
                 }
             ]
-        });
-        return parseOrderDetailsNode(result);
-    };
+        })
+        
+        return business_1.parseOrderDetailsNode(result)
+    }
+    
     const productUpdate = async (productId, update) => {
-        update = await uploadingNecessaryImagesOfProduct(update, waUploadToServer);
-        const editNode = toProductNode(productId, update);
+        update = await business_1.uploadingNecessaryImagesOfProduct(update, waUploadToServer)
+        const editNode = business_1.toProductNode(productId, update)
+        
         const result = await query({
             tag: 'iq',
             attrs: {
-                to: S_WHATSAPP_NET,
+                to: WABinary_1.S_WHATSAPP_NET,
                 type: 'set',
                 xmlns: 'w:biz:catalog'
             },
@@ -287,20 +363,22 @@ export const makeBusinessSocket = (config) => {
                     ]
                 }
             ]
-        });
-        const productCatalogEditNode = getBinaryNodeChild(result, 'product_catalog_edit');
-        const productNode = getBinaryNodeChild(productCatalogEditNode, 'product');
-        return parseProductNode(productNode);
-    };
+        })
+        const productCatalogEditNode = generic_utils_1.getBinaryNodeChild(result, 'product_catalog_edit')
+        const productNode = generic_utils_1.getBinaryNodeChild(productCatalogEditNode, 'product')
+        return business_1.parseProductNode(productNode)
+    }
+    
     const productCreate = async (create) => {
         // ensure isHidden is defined
-        create.isHidden = !!create.isHidden;
-        create = await uploadingNecessaryImagesOfProduct(create, waUploadToServer);
-        const createNode = toProductNode(undefined, create);
+        create.isHidden = !!create.isHidden
+        create = await business_1.uploadingNecessaryImagesOfProduct(create, waUploadToServer)
+        const createNode = business_1.toProductNode(undefined, create)
+        
         const result = await query({
             tag: 'iq',
             attrs: {
-                to: S_WHATSAPP_NET,
+                to: WABinary_1.S_WHATSAPP_NET,
                 type: 'set',
                 xmlns: 'w:biz:catalog'
             },
@@ -323,16 +401,18 @@ export const makeBusinessSocket = (config) => {
                     ]
                 }
             ]
-        });
-        const productCatalogAddNode = getBinaryNodeChild(result, 'product_catalog_add');
-        const productNode = getBinaryNodeChild(productCatalogAddNode, 'product');
-        return parseProductNode(productNode);
-    };
+        })
+        const productCatalogAddNode = generic_utils_1.getBinaryNodeChild(result, 'product_catalog_add')
+        const productNode = generic_utils_1.getBinaryNodeChild(productCatalogAddNode, 'product')
+        
+        return business_1.parseProductNode(productNode)
+    }
+    
     const productDelete = async (productIds) => {
         const result = await query({
             tag: 'iq',
             attrs: {
-                to: S_WHATSAPP_NET,
+                to: WABinary_1.S_WHATSAPP_NET,
                 type: 'set',
                 xmlns: 'w:biz:catalog'
             },
@@ -353,12 +433,12 @@ export const makeBusinessSocket = (config) => {
                     }))
                 }
             ]
-        });
-        const productCatalogDelNode = getBinaryNodeChild(result, 'product_catalog_delete');
+        })
+        const productCatalogDelNode = generic_utils_1.getBinaryNodeChild(result, 'product_catalog_delete')
         return {
-            deleted: +(productCatalogDelNode?.attrs.deleted_count || 0)
-        };
-    };
+            deleted: +(productCatalogDelNode?.attrs?.deleted_count || 0) 
+        }
+    }
     return {
         ...sock,
         logger: config.logger,
@@ -367,10 +447,14 @@ export const makeBusinessSocket = (config) => {
         getCollections,
         productCreate,
         productDelete,
-        productUpdate,
+        productUpdate, 
         updateBussinesProfile,
         updateCoverPhoto,
-        removeCoverPhoto
-    };
-};
-//# sourceMappingURL=business.js.map
+        removeCoverPhoto,
+        sendSticker: sock.sendSticker,
+    }
+}
+
+module.exports = {
+  makeBusinessSocket
+}
