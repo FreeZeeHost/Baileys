@@ -2044,6 +2044,43 @@ await conn.groupMemberAddMode(jid, 'admin_add')
 
 <br>
 
+
+<details>
+<summary><strong>📅 Native Table Message (Premium)</strong></summary>
+
+```javascript
+await conn.msg.nativeTable(jid, "Product Price List", [
+    { header: "Item Name", content: "Price" },
+    { header: "Premium Bot", content: "$10" },
+    { header: "Basic Bot", content: "Free" }
+]);
+```
+</details>
+
+<br>
+
+### 📱 Status Tracker (GETSW Masterclass)
+<details>
+<summary><strong>Show Code</strong></summary>
+
+```javascript
+// 1. Monitor every new status update
+conn.onStatusUpdate(async (status) => {
+    const sender = status.statusData.sender;
+    const caption = status.statusData.caption;
+    console.log(`New status from ${sender}: ${caption}`);
+});
+
+// 2. Get list of everyone who has an active status in cache
+const activeSenders = conn.getAllStatusSenders();
+console.log('Active status senders:', activeSenders);
+
+// 3. Get status history from a specific person
+const history = conn.getStatusesFrom("628xxx@s.whatsapp.net");
+console.log(`Found ${history.length} stories for this user`);
+```
+</details>
+
 ### 🔒 Privacy
 <details>
 <summary><strong>🖼️ Change Profile User or Group</strong></summary>
