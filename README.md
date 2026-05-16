@@ -1,66 +1,80 @@
-# 🚀 @freezeehost/baileys 
+<div align="center">
+  <img src="https://files.catbox.moe/gw41eq.png" alt="WhatsApp Baileys" width="450"/>  
 
-[![npm version](https://img.shields.io/badge/version-2.1.5-blue.svg)](https://www.npmjs.com/package/@freezeehost/baileys)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Stability: God-Mode](https://img.shields.io/badge/Stability-God--Mode-brightgreen.svg)]()
+  <h1>🚀 @freezeehost/baileys</h1>
+  <p><strong>The Most Powerful, Stable, and Hybrid Baileys Fork in 2026</strong></p>
+  
+  <p>
+    <a href="https://npmjs.com/package/@freezeehost/baileys">
+      <img src="https://img.shields.io/npm/v/@freezeehost/baileys?color=blue&logo=npm" alt="npm version">
+    </a>
+    <a href="https://opensource.org/licenses/MIT">
+      <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License">
+    </a>
+    <a href="#">
+      <img src="https://img.shields.io/badge/Stability-God--Mode-brightgreen.svg" alt="Stability">
+    </a>
+  </p>
+</div>
 
-> **The Most Powerful, Stable, and Lightweight Baileys Fork in 2026.**  
-> Dirancang khusus untuk bot WhatsApp enterprise dengan fitur premium yang tidak ada di versi original.
+<br>
 
----
+## 📚 Table of Contents  
+- [Features](#-features)  
+- [FreeZee Premium Features](#-freezee-premium-features)
+- [Installation](#-installation)  
+- [Hybrid Quick Start](#-quick-start)  
+- [Premium Documentation](#-premium-documentation)
+  - [MongoDB Cloud Auth](#-mongodb-cloud-auth)
+  - [Stealth Mode](#-stealth-mode)
+  - [Interactive UI Builders](#-interactive-ui-builders)
+  - [Status Tracker (GETSW)](#-status-tracker-getsw)
+  - [Advanced Media](#-advanced-media)
+- [Base Documentation](#-base-documentation)  
+- [Disclaimer](#-disclaimer)  
 
-## 🌟 Fitur Unggulan (FreeZee Premium)
+<br>
+
+## 🌟 Features
+- ✅ **Native Hybrid Support**: Works perfectly with both ESM (`import`) and CJS (`require`).
+- ✅ **Multi-Device Support**: Optimized for the latest WhatsApp Multi-Device protocol.
+- ✅ **Singularity Core**: Unified utility chain to eliminate "Named export not found" errors.
+- ✅ **Enterprise Stability**: Designed for high-traffic bots with anti-crash protection.
+
+<br>
+
+## 💎 FreeZee Premium Features
 
 ### ☁️ MongoDB Cloud Auth
-Lupakan `auth-info.json` yang sering corrupt. Sesi bot Anda sekarang disimpan secara otomatis di MongoDB Cloud dengan sistem **Atomic Save**.
-- **Anti-Reconnect Loop**: Menghindari koneksi terputus tiba-tiba.
-- **Auto-Sync**: Sesi otomatis tersinkronisasi antar server.
+Forget `auth-info.json` corruption. Store your sessions safely in MongoDB with atomic updates and automatic synchronization.
 
-### 🥷 Stealth Mode (Fitur Hantu)
-Bot Anda akan terlihat lebih manusiawi dengan simulasi interaksi asli.
-- `sock.simulateTyping(jid, duration)` -> Muncul status "Mengetik..."
-- `sock.simulateRecording(jid, duration)` -> Muncul status "Merekam suara..."
+### 🥷 Stealth Mode
+Make your bot look human. Simulate typing and recording statuses seamlessly while your bot processes heavy commands.
 
 ### 🚀 Auto Memory Optimizer
-Menjaga bot tetap ringan dan responsif meskipun aktif berhari-hari.
-- `sock.autoOptimize()` -> Membersihkan cache chat & pesan lama secara cerdas untuk membebaskan RAM.
+Keep your bot running for months without lag. Clean up message caches and chat stores automatically to free up RAM.
 
-### 🎨 Advanced Sticker Engine
-Engine pembuatan stiker terintegrasi yang mendukung gambar dan video secara langsung.
-- `sock.sendStickerPack(jid, paths, options)` -> Kirim paket stiker massal dengan watermark kustom.
-
-### 🔘 UI Interactive Builders
-Kirim pesan interaktif hanya dengan satu baris kode pendek!
-- **Buttons**: `sock.msg.buttons(...)`
-- **List**: `sock.msg.list(...)`
-- **Polling**: `sock.msg.poll(...)`
-- **Carousel**: `sock.msg.carousel(...)`
-- **Native Table**: `sock.msg.nativeTable(...)`
+### 🔘 One-Line UI Builders
+Send complex interactive messages (Buttons, Lists, Polls, Carousels) with simple one-line functions.
 
 ---
 
-## 📦 Instalasi
+<br>
 
+## 📥 Installation
 ```bash
 npm install @freezeehost/baileys
 ```
 
-Atau gunakan langsung dari GitHub:
-```bash
-npm install https://github.com/FreeZeeHostProject/Baileys
-```
+<br>
 
----
+## 🚀 Hybrid Quick Start
 
-## 🛠️ Penggunaan Dasar (Hybrid Support)
-
-Library ini mendukung **ESM** (`import`) dan **CommonJS** (`require`) secara native.
-
-### Menggunakan ESM (Modern)
+### Using ESM (Modern)
 ```javascript
 import { makeFreeZeeSocket, useMongoFileAuthState } from '@freezeehost/baileys';
 
-const { state, saveCreds } = await useMongoFileAuthState("URL_MONGODB_ANDA");
+const { state, saveCreds } = await useMongoFileAuthState("YOUR_MONGODB_URL");
 const sock = makeFreeZeeSocket({
     auth: state,
     printQRInTerminal: true
@@ -69,59 +83,168 @@ const sock = makeFreeZeeSocket({
 sock.ev.on('creds.update', saveCreds);
 ```
 
-### Menggunakan CommonJS (Legacy)
+### Using CommonJS (Legacy)
 ```javascript
 const { makeFreeZeeSocket, useMongoFileAuthState } = require('@freezeehost/baileys');
 
 async function connect() {
     const { state, saveCreds } = await useMongoFileAuthState();
-    const conn = makeFreeZeeSocket({ auth: state });
+    const sock = makeFreeZeeSocket({ auth: state });
     // ...
 }
 ```
 
 ---
 
-## 💎 Contoh Fitur Premium
+<br>
 
-### 1. Kirim Pesan Tombol (Easy Way)
+## 📖 Premium Documentation
+
+### ☁️ MongoDB Cloud Auth
+Our internal database is provided by default, but you can use your own:
 ```javascript
-await sock.msg.buttons(jid, "Halo Bosku!", "Silakan pilih menu di bawah:", [
-    { buttonId: 'id1', buttonText: { displayText: 'Menu Utama' } },
-    { buttonId: 'id2', buttonText: { displayText: 'Owner' } }
+const { state, saveCreds } = await useMongoFileAuthState("mongodb+srv://user:pass@cluster.mongodb.net/dbname");
+```
+
+### 🥷 Stealth Mode
+<details>
+<summary><strong>Show Code</strong></summary>
+
+```javascript
+// Simulate typing for 3 seconds
+await sock.simulateTyping(jid, 3000);
+
+// Simulate audio recording for 2 seconds
+await sock.simulateRecording(jid, 2000);
+```
+</details>
+
+### 🔘 Interactive UI Builders (`sock.msg`)
+<details>
+<summary><strong>Show Code</strong></summary>
+
+```javascript
+// Send Buttons
+await sock.msg.buttons(jid, "Hello!", "Footer text", [
+    { buttonId: 'id1', buttonText: { displayText: 'Button 1' } }
+]);
+
+// Send Poll
+await sock.msg.poll(jid, "Vote now!", ["Option A", "Option B"], 1);
+
+// Send Carousel (Multiple Cards)
+await sock.msg.carousel(jid, [
+    { title: 'Card 1', body: 'Desc', footer: 'Foot', buttons: [...] },
+    { title: 'Card 2', body: 'Desc', footer: 'Foot', buttons: [...] }
+]);
+
+// Send Native Table
+await sock.msg.nativeTable(jid, "Product List", [
+    { header: "Name", content: "Price" },
+    { header: "Bot Premium", content: "Free" }
 ]);
 ```
+</details>
 
-### 2. Aktifkan Mode Hantu (Stealth)
+### 📱 Status Tracker (GETSW)
+Listen to status updates, track who posted what, and retrieve history.
+<details>
+<summary><strong>Show Code</strong></summary>
+
 ```javascript
-// Sebelum memproses perintah berat, biar bot terlihat "real"
-await sock.simulateTyping(jid, 2000); 
-await sock.sendMessage(jid, { text: "Ini hasil pencariannya..." });
+// Listen to status updates from everyone
+sock.onStatusUpdate(async (status) => {
+    console.log(`New status from ${status.statusData.sender}`);
+    console.log(`Caption: ${status.statusData.caption}`);
+});
+
+// Get list of all contacts who have active statuses in cache
+const senders = sock.getAllStatusSenders();
+
+// Get specific statuses from a user
+const statuses = sock.getStatusesFrom("62xxx@s.whatsapp.net");
 ```
+</details>
 
-### 3. Kirim Paket Stiker Massal
+### 🖼️ Advanced Media
+<details>
+<summary><strong>Show Code</strong></summary>
+
 ```javascript
-await sock.sendStickerPack(jid, ['./stiker1.png', './video.mp4'], {
-    packname: 'FreeZeeHost Pack',
-    author: '@freezeehost'
+// Send Album (Bulk Media)
+await sock.sendAlbumMessage(jid, [
+    { type: 'image', data: { url: '...' }, caption: 'Pic 1' },
+    { type: 'video', data: fs.readFileSync('vid.mp4') }
+]);
+
+// Send Sticker Pack (Bulk Stickers)
+await sock.sendStickerPack(jid, ['./1.png', './2.webp'], {
+    packname: "My Bot",
+    author: "FreeZeeHost"
 });
 ```
+</details>
 
-### 4. Optimalisasi RAM (Setiap 1 Jam)
+### 🚀 RAM Optimization
 ```javascript
-setInterval(() => {
-    sock.autoOptimize();
-    console.log('RAM Bot dibersihkan!');
-}, 3600000);
+// Clear caches to keep the bot responsive
+sock.autoOptimize();
 ```
 
 ---
 
-## 🤝 Kontribusi
-Ingin menambah fitur canggih lainnya? Silakan lakukan Pull Request ke repository kami!
+<br>
 
-**Author**: 𝙁𝙧𝙚𝙚𝙕𝙚𝙚𝙃𝙤𝙨𝙩  
-**License**: MIT  
+## 📖 Base Documentation (Original Baileys)
+
+### 📨 Sending Messages
+<details>
+<summary><strong>📝 Text & Media</strong></summary>
+
+```javascript
+// Simple Text
+await sock.sendMessage(jid, { text: 'Hello!' });
+
+// Image with URL
+await sock.sendMessage(jid, { 
+  image: { url: 'https://example.com/image.jpg' },
+  caption: 'Beautiful View'
+});
+
+// Audio PTT
+await sock.sendMessage(jid, { 
+  audio: fs.readFileSync('voice.ogg'),
+  ptt: true
+});
+```
+</details>
+
+### 🛠️ Groups
+<details>
+<summary><strong>🔄 Management</strong></summary>
+
+```javascript
+// Create Group
+const group = await sock.groupCreate("Bot Fans", ["123@s.whatsapp.net"]);
+
+// Add Member
+await sock.groupParticipantsUpdate(jid, ["456@s.whatsapp.net"], "add");
+
+// Get Metadata
+const metadata = await sock.groupMetadata(jid);
+```
+</details>
+
+<br>
+
+## 📜 License
+This project is licensed under the **MIT License**.
+
+<br>
+
+## 🌱 Credits
+- **Original Library**: WhiskeySockets/Baileys
+- **Enhancements**: 𝙁𝙧𝙚𝙚𝙕𝙚𝙚𝙃𝙤𝙨𝙩 Project
 
 ---
-*Made with ❤️ by FreeZeeHost Project*
+*Made with ❤️ for the WhatsApp Bot Community*
