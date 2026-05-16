@@ -1,13 +1,16 @@
-import { jidNormalizedUser } from "../WABinary/index.js";
-export const patchSocket = (sock) => {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+
+const { jidNormalizedUser, jidDecode } = require("../WABinary");
+const { generateMessageID } = require("./generics");
+
+exports.patchSocket = (sock) => {
     // --- 1. LIGHTWEIGHT & RESPONSIVE: Auto Optimizer ---
-    // Clears the cache to prevent memory leaks and keep the bot lightning fast
     sock.autoOptimize = () => {
         if (sock.store) {
             sock.store.chats.clear();
             sock.store.messages = {};
         }
-        // Force garbage collection if exposed
         if (global.gc) {
             global.gc();
         }
@@ -45,42 +48,13 @@ export const patchSocket = (sock) => {
         return album;
     };
 
-    sock.sendStickerPack = async (jid, stickerPaths, packOptions = {}) => {
-        // dynamic import is necessary because we removed require from ESM
-        let waSticker;
-        try {
-            waSticker = await import('wa-sticker-formatter');
-        } catch (e) {
-            console.warn("[FreeZeeHost] Package 'wa-sticker-formatter' is required for sendStickerPack.");
-            return [];
-        }
-        
-        const { Sticker, StickerTypes } = waSticker.default || waSticker;
-        const results = [];
-        for (const path of stickerPaths) {
-            const sticker = new Sticker(path, {
-                pack: packOptions.packname || 'FreeZeeHost Pack',
-                author: packOptions.author || 'Bot',
-                type: StickerTypes.FULL,
-                categories: ['🤩', '🎉'],
-                id: '12345',
-                quality: 70,
-                ...packOptions
-            });
-            const buffer = await sticker.toBuffer();
-            const m = await sock.sendMessage(jid, { sticker: buffer }, { ...packOptions.options });
-            results.push(m);
-        }
-        return results;
-    };
-
     // --- 5. STATUS TRACKER (FOR GETSW) ---
     const statusStore = {};
     sock.ev.on('messages.upsert', ({ messages, type }) => {
-        if (type !== 'notify') return;
+        if (type !== 'notify' && type !== 'append') return;
         for (const m of messages) {
             if (m.key.remoteJid === 'status@broadcast') {
-                const sender = m.key.participant || m.key.remoteJid;
+                const sender = jidNormalizedUser(m.key.participant || m.key.remoteJid);
                 if (!statusStore[sender]) statusStore[sender] = [];
                 m.statusData = {
                     type: Object.keys(m.message || {})[0],
@@ -98,7 +72,7 @@ export const patchSocket = (sock) => {
     
     sock.onStatusUpdate = (callback) => {
         sock.ev.on('messages.upsert', async ({ messages, type }) => {
-            if (type !== 'notify') return;
+            if (type !== 'notify' && type !== 'append') return;
             for (const m of messages) {
                 if (m.key.remoteJid === 'status@broadcast') {
                     await callback(m).catch(() => {});
@@ -107,6 +81,7 @@ export const patchSocket = (sock) => {
         });
     };
 
+    // --- 6. EASY TO USE: smsg helper ---
     sock.smsg = (m) => {
         if (!m.message) return m;
         if (m.key) {
@@ -114,11 +89,14 @@ export const patchSocket = (sock) => {
             m.isMe = m.key.fromMe;
             m.chat = m.key.remoteJid;
             m.isGroup = m.chat.endsWith("@g.us");
-            m.sender = jidNormalizedUser(m.isMe ? sock.user.id : m.key.participant || m.chat);
+            m.sender = jidNormalizedUser(m.isMe ? (sock.user.id || sock.user.jid) : (m.key.participant || m.chat));
         }
-        m.text = m.message.conversation || m.message.extendedTextMessage?.text || "";
+        m.text = m.message.conversation || m.message.extendedTextMessage?.text || m.message.imageMessage?.caption || m.message.videoMessage?.caption || "";
         return m;
     };
+
+    // Inject to global for bot scripts that expect it
     global.smsg = sock.smsg;
+
     return sock;
 };
