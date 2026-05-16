@@ -2,7 +2,7 @@
   <img src="https://files.catbox.moe/gw41eq.png" alt="WhatsApp Baileys" width="450"/>  
 
   <h1>🚀 @freezeehost/baileys</h1>
-  <p><strong>The Most Powerful, Stable, and Hybrid Baileys Fork in 2026</strong></p>
+  <p><strong>Lightweight, Full-Featured, and Hybrid WhatsApp Web for Node.js</strong></p>
   
   <p>
     <a href="https://npmjs.com/package/@freezeehost/baileys">
@@ -28,6 +28,8 @@
   - [Connecting Account](#-connecting-account)  
   - [Handling Events](#-handling-events)  
   - [Sending Messages](#-sending-messages)  
+  - [Interactive UI Builders](#-interactive-ui-builders)
+  - [Status Tracker (GETSW)](#-status-tracker-getsw)
   - [Groups](#-groups)  
   - [Privacy](#-privacy)  
   - [Advanced](#-advanced)  
@@ -40,7 +42,7 @@
 - 🔄 **Real-Time Messaging** (text, media, polls, buttons)  
 - 🛠️ **Group & Channel Management** (create, modify, invite)  
 - 🔒 **End-to-End Encryption**  
-- 📦 **Session Persistence**  
+- 📦 **Session Persistence** (Cloud MongoDB & Multi-File)
 - ⚡ **Native Hybrid Support**: Works perfectly with both ESM (`import`) and CJS (`require`).
 - 💎 **FreeZee Singularity Core**: Unified utility chain to eliminate "Named export not found" errors.
 
@@ -49,20 +51,20 @@
 ## 💎 FreeZee Premium Features
 
 ### ☁️ MongoDB Cloud Auth
-Store your sessions safely in MongoDB with atomic updates and automatic synchronization. Forget `auth-info.json` corruption.
-- **Internal Database**: Automatically uses our high-speed internal DB if no URL is provided.
+Simpan sesi bot Anda secara otomatis di MongoDB Cloud dengan sistem **Atomic Save**. Lupakan file JSON yang sering rusak.
+- **Internal Database**: Otomatis menggunakan database internal kami jika Anda tidak menyediakan URL sendiri.
 
-### 🥷 Stealth Mode (Ghost Mode)
-Make your bot look human. Simulate typing and recording statuses seamlessly while your bot processes heavy commands.
-- `conn.simulateTyping(jid, duration)` -> Status "Typing..."
-- `conn.simulateRecording(jid, duration)` -> Status "Recording audio..."
+### 🥷 Stealth Mode (Mode Hantu)
+Membuat bot Anda terlihat lebih manusiawi dengan simulasi interaksi yang nyata.
+- `conn.simulateTyping(jid, duration)` -> Status "Mengetik..."
+- `conn.simulateRecording(jid, duration)` -> Status "Merekam suara..."
 
 ### 🚀 Auto Memory Optimizer
-Keep your bot running for months without lag. 
-- `conn.autoOptimize()` -> Clears chat caches and old message objects to keep RAM low.
+Menjaga performa bot tetap ringan meskipun aktif berhari-hari. 
+- `conn.autoOptimize()` -> Membersihkan cache chat & pesan lama secara cerdas untuk membebaskan RAM.
 
 ### 🔘 One-Line UI Builders (`conn.msg`)
-Simplify complex interactions into single function calls.
+Kirim pesan interaktif yang kompleks cukup dengan satu baris kode.
 - **Buttons**: `conn.msg.buttons(...)`
 - **List**: `conn.msg.list(...)`
 - **Polling**: `conn.msg.poll(...)`
@@ -70,13 +72,21 @@ Simplify complex interactions into single function calls.
 - **Native Table**: `conn.msg.nativeTable(...)`
 
 ### 📱 Status Tracker (GETSW)
-Perfect for building status-saving bots.
-- `conn.onStatusUpdate(callback)` -> Listen to every new status posted.
-- `conn.getAllStatusSenders()` -> Get list of everyone who has an active status.
-- `conn.getStatusesFrom(jid)` -> Get history of statuses from a specific person.
+Fitur tercanggih untuk melacak dan mengambil data status (Story) WhatsApp.
+- `conn.onStatusUpdate(callback)` -> Mendeteksi setiap ada status baru yang diposting.
+- `conn.getAllStatusSenders()` -> Mengambil daftar semua orang yang sedang pasang status.
+- `conn.getStatusesFrom(jid)` -> Mengambil semua riwayat status dari nomor tertentu.
 
----
+<br>
 
+## 🌱 Owner’s Notice  
+
+Proyek ini dikembangkan berdasarkan library **Whiskeysocket**, dengan perbaikan dan peningkatan yang dilakukan oleh administrator **FreeZeeHost**.  
+Tujuan utama dari proyek ini adalah untuk **memudahkan pengguna serta memperbaiki kesalahan bot yang sebelumnya sering dialami (Error 400/500, Circular Dependency, ESM Mismatches)**.  
+
+Saat ini proyek sudah mencapai tahap **Stable Production (God-Mode)**.  
+
+Terimakasih, salam hangat, **FreeZeeHost**!
 <br>
 
 ## 📥 Installation
@@ -86,7 +96,9 @@ npm install @freezeehost/baileys
 
 <br>
 
-## 🚀 Quick Start
+## 🚀 Quick Start (Hybrid Support)
+
+### Menggunakan CommonJS (Legacy)
 ```javascript
 const {
   makeConn,
@@ -94,20 +106,27 @@ const {
 } = require('@freezeehost/baileys');
 
 async function start() {
-  const { state, saveCreds } = await useMongoFileAuthState("URL_MONGODB_ANDA")
-  
-  const conn = makeConn({ 
-      auth: state,
-      printQRInTerminal: true 
-  });
+    const { state, saveCreds } = await useMongoFileAuthState();
+    const conn = makeConn({ 
+        auth: state,
+        printQRInTerminal: true 
+    });
 
-  conn.ev.on('creds.update', saveCreds);
+    conn.ev.on('creds.update', saveCreds);
 
-  conn.ev.on('messages.upsert', ({ messages }) => {
-    console.log('New message:', messages[0].message);
-  });
+    conn.ev.on('messages.upsert', ({ messages }) => {
+        console.log('New message:', messages[0].message);
+    });
 }
 start();
+```
+
+### Menggunakan ESM (Modern)
+```javascript
+import { makeConn, useMongoFileAuthState } from '@freezeehost/baileys';
+
+const { state, saveCreds } = await useMongoFileAuthState();
+const conn = makeConn({ auth: state });
 ```
 
 <br>
@@ -141,7 +160,7 @@ if (!conn.authState.creds.registered) {
   // use default pairing code
   const code = await conn.requestPairingCode(number)
 
-  // use custom code pairing (8 digit premium)
+  // use customer code pairing (8 digit premium)
   const customCode = "FREEZE12"
   const code2 = await conn.requestPairingCode(number, customCode)
   console.log(code2)
@@ -198,11 +217,19 @@ await conn.sendMessage(jid, content, options)
 // Simple Text
 await conn.sendMessage(jid, { text: 'Hello!' });
 
-// Text with mentions
-await conn.sendMessage(jid, { text: 'Hi @62xxx', mentions: ['62xxx@s.whatsapp.net'] });
+// Text with link preview
+await conn.sendMessage(jid, {
+  text: 'Visit https://example.com',
+  linkPreview: {
+    'canonical-url': 'https://example.com',
+    title: 'Example Domain',
+    description: 'A demo website',
+    jpegThumbnail: fs.readFileSync('preview.jpg')
+  }
+});
 
 // With Quoted Reply
-await conn.sendMessage(jid, { text: 'Hello!' }, { quoted: m });
+await conn.sendMessage(jid, { text: 'Hello FreeZee!' }, { quoted: m });
 ```
 </details>
 
@@ -214,7 +241,8 @@ await conn.sendMessage(jid, { text: 'Hello!' }, { quoted: m });
 // With local file buffer
 await conn.sendMessage(jid, { 
   image: fs.readFileSync('image.jpg'),
-  caption: 'Caption here'
+  caption: 'Caption!',
+  mentions: ['1234567890@s.whatsapp.net'] 
 });
 
 // With URL
@@ -232,7 +260,7 @@ await conn.sendMessage(jid, {
 // With Local File
 await conn.sendMessage(jid, { 
   video: fs.readFileSync('video.mp4'),
-  caption: 'Clip'
+  caption: 'Clip!'
 });
 
 // View Once Message
@@ -247,11 +275,20 @@ await conn.sendMessage(jid, {
 <summary><strong>🎵 Audio/PTT Message</strong></summary>
 
 ```javascript
-// Push-to-talk (PTT / Voice Note)
+// Push-to-talk (PTT)
 await conn.sendMessage(jid, { 
   audio: fs.readFileSync('voice.ogg'),
   ptt: true
 });
+```
+</details>
+
+<details>
+<summary><strong>👤 Contact Message</strong></summary>
+
+```javascript
+const vcard = 'BEGIN:VCARD\nVERSION:3.0\nFN:FreeZeeHost\nTEL;waid=628xxx:+628xxx\nEND:VCARD';
+await conn.sendMessage(jid, { contacts: { displayName: 'Admin', contacts: [{ vcard }] } });
 ```
 </details>
 
@@ -271,12 +308,7 @@ await conn.sendStickerPack(jid, ['./s1.png', './s2.webp'], {
 <summary><strong>💥 React Message</strong></summary>
 
 ```javascript
-await conn.sendMessage(jid, {
-  react: {
-    text: '👍', 
-    key: m.key
-  }
-})
+await conn.sendMessage(jid, { react: { text: '👍', key: m.key } });
 ```
 </details>
 
@@ -307,7 +339,6 @@ await conn.sendMessage(jid, {
 <summary><strong>📊 Poll Message</strong></summary>
 
 ```javascript
-// Create a poll
 await conn.sendMessage(jid, {
   poll: {
     name: 'Favorite color?',
@@ -319,11 +350,11 @@ await conn.sendMessage(jid, {
 </details>
 
 <details>
-<summary><strong>📸 Album Message</strong></summary>
+<summary><strong>📸 Album Message (Premium)</strong></summary>
 
 ```javascript
 await conn.sendAlbumMessage(jid, [
-    { image: { url: '...' }, caption: 'Pic 1' },
+    { type: 'image', data: { url: '...' }, caption: 'Pic 1' },
     { video: fs.readFileSync('vid.mp4'), caption: 'Vid 1' }
 ], { quoted: m });
 ```
@@ -365,6 +396,17 @@ await conn.msg.carousel(jid, [
 ```
 </details>
 
+<details>
+<summary><strong>Native Table</strong></summary>
+
+```javascript
+await conn.msg.nativeTable(jid, "Price List", [
+    { header: "Pack", content: "Price" },
+    { header: "Premium A", content: "10k" }
+]);
+```
+</details>
+
 <br>
 
 ### 📱 Status Tracker (GETSW)
@@ -373,16 +415,16 @@ await conn.msg.carousel(jid, [
 <summary><strong>Usage Guide</strong></summary>
 
 ```javascript
-// Listen to all new status updates
+// 1. Listen to all new status updates
 conn.onStatusUpdate(async (status) => {
-    console.log(\`New status from \${status.statusData.sender}\`);
-    console.log(\`Caption: \${status.statusData.caption}\`);
+    console.log(`New status from ${status.statusData.sender}`);
+    console.log(`Caption: ${status.statusData.caption}`);
 });
 
-// Get all contacts who posted status
+// 2. Get list of all contacts who posted status
 const senders = conn.getAllStatusSenders();
 
-// Get status history for a specific person
+// 3. Get status history for a specific person
 const stories = conn.getStatusesFrom("62xxx@s.whatsapp.net");
 ```
 </details>
@@ -452,6 +494,7 @@ await conn.updateBlockStatus(jid, 'block');
 // Privacy Settings (all, contacts, contact_blacklist, none)
 await conn.updateLastSeenPrivacy("none");
 await conn.updateOnlinePrivacy("match_last_seen");
+await conn.updateStatusPrivacy("contacts");
 ```
 </details>
 
@@ -470,7 +513,7 @@ const conn = makeConn({ logger: { level: 'debug' } });
 <summary><strong>📡 Raw WebSocket Events</strong></summary>
 
 ```javascript
-conn.ws.on('CB:presence', (node) => console.log('Raw presence:', node));
+conn.ws.on('CB:presence', (node) => console.log('Raw node:', node));
 ```
 </details>
 
