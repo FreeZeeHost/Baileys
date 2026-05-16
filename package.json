@@ -17,7 +17,7 @@
     "url": "git@github.com:WhiskeySockets/Baileys.git"
   },
   "license": "MIT",
-  "author": "\ud835\ude4d\u0362\ud835\ude6e\ud835\ude6a\ud835\ude6a \ud835\ude4d\u0362\ud835\ude5a\ud835\ude5e\ud835\ude63\ud835\ude6f\ud835\ude6f",
+  "author": "𝙍͢𝙮𝙪𝙪 𝙍͢𝙚𝙞𝙣𝙯𝙯",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "files": [
@@ -28,18 +28,18 @@
     "test": "jest"
   },
   "dependencies": {
-    "@hapi/boom": "^9.1.3",
     "@adiwajshing/keyed-db": "^0.2.4",
-    "@cacheable/node-cache": "1.5.3",
+    "@cacheable/node-cache": "^1.5.3",
+    "@hapi/boom": "^9.1.3",
     "@whiskeysockets/eslint-config": "^1.0.0",
     "async-mutex": "^0.5.0",
-    "axios": "^1.12.1",
     "audio-decode": "^2.2.2",
+    "axios": "^1.16.1",
     "cache-manager": "^5.7.6",
     "fflate": "^0.8.2",
-    "lodash": "^4.17.21",
     "libsignal": "npm:@meta.inc/libsignal@*",
     "link-preview-js": "^3.0.14",
+    "lodash": "^4.17.21",
     "lru-cache": "^11.1.0",
     "music-metadata": "^7.12.3",
     "path": "^0.12.7",

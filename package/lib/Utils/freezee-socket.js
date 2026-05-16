@@ -1,9 +1,9 @@
-import makeWASocket from '../Socket/index.js';
-import { useMongoFileAuthState } from './use-mongo-file-auth-state.js';
-import { patchSocket } from './socket-patcher.js';
-import { initAuthCreds } from './auth-utils.js';
+const { useMongoFileAuthState } = require('./use-mongo-file-auth-state');
+const { patchSocket } = require('./socket-patcher');
+const { initAuthCreds } = require('./auth-utils');
 
-export const makeFreeZeeSocket = (config = {}) => {
+exports.makeFreeZeeSocket = (config = {}) => {
+    const makeWASocket = require('../Socket').default;
     const state = config.auth || {
         creds: initAuthCreds(),
         keys: { get: async () => ({}), set: async () => {} }
