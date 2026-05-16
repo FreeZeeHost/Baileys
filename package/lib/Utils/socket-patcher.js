@@ -53,9 +53,9 @@ exports.patchSocket = (sock) => {
     sock.ev.on('messages.upsert', ({ messages, type }) => {
         if (type !== 'notify' && type !== 'append') return;
         for (const m of messages) {
-            if (m.key.remoteJid === "status@broadcast") console.log("[STATUS] Berhasil merekam status baru dari: " + sender);
             if (m.key.remoteJid === 'status@broadcast') {
                 const sender = jidNormalizedUser(m.key.participant || m.key.remoteJid);
+                console.log("[STATUS] Berhasil merekam status baru dari: " + sender);
                 if (!statusStore[sender]) statusStore[sender] = [];
                 m.statusData = {
                     type: Object.keys(m.message || {})[0],
@@ -75,7 +75,6 @@ exports.patchSocket = (sock) => {
         sock.ev.on('messages.upsert', async ({ messages, type }) => {
             if (type !== 'notify' && type !== 'append') return;
             for (const m of messages) {
-            if (m.key.remoteJid === "status@broadcast") console.log("[STATUS] Berhasil merekam status baru dari: " + sender);
             if (m.key.remoteJid === 'status@broadcast') {
                     await callback(m).catch(() => {});
                 }
