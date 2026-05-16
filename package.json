@@ -89,7 +89,7 @@
       "types": "./lib/index.d.ts"
     },
     "./WAProto": {
-      "import": "./WAProto/index.js",
+      "import": "./WAProto/index.mjs",
       "require": "./WAProto/index.js"
     }
   }
