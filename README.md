@@ -42,10 +42,26 @@ Simplify complex interactions into single function calls.
 - **Native Table**: `conn.msg.nativeTable(...)`
 
 ### 📱 Status Tracker (GETSW)
-Perfect for building status-saving bots.
+Perfect for building status-saving bots. Includes history tracking and media downloading.
 - `conn.onStatusUpdate(callback)` -> Listen to every new status posted.
 - `conn.getAllStatusSenders()` -> Get list of everyone who has an active status.
 - `conn.getStatusesFrom(jid)` -> Get history of statuses from a specific person.
+- `conn.downloadStatusMedia(m)` -> Download image/video from a status message.
+
+#### Usage Example:
+```javascript
+// 1. Listen for new status updates
+sock.onStatusUpdate((m) => {
+    console.log("New status from:", m.key.participant)
+})
+
+// 2. Download media from a captured status
+const statuses = sock.getStatusesFrom("628xxx@s.whatsapp.net")
+if (statuses.length > 0) {
+    const buffer = await sock.downloadStatusMedia(statuses[0])
+    // returns Buffer
+}
+```
 
 ---
 
