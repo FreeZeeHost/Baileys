@@ -244,7 +244,7 @@ export const decryptMessageNode = (stanza, meId, meLid, repository, logger) => {
                             }
                         }
                         if (fullMessage.message) {
-                            Object.assign(fullMessage.message, msg);
+                            fullMessage.message = msg;
                         }
                         else {
                             fullMessage.message = msg;
