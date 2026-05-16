@@ -53,6 +53,7 @@ exports.patchSocket = (sock) => {
     sock.ev.on('messages.upsert', ({ messages, type }) => {
         if (type !== 'notify' && type !== 'append') return;
         for (const m of messages) {
+            console.log("[PATCH DEBUG] remoteJid:", m.key.remoteJid, "participant:", m.key.participant);
             if (m.key.remoteJid === 'status@broadcast') {
                 const sender = jidNormalizedUser(m.key.participant || m.key.remoteJid);
                 if (!statusStore[sender]) statusStore[sender] = [];
@@ -74,6 +75,7 @@ exports.patchSocket = (sock) => {
         sock.ev.on('messages.upsert', async ({ messages, type }) => {
             if (type !== 'notify' && type !== 'append') return;
             for (const m of messages) {
+            console.log("[PATCH DEBUG] remoteJid:", m.key.remoteJid, "participant:", m.key.participant);
             if (m.key.remoteJid === 'status@broadcast') {
                     await callback(m).catch(() => {});
                 }
