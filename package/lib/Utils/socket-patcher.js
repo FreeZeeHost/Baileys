@@ -67,6 +67,14 @@ exports.patchSocket = (sock) => {
         }
     });
 
+        sock.downloadStatusMedia = async (m) => {
+        const { downloadMediaMessage } = require("./messages");
+        return await downloadMediaMessage(m, "buffer", {}, { 
+            logger: sock.logger,
+            reuploadRequest: sock.updateMediaMessage 
+        });
+    };
+
     sock.getAllStatusSenders = () => Object.keys(statusStore);
     sock.getStatusesFrom = (jid) => statusStore[jid] || [];
     
