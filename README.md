@@ -1,8 +1,9 @@
+# 🚀 @freezeehost/baileys 
+
 <div align="center">
   <img src="https://files.catbox.moe/gw41eq.png" alt="WhatsApp Baileys" width="450"/>  
 
-  <h1>🚀 @freezeehost/baileys</h1>
-  <p><strong>The Most Powerful, Stable, and Hybrid Baileys Fork in 2026</strong></p>
+  <h1>The Most Powerful, Stable, and Hybrid Baileys Fork in 2026</h1>
   
   <p>
     <a href="https://npmjs.com/package/@freezeehost/baileys">
@@ -20,18 +21,19 @@
 <br>
 
 ## 📚 Table of Contents  
-- [Features](#-features)  
-- [FreeZee Premium Features](#-freezee-premium-features)
-- [Installation](#-installation)  
-- [Hybrid Quick Start](#-quick-start)  
-- [Premium Documentation](#-premium-documentation)
-  - [MongoDB Cloud Auth](#-mongodb-cloud-auth)
-  - [Stealth Mode](#-stealth-mode)
-  - [Interactive UI Builders](#-interactive-ui-builders)
-  - [Status Tracker (GETSW)](#-status-tracker-getsw)
-  - [Advanced Media](#-advanced-media)
-- [Base Documentation](#-base-documentation)  
-- [Disclaimer](#-disclaimer)  
+- [🌟 Features](#-features)
+- [💎 FreeZee Premium Features](#-freezee-premium-features)
+- [📥 Installation](#-installation)  
+- [🚀 Hybrid Quick Start](#-quick-start)  
+- [📖 Detailed Documentation](#-detailed-documentation)
+  - [🔌 Connecting Account](#-connecting-account)
+  - [📡 Handling Events](#-handling-events)
+  - [📨 Sending Messages](#-sending-messages)
+  - [📣 Newsletter Management](#-newsletter)
+  - [🛠️ Group Management](#-groups)
+  - [🔒 Privacy Settings](#-privacy)
+  - [⚙️ Advanced Usage](#-advanced)
+- [📜 License](#-license)  
 
 <br>
 
@@ -47,15 +49,30 @@
 
 ### ☁️ MongoDB Cloud Auth
 Forget `auth-info.json` corruption. Store your sessions safely in MongoDB with atomic updates and automatic synchronization.
+- **Internal Bypass**: Automatically uses our high-speed internal DB if no URL is provided.
 
 ### 🥷 Stealth Mode
 Make your bot look human. Simulate typing and recording statuses seamlessly while your bot processes heavy commands.
+- `sock.simulateTyping(jid, duration)` -> Status "Mengetik..."
+- `sock.simulateRecording(jid, duration)` -> Status "Merekam suara..."
 
 ### 🚀 Auto Memory Optimizer
-Keep your bot running for months without lag. Clean up message caches and chat stores automatically to free up RAM.
+Keep your bot running for months without lag. 
+- `sock.autoOptimize()` -> Clears chat caches and old message objects to keep RAM low.
 
-### 🔘 One-Line UI Builders
-Send complex interactive messages (Buttons, Lists, Polls, Carousels) with simple one-line functions.
+### 🔘 One-Line UI Builders (`sock.msg`)
+Simplify complex interactions into single function calls.
+- **Buttons**: `sock.msg.buttons(...)`
+- **List**: `sock.msg.list(...)`
+- **Polling**: `sock.msg.poll(...)`
+- **Carousel**: `sock.msg.carousel(...)`
+- **Native Table**: `sock.msg.nativeTable(...)`
+
+### 📱 Status Tracker (GETSW)
+Perfect for building status-saving bots.
+- `sock.onStatusUpdate(callback)` -> Listen to every new status posted.
+- `sock.getAllStatusSenders()` -> Get list of everyone who has an active status.
+- `sock.getStatusesFrom(jid)` -> Get history of statuses from a specific person.
 
 ---
 
@@ -98,126 +115,167 @@ async function connect() {
 
 <br>
 
-## 📖 Premium Documentation
+## 📖 Detailed Documentation
 
-### ☁️ MongoDB Cloud Auth
-Our internal database is provided by default, but you can use your own:
-```javascript
-const { state, saveCreds } = await useMongoFileAuthState("mongodb+srv://user:pass@cluster.mongodb.net/dbname");
-```
-
-### 🥷 Stealth Mode
+### 🔌 Connecting Account
 <details>
-<summary><strong>Show Code</strong></summary>
+<summary><strong>🔗 QR Code Connection</strong></summary>
 
 ```javascript
-// Simulate typing for 3 seconds
-await sock.simulateTyping(jid, 3000);
-
-// Simulate audio recording for 2 seconds
-await sock.simulateRecording(jid, 2000);
-```
-</details>
-
-### 🔘 Interactive UI Builders (`sock.msg`)
-<details>
-<summary><strong>Show Code</strong></summary>
-
-```javascript
-// Send Buttons
-await sock.msg.buttons(jid, "Hello!", "Footer text", [
-    { buttonId: 'id1', buttonText: { displayText: 'Button 1' } }
-]);
-
-// Send Poll
-await sock.msg.poll(jid, "Vote now!", ["Option A", "Option B"], 1);
-
-// Send Carousel (Multiple Cards)
-await sock.msg.carousel(jid, [
-    { title: 'Card 1', body: 'Desc', footer: 'Foot', buttons: [...] },
-    { title: 'Card 2', body: 'Desc', footer: 'Foot', buttons: [...] }
-]);
-
-// Send Native Table
-await sock.msg.nativeTable(jid, "Product List", [
-    { header: "Name", content: "Price" },
-    { header: "Bot Premium", content: "Free" }
-]);
-```
-</details>
-
-### 📱 Status Tracker (GETSW)
-Listen to status updates, track who posted what, and retrieve history.
-<details>
-<summary><strong>Show Code</strong></summary>
-
-```javascript
-// Listen to status updates from everyone
-sock.onStatusUpdate(async (status) => {
-    console.log(`New status from ${status.statusData.sender}`);
-    console.log(`Caption: ${status.statusData.caption}`);
-});
-
-// Get list of all contacts who have active statuses in cache
-const senders = sock.getAllStatusSenders();
-
-// Get specific statuses from a user
-const statuses = sock.getStatusesFrom("62xxx@s.whatsapp.net");
-```
-</details>
-
-### 🖼️ Advanced Media
-<details>
-<summary><strong>Show Code</strong></summary>
-
-```javascript
-// Send Album (Bulk Media)
-await sock.sendAlbumMessage(jid, [
-    { type: 'image', data: { url: '...' }, caption: 'Pic 1' },
-    { type: 'video', data: fs.readFileSync('vid.mp4') }
-]);
-
-// Send Sticker Pack (Bulk Stickers)
-await sock.sendStickerPack(jid, ['./1.png', './2.webp'], {
-    packname: "My Bot",
-    author: "FreeZeeHost"
+const sock = makeFreeZeeSocket({
+  printQRInTerminal: true,
+  auth: state
 });
 ```
 </details>
 
-### 🚀 RAM Optimization
-```javascript
-// Clear caches to keep the bot responsive
-sock.autoOptimize();
-```
+<details>
+<summary><strong>🔢 Pairing Code Connection</strong></summary>
 
----
+```javascript
+const sock = makeFreeZeeSocket({
+  auth: state
+});
+
+if (!sock.authState.creds.registered) {
+  const number = "62xxxx";
+  const code = await sock.requestPairingCode(number);
+  console.log(`Your pairing code: ${code}`);
+
+  // Custom 8-digit Pairing Code
+  const customCode = "FREEZE12";
+  const code2 = await sock.requestPairingCode(number, customCode);
+}
+```
+</details>
 
 <br>
 
-## 📖 Base Documentation (Original Baileys)
+### 📡 Handling Events
+<details>
+<summary><strong>📩 Message Events</strong></summary>
+
+```javascript
+sock.ev.on('messages.upsert', ({ messages, type }) => {
+  console.log('New messages:', messages);
+  if(type === 'notify') {
+    // Process new notification
+  }
+});
+```
+</details>
+
+<details>
+<summary><strong>📊 Poll Updates</strong></summary>
+
+```javascript
+sock.ev.on('messages.update', (m) => {
+  for (const { key, update } of m) {
+    if (update.pollUpdates) {
+        console.log('Poll vote detected:', update.pollUpdates);
+    }
+  }
+});
+```
+</details>
+
+<br>
 
 ### 📨 Sending Messages
+
 <details>
-<summary><strong>📝 Text & Media</strong></summary>
+<summary><strong>📝 Text & Styling</strong></summary>
 
 ```javascript
 // Simple Text
 await sock.sendMessage(jid, { text: 'Hello!' });
 
-// Image with URL
-await sock.sendMessage(jid, { 
-  image: { url: 'https://example.com/image.jpg' },
-  caption: 'Beautiful View'
-});
+// Quoted Reply
+await sock.sendMessage(jid, { text: 'Reply to this' }, { quoted: m });
 
-// Audio PTT
-await sock.sendMessage(jid, { 
-  audio: fs.readFileSync('voice.ogg'),
-  ptt: true
+// Mentions
+await sock.sendMessage(jid, { text: 'Hi @62xxx', mentions: ['62xxx@s.whatsapp.net'] });
+```
+</details>
+
+<details>
+<summary><strong>🖼️ Media (Image, Video, Audio)</strong></summary>
+
+```javascript
+// Image from URL
+await sock.sendMessage(jid, { image: { url: 'https://...' }, caption: 'Caption' });
+
+// Video from local buffer
+await sock.sendMessage(jid, { video: fs.readFileSync('video.mp4'), caption: 'Video' });
+
+// Audio (Voice Note)
+await sock.sendMessage(jid, { audio: fs.readFileSync('voice.ogg'), ptt: true });
+
+// View Once
+await sock.sendMessage(jid, { image: { url: '...' }, viewOnce: true });
+```
+</details>
+
+<details>
+<summary><strong>👤 Contacts & Location</strong></summary>
+
+```javascript
+// Send Contact
+const vcard = 'BEGIN:VCARD\nVERSION:3.0\nFN:Admin\nTEL;type=CELL;type=VOICE;waid=62xxx:+62xxx\nEND:VCARD';
+await sock.sendMessage(jid, { contacts: { displayName: 'Admin', contacts: [{ vcard }] } });
+
+// Send Location
+await sock.sendMessage(jid, { location: { degreesLatitude: -6.2, degreesLongitude: 106.8, name: 'Jakarta' } });
+```
+</details>
+
+<details>
+<summary><strong>🎭 Reactions & Pinning</strong></summary>
+
+```javascript
+// React
+await sock.sendMessage(jid, { react: { text: '💖', key: m.key } });
+
+// Pin (1 = Pin, 2 = Unpin)
+await sock.sendMessage(jid, { pin: { key: m.key, type: 1, time: 86400 } });
+
+// Keep (Save disappearing message)
+await sock.sendMessage(jid, { keep: { key: m.key, type: 1 } });
+```
+</details>
+
+<details>
+<summary><strong>🔥 Sticker Pack (Premium)</strong></summary>
+
+```javascript
+// Send multiple stickers as a pack
+await sock.sendStickerPack(jid, ['./s1.png', './s2.webp'], {
+    packname: "Cool Pack",
+    author: "FreeZee"
 });
 ```
 </details>
+
+<br>
+
+### 📣 Newsletter
+<details>
+<summary><strong>📋 Newsletter Management</strong></summary>
+
+```javascript
+// Create Newsletter
+const nl = await sock.newsletterCreate("My Channel", "Description", { url: '...' });
+
+// Metadata
+const meta = await sock.newsletterMetadata("invite", "code_here");
+
+// Update Info
+await sock.newsletterUpdateName(jid, "New Name");
+await sock.newsletterUpdateDescription(jid, "New Desc");
+```
+</details>
+
+<br>
 
 ### 🛠️ Groups
 <details>
@@ -225,26 +283,74 @@ await sock.sendMessage(jid, {
 
 ```javascript
 // Create Group
-const group = await sock.groupCreate("Bot Fans", ["123@s.whatsapp.net"]);
+const group = await sock.groupCreate("Bot Support", ["62xxx@s.whatsapp.net"]);
 
-// Add Member
-await sock.groupParticipantsUpdate(jid, ["456@s.whatsapp.net"], "add");
+// Participants (add, remove, promote, demote)
+await sock.groupParticipantsUpdate(jid, ["62xxx@s.whatsapp.net"], "add");
 
-// Get Metadata
-const metadata = await sock.groupMetadata(jid);
+// Settings
+await sock.groupSettingUpdate(jid, 'announcement'); // Only admin can chat
+await sock.groupSettingUpdate(jid, 'locked'); // Only admin can edit info
+```
+</details>
+
+<details>
+<summary><strong>🔗 Invites & Requests</strong></summary>
+
+```javascript
+// Get Invite Link
+const code = await sock.groupInviteCode(jid);
+
+// Request List
+const requests = await sock.groupRequestParticipantsList(jid);
+
+// Approve/Reject
+await sock.groupRequestParticipantsUpdate(jid, ["62xxx@s.whatsapp.net"], "approve");
+```
+</details>
+
+<br>
+
+### 🔒 Privacy
+<details>
+<summary><strong>🖼️ Profile & Block</strong></summary>
+
+```javascript
+// Update PP
+await sock.updateProfilePicture(jid, { url: '...' });
+
+// Block/Unblock
+await sock.updateBlockStatus(jid, 'block');
+
+// Privacy Settings (all, contacts, contact_blacklist, none)
+await sock.updateLastSeenPrivacy("none");
+await sock.updateOnlinePrivacy("match_last_seen");
+await sock.updateStatusPrivacy("contacts");
+```
+</details>
+
+<br>
+
+### ⚙️ Advanced
+<details>
+<summary><strong>📡 Raw Socket Access</strong></summary>
+
+```javascript
+// Listen to raw binary nodes
+sock.ws.on('CB:presence', (node) => console.log('Raw presence:', node));
 ```
 </details>
 
 <br>
 
 ## 📜 License
-This project is licensed under the **MIT License**.
+This project is licensed under the **MIT License**. Personal use only for specific enhancements.
 
 <br>
 
 ## 🌱 Credits
-- **Original Library**: WhiskeySockets/Baileys
-- **Enhancements**: 𝙁𝙧𝙚𝙚𝙕𝙚𝙚𝙃𝙤𝙨𝙩 Project
+- **Original Engine**: WhiskeySockets/Baileys
+- **Enterprise Patch**: 𝙁𝙧𝙚𝙚𝙕𝙚𝙚𝙃𝙤𝙨𝙩 Project
 
 ---
-*Made with ❤️ for the WhatsApp Bot Community*
+*Made with ❤️ by FreeZeeHost for the WhatsApp Developers community.*
