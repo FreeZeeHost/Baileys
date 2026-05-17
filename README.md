@@ -1863,12 +1863,20 @@ Perfect for building status-saving bots. Includes history tracking and media dow
 
 #### Basic Usage:
 ```javascript
-// 1. Get counts of all available statuses
+// 1. Listen for new status updates in real-time
+sock.onStatusUpdate((m) => {
+    console.log("New status from:", m.key.participant)
+})
+
+// 2. Get counts of all available statuses (history)
 const counts = sock.getStatusCounts()
 
-// 2. Download media from a captured status
+// 3. Download media from a captured status
 const statuses = sock.getStatusesFrom("628xxx@s.whatsapp.net")
-const buffer = await sock.downloadStatusMedia(statuses[0])
+if (statuses.length > 0) {
+    const buffer = await sock.downloadStatusMedia(statuses[0])
+    // returns Buffer
+}
 ```
 
 #### Interactive Menu Example (Single Select):
