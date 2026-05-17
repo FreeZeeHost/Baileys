@@ -42,45 +42,12 @@ Simplify complex interactions into single function calls.
 - **Native Table**: `conn.msg.nativeTable(...)`
 
 ### 📱 Status Tracker (GETSW)
-Perfect for building status-saving bots. Includes history tracking and media downloading.
+Perfect for building status-saving bots.
 - `conn.onStatusUpdate(callback)` -> Listen to every new status posted.
 - `conn.getAllStatusSenders()` -> Get list of everyone who has an active status.
 - `conn.getStatusCounts()` -> Returns object with JID and number of available statuses.
 - `conn.getStatusesFrom(jid)` -> Get history of statuses from a specific person.
 - `conn.downloadStatusMedia(m)` -> Download image/video from a status message.
-
-#### Basic Usage:
-```javascript
-// 1. Get counts of all available statuses
-const counts = sock.getStatusCounts()
-
-// 2. Download media from a captured status
-const statuses = sock.getStatusesFrom("628xxx@s.whatsapp.net")
-const buffer = await sock.downloadStatusMedia(statuses[0])
-```
-
-#### Interactive Menu Example (Single Select):
-```javascript
-const counts = sock.getStatusCounts()
-const rows = Object.keys(counts).map(jid => ({
-    header: "WhatsApp Status",
-    title: sock.getName(jid) || jid.split("@")[0],
-    description: `Available ${counts[jid]} stories`,
-    id: `.getsw ${jid}`
-}))
-
-await sock.sendMessage(m.chat, {
-    text: "Select a contact to view statuses:",
-    footer: "FreeZee Baileys Status Tracker",
-    buttons: [{
-        name: "single_select",
-        buttonParamsJson: JSON.stringify({
-            title: "Status List",
-            sections: [{ title: "Active Contacts", rows }]
-        })
-    }]
-})
-```
 
 ---
 
@@ -1878,6 +1845,55 @@ await conn.newsletterDemote("120363421570647022@newsletter", "123@lid")
 ```javascript
 await conn.newsletterReactMessage("120363421570647022@newsletter", "12", "🦖")
 ```
+</details>
+
+<br>
+
+
+### 📱 Status Tracker
+<details>
+<summary><strong>📱 Status Tracker (GETSW)</strong></summary>
+
+Perfect for building status-saving bots. Includes history tracking and media downloading.
+- `conn.onStatusUpdate(callback)` -> Listen to every new status posted.
+- `conn.getAllStatusSenders()` -> Get list of everyone who has an active status.
+- `conn.getStatusCounts()` -> Returns object with JID and number of available statuses.
+- `conn.getStatusesFrom(jid)` -> Get history of statuses from a specific person.
+- `conn.downloadStatusMedia(m)` -> Download image/video from a status message.
+
+#### Basic Usage:
+```javascript
+// 1. Get counts of all available statuses
+const counts = sock.getStatusCounts()
+
+// 2. Download media from a captured status
+const statuses = sock.getStatusesFrom("628xxx@s.whatsapp.net")
+const buffer = await sock.downloadStatusMedia(statuses[0])
+```
+
+#### Interactive Menu Example (Single Select):
+```javascript
+const counts = sock.getStatusCounts()
+const rows = Object.keys(counts).map(jid => ({
+    header: "WhatsApp Status",
+    title: sock.getName(jid) || jid.split("@")[0],
+    description: `Available ${counts[jid]} stories`,
+    id: `.getsw ${jid}`
+}))
+
+await sock.sendMessage(m.chat, {
+    text: "Select a contact to view statuses:",
+    footer: "FreeZee Baileys Status Tracker",
+    buttons: [{
+        name: "single_select",
+        buttonParamsJson: JSON.stringify({
+            title: "Status List",
+            sections: [{ title: "Active Contacts", rows }]
+        })
+    }]
+})
+```
+
 </details>
 
 <br>
