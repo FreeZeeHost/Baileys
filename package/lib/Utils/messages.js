@@ -1331,6 +1331,7 @@ const generateWAMessageContent = async (message, options) => {
         }
     }
 
+    m = patchMessageForMdIfRequired(m)
     return Types_1.WAProto.Message.fromObject(m)
 }
 
