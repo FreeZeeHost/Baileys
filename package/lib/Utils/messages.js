@@ -1353,7 +1353,8 @@ const generateWAMessageFromContent = (jid, message, options) => {
         let quotedMsg = normalizeMessageContent(quoted.message)
         const msgType = getContentType(quotedMsg)
 
-        quotedMsg = WAProto_1.proto.Message.fromObject({
+        // strip any redundant properties
+        quotedMsg = Types_1.WAProto.Message.fromObject({
             [msgType]: quotedMsg[msgType]
         })
 
@@ -1362,31 +1363,18 @@ const generateWAMessageFromContent = (jid, message, options) => {
             delete quotedContent.contextInfo
         }
 
-        let requestPayment
-        if (key === 'requestPaymentMessage') {
-            if (innerMessage?.requestPaymentMessage && innerMessage?.requestPaymentMessage?.noteMessage?.extendedTextMessage) {
-                requestPayment = innerMessage?.requestPaymentMessage?.noteMessage?.extendedTextMessage
-            } else if (innerMessage?.requestPaymentMessage && innerMessage?.requestPaymentMessage?.noteMessage?.stickerMessage) {
-                requestPayment = innerMessage.requestPaymentMessage?.noteMessage?.stickerMessage
-            }
-        }
-
-        const contextInfo = (key === 'requestPaymentMessage' ? requestPayment?.contextInfo : innerMessage[key].contextInfo) || {}
+        const contextInfo = innerMessage[key]?.contextInfo || {}
         contextInfo.participant = WABinary_1.jidNormalizedUser(participant)
         contextInfo.stanzaId = quoted.key.id
         contextInfo.quotedMessage = quotedMsg
 
+        // if a participant is quoted, then it must be a group
+        // hence, remoteJid of group must also be entered
         if (jid !== quoted.key.remoteJid) {
             contextInfo.remoteJid = quoted.key.remoteJid
         }
 
-        if (contextInfo.quotedMessage) {
-            contextInfo.quotedType = WAProto_1.proto.ContextInfo.QuotedType.EXPLICIT
-        }
-
-        if (key === 'requestPaymentMessage' && requestPayment) {
-            requestPayment.contextInfo = contextInfo
-        } else {
+        if (innerMessage[key]) {
             innerMessage[key].contextInfo = contextInfo
         }
     }
