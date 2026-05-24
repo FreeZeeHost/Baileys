@@ -294,7 +294,7 @@ const generateMessageID = (userId) => {
     const random = crypto_1.randomBytes(20)
     random.copy(data, 28)
     const hash = crypto_1.createHash('sha256').update(data).digest()
-    return hash.toString('hex').toUpperCase().substring(0, 18)
+    return '3EB0' + hash.toString('hex').toUpperCase().substring(0, 18)
 }
 
 // code is inspired by whatsmeow
