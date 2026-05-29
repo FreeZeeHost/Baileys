@@ -356,9 +356,7 @@ const fetchLatestBaileysVersion = async (options = {}) => {
             ...options,
             responseType: 'text'
         });
-        const lines = result.data.split('\n');
-        const versionLine = lines[6];
-        const versionMatch = versionLine.match(/const version = \[(\d+),\s*(\d+),\s*(\d+)\]/);
+        const versionMatch = result.data.match(/const version = \[(\d+),\s*(\d+),\s*(\d+)\]/);
         if (versionMatch) {
             const version = [parseInt(versionMatch[1]), parseInt(versionMatch[2]), parseInt(versionMatch[3])];
             return {
