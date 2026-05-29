@@ -1704,15 +1704,26 @@ const assertMediaContent = (content) => {
 }
 
 const patchMessageForMdIfRequired = (message) => {
-    const isInteractive = message?.buttonsMessage || message?.templateMessage || message?.listMessage || message?.interactiveMessage || message?.viewOnceMessage || message?.viewOnceMessageV2;
-    if (isInteractive) {
-        message = {
+    if (message?.viewOnceMessage || message?.viewOnceMessageV2 || message?.viewOnceMessageV2Extension || message?.ephemeralMessage) {
+        return message
+    }
+    if (message?.interactiveMessage) {
+        return {
             viewOnceMessageV2Extension: {
                 message: {
                     messageContextInfo: {
-                        deviceListMetadataVersion: 2, // patched
+                        deviceListMetadataVersion: 2,
                         deviceListMetadata: {}
                     },
+                    ...message
+                }
+            }
+        }
+    }
+    if (message?.buttonsMessage || message?.templateMessage || message?.listMessage) {
+        return {
+            viewOnceMessage: {
+                message: {
                     ...message
                 }
             }
