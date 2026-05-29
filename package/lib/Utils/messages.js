@@ -1380,10 +1380,13 @@ const generateWAMessageFromContent = (jid, message, options) => {
     }
 
     if (key !== 'protocolMessage' && key !== 'ephemeralMessage' && !WABinary_1.isJidNewsletter(jid)) {
+        message.messageContextInfo = message.messageContextInfo || {}
+        message.messageContextInfo.deviceListMetadata = message.messageContextInfo.deviceListMetadata || {}
+        message.messageContextInfo.deviceListMetadataVersion = 2
+
         // Only include reporting token (messageSecret) if needed
         const shouldIncludeReportingToken = !message.reactionMessage && !message.encReactionMessage && !message.encEventResponseMessage && !message.pollUpdateMessage;
         if (shouldIncludeReportingToken) {
-            message.messageContextInfo = message.messageContextInfo || {}
             if (!message.messageContextInfo.messageSecret) {
                 message.messageContextInfo.messageSecret = crypto_1.randomBytes(32)
             }
@@ -1707,7 +1710,7 @@ const patchMessageForMdIfRequired = (message) => {
             viewOnceMessageV2Extension: {
                 message: {
                     messageContextInfo: {
-                        deviceListMetadataVersion: 2,
+                        deviceListMetadataVersion: 2, // patched
                         deviceListMetadata: {}
                     },
                     ...message
