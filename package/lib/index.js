@@ -49,6 +49,8 @@ exports.DisconnectReason = Types.DisconnectReason;
 exports.Browsers = Utils.Browsers;
 exports.patchSocket = Utils.patchSocket;
 exports.makeFreeZeeSocket = Utils.makeFreeZeeSocket;
+const Store = require("./Store");
+exports.makeInMemoryStore = Store.makeInMemoryStore;
 Object.defineProperty(exports, "smsg", { enumerable: true, get: function() { return global.smsg; } });
 
 // Fallback for everything else

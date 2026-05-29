@@ -1,6 +1,7 @@
 import pkg from './index.js';
 export const {
     makeWASocket,
+    makeInMemoryStore,
     proto,
     generateWAMessageFromContent,
     generateWAMessage,
