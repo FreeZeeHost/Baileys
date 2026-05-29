@@ -15,6 +15,7 @@ export const {
     areJidsSameUser,
     DisconnectReason,
     Browsers,
+    delay,
     WA_DEFAULT_EPHEMERAL,
     MessageType,
     MessageOptions,
