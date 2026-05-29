@@ -655,7 +655,7 @@ const makeSocket = (config) => {
 
         ev.emit('creds.update', authState.creds)
 
-        await sendNode({
+        await query({
             tag: 'iq',
             attrs: {
                 to: WABinary_1.S_WHATSAPP_NET,
