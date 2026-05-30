@@ -165,6 +165,16 @@ const BufferJSON = {
     }
 }
 
+
+const Personas = {
+    ios: ["iOS", "Safari", "18.2"],
+    android: ["Android", "Chrome", "14.0.0"],
+    windows: ["Windows", "Chrome", "10.0.22631"],
+    macos: ["macOS", "Safari", "15.1"],
+    portal: ["Portal", "Chrome", "1.0"],
+    wearos: ["WearOS", "Chrome", "4.0"]
+}
+
 const getCompanionPlatformId = (browser) => {
     const os = browser[0];
     const browserName = browser[1];
