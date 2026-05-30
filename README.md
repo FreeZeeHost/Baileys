@@ -59,6 +59,41 @@ Simplify complex interactions into single function calls.
 - **Native Table**: `conn.msg.nativeTable(...)`
 
 
+
+### 🛡️ Internal Anti-Delete & ViewOnce Guard
+Your bot will never miss a message again.
+- **Anti-Delete**: Captured revoked messages are stored and accessible via `sock.getDeletedMessage(jid, id)`.
+- **ViewOnce Bypass**: Automatically extracts content from "One-time view" messages, making them permanent.
+- **Event**: Listen to `sock.ev.on("message.delete", callback)` to receive deleted content.
+
+### 🩺 Auto-Medic (Self-Healing Socket)
+Ensures your bot stays online 24/7.
+- **Watchdog**: Monitored socket health. If silence is detected for >45s, the library performs a "Surgical Reconnect".
+- **Zero-Stuck**: Automatically recovers from "Connecting..." freezes without restarting the process.
+
+### 🚦 Smart Task Queue (Anti-Ban Engine)
+Spread out your traffic to mimic human behavior.
+- **Dynamic Delay**: Automatic spacing between sent messages and media.
+- **Auto-Retry**: Failed media uploads are automatically retried up to 3 times with exponential backoff.
+- **High Volume**: Safely send hundreds of messages without triggering WhatsApp anti-spam.
+
+### 🗜️ Smart Media Compressor
+Save VPS bandwidth and disk space.
+- **Auto-JPEG**: If `sharp` is installed, images are optimized to 70% quality before upload.
+- **Bandwidth Saver**: Reduces the data footprint of your bot by up to 3x.
+
+### 🌐 Built-in API Bridge & Webhook
+Control your bot from any application.
+- **Mini-Server**: Set `API_PORT` to start a local HTTP server for stats and sending.
+- **Event Forwarding**: Set `WEBHOOK_URL` to receive all WhatsApp events as real-time JSON POST requests.
+- **Dashboard Ready**: Connect your PHP/Python website in seconds.
+
+### 👻 Phantom Protocol (Advanced Presence)
+Master the art of invisibility.
+- **Ghost Mode**: `sock.ghostMode = true` to read messages without sending blue ticks.
+- **Selective Read**: `sock.setVIP(jid)` to only show blue ticks to specific people.
+- **Presence Lock**: `sock.setStatusPresence("composing", jid)` stays active forever.
+
 ### 🔐 Encrypted Activity Logger
 Automate your compliance and security. Every message and system event is recorded into MongoDB with AES-256-GCM encryption.
 - **Auto-Config**: Active immediately when using MongoDB Auth.
