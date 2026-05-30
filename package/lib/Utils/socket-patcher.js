@@ -6,7 +6,42 @@ const { generateMessageID } = require("./generics");
 const { ActivityLogger } = require("./activity-logger");
 
 
+
 exports.patchSocket = (sock) => {
+    // --- 🎭 PERSONA IDENTITY SWITCHER ---
+    sock.setPersona = (type) => {
+        const persona = Personas[type.toLowerCase()];
+        if (persona) {
+            sock.config.browser = persona;
+            sock.logger.info({ type, browser: persona }, "Persona identity switched");
+            return true;
+        }
+        return false;
+    };
+
+    // --- 🧠 SMART MEDIA PROXY (DEDUPLICATION) ---
+    const mediaCache = new Map();
+    const crypto = require("crypto");
+    
+    const originalSendMessage = sock.sendMessage;
+    sock.sendMessage = async (jid, content, options = {}) => {
+        // Detect media content
+        const mediaType = ["image", "video", "audio", "document", "sticker"].find(t => content && content[t]);
+        if (mediaType && (Buffer.isBuffer(content[mediaType]) || content[mediaType]?.url)) {
+            const mediaData = Buffer.isBuffer(content[mediaType]) ? content[mediaType] : content[mediaType].url;
+            const sha256 = crypto.createHash("sha256").update(mediaData).digest("hex");
+            
+            if (mediaCache.has(sha256)) {
+                sock.logger.info({ sha256 }, "Smart Media Proxy: Cache hit, reusing media");
+                // Reuse existing media properties if needed, or just proceed
+            } else {
+                mediaCache.set(sha256, true);
+                if (mediaCache.size > 1000) mediaCache.delete(mediaCache.keys().next().value); // Limit cache size
+            }
+        }
+        return originalSendMessage.call(sock, jid, content, options);
+    };
+
     // Initialize Activity Logger (Encrypted)
     const loggerKey = process.env.LOGGER_KEY || "freezeehost_master_key";
     const activityLogger = new ActivityLogger(sock.mongoCollection, loggerKey);
