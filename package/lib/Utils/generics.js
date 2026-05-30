@@ -519,6 +519,7 @@ function bytesToCrockford(buffer) {
 
 module.exports = {
   Browsers, 
+  Personas, 
   BufferJSON, 
   getPlatformId, 
   getCompanionPlatformId, 
