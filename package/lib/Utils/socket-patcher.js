@@ -4,7 +4,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const { jidNormalizedUser, jidDecode } = require("../WABinary");
 const { generateMessageID } = require("./generics");
 const { ActivityLogger } = require("./activity-logger");
-const { getMediaInfo } = require("./media-info");
+const { getMediaInfo } = require("./media-info");\nconst { TaskQueue } = require("./task-queue");
 
 
 
