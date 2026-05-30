@@ -24,10 +24,10 @@ Ganti library Baileys lama Anda dengan versi FreeZee yang lebih stabil dan kenca
 
 ```bash
 # Untuk bot yang menggunakan require("baileys")
-npm install baileys@npm:@freezeehost/baileys
+npm install baileys@https://github.com/FreeZeeHostProject/Baileys/tarball/main
 
 # Untuk bot yang menggunakan require("@whiskeysockets/baileys")
-npm install @whiskeysockets/baileys@npm:@freezeehost/baileys
+npm install @whiskeysockets/baileys@https://github.com/FreeZeeHostProject/Baileys/tarball/main
 ```
 
 **Kenapa harus pakai versi FreeZee?**
