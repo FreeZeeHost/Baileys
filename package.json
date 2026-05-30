@@ -1,5 +1,5 @@
 {
-  "name": "@freezeehost/baileys",
+  "name": "baileys",
   "version": "2.1.4",
   "description": "Baileys is a lightweight JavaScript library for interacting with the WhatsApp Web API using WebSocket.",
   "keywords": [
