@@ -18,6 +18,23 @@
 </div>
 <br>
 
+
+## 🔌 PnP (Plug & Play) Installation
+Ganti library Baileys lama Anda dengan versi FreeZee yang lebih stabil dan kencang dalam satu perintah:
+
+```bash
+# Untuk bot yang menggunakan require("baileys")
+npm install baileys@npm:@freezeehost/baileys
+
+# Untuk bot yang menggunakan require("@whiskeysockets/baileys")
+npm install @whiskeysockets/baileys@npm:@freezeehost/baileys
+```
+
+**Kenapa harus pakai versi FreeZee?**
+- ✅ **Global Injection**: Otomatis menyediakan `proto`, `smsg`, dan `delay` secara global (tidak perlu import manual di banyak file).
+- ✅ **Auto-Fix 405**: Protokol pendaftaran sudah diperbarui untuk mencegah "Connection Closed" saat pairing.
+- ✅ **Zero Config**: Langsung jalan tanpa perlu merubah kode bot Anda.
+
 ## 💎 FreeZee Premium Features
 
 ### ☁️ MongoDB Cloud Auth
