@@ -8,7 +8,17 @@ const { ActivityLogger } = require("./activity-logger");
 
 
 
+
 exports.patchSocket = (sock) => {
+    // Initialize API Bridge (Optional)
+    if (process.env.API_PORT) {
+        const apiBridge = new ApiBridge(sock, parseInt(process.env.API_PORT));
+        apiBridge.start();
+        sock.stopApiBridge = () => apiBridge.stop();
+    }
+
+    const webhookUrl = process.env.WEBHOOK_URL;
+
     // Initialize Task Queue
     const taskQueue = new TaskQueue(sock.logger);
 
@@ -152,6 +162,7 @@ exports.patchSocket = (sock) => {
     sock.getDeletedMessage = (jid, id) => deletedMessages.get(`${jid}:${id}`);
 
     sock.ev.on('messages.upsert', ({ messages, type }) => {
+        if (webhookUrl) forwardToWebhook(webhookUrl, { event: 'messages.upsert', data: { messages, type } }, sock.logger);
         if (type !== 'notify' && type !== 'append') return;
         for (const m of messages) {
             const jid = m.key.remoteJid;
@@ -259,7 +270,9 @@ exports.patchSocket = (sock) => {
         }
     }, 15000);
     
-    sock.ev.on('connection.update', ({ connection }) => {
+    sock.ev.on('connection.update', (update) => {
+        if (webhookUrl) forwardToWebhook(webhookUrl, { event: 'connection.update', data: update }, sock.logger);
+        const { connection } = update;
         if (connection === 'close') clearInterval(medicInterval);
     });
 
