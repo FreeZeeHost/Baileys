@@ -32,7 +32,10 @@ export const {
     getStatusesFrom,
     getStatusCounts,
     onStatusUpdate,
-    downloadStatusMedia
+    downloadStatusMedia,
+    useMultiFileAuthState,
+    useMongoFileAuthState,
+    getMediaInfo
 } = pkg;
 
 export default makeWASocket;
