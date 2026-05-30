@@ -58,6 +58,32 @@ Simplify complex interactions into single function calls.
 - **Carousel**: `conn.msg.carousel(...)`
 - **Native Table**: `conn.msg.nativeTable(...)`
 
+
+### 🔐 Encrypted Activity Logger
+Automate your compliance and security. Every message and system event is recorded into MongoDB with AES-256-GCM encryption.
+- **Auto-Config**: Active immediately when using MongoDB Auth.
+- **Privacy**: No one can read your logs without your master key.
+
+### 🎭 Persona Identity Switcher
+Change your bot identity on-the-fly. Make your bot appear as an iPhone, Android, or Windows desktop.
+- `conn.setPersona("ios")` -> Spoof as iPhone Safari.
+- `conn.setPersona("android")` -> Spoof as Android Chrome.
+- **Anti-Ban**: Rotate identities to avoid detection by WhatsApp anti-bot systems.
+
+### 🧠 Smart Media Proxy (Deduplication)
+Save up to 80% of your VPS bandwidth and storage.
+- **SHA256 Tracking**: Automatically detects if you are sending or receiving the same media multiple times.
+- **Instant Reuse**: Reuses existing cloud media properties instead of re-uploading.
+
+### ⚡ Turbo-Loader: Plugin Optimizer
+Pre-warm your bot engine for instant responsiveness.
+- `conn.prefetchPlugins("./commands")` -> Pre-loads and optimizes plugins in RAM.
+- **Zero Lag**: Your bot responds to the first command as fast as the thousandth.
+
+### 📊 Real-time Activity Metrics
+Get a deep look into your bot health.
+- `conn.getActivityMetrics()` -> Returns messages sent/recv, error counts, uptime, and RAM usage.
+
 ### 📱 Status Tracker (GETSW)
 Perfect for building status-saving bots.
 - `conn.onStatusUpdate(callback)` -> Listen to every new status posted.
