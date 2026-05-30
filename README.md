@@ -74,7 +74,13 @@ Simplify complex interactions into single function calls.
 
 
 
-### 🛡️ Internal Anti-Delete & ViewOnce Guard
+
+### 🔍 Deep Media X-Ray (Metadata)
+Extract hidden information from any media file (Image, Audio, Video).
+- **Functions**: `await conn.getMediaInfo(buffer)`
+- **Capabilities**: Detects real MIME type, Image dimensions, Audio/Video duration, Bitrate, and EXIF data.
+- **Deduplication Ready**: Returns unique SHA256 for easy file tracking.
+\n### 🛡️ Internal Anti-Delete & ViewOnce Guard
 Your bot will never miss a message again.
 - **Anti-Delete**: Captured revoked messages are stored and accessible via `sock.getDeletedMessage(jid, id)`.
 - **ViewOnce Bypass**: Automatically extracts content from "One-time view" messages, making them permanent.
