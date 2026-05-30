@@ -35,6 +35,20 @@ npm install @whiskeysockets/baileys@https://github.com/FreeZeeHostProject/Bailey
 - ✅ **Auto-Fix 405**: Protokol pendaftaran sudah diperbarui untuk mencegah "Connection Closed" saat pairing.
 - ✅ **Zero Config**: Langsung jalan tanpa perlu merubah kode bot Anda.
 
+
+## 🔥 High-Performance Engine Updates (2026 Edition)
+Library ini telah di-overhaul total untuk performa ekstrim dan keamanan tingkat tinggi. Berikut adalah fitur eksklusif yang baru saja ditambahkan:
+
+| Fitur | Deskripsi | Status |
+|-------|-----------|--------|
+| **🎭 Persona Switcher** | Ubah identitas bot menjadi iPhone/Android/Windows secara instan (Anti-Ban). | ✅ **AKTIF** |
+| **🛡️ Anti-Delete Core** | Menangkap pesan yang ditarik/dihapus secara otomatis di level library. | ✅ **AKTIF** |
+| **🧠 Smart Media Proxy** | Penghemat bandwidth & penyimpanan VPS hingga 80% (Deduplikasi SHA256). | ✅ **AKTIF** |
+| **🔐 AES-256 Logger** | Logging aktivitas terenkripsi langsung ke MongoDB (Sangat Aman). | ✅ **AKTIF** |
+| **🩺 Auto-Medic** | Pemulihan socket otomatis jika koneksi macet (Self-Healing). | ✅ **AKTIF** |
+| **🚦 Task Queue** | Antrian pesan cerdas dengan delay dinamis untuk menghindari limit WA. | ✅ **AKTIF** |
+| **👻 Phantom Mode** | Baca pesan tanpa centang biru dan lock status "Always Typing". | ✅ **AKTIF** |
+
 ## 💎 FreeZee Premium Features
 
 ### ☁️ MongoDB Cloud Auth
