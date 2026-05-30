@@ -22,13 +22,15 @@
 ## 🔌 PnP (Plug & Play) Installation
 Ganti library Baileys lama Anda dengan versi FreeZee yang lebih stabil dan kencang dalam satu perintah:
 
-```bash
-# Untuk bot yang menggunakan require("baileys")
-npm install baileys@https://github.com/FreeZeeHostProject/Baileys/tarball/main
-
-# Untuk bot yang menggunakan require("@whiskeysockets/baileys")
-npm install @whiskeysockets/baileys@https://github.com/FreeZeeHostProject/Baileys/tarball/main
+```json
+// Tambahkan baris ini di package.json bot Anda, di bagian "dependencies":
+"dependencies": {
+  "baileys": "github:FreeZeeHostProject/Baileys"
+}
 ```
+Lalu jalankan `npm install`.
+
+*(Cara ini sangat ajaib! Bot Anda akan otomatis menggunakan mesin FreeZee tanpa perlu merubah satupun kata `require("baileys")` di dalam kodenya).*
 
 **Kenapa harus pakai versi FreeZee?**
 - ✅ **Global Injection**: Otomatis menyediakan `proto`, `smsg`, dan `delay` secara global (tidak perlu import manual di banyak file).
