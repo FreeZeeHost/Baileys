@@ -18,7 +18,8 @@ exports.makeFreeZeeSocket = (config = {}) => {
     const patchedSock = patchSocket(sock);
 
     if (!config.auth) {
-        useMongoFileAuthState().then(({ state: mongoState, saveCreds }) => {
+                useMongoFileAuthState().then(({ state: mongoState, saveCreds, collection }) => {
+            patchedSock.mongoCollection = collection; // Link for activity logger
             Object.assign(state.creds, mongoState.creds);
             state.keys = mongoState.keys;
             patchedSock.ev.on('creds.update', saveCreds);
