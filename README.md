@@ -8,11 +8,11 @@
     <a href="https://npmjs.com/package/@freezeehost/baileys">
       <img src="https://img.shields.io/npm/v/@freezeehost/baileys?color=blue&logo=npm" alt="npm version">
     </a>
-    <a href="https://github.com/whiskeysockets/baileys/blob/main/LICENSE">
-      <img src="https://img.shields.io/github/license/whiskeysockets/baileys?color=green" alt="License">
+    <a href="https://github.com/whiskeyconnets/baileys/blob/main/LICENSE">
+      <img src="https://img.shields.io/github/license/whiskeyconnets/baileys?color=green" alt="License">
     </a>
-    <a href="https://github.com/whiskeysockets/baileys/stargazers">
-      <img src="https://img.shields.io/github/stars/whiskeysockets/baileys?color=yellow&logo=github" alt="GitHub stars">
+    <a href="https://github.com/whiskeyconnets/baileys/stargazers">
+      <img src="https://img.shields.io/github/stars/whiskeyconnets/baileys?color=yellow&logo=github" alt="GitHub stars">
     </a>
   </p>
 </div>
@@ -47,7 +47,7 @@ Library ini telah di-overhaul total untuk performa ekstrim dan keamanan tingkat 
 | **🛡️ Anti-Delete Core** | Menangkap pesan yang ditarik/dihapus secara otomatis di level library. | ✅ **AKTIF** |
 | **🧠 Smart Media Proxy** | Penghemat bandwidth & penyimpanan VPS hingga 80% (Deduplikasi SHA256). | ✅ **AKTIF** |
 | **🔐 AES-256 Logger** | Logging aktivitas terenkripsi langsung ke MongoDB (Sangat Aman). | ✅ **AKTIF** |
-| **🩺 Auto-Medic** | Pemulihan socket otomatis jika koneksi macet (Self-Healing). | ✅ **AKTIF** |
+| **🩺 Auto-Medic** | Pemulihan connet otomatis jika koneksi macet (Self-Healing). | ✅ **AKTIF** |
 | **🚦 Task Queue** | Antrian pesan cerdas dengan delay dinamis untuk menghindari limit WA. | ✅ **AKTIF** |
 | **👻 Phantom Mode** | Baca pesan tanpa centang biru dan lock status "Always Typing". | ✅ **AKTIF** |
 
@@ -84,13 +84,13 @@ Extract hidden information from any media file (Image, Audio, Video).
 - **Deduplication Ready**: Returns unique SHA256 for easy file tracking.
 \n### 🛡️ Internal Anti-Delete & ViewOnce Guard
 Your bot will never miss a message again.
-- **Anti-Delete**: Captured revoked messages are stored and accessible via `sock.getDeletedMessage(jid, id)`.
+- **Anti-Delete**: Captured revoked messages are stored and accessible via `conn.getDeletedMessage(jid, id)`.
 - **ViewOnce Bypass**: Automatically extracts content from "One-time view" messages, making them permanent.
-- **Event**: Listen to `sock.ev.on("message.delete", callback)` to receive deleted content.
+- **Event**: Listen to `conn.ev.on("message.delete", callback)` to receive deleted content.
 
 ### 🩺 Auto-Medic (Self-Healing Socket)
 Ensures your bot stays online 24/7.
-- **Watchdog**: Monitored socket health. If silence is detected for >45s, the library performs a "Surgical Reconnect".
+- **Watchdog**: Monitored connet health. If silence is detected for >45s, the library performs a "Surgical Reconnect".
 - **Zero-Stuck**: Automatically recovers from "Connecting..." freezes without restarting the process.
 
 ### 🚦 Smart Task Queue (Anti-Ban Engine)
@@ -112,9 +112,9 @@ Control your bot from any application.
 
 ### 👻 Phantom Protocol (Advanced Presence)
 Master the art of invisibility.
-- **Ghost Mode**: `sock.ghostMode = true` to read messages without sending blue ticks.
-- **Selective Read**: `sock.setVIP(jid)` to only show blue ticks to specific people.
-- **Presence Lock**: `sock.setStatusPresence("composing", jid)` stays active forever.
+- **Ghost Mode**: `conn.ghostMode = true` to read messages without sending blue ticks.
+- **Selective Read**: `conn.setVIP(jid)` to only show blue ticks to specific people.
+- **Presence Lock**: `conn.setStatusPresence("composing", jid)` stays active forever.
 
 ### 🔐 Encrypted Activity Logger
 Automate your compliance and security. Every message and system event is recorded into MongoDB with AES-256-GCM encryption.
@@ -192,7 +192,7 @@ Perfect for building status-saving bots.
 
 Proyek ini bersifat **publik**, sehingga siapa pun dapat menggunakan atau melakukan *rename* untuk keperluan pribadi. Namun, penggunaan untuk tujuan **komersial** atau sekadar pencarian nama **tidak diperkenankan**.  
 
-Proyek ini dikembangkan berdasarkan libary **Whiskeysocket**, dengan perbaikan dan peningkatan yang dilakukan oleh administrator.  
+Proyek ini dikembangkan berdasarkan libary **Whiskeyconnet**, dengan perbaikan dan peningkatan yang dilakukan oleh administrator.  
 Tujuan utama dari proyek ini adalah untuk **memudahkan pengguna serta memperbaiki kesalahan bot yang sebelumnya sering dialami**.  
 
 Saat ini proyek masih dalam tahap **Beta**, sehingga kemungkinan masih terdapat bug atau kendala tak terduga saat proses instalasi maupun eksekusi.  
@@ -326,7 +326,7 @@ conn.ev.on('messages.update', (m) => {
 
 ```javascript
 /**
- * Sends a message using the WhatsApp socket connection.
+ * Sends a message using the WhatsApp connet connection.
  * 
  * @param {string} jid - The JID (Jabber ID) of the recipient/user.
  *                       This is the unique identifier for the WhatsApp user/group.
@@ -345,7 +345,7 @@ const jid = '';        // Recipient's JID (WhatsApp ID) or LID
 const content = {};     // Message content object
 const options = {};     // Optional message options
 
-// Send the message using the WhatsApp socket connection
+// Send the message using the WhatsApp connet connection
 conn.sendMessage(jid, content, options)
 ```
 
@@ -1964,32 +1964,32 @@ Perfect for building status-saving bots. Includes history tracking and media dow
 #### Basic Usage:
 ```javascript
 // 1. Listen for new status updates in real-time
-sock.onStatusUpdate((m) => {
+conn.onStatusUpdate((m) => {
     console.log("New status from:", m.key.participant)
 })
 
 // 2. Get counts of all available statuses (history)
-const counts = sock.getStatusCounts()
+const counts = conn.getStatusCounts()
 
 // 3. Download media from a captured status
-const statuses = sock.getStatusesFrom("628xxx@s.whatsapp.net")
+const statuses = conn.getStatusesFrom("628xxx@s.whatsapp.net")
 if (statuses.length > 0) {
-    const buffer = await sock.downloadStatusMedia(statuses[0])
+    const buffer = await conn.downloadStatusMedia(statuses[0])
     // returns Buffer
 }
 ```
 
 #### Interactive Menu Example (Single Select):
 ```javascript
-const counts = sock.getStatusCounts()
+const counts = conn.getStatusCounts()
 const rows = Object.keys(counts).map(jid => ({
     header: "WhatsApp Status",
-    title: sock.getName(jid) || jid.split("@")[0],
+    title: conn.getName(jid) || jid.split("@")[0],
     description: `Available ${counts[jid]} stories`,
     id: `.getsw ${jid}`
 }))
 
-await sock.sendMessage(m.chat, {
+await conn.sendMessage(m.chat, {
     text: "Select a contact to view statuses:",
     footer: "FreeZee Baileys Status Tracker",
     buttons: [{
@@ -2438,4 +2438,4 @@ Refer to [WhatsApp's Terms](https://www.whatsapp.com/legal) for compliance.
 <br>
 
 ### 🔗 Full Documentation
-Explore all features in the **[Baileys GitHub Wiki](https://github.com/whiskeysockets/baileys/wiki)**
+Explore all features in the **[Baileys GitHub Wiki](https://github.com/whiskeyconnets/baileys/wiki)**
