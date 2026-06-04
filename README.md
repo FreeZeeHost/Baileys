@@ -171,6 +171,42 @@ await conn.aiReels(jid, "Teks utama", reels);
 await m.replyReels("Cek video ini!", reels);
 ```
 
+### 🧠 Advanced AI Behaviors (Level 2)
+Fitur tingkat lanjut untuk membuat interaksi bot Anda benar-benar "hidup" seperti Meta AI asli.
+
+#### 💭 AI Thinking Indicator
+Menampilkan proses berpikir bot langkah demi langkah. Berguna untuk tugas yang memakan waktu.
+```javascript
+// Mode Global
+await conn.aiThinking(jid, "Menganalisis pertanyaan...", [
+    { title: "Mencari data", body: "Searching source...", status: 2 }, // 2: Sukses
+    { title: "Menyusun jawaban", body: "Drafting...", status: 1 }    // 1: Proses
+]);
+
+// Mode Reply
+await m.replyThinking("Sedang berpikir...", [{ title: "Step 1", status: 2 }]);
+```
+
+#### 👍 AI User Feedback
+User bisa memberikan rating jempol pada pesan bot.
+```javascript
+// Mengirim feedback positif untuk pesan m
+await m.aiFeedback(true, "Jawaban sangat bagus!");
+
+// Mengirim feedback negatif
+await m.aiFeedback(false, "Kurang akurat.");
+```
+
+#### 🏷️ AI Model Branding
+Memberikan label resmi model AI pada jawaban bot (misal: Llama 3).
+```javascript
+// Mode Global
+await conn.aiModel(jid, "Jawaban dari bot.", 1, "Llama 3.1 Pro");
+
+// Mode Reply
+await m.replyModel("Halo, saya AI.", 2, "FreeZee Premium Model");
+```
+
 
 
 
