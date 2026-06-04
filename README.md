@@ -86,7 +86,7 @@ await conn.aiTable(jid, "Judul Tabel", [
     { items: ["Bot FreeZee", "Aktif"] }
 ]);
 
-// Mode Reply (Sangat Simple)
+// Mode Reply
 await m.replyTable("Daftar Harga", [ ["Produk", "Harga"], ["Bot", "Rp 50rb"] ]);
 ```
 
@@ -98,6 +98,58 @@ await conn.aiCode(jid, "javascript", "console.log('Hello World')");
 
 // Mode Reply
 await m.replyCode("python", "print('Hello World')");
+```
+
+#### 🖼️ AI Grid Image
+Mengirim kumpulan gambar dalam format grid cantik.
+```javascript
+// Mode Global
+await conn.aiGridImage(jid, ["https://url1.jpg", "https://url2.jpg"]);
+
+// Mode Reply
+await m.replyGridImage(["https://url1.jpg", "https://url2.jpg", "https://url3.jpg"]);
+```
+
+#### 🖼️ AI Inline Image (Text + Image)
+Mengirim gambar yang menyatu dengan teks (sejajar).
+```javascript
+// Mode Global
+await conn.aiInlineImage(jid, "https://url.jpg", "Ini deskripsi", 0); // 0: Leading, 1: Trailing, 2: Center
+
+// Mode Reply
+await m.replyInlineImage("https://url.jpg", "Deskripsi di samping gambar");
+```
+
+#### 👾 AI Dynamic Content (GIF)
+Mengirim konten dinamis seperti GIF dengan gaya Meta AI.
+```javascript
+// Mode Global
+await conn.aiDynamic(jid, "https://media.giphy.com/...", true);
+
+// Mode Reply
+await m.replyDynamic("https://url-ke-gif.com/...", true);
+```
+
+#### 📐 AI Latex (Matematika)
+Mengirim rumus matematika yang terformat rapi.
+```javascript
+// Mode Global
+await conn.aiLatex(jid, "Hasil perhitungan:", ["E = mc^2"]);
+
+// Mode Reply
+await m.replyLatex("Rumus Pythagoras:", ["a^2 + b^2 = c^2"]);
+```
+
+#### 📍 AI Map (Peta Interaktif)
+Mengirim peta dengan pin lokasi (annotations) yang bisa diklik.
+```javascript
+const pins = [{ lat: -6.2, lng: 106.8, title: "Pusat Kota", body: "Keterangan lokasi" }];
+
+// Mode Global
+await conn.aiMap(jid, -6.2, 106.8, pins);
+
+// Mode Reply
+await m.replyMap(-6.2, 106.8, pins);
 ```
 
 #### 🎬 AI Reels Carousel
