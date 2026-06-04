@@ -1,7 +1,7 @@
 {
-  "name": "@ryuu-reinzz/baileys",
-  "version": "2.1.4",
-  "description": "Baileys is a lightweight JavaScript library for interacting with the WhatsApp Web API using WebSocket.",
+  "name": "baileys",
+  "version": "2.1.5",
+  "description": "Baileys FreeZeeHost Edition - Lightweight, High-Performance, and Feature-Rich WhatsApp Web Library for Node.js",
   "keywords": [
     "facebook",
     "metaplatforms",
@@ -10,14 +10,15 @@
     "meta",
     "whatsapp",
     "whatsapp-bot",
-    "ryuu-kun"
+    "freezeehost",
+    "high-performance"
   ],
-  "homepage": "https://github.com/WhiskeySockets/Baileys/",
+  "homepage": "https://github.com/FreeZeeHostProject/Baileys/",
   "repository": {
-    "url": "git@github.com:WhiskeySockets/Baileys.git"
+    "url": "git@github.com:FreeZeeHostProject/Baileys.git"
   },
   "license": "MIT",
-  "author": "𝙍͢𝙮𝙪𝙪 𝙍͢𝙚𝙞𝙣𝙯𝙯",
+  "author": "FreeZeeHost Team",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "files": [
