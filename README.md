@@ -174,6 +174,16 @@ await m.replyReels("Cek video ini!", reels);
 ### 🧠 Advanced AI Behaviors (Level 2)
 Fitur tingkat lanjut untuk membuat interaksi bot Anda benar-benar "hidup" seperti Meta AI asli.
 
+#### 💬 AI Suggested Prompts (Chips)
+Menambahkan tombol saran balasan (chips) di bagian bawah pesan.
+```javascript
+// Mode Global
+await conn.aiPrompts(jid, "Apa yang ingin kamu bahas?", ["Resep Masakan", "Berita Hari Ini", "Cuaca"]);
+
+// Mode Reply
+await m.replyPrompts("Pilih opsi di bawah:", ["Bantuan", "Beli Premium", "Info Bot"]);
+```
+
 #### 💭 AI Thinking Indicator
 Menampilkan proses berpikir bot langkah demi langkah. Berguna untuk tugas yang memakan waktu.
 ```javascript
