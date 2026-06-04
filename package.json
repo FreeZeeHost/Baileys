@@ -26,7 +26,8 @@
     "WAProto/**/*"
   ],
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "build:proto": "pbjs -t static-module -w commonjs -o ./WAProto/index.js ./WAProto/WAProto.proto && pbts -o ./WAProto/index.d.ts ./WAProto/index.js"
   },
   "dependencies": {
     "@adiwajshing/keyed-db": "^0.2.4",
