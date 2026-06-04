@@ -1,28 +1,65 @@
 <div align="center">
-  <img src="https://files.catbox.moe/gw41eq.png" alt="@freezeehost/baileys" width="450"/>  
+  <img src="https://files.catbox.moe/gw41eq.png" alt="@freezeehost/baileys" width="550"/>  
 
-  <h1>@freezeehost/baileys</h1>
-  <p><strong>The Most Advanced, High-Performance WhatsApp Web Library (2026 Edition)</strong></p>
+  <h1>@freezeehost/baileys (2026 Edition)</h1>
+  <p><strong>The Most Advanced, High-Performance, and Feature-Rich WhatsApp Web Library for Node.js</strong></p>
   
   <p>
     <a href="https://npmjs.com/package/@freezeehost/baileys">
-      <img src="https://img.shields.io/npm/v/@freezeehost/baileys?color=blue&logo=npm" alt="npm version">
+      <img src="https://img.shields.io/npm/v/@freezeehost/baileys?color=blue&style=for-the-badge&logo=npm" alt="npm version">
     </a>
     <a href="LICENSE">
-      <img src="https://img.shields.io/github/license/whiskeysockets/baileys?color=green" alt="License">
+      <img src="https://img.shields.io/github/license/whiskeysockets/baileys?color=green&style=for-the-badge" alt="License">
     </a>
     <a href="https://github.com/FreeZeeHostProject/Baileys/stargazers">
-      <img src="https://img.shields.io/github/stars/FreeZeeHostProject/Baileys?color=yellow&logo=github" alt="GitHub stars">
+      <img src="https://img.shields.io/github/stars/FreeZeeHostProject/Baileys?color=yellow&style=for-the-badge&logo=github" alt="GitHub stars">
     </a>
   </p>
 </div>
 
 ---
 
-## 🔌 PnP (Plug & Play) Installation
-Library ini dirancang untuk menggantikan Baileys standar secara langsung (Drop-in Replacement). Cukup ganti dependency Anda dan nikmati fitur premiumnya.
+## 🌟 Introduction
+**Baileys FreeZeeHost Edition** adalah evolusi dari library Baileys standar (WhiskeySockets). Kami telah menambahkan layer optimasi ekstrim, fitur keamanan tingkat tinggi, dan API yang jauh lebih user-friendly untuk developer bot masa kini.
 
-### Update `package.json`
+Library ini dirancang untuk **kecepatan, stabilitas, dan keamanan (Anti-Ban)**. Tidak memerlukan Selenium atau Chromium, menghemat RAM server Anda hingga 80%.
+
+---
+
+## 📌 Table of Contents
+- [🔌 Instalasi](#-instalasi)
+- [🔢 Connecting Account](#-connecting-account)
+- [💎 Fitur Premium (Eksklusif)](#-fitur-premium-eksklusif)
+  - [🎭 Persona Switcher](#-persona-switcher)
+  - [👻 Phantom Mode](#-phantom-mode)
+  - [🛡️ Anti-Delete Core](#-anti-delete-core)
+  - [🧠 Smart Media Proxy](#-smart-media-proxy)
+  - [🩺 Auto-Medic (Self-Healing)](#-auto-medic-self-healing)
+- [🔘 Interactive UI Builders (sock.msg)](#-interactive-ui-builders-sockmsg)
+- [📱 Status Tracker (GETSW)](#-status-tracker-getsw)
+- [💾 Saving & Restoring Sessions](#-saving--restoring-sessions)
+- [📨 Sending Messages (Complete Guide)](#-sending-messages-complete-guide)
+- [📡 Handling Events](#-handling-events)
+- [👥 Groups & Privacy](#-groups--privacy)
+- [⚙️ Internal Optimizations](#-internal-optimizations)
+- [🛡️ Disclaimer & License](#-disclaimer--license)
+
+---
+
+## 🔌 Instalasi
+
+### Menggunakan NPM
+```bash
+npm install @freezeehost/baileys
+```
+
+### Menggunakan Github (Edge Version)
+```bash
+npm install github:FreeZeeHostProject/Baileys
+```
+
+### Drop-in Replacement (PnP)
+Jika Anda sudah memiliki bot berbasis Baileys, cukup ubah dependencies di `package.json` Anda:
 ```json
 "dependencies": {
   "baileys": "github:FreeZeeHostProject/Baileys"
@@ -31,169 +68,253 @@ Library ini dirancang untuk menggantikan Baileys standar secara langsung (Drop-i
 
 ---
 
-## 🚀 Fitur Ungkapan (High-Level Features)
-Daftar fitur eksklusif yang hanya tersedia di versi **FreeZeeHost**:
+## 🔢 Connecting Account
 
-| Fitur | Fungsi | Kode Utama |
-|-------|-----------|--------|
-| **🎭 Persona Switcher** | Ganti identitas perangkat (iPhone/Android/PC) tanpa relogin. | `sock.setPersona('ios')` |
-| **👻 Phantom Mode** | Baca pesan tanpa centang biru secara selektif. | `sock.ghostMode = true` |
-| **🛡️ Anti-Delete** | Menangkap pesan yang ditarik oleh pengirim. | `ev.on('message.delete')` |
-| **🧠 ViewOnce Bypass** | Otomatis mengubah pesan "Sekali Lihat" menjadi pesan biasa. | *Otomatis* |
-| **🩺 Auto-Medic** | Mendeteksi socket macet dan memperbaikinya secara otomatis. | *Otomatis* |
-| **🚦 Task Queue** | Antrian pesan cerdas untuk menghindari ban/spam detection. | *Otomatis* |
+### 🔗 Connect with QR Code
+```javascript
+const { default: makeWASocket, useMultiFileAuthState, patchSocket } = require('@freezeehost/baileys');
+
+async function start() {
+    const { state, saveCreds } = await useMultiFileAuthState('./sessions');
+    const sock = makeWASocket({
+        auth: state,
+        printQRInTerminal: true,
+        browser: ["Ubuntu", "Chrome", "20.0.0"]
+    });
+
+    // WAJIB: Aktifkan fitur premium FreeZeeHost
+    patchSocket(sock);
+
+    sock.ev.on('creds.update', saveCreds);
+    sock.ev.on('connection.update', (update) => {
+        if (update.connection === 'open') console.log("Bot Online!");
+    });
+}
+start();
+```
+
+### 🔢 Connect with Pairing Code
+Metode pendaftaran tanpa scan QR, hanya menggunakan nomor telepon.
+```javascript
+const sock = makeWASocket({ auth: state, printQRInTerminal: false });
+patchSocket(sock);
+
+if (!sock.authState.creds.registered) {
+    const code = await sock.requestPairingCode("628xxxxxxxx");
+    console.log(`Your Pairing Code: ${code}`);
+}
+```
 
 ---
 
-## 📖 Dokumentasi Fitur Premium & Code Examples
+## 💎 Fitur Premium (Eksklusif)
 
-### 🎭 Persona Identity Switcher
-Ubah identitas browser/perangkat bot Anda secara instan. Sangat berguna untuk menghindari deteksi bot dan mengubah tampilan "Login di perangkat lain".
-
+### 🎭 Persona Switcher
+Ubah identitas perangkat bot Anda secara instan tanpa perlu relogin. Ini sangat efektif untuk menghindari filter spam WhatsApp.
 ```javascript
-// Opsi: 'ios', 'android', 'windows', 'macos', 'portal'
+// Opsi: 'ios', 'android', 'windows', 'macos', 'portal', 'wearos'
 sock.setPersona('ios'); 
-console.log("Bot sekarang terdeteksi sebagai iPhone!");
+// Sekarang bot Anda akan terdeteksi sebagai iPhone oleh WhatsApp
 ```
 
-### 👻 Phantom Mode (Selective Read)
-Ingin membaca pesan tanpa diketahui pengirim (tanpa centang biru)? Gunakan Phantom Mode. Anda juga bisa mengecualikan orang tertentu (VIP) agar mereka tetap mendapat centang biru.
-
+### 👻 Phantom Mode
+Baca pesan tanpa memicu centang biru (Read Receipt) secara selektif.
 ```javascript
-sock.ghostMode = true; // Aktifkan mode hantu (Semua pesan tidak akan centang biru)
+sock.ghostMode = true; // Aktifkan mode hantu
 
-// Pengecualian: Tetap berikan centang biru untuk Owner/VIP
+// Kecualikan Owner/VIP agar mereka tetap melihat centang biru saat Anda baca
 sock.setVIP("628123456789@s.whatsapp.net", true);
 ```
 
 ### 🛡️ Anti-Delete Core
-Tangkap pesan yang dihapus oleh pengirim. Library akan menyimpan cache pesan sementara dan memberikan event khusus saat terjadi penghapusan.
-
+Capture pesan yang ditarik/dihapus oleh pengirim secara otomatis.
 ```javascript
 sock.ev.on('message.delete', ({ jid, id, message }) => {
-    console.log(`Pesan dihapus di ${jid}!`);
-    console.log(`Konten asli:`, message.text);
-    
-    // Kirim balik pesan yang dihapus (Anti-Delete)
-    sock.sendMessage(jid, { text: `Terciduk menghapus pesan:\n\n${message.text}` }, { quoted: message });
+    console.log(`Pesan dihapus oleh ${jid}. Konten: ${message.text}`);
+    // Kirim balik pesan yang dihapus ke chat
+    sock.sendMessage(jid, { text: `Terciduk hapus pesan:\n\n${message.text}` }, { quoted: message });
 });
 ```
 
-### 📱 Status Tracker (GETSW)
-Pantau status (story) WhatsApp orang lain secara otomatis. Cocok untuk fitur "Status Downloader".
+### 🧠 Smart Media Proxy
+Sistem deduplikasi media berbasis SHA256. Jika Anda mengirim file yang sama berulang kali, library tidak akan melakukan upload ulang, melainkan menggunakan cache internal untuk menghemat bandwidth.
+
+### 🩺 Auto-Medic (Self-Healing)
+Mendeteksi jika koneksi WhatsApp macet (Silent Failure). Jika dalam 45 detik tidak ada data yang masuk, library akan melakukan restart koneksi secara otomatis untuk menjaga bot tetap online 24/7.
+
+---
+
+## 🔘 Interactive UI Builders (sock.msg)
+Sederhanakan pengiriman pesan interaktif menjadi satu baris kode yang elegan.
 
 ```javascript
-// 1. Dapatkan daftar semua orang yang baru update status
-const senders = sock.getAllStatusSenders();
-
-// 2. Ambil daftar status dari orang tertentu
-const statuses = sock.getStatusesFrom("628xxx@s.whatsapp.net");
-
-// 3. Download media status (Gambar/Video)
-const buffer = await sock.downloadStatusMedia(statuses[0]);
-
-// 4. Event Listener Status Baru
-sock.onStatusUpdate((m) => {
-    console.log(`Status baru dari ${m.key.participant}: ${m.statusData.caption}`);
-});
-```
-
-### 🚀 Smart Command & Reply Helpers
-Membuat bot menjadi jauh lebih simpel dan rapi.
-
-```javascript
-// Command Handler Simpel
-sock.onCommand('.menu', async (m) => {
-    await m.reply("Ini adalah menu bot FreeZeeHost!");
-});
-
-// Reply otomatis menyertakan quote/tag pesan asal
-await m.reply("Pesan ini otomatis membalas Anda.");
-```
-
-### 🔘 Advanced Interactive UI (sock.msg)
-Sederhanakan pengiriman pesan kompleks (Buttons, Lists, Table) menjadi satu baris kode.
-
-```javascript
-// 1. Send Interactive List
-await sock.msg.list(jid, "Judul", "Deskripsi", "Footer", "Klik Disini", [
-    { title: "Opsi 1", rows: [{ title: "Pilih Ini", id: ".cmd1" }] }
+// 1. Interactive List Message
+await sock.msg.list(jid, "Menu Utama", "Pilih menu di bawah", "© FreeZeeHost", "Klik Disini", [
+    { title: "Kategori A", rows: [{ title: "Fitur 1", id: ".cmd1", description: "Deskripsi fitur" }] }
 ]);
 
-// 2. Send Native Flow Table
+// 2. Carousel Card (Slider)
+await sock.msg.carousel(jid, [
+    { title: "Produk 1", body: "Murah meriah", image: { url: "..." }, buttons: [...] },
+    { title: "Produk 2", body: "Kualitas premium", image: { url: "..." }, buttons: [...] }
+]);
+
+// 3. Native Flow Table (Tabel Cantik)
 const rows = [
-    { column1: "Nama", column2: "Harga" },
-    { column1: "Bot Premium", column2: "Rp 50.000" }
+    { col1: "Item", col2: "Price" },
+    { col1: "VPN 1 Month", col2: "Rp 10.000" }
 ];
-await sock.msg.nativeTable(jid, "Daftar Harga", rows);
-
-// 3. Send Carousel (Card Slider)
-const cards = [
-    { title: "Produk A", body: "Keren", image: { url: "..." }, buttons: [...] },
-    { title: "Produk B", body: "Murah", image: { url: "..." }, buttons: [...] }
-];
-await sock.msg.carousel(jid, cards);
+await sock.msg.nativeTable(jid, "Price List", rows);
 ```
 
-### 🥷 Stealth Mode (Typing Simulation)
-Bot akan melakukan simulasi "Sedang mengetik..." atau "Sedang merekam suara..." sebelum membalas pesan agar terlihat seperti manusia asli.
+---
+
+## 📱 Status Tracker (GETSW)
+Fitur eksklusif untuk memantau status WhatsApp orang lain.
+```javascript
+// Event saat ada status baru masuk
+sock.onStatusUpdate(async (m) => {
+    console.log(`Status baru dari ${m.key.participant}`);
+    // Otomatis download media status tersebut
+    const buffer = await sock.downloadStatusMedia(m);
+});
+
+// Ambil list semua pengirim status
+const senders = sock.getAllStatusSenders();
+```
+
+---
+
+## 💾 Saving & Restoring Sessions
+
+### 📂 Multi-File Auth (Standard)
+```javascript
+const { state, saveCreds } = await useMultiFileAuthState('sessions_folder');
+```
+
+### ☁️ MongoDB Cloud Auth (Recommended)
+Simpan sesi Anda di awan (Cloud) untuk keamanan ekstra dan kemudahan migrasi VPS.
+```javascript
+const { MongoClient } = require('mongodb');
+const client = new MongoClient("your_mongo_url");
+await client.connect();
+
+const collection = client.db('bot').collection('auth');
+const { state, saveCreds } = await useMongoFileAuthState(collection);
+```
+
+---
+
+## 📨 Sending Messages (Complete Guide)
+
+### 📝 Text & Formatting
+```javascript
+await sock.sendMessage(jid, { text: 'Hello *Bold*, _Italic_, ~Strike~' });
+
+// Dengan Mention
+await sock.sendMessage(jid, { 
+    text: 'Hello @628xxx', 
+    mentions: ['628xxx@s.whatsapp.net'] 
+});
+```
+
+### 🖼️ Media Messages
+```javascript
+// Image with Caption
+await sock.sendMessage(jid, { image: { url: 'path/to/img.jpg' }, caption: 'Cool!' });
+
+// Video / Video Note (PTV)
+await sock.sendMessage(jid, { video: { url: '...' }, ptv: true });
+
+// View Once Media
+await sock.sendMessage(jid, { image: { url: '...' }, viewOnce: true });
+```
+
+### 📍 Location & Contact
+```javascript
+await sock.sendMessage(jid, { location: { degreesLatitude: -6.2, degreesLongitude: 106.8 } });
+
+await sock.sendMessage(jid, { 
+    contacts: { 
+        displayName: 'FreeZeeHost', 
+        contacts: [{ vcard: '...' }] 
+    } 
+});
+```
+
+### 📊 Poll Messages
+```javascript
+await sock.sendMessage(jid, {
+    poll: {
+        name: 'Siapa presiden pilihanmu?',
+        values: ['Opsi 1', 'Opsi 2'],
+        selectableCount: 1
+    }
+});
+```
+
+---
+
+## 📡 Handling Events
+Semua event telah dioptimasi dan dikategorikan untuk kemudahan akses.
 
 ```javascript
-await sock.simulateTyping(jid, 3000); // Simulasi mengetik selama 3 detik
-await sock.sendMessage(jid, { text: "Halo, saya manusia!" });
+// Pesan masuk (Upsert)
+sock.ev.on('messages.upsert', ({ messages, type }) => {
+    const m = sock.smsg(messages[0]); // Auto-serialize
+    if (m.text === 'ping') m.reply('Pong!');
+});
 
-await sock.simulateRecording(jid, 2000); // Simulasi merekam suara
+// Update koneksi
+sock.ev.on('connection.update', (update) => {
+    const { connection, lastDisconnect, qr } = update;
+    // Logika Reconnect Otomatis sudah terpasang di Auto-Medic
+});
+
+// Participant Group (Join/Leave)
+sock.ev.on('group-participants.update', (event) => {
+    console.log(`User ${event.participants} telah ${event.action} di grup ${event.id}`);
+});
 ```
 
 ---
 
-## ⚙️ Internal Optimizations (Under the Hood)
+## 👥 Groups & Privacy
 
-- **Smart Media Proxy**: Library secara otomatis mengecek SHA256 media sebelum mengirim. Jika media yang sama pernah dikirim sebelumnya, library akan mencoba menggunakan cache untuk menghemat bandwidth.
-- **Auto-Medic (Self-Healing)**: Setiap 45 detik, library mengecek detak jantung socket. Jika terdeteksi "macet" (silence), library akan melakukan *surgical restart* pada koneksi tanpa mematikan proses bot.
-- **Task Queue**: Semua pesan keluar masuk ke antrian internal. Ini mencegah bot diblokir oleh WhatsApp karena mengirim terlalu banyak pesan dalam satu milidetik (Spam Prevention).
-- **Global Injection**: `proto`, `delay`, dan `smsg` otomatis tersedia secara global. Anda tidak perlu lagi melakukan `require` berulang kali di setiap file plugin.
-
----
-
-## 📋 Quick Start (Complete Example)
-
+### Group Management
 ```javascript
-const { default: makeWASocket, useMultiFileAuthState, patchSocket } = require('@freezeehost/baileys');
+await sock.groupCreate("New Group", ["jid1", "jid2"]);
+await sock.groupParticipantsUpdate(jid, ["jid1"], "add"); // add, remove, promote, demote
+await sock.groupUpdateSubject(jid, "New Name");
+await sock.groupLeave(jid);
+```
 
-async function connect() {
-    const { state, saveCreds } = await useMultiFileAuthState('./auth');
-    const sock = makeWASocket({
-        auth: state,
-        printQRInTerminal: true
-    });
-
-    // WAJIB: Pasang fitur premium FreeZee
-    patchSocket(sock);
-
-    sock.ev.on('creds.update', saveCreds);
-
-    // Gunakan helper onCommand
-    sock.onCommand('.ping', (m) => m.reply('Pong!'));
-    
-    sock.onCommand('.ios', (m) => {
-        sock.setPersona('ios');
-        m.reply('Identity switched to iPhone.');
-    });
-}
-connect();
+### Privacy Settings
+```javascript
+await sock.updateLastSeenPrivacy("none");
+await sock.updateStatusPrivacy("contacts");
+await sock.updateReadReceiptsPrivacy("none");
 ```
 
 ---
 
-## 🛡️ Disclaimer
-Proyek ini **tidak berafiliasi** dengan WhatsApp/Meta. Segala risiko penggunaan (seperti banned) adalah tanggung jawab masing-masing pengguna. Gunakan secara bijak dan jangan melakukan spam.
+## ⚙️ Internal Optimizations
+- **Encrypted Logger**: Aktivitas bot dicatat secara terenkripsi ke database (opsional) untuk audit keamanan.
+- **Dynamic Task Queue**: Mencegah overload pengiriman pesan yang bisa menyebabkan nomor terblokir.
+- **Turbo-Loader**: Pre-warming engine untuk memuat plugin bot lebih cepat saat startup.
+- **Memory Garbage Collector**: Secara berkala membersihkan cache yang tidak terpakai untuk menjaga penggunaan RAM tetap rendah.
 
-## ⚡ Contact & Support
-- **Site**: [zass.cloud](https://zass.cloud)
-- **Channel**: [Official Channel](https://zass.cloud/wa/channel/info)
+---
+
+## 🛡️ Disclaimer & License
+Copyright (c) 2026 **FreeZeeHost Project**.
+
+Proyek ini **tidak berafiliasi** dengan WhatsApp atau Meta. Gunakan dengan risiko Anda sendiri. Segala bentuk penyalahgunaan (seperti spam) bukan tanggung jawab pengembang library ini.
+
+Lisensi: **MIT License**. Dilarang keras melakukan komersialisasi/resale tanpa izin tertulis dari FreeZeeHost Team.
 
 ---
 <div align="center">
-  Made with ❤️ by <b>FreeZeeHost</b>
+  <p>Created with ❤️ by <b>FreeZeeHost Team</b></p>
+  <p><i>Empowering the WhatsApp Bot Ecosystem</i></p>
 </div>
