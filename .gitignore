@@ -1,1 +1,7 @@
+node_modules
+*.log
+.env
 mongo-session.js
+sessions/
+auth-info.json
+.DS_Store
