@@ -1,6 +1,6 @@
 {
-  "name": "baileys",
-  "version": "2.1.5",
+  "name": "@freezeehost/baileys",
+  "version": "2.1.6",
   "description": "Baileys FreeZeeHost Edition - Lightweight, High-Performance, and Feature-Rich WhatsApp Web Library for Node.js",
   "keywords": [
     "facebook",
@@ -80,7 +80,7 @@
   },
   "packageManager": "yarn@1.22.19",
   "engines": {
-    "node": ">=22.0.0"
+    "node": ">=20.0.0"
   },
   "directories": {
     "lib": "lib"
