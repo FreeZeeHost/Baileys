@@ -8,6 +8,6 @@ export * from './Defaults';
 export * from './WABinary';
 export * from './WAM';
 export * from './WAUSync';
-export type WASocket = ReturnType<typeof makeWASocket>;
+export type WASocket = ReturnType<typeof makeWASocket> & import('./Types').FreeZeeSocket;
 export { makeWASocket, proto };
 export default makeWASocket;

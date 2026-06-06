@@ -149,6 +149,15 @@ export type BaileysEventMap = {
         association: LabelAssociation
         type: 'add' | 'remove'
     }
+    /** --- FreeZee Custom Events --- */
+    /** pairing code generated */
+    'pairing-code': string
+    /** message deleted by sender (anti-delete event) */
+    'message.delete': {
+        jid: string
+        id: string
+        message: proto.IWebMessageInfo
+    }
 }
 
 export type BufferedEventData = {

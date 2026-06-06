@@ -108,6 +108,10 @@ export declare function trimUndefined(obj: {
 
 export declare function bytesToCrockford(buffer: Buffer): string
 
+export declare function getBuffer(url: string, options?: AxiosRequestConfig): Promise<Buffer>
+
+export declare function formatSize(bytes: number): string
+
 export declare function toUnicodeEscape(text: string): string
 
 export declare function fromUnicodeEscape(escapedText: string): string
