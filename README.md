@@ -2702,6 +2702,55 @@ conn.ws.on('CB:edge_routing,id:abcd,routing_info', (node) => console.log('Socket
 ```
 </details>
 
+### ⚡ Deep Protocol & Advanced Operations (Secret Fitur)
+Fitur tingkat rendah (Low-Level) yang diekstrak langsung dari protokol terbaru WhatsApp.
+
+#### 🛠️ Manual Message Resend
+Minta WhatsApp kirim ulang pesan tertentu. Ampuh untuk fix error **"Menunggu pesan ini"**.
+```javascript
+// Meminta kirim ulang pesan 'm'
+await conn.requestResend(m.key);
+```
+
+#### 📊 Poll V5 (Support Gambar)
+Versi terbaru polling yang mendukung gambar di setiap pilihannya.
+```javascript
+await conn.sendPollV5(jid, {
+    name: "Siapa Waifu Terbaik?",
+    options: [
+        { name: "Shiroko", image: fs.readFileSync("./shiroko.jpg") },
+        { name: "Hoshino", image: fs.readFileSync("./hoshino.jpg") }
+    ],
+    selectableCount: 1
+});
+```
+
+#### 📞 Native Call History Logs
+Kirim bubble "Riwayat Panggilan" native (seperti manusia asli).
+```javascript
+await conn.sendCallLog(jid, {
+    isVideo: false,
+    duration: 120,
+    outcome: 0 // 0: CONNECTED, 1: MISSED, 2: FAILED, 3: REJECTED
+});
+```
+
+#### 📂 Massive Chat Bundle
+Protokol native untuk mentransfer atau ekspor riwayat chat dalam jumlah besar.
+```javascript
+await conn.sendChatBundle(jid, {
+    fileSha256: bufferSha,
+    mediaKey: bufferKey,
+    messageCount: 1000
+});
+```
+
+#### 🛡️ Encrypted Reactions
+Mengirim reaksi pesan di chat dengan tingkat enkripsi tinggi (Komunitas/Privasi).
+```javascript
+await conn.sendEncReaction(jid, "❤️", targetKey, { payload: encPayload, iv: encIv });
+```
+
 <br>
 
 ## ⚠️ Disclaimer
