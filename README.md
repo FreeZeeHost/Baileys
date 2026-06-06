@@ -74,6 +74,136 @@ Simplify complex interactions into single function calls.
 - **Carousel**: `conn.msg.carousel(...)`
 - **Native Table**: `conn.msg.nativeTable(...)`
 
+### 💼 Native Commerce & Professional
+Fitur native untuk bot bisnis dan transaksi profesional.
+
+#### 🛒 Native Order Card
+Kirim kartu pesanan native yang interaktif.
+```javascript
+await conn.sendOrder(jid, {
+    id: "order_123",
+    title: "Order Baru: Bot Premium",
+    text: "Silakan konfirmasi pesanan Anda di bawah.",
+    totalAmount: 50000,
+    currency: "IDR",
+    itemCount: 1,
+    thumbnail: fs.readFileSync("./thumb.jpg")
+});
+```
+
+#### 💰 Native Invoice
+Kirim tagihan atau invoice resmi dalam format native.
+```javascript
+await conn.sendInvoice(jid, {
+    note: "Tagihan VPS Bulan Juni",
+    token: "invoice_token_xyz",
+    type: "PDF" // atau 'IMAGE'
+});
+```
+
+#### 📦 Native Product Catalog
+Bagikan produk dari katalog bisnis Anda secara native.
+```javascript
+await conn.sendProduct(jid, "628xxx@s.whatsapp.net", {
+    id: "prod_456",
+    title: "VPS High Performance",
+    price: 150000,
+    thumbnail: "https://..."
+});
+```
+
+### 🤝 Interaction & Engagement
+Fitur untuk meningkatkan interaksi user dengan bot.
+
+#### 💬 Message Comments (Attached Replies)
+Lampirkan komentar langsung ke pesan tertentu (seperti fitur komentar di media sosial).
+```javascript
+// Membalas pesan 'm' dengan komentar native
+await m.replyComment("Setuju banget sama ini!");
+
+// Mode Global
+await conn.sendComment(jid, "Komentar saya", targetMessageKey);
+```
+
+#### 📊 Poll Result Snapshot
+Kirim ringkasan hasil voting atau kuis yang cantik secara native.
+```javascript
+await m.replyPollResult("Hasil Pilihan", [
+    { name: "Opsi A", count: 15 },
+    { name: "Opsi B", count: 7 }
+]);
+```
+
+#### 📍 Native Live Location
+Berbagi lokasi terkini secara realtime di dalam chat.
+```javascript
+await m.replyLiveLocation(-6.2, 106.8, 3600); // 3600 detik (1 jam)
+```
+
+#### ❓ Bot/AI Question Reply
+Memberikan balasan resmi untuk kotak pertanyaan interaktif.
+```javascript
+await conn.replyQuestion(jid, "Jawaban saya adalah...", questionMessageKey);
+```
+
+### 📱 Social & Status Features
+Maksimalkan fitur Status dan Channel WhatsApp.
+
+#### ❓ Status Ask Me Anything (Q&A)
+Kirim kotak pertanyaan interaktif ke Status WhatsApp bot.
+```javascript
+await conn.sendStatusQuestion("Ada ide fitur baru buat bot ini?");
+```
+
+#### 🎭 Native Status Quoting
+Kutip (quote) Status WhatsApp orang lain ke dalam chat secara native.
+```javascript
+await conn.quoteStatus(jid, "Status ini keren!", statusKey, thumbBuffer);
+```
+
+#### ✉️ Newsletter/Channel Invites
+Kirim undangan resmi untuk admin atau follower channel.
+```javascript
+// Undang Admin
+await conn.newsletter.inviteAdmin(jid, "628xxx@s.whatsapp.net");
+
+// Undang Follower
+await conn.newsletter.inviteFollower(jid, "Nama Channel", thumbBuffer, "Join yuk!");
+```
+
+### 🛠️ Chat Organization & Group Management
+
+#### 📌 Message Pinning
+Pin pesan penting di bagian atas chat.
+```javascript
+await m.pin(86400); // Pin selama 24 jam
+await conn.pinMessage(jid, messageKey, 86400);
+```
+
+#### 💾 Message Keeping (Preservation)
+Simpan pesan di chat "Pesan Sementara" agar tidak hilang.
+```javascript
+await m.keep(); // Simpan pesan
+await m.unkeep(); // Batal simpan
+```
+
+#### 📅 Native Group Events
+Buat undangan acara resmi di dalam grup.
+```javascript
+await conn.createEvent(jid, {
+    name: "Mabar Akhir Pekan",
+    description: "Kumpul di Discord jam 9 malam",
+    startTime: "2026-06-15T21:00:00",
+    location: { lat: -6.2, lng: 106.8, name: "Voice Channel 1" }
+});
+```
+
+#### 📞 Scheduled Group Calls
+Jadwalkan telepon grup (suara/video) secara resmi.
+```javascript
+await conn.scheduleCall(jid, "Briefing Pagi", 1, Date.now() + 3600000);
+```
+
 ### 🤖 Meta AI Style Messages (New!)
 Kirim pesan dengan visual kaya persis seperti bot Meta AI resmi.
 
