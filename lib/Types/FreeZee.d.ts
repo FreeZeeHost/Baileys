@@ -185,6 +185,7 @@ export interface FreeZeeMessage {
     replyProduct(owner: string, data: any, options?: any): Promise<any>
     replyLiveLocation(lat: number, lng: number, options?: any): Promise<any>
     replyCallLog(data: any, options?: any): Promise<any>
+    replyStickerPack(pack: any, options?: any): Promise<any>
     pin(duration?: number, options?: any): Promise<any>
     keep(options?: any): Promise<any>
     

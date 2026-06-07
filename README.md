@@ -76,6 +76,13 @@ Kirim pesan dengan visual mewah yang biasanya hanya bisa dilakukan oleh bot resm
 -   🖼️ **AI Grid**: `m.replyGridImage(imageUrls)`
 -   💭 **AI Thinking**: `m.replyThinking(description, steps)`
 -   💬 **AI Prompts**: `m.replyPrompts(text, chips)`
+-   🧠 **AI Memory**: `m.replyMemory(added, removed, disclaimer)`
+-   📈 **AI Quota**: `m.replyQuota(remainingQuota, expirationSecs)`
+-   🎨 **AI Imagine Type**: `m.replyImagineMetadata(imagineType)`
+-   🧭 **AI Progress/Reasoning**: `m.replyProgress(steps)`
+-   🌐 **AI Search Sources**: `m.replySources(sources)`
+-   📣 **AI Message Origin**: `m.replyMessageOrigin()`
+-   🛍️ **Product Carousel**: `m.replyProductCarousel(products)`
 
 ### 🎭 Persona Identity Switcher
 Ubah identitas perangkat bot Anda secara instan untuk menghindari deteksi sistem anti-bot.
@@ -168,6 +175,132 @@ await conn.sendPollV5(jid, { name: "Vote!", options: [{ name: "Opsi 1", image: b
 Kirim riwayat panggilan native (Missed call, dsb).
 ```javascript
 await conn.sendCallLog(jid, { isVideo: false, outcome: 1 });
+```
+
+#### 📦 Sticker Pack (Kirim Sticker Pack)
+Kirim paket stiker kustom (sticker pack) berisi koleksi stiker secara native.
+```javascript
+// Menggunakan message helper (smsg)
+await m.replyStickerPack({
+    name: "FreeZee Baileys Uji Pack",
+    publisher: "FreeZeeHost",
+    description: "Deskripsi pack stiker",
+    cover: { url: "https://files.catbox.moe/gw41eq.png" },
+    stickers: [
+        { sticker: { url: "https://files.catbox.moe/gw41eq.png" }, emojis: ["🔥"] },
+        { sticker: { url: "https://files.catbox.moe/gw41eq.png" }, emojis: ["💡"] }
+    ]
+});
+
+// Menggunakan koneksi langsung
+await conn.sendStickerPack(jid, {
+    name: "FreeZee Baileys Uji Pack",
+    publisher: "FreeZeeHost",
+    cover: bufferCover,
+    stickers: [
+        { sticker: bufferSticker1, emojis: ["🔥"] }
+    ]
+});
+```
+</details>
+
+<details>
+<summary><strong>🤖 Meta AI Advanced Protocol Features</strong></summary>
+
+Anda sekarang dapat meniru perilaku bot Meta AI secara mendalam (termasuk reasoning, ingatan, kuota, kutipan pencarian, dan feedback jempol).
+
+#### 1. 🧠 AI Memory (Ingatan Jangka Panjang)
+Kirim fakta yang ingin Anda simpan atau hapus dari memori AI tentang pengguna.
+```javascript
+// Menggunakan message helper (smsg)
+await m.replyMemory(
+    ["User menyukai JavaScript", "User lahir di Jakarta"], // Fakta baru untuk disimpan
+    ["User menyukai Python"],                              // Fakta lama untuk dihapus
+    "Memori disimpan otomatis untuk personalisasi respons."
+);
+
+// Menggunakan koneksi langsung
+await conn.aiMemory(jid, "Fakta memori berhasil diperbarui!", ["Fakta baru"], ["Fakta lama"], "Catatan disclaimer");
+```
+
+#### 2. 📊 AI Quota (Indikator Kuota Fitur)
+Tampilkan sisa kuota fitur AI untuk obrolan/user saat ini.
+```javascript
+// Sisa kuota 15 kali, reset dalam 24 jam (86400 detik)
+await m.replyQuota(15, 86400);
+
+// Menggunakan koneksi langsung
+await conn.aiQuota(jid, "Sisa kuota harian Anda hampir habis.", 15, 86400);
+```
+
+#### 3. 🎨 AI Imagine Metadata (Tipe Generator Gambar)
+Metadata tipe generator gambar (standard, avatar, real-time flash, edit).
+```javascript
+// Opsi tipe: 1 (IMAGINE), 2 (MEMU/Avatar), 3 (FLASH/Realtime), 4 (EDIT)
+await m.replyImagineMetadata(3); // Mode FLASH
+```
+
+#### 4. 🧭 AI Progress & Reasoning (Langkah Berpikir DeepSeek/o1)
+Tampilkan langkah-langkah detail berpikir AI (penalaran/reasoning) dan status eksekusinya.
+```javascript
+await m.replyProgress([
+    { title: "Menganalisis Kode", body: "Memeriksa sintaks JavaScript...", status: 3, isReasoning: true },
+    { title: "Mencari di Google", body: "Mencari dokumentasi terbaru...", status: 2, isEnhancedSearch: true },
+    { title: "Selesai", status: 1 }
+]);
+```
+
+#### 5. 🌐 AI Search Sources (Tombol Kutipan / Sumber)
+Tampilkan tombol/link referensi pencarian Google/Bing di bawah pesan.
+```javascript
+await m.replySources([
+    { provider: 2, title: "Google Search", url: "https://google.com", query: "baileys wa web" },
+    { provider: 1, title: "Bing Search", url: "https://bing.com", query: "whatsapp api" }
+]);
+```
+
+#### 6. 👍👎 AI Feedback (Tombol Penilaian Respons)
+Kirim penilaian jempol atas/bawah atas respons AI sebelumnya.
+```javascript
+// Memberikan jempol atas (positif)
+await m.aiFeedback(true);
+
+// Memberikan jempol bawah (negatif) dengan komentar keluhan
+await m.aiFeedback(false, "Penjelasan kurang akurat.");
+```
+
+#### 7. 📣 AI Message Origin (Pemicu Mandiri AI)
+Kirim pesan yang ditandai secara resmi dipicu atas inisiatif mandiri oleh AI (*AI-initiated*).
+```javascript
+await m.replyMessageOrigin();
+```
+
+#### 8. 🛍️ Product Carousel (Carousel Produk)
+Kirim carousel produk dengan informasi detail produk (nama, harga, link, deskripsi, gambar) beserta tombol action di masing-masing kartu produk.
+```javascript
+// Menggunakan message helper (smsg)
+await m.replyProductCarousel([
+    {
+        productId: "prod_1",
+        title: "Kopi Hitam Espresso",
+        description: "Kopi espresso murni pilihan.",
+        price: 25000,
+        image: "https://toko.com/espresso.jpg",
+        url: "https://toko.com/espresso",
+        body: "Dapatkan diskon pagi hari!",
+        buttons: [{ name: "quick_reply", params: { display_text: "Beli Kopi", id: "buy_kopi" } }]
+    },
+    {
+        productId: "prod_2",
+        title: "Matcha Latte Premium",
+        description: "Teh hijau matcha asli Jepang.",
+        price: 30000,
+        image: "https://toko.com/matcha.jpg",
+        url: "https://toko.com/matcha",
+        body: "Terlaris minggu ini!",
+        buttons: [{ name: "quick_reply", params: { display_text: "Beli Matcha", id: "buy_matcha" } }]
+    }
+], { text: "Silakan pilih produk terbaik kami:" });
 ```
 </details>
 

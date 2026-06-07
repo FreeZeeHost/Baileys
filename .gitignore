@@ -5,3 +5,5 @@ mongo-session.js
 sessions/
 auth-info.json
 .DS_Store
+session_test/
+session_test*/
