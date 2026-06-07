@@ -383,6 +383,110 @@ conn.autoOptimize();
 </details>
 
 <details>
+<summary><strong>🎨 Meta AI Style Messages (Visual Layout)</strong></summary>
+
+Gunakan API ini untuk merender visual pesan interaktif Meta AI yang elegan dan modern secara native pada client WhatsApp:
+
+#### 1. 📊 AI Table (Tabel Formatted Meta AI)
+Mengirimkan tabel terformat yang rapi dengan kolom dan baris tebal/normal.
+```javascript
+// Menggunakan message helper (smsg)
+await m.replyTable("Bot Pricing Plan", [
+    { items: ["Plan", "Price", "Features"], isHeading: true },
+    { items: ["Basic", "Free", "Auto-Reply"], isHeading: false },
+    { items: ["Premium", "$5/mo", "Meta AI Features"], isHeading: false }
+]);
+
+// Menggunakan koneksi langsung
+await conn.msg.aiTable(jid, "Judul Tabel", rowsArray);
+```
+
+#### 2. 💻 AI Code (Blok Kode Pemrograman)
+Kirim blok kode pemrograman dengan syntax highlighting yang rapi.
+```javascript
+const codeText = "const bot = makeFreeZeeSocket();\nbot.onCommand('ping', (m) => m.reply('Pong!'));";
+await m.replyCode("javascript", codeText);
+```
+
+#### 3. 🎬 AI Reels (Instagram/Facebook Reels Preview)
+Kirim daftar reels video vertikal yang dapat diputar secara native lengkap dengan thumbnail dan nama pembuat.
+```javascript
+await m.replyReels("Tonton Reels Terpopuler Hari Ini:", [
+    {
+        title: "Belajar Coding 60 Detik",
+        description: "Tips cepat belajar JavaScript secara gratis.",
+        videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4",
+        thumbnailUrl: "https://toko.com/thumbnail.png",
+        profileIconUrl: "https://toko.com/avatar.png"
+    }
+]);
+```
+
+#### 4. 🖼️ AI Grid (Grid Kolase Gambar)
+Kirim kolase grid gambar interaktif (seperti hasil generasi gambar Meta AI) yang menampung multi-gambar secara estetik.
+```javascript
+await m.replyGridImage([
+    "https://toko.com/image1.jpg",
+    "https://toko.com/image2.jpg"
+]);
+```
+
+#### 5. 📎 AI Inline Image (Gambar Inline dengan Teks)
+Mengirimkan gambar yang terintegrasi secara inline dengan deskripsi teks di bawahnya beserta link tautan eksternal.
+```javascript
+await m.replyInlineImage("https://toko.com/gambar.jpg", "Ini adalah ilustrasi gambar inline Meta AI", 0, "https://freezeehost.com");
+```
+
+#### 6. 🔄 AI Dynamic Image (Gambar Dinamis / GIF)
+Mengirimkan gambar atau GIF dinamis dengan opsi looping yang berputar secara otomatis.
+```javascript
+// Parameter: url, isGif, loopCount
+await m.replyDynamic("https://toko.com/animation.gif", true, 0);
+```
+
+#### 7. 📐 AI Latex (Rumus Matematika LaTeX)
+Mengirimkan teks beserta format rendering rumus matematika LaTeX yang kompleks.
+```javascript
+await m.replyLatex("Rumus matematika kuadrat sempurna:", ["f(x) = a x^2 + b x + c", "E = m c^2"]);
+```
+
+#### 8. 🗺️ AI Map (Anotasi Peta Interaktif)
+Mengirim peta interaktif dengan pin titik koordinat beserta judul dan deskripsi lokasinya.
+```javascript
+await m.replyMap(-6.2088, 106.8456, [
+    { lat: -6.2088, lng: 106.8456, title: "Monas", body: "Monumen Nasional Indonesia" }
+]);
+```
+
+#### 9. 🧠 AI Thinking / Reasoning Steps (Langkah Berpikir)
+Tampilkan status "Sedang berpikir..." beserta langkah-langkah penalaran detail di dalam thread chat.
+```javascript
+await m.replyThinking("Sedang menganalisis basis data...", [
+    { title: "Melacak Log Pesan", body: "Memindai riwayat chat terakhir...", status: 3, isReasoning: true },
+    { title: "Mencari Informasi", body: "Menghubungkan ke API server...", status: 2, isEnhancedSearch: true },
+    { title: "Selesai", status: 1 }
+]);
+```
+
+#### 10. 🏷️ AI Model Branding
+Tampilkan branding model kecerdasan buatan resmi di bawah balon pesan Anda.
+```javascript
+// Parameter: teks, tipeModel, namaModel
+await m.replyModel("Pesan ini diproses menggunakan model Llama Premium.", 2, "Llama 3.1 Instruct");
+```
+
+#### 11. 💡 AI Prompts (Saran Prompt Interaktif / Chips)
+Tampilkan tombol-tombol saran prompt kecil (quick chips) di bawah balon pesan untuk memandu obrolan pengguna selanjutnya.
+```javascript
+await m.replyPrompts("Bagaimana saya bisa membantu Anda hari ini?", [
+    "Jelaskan fitur AI",
+    "Kirim tabel harga",
+    "Kirim carousel produk"
+]);
+```
+</details>
+
+<details>
 <summary><strong>🤖 Meta AI Advanced Protocol Features</strong></summary>
 
 Anda sekarang dapat meniru perilaku bot Meta AI secara mendalam (termasuk reasoning, ingatan, kuota, kutipan pencarian, dan feedback jempol).
