@@ -75,7 +75,7 @@ Berikut adalah daftar seluruh fitur yang tersedia untuk diuji, dikategorikan sec
 • *.list* - Kirim Pesan Interaktif Daftar (Section List)
 • *.poll* - Kirim Pesan Polling Interaktif
 • *.groupinfo* - Cek informasi grup & status admin (Khusus Grup)
-• *.settings* - Konfigurasi Auto-Read & Anti-Call
+• *.settings* - Konfigurasi Auto-Read, Anti-Call, Auto-Typing & Auto-VN
 • *.presence <status>* - Ubah status presensi (composing/recording/paused)
 • *.react <emoji>* - Reaksi emoji ke pesan (Kutip pesan)
 • *.pin* - Menyematkan pesan (Pin) (Kutip pesan)
@@ -227,7 +227,7 @@ Berikut adalah daftar seluruh fitur yang tersedia untuk diuji, dikategorikan sec
         m.reply(`📊 *Informasi Grup:*\n\n*Nama Grup:* ${metadata.subject}\n*Deskripsi:* ${metadata.desc || '-'}\n*Jumlah Anggota:* ${metadata.participants.length}\n*Jumlah Admin:* ${admins.length}\n*Status Anda:* ${isSenderAdmin ? 'Admin 👑' : 'Anggota Biasa'}`);
     });
 
-    // 7. Settings (Auto-Read & Anti-Call)
+    // 7. Settings (Auto-Read, Anti-Call, Auto-Typing & Auto-VN)
     conn.onCommand('settings', (m) => {
         const query = m.query.toLowerCase();
         if (query === 'autoread on') {
@@ -242,8 +242,20 @@ Berikut adalah daftar seluruh fitur yang tersedia untuk diuji, dikategorikan sec
         } else if (query === 'anticall off') {
             conn.antiCall = false;
             m.reply('Anti-Call dimatikan!');
+        } else if (query === 'autotyping on') {
+            conn.autoTyping = true;
+            m.reply('Auto-Typing diaktifkan!');
+        } else if (query === 'autotyping off') {
+            conn.autoTyping = false;
+            m.reply('Auto-Typing dimatikan!');
+        } else if (query === 'autovn on') {
+            conn.autoRecord = true;
+            m.reply('Auto-VN diaktifkan!');
+        } else if (query === 'autovn off') {
+            conn.autoRecord = false;
+            m.reply('Auto-VN dimatikan!');
         } else {
-            m.reply(`🔧 *Pengaturan Bot:*\n\n*Auto-Read:* ${conn.autoRead ? 'ON' : 'OFF'}\n*Anti-Call:* ${conn.antiCall ? 'ON' : 'OFF'}\n\n_Ketik .settings autoread on/off atau .settings anticall on/off untuk mengubah_`);
+            m.reply(`🔧 *Pengaturan Bot:*\n\n*Auto-Read:* ${conn.autoRead ? 'ON' : 'OFF'}\n*Anti-Call:* ${conn.antiCall ? 'ON' : 'OFF'}\n*Auto-Typing:* ${conn.autoTyping ? 'ON' : 'OFF'}\n*Auto-VN:* ${conn.autoRecord ? 'ON' : 'OFF'}\n\n_Ketik .settings [fitur] on/off untuk mengubah. Pilihan fitur: autoread, anticall, autotyping, autovn_`);
         }
     });
 

@@ -361,21 +361,31 @@ conn.ghostMode = true; // Aktifkan tanpa mengirim laporan baca otomatis
 conn.setVIP("628xxxxxxxx@s.whatsapp.net", true);
 ```
 
-#### 2. Model Penyamaran Browser Perangkat (Persona Identity)
+#### 2. Auto-Typing & Auto-VN (Simulasi Ketikan & Rekaman VN Realistis)
+Secara otomatis memicu status "sedang mengetik..." (composing) sebelum mengirim pesan teks, atau "sedang merekam audio..." (recording) sebelum mengirim Voice Note, menciptakan simulasi interaksi bot yang sangat realistis dan alami.
+```javascript
+// Aktifkan auto-typing untuk pesan teks
+conn.autoTyping = true;
+
+// Aktifkan auto-record (auto-vn) untuk pesan suara/audio
+conn.autoRecord = true;
+```
+
+#### 3. Model Penyamaran Browser Perangkat (Persona Identity)
 Ubah platform perangkat WhatsApp Web Anda (IOS, Android, Windows, macOS, WearOS, Portal) secara instan.
 ```javascript
 // Opsi: 'ios', 'android', 'windows', 'macos', 'portal', 'wearos'
 conn.setPersona('ios'); 
 ```
 
-#### 3. Prefetch Plugin (Turbo-Loader)
+#### 4. Prefetch Plugin (Turbo-Loader)
 Prapemanasan cache file javascript pada folder plugin agar eksekusi perintah bot lebih instan.
 ```javascript
 const result = await conn.prefetchPlugins("./plugins");
 console.log(`Prefetch selesai dalam ${result.duration}ms untuk ${result.count} plugin.`);
 ```
 
-#### 4. Auto-Optimize Memory
+#### 5. Auto-Optimize Memory
 Mengosongkan cache store pesan yang tidak terpakai dan memicu Garbage Collector untuk menghemat RAM VPS.
 ```javascript
 conn.autoOptimize();
