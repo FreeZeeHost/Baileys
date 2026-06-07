@@ -866,14 +866,18 @@ Berikut adalah daftar seluruh fitur yang tersedia untuk diuji, dikategorikan sec
         try {
             await conn.msg.carousel(m.chat, [
                 {
-                    message: {
-                        conversation: "Slide 1: Native Carousel Message"
-                    }
+                    title: "Slide 1",
+                    body: "Slide 1: Native Carousel Message",
+                    footer: "Footer Uji Coba 1",
+                    image: "https://files.catbox.moe/gw41eq.png",
+                    buttons: [{ name: "quick_reply", buttonParamsJson: JSON.stringify({ display_text: "Tombol 1", id: "btn_1" }) }]
                 },
                 {
-                    message: {
-                        conversation: "Slide 2: Native Carousel Message"
-                    }
+                    title: "Slide 2",
+                    body: "Slide 2: Native Carousel Message",
+                    footer: "Footer Uji Coba 2",
+                    image: "https://files.catbox.moe/gw41eq.png",
+                    buttons: [{ name: "quick_reply", buttonParamsJson: JSON.stringify({ display_text: "Tombol 2", id: "btn_2" }) }]
                 }
             ], { quoted: m });
         } catch (e) {
