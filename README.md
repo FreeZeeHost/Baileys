@@ -362,13 +362,44 @@ conn.setVIP("628xxxxxxxx@s.whatsapp.net", true);
 ```
 
 #### 2. Auto-Typing & Auto-VN (Simulasi Ketikan & Rekaman VN Realistis)
-Secara otomatis memicu status "sedang mengetik..." (composing) sebelum mengirim pesan teks, atau "sedang merekam audio..." (recording) sebelum mengirim Voice Note, menciptakan simulasi interaksi bot yang sangat realistis dan alami.
+Secara otomatis memicu status "sedang mengetik..." (composing) sebelum mengirim pesan teks, atau "sedang merekam audio..." (recording) sebelum mengirim Voice Note.
+
+##### **Global Toggle (Otomatis):**
 ```javascript
-// Aktifkan auto-typing untuk pesan teks
+// Aktifkan auto-typing global untuk seluruh pesan teks
 conn.autoTyping = true;
 
-// Aktifkan auto-record (auto-vn) untuk pesan suara/audio
+// Aktifkan auto-record (auto-vn) global untuk seluruh pesan audio
 conn.autoRecord = true;
+```
+
+##### **Ad-Hoc / Opsi Pengiriman:**
+Anda dapat mengaktifkan simulasi mengetik/merekam secara spesifik pada panggilan `sendMessage` dengan durasi kustom (milidetik):
+```javascript
+// Kirim pesan dengan simulasi mengetik selama 2 detik
+await conn.sendMessage(jid, { text: "Halo!" }, { simulateTyping: 2000 });
+
+// Kirim VN dengan simulasi merekam selama 3 detik
+await conn.sendMessage(jid, { audio: { url: "..." }, ptt: true }, { simulateRecording: 3000 });
+```
+
+##### **Fungsi Helper Socket:**
+```javascript
+// Simulasikan status mengetik selama durasi tertentu (default 1000ms) tanpa mengirim pesan
+await conn.simulateTyping(jid, 2000);
+
+// Simulasikan status merekam audio selama durasi tertentu (default 1500ms) tanpa mengirim pesan
+await conn.simulateRecording(jid, 3000);
+```
+
+##### **Fungsi Helper Pesan (Message Context Helpers):**
+Tersedia langsung pada objek pesan ter-smsg (`m`):
+```javascript
+// Balas pesan dengan simulasi mengetik otomatis
+await m.replyWithTyping("Halo ini balasan dengan ketikan!", {}, 1500);
+
+// Balas pesan dengan mengirim voice note disertai simulasi merekam otomatis
+await m.replyWithVN("https://example.com/audio.mp3", {}, 2000);
 ```
 
 #### 3. Model Penyamaran Browser Perangkat (Persona Identity)

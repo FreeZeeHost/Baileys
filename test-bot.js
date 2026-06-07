@@ -76,6 +76,10 @@ Berikut adalah daftar seluruh fitur yang tersedia untuk diuji, dikategorikan sec
 • *.poll* - Kirim Pesan Polling Interaktif
 • *.groupinfo* - Cek informasi grup & status admin (Khusus Grup)
 • *.settings* - Konfigurasi Auto-Read, Anti-Call, Auto-Typing & Auto-VN
+• *.autotyping <on/off>* - Toggle simulasi mengetik otomatis
+• *.autovn <on/off>* - Toggle simulasi merekam VN otomatis
+• *.replytyping <teks>* - Kirim balasan dengan simulasi mengetik (1.5 detik)
+• *.replyvn <url>* - Kirim VN dengan simulasi merekam (2 detik)
 • *.presence <status>* - Ubah status presensi (composing/recording/paused)
 • *.react <emoji>* - Reaksi emoji ke pesan (Kutip pesan)
 • *.pin* - Menyematkan pesan (Pin) (Kutip pesan)
@@ -268,6 +272,47 @@ Berikut adalah daftar seluruh fitur yang tersedia untuk diuji, dikategorikan sec
         } else {
             m.reply(`Gunakan: .presence composing | recording | paused`);
         }
+    });
+
+    // Auto-Typing direct control
+    conn.onCommand('autotyping', (m) => {
+        const query = m.query.toLowerCase().trim();
+        if (query === 'on') {
+            conn.autoTyping = true;
+            m.reply('Auto-Typing diaktifkan!');
+        } else if (query === 'off') {
+            conn.autoTyping = false;
+            m.reply('Auto-Typing dimatikan!');
+        } else {
+            m.reply(`Status Auto-Typing saat ini: *${conn.autoTyping ? 'ON' : 'OFF'}*\n\nKetik *.autotyping on* untuk mengaktifkan atau *.autotyping off* untuk mematikan.`);
+        }
+    });
+
+    // Auto-VN direct control
+    conn.onCommand('autovn', (m) => {
+        const query = m.query.toLowerCase().trim();
+        if (query === 'on') {
+            conn.autoRecord = true;
+            m.reply('Auto-VN diaktifkan!');
+        } else if (query === 'off') {
+            conn.autoRecord = false;
+            m.reply('Auto-VN dimatikan!');
+        } else {
+            m.reply(`Status Auto-VN saat ini: *${conn.autoRecord ? 'ON' : 'OFF'}*\n\nKetik *.autovn on* untuk mengaktifkan atau *.autovn off* untuk mematikan.`);
+        }
+    });
+
+    // Send text message with custom simulated typing delay
+    conn.onCommand('replytyping', async (m) => {
+        const text = m.query || "Ini adalah pesan balasan dengan simulasi mengetik otomatis selama 1.5 detik!";
+        await m.replyWithTyping(text, {}, 1500);
+    });
+
+    // Send audio message with custom simulated recording delay
+    conn.onCommand('replyvn', async (m) => {
+        const url = m.query || "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3";
+        m.reply('Mengirim VN dengan simulasi merekam audio selama 2 detik...');
+        await m.replyWithVN(url, {}, 2000);
     });
 
     // 9. React to a message
