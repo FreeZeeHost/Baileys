@@ -205,6 +205,184 @@ await conn.sendStickerPack(jid, {
 </details>
 
 <details>
+<summary><strong>📢 Newsletter Advanced Operations</strong></summary>
+
+Selain membuat dan mengundang follower, Anda sekarang memiliki kontrol penuh terhadap Saluran (Newsletter) secara terprogram:
+
+#### 1. Ikuti & Batal Ikuti Saluran (Follow/Unfollow)
+```javascript
+// Mengikuti saluran
+await conn.newsletter.follow("120363xxx@newsletter");
+
+// Berhenti mengikuti saluran
+await conn.newsletter.unfollow("120363xxx@newsletter");
+```
+
+#### 2. Bisukan & Bunyikan Saluran (Mute/Unmute)
+```javascript
+// Membisukan notifikasi saluran
+await conn.newsletter.mute("120363xxx@newsletter");
+
+// Menyalakan kembali notifikasi saluran
+await conn.newsletter.unmute("120363xxx@newsletter");
+```
+
+#### 3. Perbarui Metadata Saluran (Update Metadata)
+Mengubah nama dan deskripsi saluran resmi Anda secara instan.
+```javascript
+await conn.newsletter.update("120363xxx@newsletter", "Nama Baru Saluran", "Deskripsi Baru Saluran");
+```
+
+#### 4. Undang Kontak Menjadi Admin Saluran (Invite Admin)
+```javascript
+await conn.newsletter.inviteAdmin("120363xxx@newsletter", "628xxxxxxxx@s.whatsapp.net");
+```
+</details>
+
+<details>
+<summary><strong>🎁 Unreleased Native & Rich Flow Features</strong></summary>
+
+Kumpulan fitur interaktif native terbaru yang belum dirilis secara resmi tetapi didukung penuh oleh core engine FreeZee:
+
+#### 1. Korsel Pesan Native (Native Message Carousel)
+Kirim korsel non-produk menggunakan layout pesan bawaan WhatsApp.
+```javascript
+await conn.msg.carousel(jid, [
+    { message: { conversation: "Slide Pertama" } },
+    { message: { conversation: "Slide Kedua" } }
+]);
+```
+
+#### 2. Tabel Interaktif Native (Native Flow Table)
+Kirim tabel interaktif dengan format kolom dan baris yang rapi secara terstruktur.
+```javascript
+await conn.msg.nativeTable(jid, "Judul Tabel", [
+    { cells: ["Kolom A", "Kolom B"] },
+    { cells: ["Baris 1", "Baris 2"] }
+]);
+```
+
+#### 3. Undangan Panggilan Terjadwal (Scheduled Call)
+```javascript
+await conn.msg.scheduleCall(jid, {
+    callType: 1, // 1 = Voice, 2 = Video
+    title: "Sesi Diskusi Coding",
+    scheduledTimestampMs: Math.floor(Date.now() / 1000) + 3600
+});
+```
+
+#### 4. Balas dengan Komentar (Reply Comment)
+Mengomentari status atau pesan secara native.
+```javascript
+// Menggunakan message helper (smsg) - harus mengutip pesan target
+await m.replyComment("Teks komentar Anda");
+
+// Menggunakan koneksi langsung
+await conn.msg.sendComment(jid, "Teks komentar", targetMessageKey);
+```
+
+#### 5. Meneruskan Pesan Utuh (Forward Message)
+Meneruskan pesan dari cache atau merekonstruksi pesan yang dikutip secara utuh ke kontak/grup lain.
+```javascript
+// Menggunakan message helper pada pesan asli
+await originalMsg.forward(targetJid);
+```
+
+#### 6. Respon Pertanyaan & Kuis (Reply Question)
+Mengirimkan jawaban atas pesan jenis pertanyaan/kuis interaktif.
+```javascript
+await conn.msg.replyQuestion(jid, "Jawaban pertanyaan", targetMessageKey);
+```
+
+#### 7. Kutip & Interaksi Status Broadcast (Status Actions)
+```javascript
+// Mengutip status seseorang
+await conn.msg.quoteStatus(jid, {
+    key: { remoteJid: "status@broadcast", id: "status_id", participant: "628xxx@s.whatsapp.net" },
+    message: { conversation: "Status Uji" }
+});
+
+// Interaksi stiker ke status
+await conn.msg.interactStatusSticker(jid, {
+    statusJid: "status@broadcast",
+    stickerHash: "sha256_hash_stiker",
+    interactionType: 1
+});
+
+// Menjawab pertanyaan status broadcast
+await conn.msg.sendStatusQuestion("Jawaban Anda");
+```
+
+#### 8. Notifikasi Sinkronisasi & Bundel Chat (History Notice & Chat Bundle)
+```javascript
+// Mengirim notifikasi sinkronisasi riwayat pesan
+await conn.msg.sendHistoryNotice(jid, { metadata: { syncType: 1 } });
+
+// Mengirim bundel cadangan riwayat chat
+await conn.msg.sendChatBundle(jid, {
+    bundleName: "Riwayat Chat Backup",
+    mimetype: "application/octet-stream",
+    fileLength: 100
+});
+```
+
+#### 9. Reaksi Terenkripsi & Snapshot Hasil Polling
+```javascript
+// Mengirim reaksi emoji terenkripsi (Encrypted Reaction)
+await conn.msg.sendEncReaction(jid, {
+    targetMessageKey: targetKey,
+    encPayload: bufferPayload,
+    encIv: bufferIv
+});
+
+// Mengirim snapshot hasil akhir polling (Poll Result)
+await m.replyPollResult({
+    pollJid: jid,
+    pollName: "Bahasa terfavorit?",
+    pollValues: ["JavaScript", "Python"],
+    votes: [
+        { optionName: "JavaScript", voteCount: 10 },
+        { optionName: "Python", voteCount: 5 }
+    ]
+});
+```
+</details>
+
+<details>
+<summary><strong>🔧 System & Optimization Features</strong></summary>
+
+Fitur manajemen sistem, memori, dan penyamaran agen bot:
+
+#### 1. Pengaturan Ghost Mode & VIP List
+```javascript
+conn.ghostMode = true; // Aktifkan tanpa mengirim laporan baca otomatis
+
+// Tambahkan kontak agar tetap menerima centang biru dari Anda
+conn.setVIP("628xxxxxxxx@s.whatsapp.net", true);
+```
+
+#### 2. Model Penyamaran Browser Perangkat (Persona Identity)
+Ubah platform perangkat WhatsApp Web Anda (IOS, Android, Windows, macOS, WearOS, Portal) secara instan.
+```javascript
+// Opsi: 'ios', 'android', 'windows', 'macos', 'portal', 'wearos'
+conn.setPersona('ios'); 
+```
+
+#### 3. Prefetch Plugin (Turbo-Loader)
+Prapemanasan cache file javascript pada folder plugin agar eksekusi perintah bot lebih instan.
+```javascript
+const result = await conn.prefetchPlugins("./plugins");
+console.log(`Prefetch selesai dalam ${result.duration}ms untuk ${result.count} plugin.`);
+```
+
+#### 4. Auto-Optimize Memory
+Mengosongkan cache store pesan yang tidak terpakai dan memicu Garbage Collector untuk menghemat RAM VPS.
+```javascript
+conn.autoOptimize();
+```
+</details>
+
+<details>
 <summary><strong>🤖 Meta AI Advanced Protocol Features</strong></summary>
 
 Anda sekarang dapat meniru perilaku bot Meta AI secara mendalam (termasuk reasoning, ingatan, kuota, kutipan pencarian, dan feedback jempol).
