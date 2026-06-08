@@ -70,19 +70,19 @@ Jika Anda sudah memiliki bot berbasis Baileys, cukup ganti dependency di `packag
 
 ### 🤖 Meta AI Style Messages
 Kirim pesan dengan visual mewah yang biasanya hanya bisa dilakukan oleh bot resmi Meta AI.
--   📊 **AI Table**: `m.replyTable(title, rows)`
--   🎬 **AI Reels**: `m.replyReels(text, reels)`
--   💻 **AI Code**: `m.replyCode(language, code)`
--   🖼️ **AI Grid**: `m.replyGridImage(imageUrls)`
--   💭 **AI Thinking**: `m.replyThinking(description, steps)`
--   💬 **AI Prompts**: `m.replyPrompts(text, chips)`
--   🧠 **AI Memory**: `m.replyMemory(added, removed, disclaimer)`
--   📈 **AI Quota**: `m.replyQuota(remainingQuota, expirationSecs)`
--   🎨 **AI Imagine Type**: `m.replyImagineMetadata(imagineType)`
--   🧭 **AI Progress/Reasoning**: `m.replyProgress(steps)`
--   🌐 **AI Search Sources**: `m.replySources(sources)`
--   📣 **AI Message Origin**: `m.replyMessageOrigin()`
--   🛍️ **Product Carousel**: `m.replyProductCarousel(products)`
+-   📊 **AI Table**: `conn.aiTable(jid, title, rows)`
+-   🎬 **AI Reels**: `conn.aiReels(jid, text, reels)`
+-   💻 **AI Code**: `conn.aiCode(jid, language, code)`
+-   🖼️ **AI Grid**: `conn.aiGridImage(jid, imageUrls)`
+-   💭 **AI Thinking**: `conn.aiThinking(jid, description, steps)`
+-   💬 **AI Prompts**: `conn.aiPrompts(jid, text, chips)`
+-   🧠 **AI Memory**: `conn.aiMemory(jid, text, added, removed, disclaimer)`
+-   📈 **AI Quota**: `conn.aiQuota(jid, text, remainingQuota, expirationSecs)`
+-   🎨 **AI Imagine Type**: `conn.aiImagineMetadata(jid, text, imagineType)`
+-   🧭 **AI Progress/Reasoning**: `conn.aiProgress(jid, steps)`
+-   🌐 **AI Search Sources**: `conn.aiSources(jid, text, sources)`
+-   📣 **AI Message Origin**: `conn.aiMessageOrigin(jid, text)`
+-   🛍️ **Product Carousel**: `conn.productCarousel(jid, products)`
 
 ### 🎭 Persona Identity Switcher
 Ubah identitas perangkat bot Anda secara instan untuk menghindari deteksi sistem anti-bot.
@@ -115,7 +115,7 @@ async function start() {
     });
 
     conn.ev.on('creds.update', saveCreds);
-    conn.onCommand('ping', (m) => m.reply('Pong!'));
+    conn.onCommand('ping', (m) => conn.sendMessage(m.chat, { text: 'Pong!' }, { quoted: m }));
 }
 start();
 ```
@@ -180,25 +180,14 @@ await conn.sendCallLog(jid, { isVideo: false, outcome: 1 });
 #### 📦 Sticker Pack (Kirim Sticker Pack)
 Kirim paket stiker kustom (sticker pack) berisi koleksi stiker secara native.
 ```javascript
-// Menggunakan message helper (smsg)
-await m.replyStickerPack({
-    name: "FreeZee Baileys Uji Pack",
-    publisher: "FreeZeeHost",
-    description: "Deskripsi pack stiker",
-    cover: { url: "https://files.catbox.moe/gw41eq.png" },
-    stickers: [
-        { sticker: { url: "https://files.catbox.moe/gw41eq.png" }, emojis: ["🔥"] },
-        { sticker: { url: "https://files.catbox.moe/gw41eq.png" }, emojis: ["💡"] }
-    ]
-});
-
-// Menggunakan koneksi langsung
+// Kirim paket stiker kustom (sticker pack) berisi koleksi stiker secara native
 await conn.sendStickerPack(jid, {
     name: "FreeZee Baileys Uji Pack",
     publisher: "FreeZeeHost",
-    cover: bufferCover,
+    cover: bufferCover, // atau { url: "https://..." }
     stickers: [
-        { sticker: bufferSticker1, emojis: ["🔥"] }
+        { sticker: bufferSticker1, emojis: ["🔥"] },
+        { sticker: bufferSticker2, emojis: ["💡"] }
     ]
 });
 ```
@@ -274,31 +263,21 @@ await conn.msg.scheduleCall(jid, {
 #### 4. Balas dengan Komentar (Reply Comment)
 Mengomentari status atau pesan secara native.
 ```javascript
-// Menggunakan message helper (smsg) - harus mengutip pesan target
-await m.replyComment("Teks komentar Anda");
-
-// Menggunakan koneksi langsung
-await conn.msg.sendComment(jid, "Teks komentar", targetMessageKey);
+// Kirim komentar pada pesan target
+await conn.sendComment(jid, "Teks komentar", targetMessageKey);
 ```
 
 #### 5. Meneruskan Pesan Utuh (Forward Message)
-Meneruskan pesan dari cache atau merekonstruksi pesan yang dikutip secara utuh ke kontak/grup lain.
+Meneruskan pesan dari cache atau merekonstruksi pesan secara utuh ke kontak/grup lain.
 ```javascript
-// Menggunakan message helper pada pesan asli
-await originalMsg.forward(targetJid);
+await conn.sendMessage(targetJid, { forward: messageObject });
 ```
 
 #### 6. Respon Pertanyaan & Kuis (Reply Question)
 Mengirimkan jawaban atas pesan jenis pertanyaan/kuis interaktif.
 ```javascript
-// Menggunakan message helper (smsg) - membalas langsung ke pengirim
-await m.replyQuestion("Jawaban pertanyaan");
-
-// Menggunakan message helper (smsg) dengan kunci pesan tertentu
-await m.replyQuestion("Jawaban pertanyaan", targetMessageKey);
-
-// Menggunakan koneksi langsung
-await conn.msg.replyQuestion(jid, "Jawaban pertanyaan", targetMessageKey);
+// Mengirimkan jawaban kuis/pertanyaan
+await conn.replyQuestion(jid, "Jawaban pertanyaan", targetMessageKey);
 ```
 
 #### 7. Kutip & Interaksi Status Broadcast (Status Actions)
@@ -316,11 +295,8 @@ await conn.msg.interactStatusSticker(jid, {
     interactionType: 1
 });
 
-// Menjawab pertanyaan status broadcast menggunakan message helper (smsg)
-await m.replyStatusQuestion("Jawaban Anda");
-
-// Menjawab pertanyaan status broadcast menggunakan koneksi langsung
-await conn.msg.sendStatusQuestion("Jawaban Anda");
+// Menjawab pertanyaan status broadcast secara langsung
+await conn.sendStatusQuestion("Jawaban Anda");
 ```
 
 #### 8. Notifikasi Sinkronisasi & Bundel Chat (History Notice & Chat Bundle)
@@ -346,7 +322,7 @@ await conn.msg.sendEncReaction(jid, {
 });
 
 // Mengirim snapshot hasil akhir polling (Poll Result)
-await m.replyPollResult({
+await conn.sendPollResult(jid, {
     pollJid: jid,
     pollName: "Bahasa terfavorit?",
     pollValues: ["JavaScript", "Python"],
@@ -360,8 +336,8 @@ await m.replyPollResult({
 #### 10. Survei Dalam Obrolan (In-Thread Survey)
 Mengirim pesan ajakan survei (In-Thread Survey) interaktif bawaan WhatsApp yang akan membuka kuesioner pilihan ganda saat diklik oleh pengguna.
 ```javascript
-// Menggunakan message helper (smsg)
-await m.replySurvey({
+// Menggunakan koneksi langsung (conn)
+await conn.sendSurvey(jid, {
     surveyTitle: "Survei Kepuasan",
     invitationHeaderText: "Bantu Kami Meningkatkan Layanan",
     invitationBodyText: "Silakan berikan masukan Anda melalui survei singkat ini.",
@@ -377,12 +353,6 @@ await m.replySurvey({
             ]
         }
     ]
-});
-
-// Menggunakan koneksi langsung (conn)
-await conn.msg.sendSurvey(jid, {
-    surveyTitle: "Survei Kepuasan",
-    // ... (data survei serupa)
 });
 ```
 </details>
@@ -431,16 +401,6 @@ await conn.simulateTyping(jid, 2000);
 await conn.simulateRecording(jid, 3000);
 ```
 
-##### **Fungsi Helper Pesan (Message Context Helpers):**
-Tersedia langsung pada objek pesan ter-smsg (`m`):
-```javascript
-// Balas pesan dengan simulasi mengetik otomatis
-await m.replyWithTyping("Halo ini balasan dengan ketikan!", {}, 1500);
-
-// Balas pesan dengan mengirim voice note disertai simulasi merekam otomatis
-await m.replyWithVN("https://example.com/audio.mp3", {}, 2000);
-```
-
 #### 3. Model Penyamaran Browser Perangkat (Persona Identity)
 Ubah platform perangkat WhatsApp Web Anda (IOS, Android, Windows, macOS, WearOS, Portal) secara instan.
 ```javascript
@@ -470,32 +430,24 @@ Gunakan API ini untuk merender visual pesan interaktif Meta AI yang elegan dan m
 #### 1. 📊 AI Table (Tabel Formatted Meta AI)
 Mengirimkan tabel terformat yang rapi dengan kolom dan baris tebal/normal.
 ```javascript
-// Menggunakan message helper (smsg)
-await m.replyTable("Bot Pricing Plan", [
+await conn.aiTable(jid, "Bot Pricing Plan", [
     { items: ["Plan", "Price", "Features"], isHeading: true },
     { items: ["Basic", "Free", "Auto-Reply"], isHeading: false },
     { items: ["Premium", "$5/mo", "Meta AI Features"], isHeading: false }
 ]);
-
-// Menggunakan koneksi langsung
-await conn.msg.aiTable(jid, "Judul Tabel", rowsArray);
 ```
 
 #### 2. 💻 AI Code (Blok Kode Pemrograman)
 Kirim blok kode pemrograman dengan syntax highlighting yang rapi.
 ```javascript
-// Menggunakan message helper (smsg)
-const codeText = "const bot = makeFreeZeeSocket();\nbot.onCommand('ping', (m) => m.reply('Pong!'));";
-await m.replyCode("javascript", codeText);
-
-// Menggunakan koneksi langsung (tanpa reply/quote)
+const codeText = "const bot = makeFreeZeeSocket();\nconsole.log('Hello FreeZee!');";
 await conn.aiCode(jid, "javascript", codeText);
 ```
 
 #### 3. 🎬 AI Reels (Instagram/Facebook Reels Preview)
 Kirim daftar reels video vertikal yang dapat diputar secara native lengkap dengan thumbnail dan nama pembuat.
 ```javascript
-await m.replyReels("Tonton Reels Terpopuler Hari Ini:", [
+await conn.aiReels(jid, "Tonton Reels Terpopuler Hari Ini:", [
     {
         title: "Belajar Coding 60 Detik",
         description: "Tips cepat belajar JavaScript secara gratis.",
@@ -509,7 +461,14 @@ await m.replyReels("Tonton Reels Terpopuler Hari Ini:", [
 #### 4. 🖼️ AI Grid (Grid Kolase Gambar)
 Kirim kolase grid gambar interaktif (seperti hasil generasi gambar Meta AI) yang menampung multi-gambar secara estetik.
 ```javascript
+// Menggunakan message helper (smsg)
 await m.replyGridImage([
+    "https://toko.com/image1.jpg",
+    "https://toko.com/image2.jpg"
+]);
+
+// Menggunakan koneksi langsung
+await conn.aiGridImage(jid, [
     "https://toko.com/image1.jpg",
     "https://toko.com/image2.jpg"
 ]);
@@ -518,34 +477,44 @@ await m.replyGridImage([
 #### 5. 📎 AI Inline Image (Gambar Inline dengan Teks)
 Mengirimkan gambar yang terintegrasi secara inline dengan deskripsi teks di bawahnya beserta link tautan eksternal.
 ```javascript
+// Menggunakan message helper (smsg)
 await m.replyInlineImage("https://toko.com/gambar.jpg", "Ini adalah ilustrasi gambar inline Meta AI", 0, "https://freezeehost.com");
+
+// Menggunakan koneksi langsung
+await conn.aiInlineImage(jid, "https://toko.com/gambar.jpg", "Ini adalah ilustrasi gambar inline Meta AI", 0, "https://freezeehost.com");
 ```
 
 #### 6. 🔄 AI Dynamic Image (Gambar Dinamis / GIF)
 Mengirimkan gambar atau GIF dinamis dengan opsi looping yang berputar secara otomatis.
 ```javascript
-// Parameter: url, isGif, loopCount
-await m.replyDynamic("https://toko.com/animation.gif", true, 0);
+// Parameter: jid, url, isGif, loopCount
+await conn.aiDynamic(jid, "https://toko.com/animation.gif", true, 0);
 ```
 
 #### 7. 📐 AI Latex (Rumus Matematika LaTeX)
 Mengirimkan teks beserta format rendering rumus matematika LaTeX yang kompleks.
 ```javascript
-await m.replyLatex("Rumus matematika kuadrat sempurna:", ["f(x) = a x^2 + b x + c", "E = m c^2"]);
+await conn.aiLatex(jid, "Rumus matematika kuadrat sempurna:", ["f(x) = a x^2 + b x + c", "E = m c^2"]);
 ```
 
 #### 8. 🗺️ AI Map (Anotasi Peta Interaktif)
 Mengirim peta interaktif dengan pin titik koordinat beserta judul dan deskripsi lokasinya.
 ```javascript
+// Menggunakan message helper (smsg)
 await m.replyMap(-6.2088, 106.8456, [
-    { lat: -6.2088, lng: 106.8456, title: "Monas", body: "Monumen Nasional Indonesia" }
+    { latitude: -6.2088, longitude: 106.8456, title: "Monas", body: "Monumen Nasional Indonesia" }
+]);
+
+// Menggunakan koneksi langsung
+await conn.aiMap(jid, -6.2088, 106.8456, [
+    { latitude: -6.2088, longitude: 106.8456, title: "Monas", body: "Monumen Nasional Indonesia" }
 ]);
 ```
 
 #### 9. 🧠 AI Thinking / Reasoning Steps (Langkah Berpikir)
 Tampilkan status "Sedang berpikir..." beserta langkah-langkah penalaran detail di dalam thread chat.
 ```javascript
-await m.replyThinking("Sedang menganalisis basis data...", [
+await conn.aiThinking(jid, "Sedang menganalisis basis data...", [
     { title: "Melacak Log Pesan", body: "Memindai riwayat chat terakhir...", status: 3, isReasoning: true },
     { title: "Mencari Informasi", body: "Menghubungkan ke API server...", status: 2, isEnhancedSearch: true },
     { title: "Selesai", status: 1 }
@@ -555,14 +524,14 @@ await m.replyThinking("Sedang menganalisis basis data...", [
 #### 10. 🏷️ AI Model Branding
 Tampilkan branding model kecerdasan buatan resmi di bawah balon pesan Anda.
 ```javascript
-// Parameter: teks, tipeModel, namaModel
-await m.replyModel("Pesan ini diproses menggunakan model Llama Premium.", 2, "Llama 3.1 Instruct");
+// Parameter: jid, teks, tipeModel, namaModel
+await conn.aiModel(jid, "Pesan ini diproses menggunakan model Llama Premium.", 2, "Llama 3.1 Instruct");
 ```
 
 #### 11. 💡 AI Prompts (Saran Prompt Interaktif / Chips)
 Tampilkan tombol-tombol saran prompt kecil (quick chips) di bawah balon pesan untuk memandu obrolan pengguna selanjutnya.
 ```javascript
-await m.replyPrompts("Bagaimana saya bisa membantu Anda hari ini?", [
+await conn.aiPrompts(jid, "Bagaimana saya bisa membantu Anda hari ini?", [
     "Jelaskan fitur AI",
     "Kirim tabel harga",
     "Kirim carousel produk"
@@ -578,14 +547,6 @@ Anda sekarang dapat meniru perilaku bot Meta AI secara mendalam (termasuk reason
 #### 1. 🧠 AI Memory (Ingatan Jangka Panjang)
 Kirim fakta yang ingin Anda simpan atau hapus dari memori AI tentang pengguna.
 ```javascript
-// Menggunakan message helper (smsg)
-await m.replyMemory(
-    ["User menyukai JavaScript", "User lahir di Jakarta"], // Fakta baru untuk disimpan
-    ["User menyukai Python"],                              // Fakta lama untuk dihapus
-    "Memori disimpan otomatis untuk personalisasi respons."
-);
-
-// Menggunakan koneksi langsung
 await conn.aiMemory(jid, "Fakta memori berhasil diperbarui!", ["Fakta baru"], ["Fakta lama"], "Catatan disclaimer");
 ```
 
@@ -593,9 +554,6 @@ await conn.aiMemory(jid, "Fakta memori berhasil diperbarui!", ["Fakta baru"], ["
 Tampilkan sisa kuota fitur AI untuk obrolan/user saat ini.
 ```javascript
 // Sisa kuota 15 kali, reset dalam 24 jam (86400 detik)
-await m.replyQuota(15, 86400);
-
-// Menggunakan koneksi langsung
 await conn.aiQuota(jid, "Sisa kuota harian Anda hampir habis.", 15, 86400);
 ```
 
@@ -603,13 +561,13 @@ await conn.aiQuota(jid, "Sisa kuota harian Anda hampir habis.", 15, 86400);
 Metadata tipe generator gambar (standard, avatar, real-time flash, edit).
 ```javascript
 // Opsi tipe: 1 (IMAGINE), 2 (MEMU/Avatar), 3 (FLASH/Realtime), 4 (EDIT)
-await m.replyImagineMetadata(3); // Mode FLASH
+await conn.aiImagineMetadata(jid, "Generasi Gambar AI...", 3); // Mode FLASH
 ```
 
 #### 4. 🧭 AI Progress & Reasoning (Langkah Berpikir DeepSeek/o1)
 Tampilkan langkah-langkah detail berpikir AI (penalaran/reasoning) dan status eksekusinya.
 ```javascript
-await m.replyProgress([
+await conn.aiProgress(jid, "Langkah Berpikir", [
     { title: "Menganalisis Kode", body: "Memeriksa sintaks JavaScript...", status: 3, isReasoning: true },
     { title: "Mencari di Google", body: "Mencari dokumentasi terbaru...", status: 2, isEnhancedSearch: true },
     { title: "Selesai", status: 1 }
@@ -619,7 +577,7 @@ await m.replyProgress([
 #### 5. 🌐 AI Search Sources (Tombol Kutipan / Sumber)
 Tampilkan tombol/link referensi pencarian Google/Bing di bawah pesan.
 ```javascript
-await m.replySources([
+await conn.aiSources(jid, "Berikut adalah hasil pencarian yang ditemukan:", [
     { provider: 2, title: "Google Search", url: "https://google.com", query: "baileys wa web" },
     { provider: 1, title: "Bing Search", url: "https://bing.com", query: "whatsapp api" }
 ]);
@@ -629,23 +587,22 @@ await m.replySources([
 Kirim penilaian jempol atas/bawah atas respons AI sebelumnya.
 ```javascript
 // Memberikan jempol atas (positif)
-await m.aiFeedback(true);
+await conn.aiFeedback(jid, lastMessageKey, true);
 
 // Memberikan jempol bawah (negatif) dengan komentar keluhan
-await m.aiFeedback(false, "Penjelasan kurang akurat.");
+await conn.aiFeedback(jid, lastMessageKey, false, "Penjelasan kurang akurat.");
 ```
 
 #### 7. 📣 AI Message Origin (Pemicu Mandiri AI)
 Kirim pesan yang ditandai secara resmi dipicu atas inisiatif mandiri oleh AI (*AI-initiated*).
 ```javascript
-await m.replyMessageOrigin();
+await conn.aiMessageOrigin(jid, "Pesan inisiatif AI");
 ```
 
 #### 8. 🛍️ Product Carousel (Carousel Produk)
 Kirim carousel produk dengan informasi detail produk (nama, harga, link, deskripsi, gambar) beserta tombol action di masing-masing kartu produk.
 ```javascript
-// Menggunakan message helper (smsg)
-await m.replyProductCarousel([
+await conn.productCarousel(jid, [
     {
         productId: "prod_1",
         title: "Kopi Hitam Espresso",
