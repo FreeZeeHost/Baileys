@@ -449,12 +449,12 @@ Berikut adalah daftar seluruh fitur yang tersedia untuk diuji, dikategorikan sec
 
     // 19. In-Thread Survey
     conn.onCommand('survey', async (m) => {
-        await conn.msg.sendSurvey(m.chat, {
+        await m.replySurvey({
             surveyId: 12345,
             simonSessionFbid: "session_fbid",
             responseOtid: "response_otid",
             responseTimestampMsString: Date.now().toString()
-        }, { quoted: m });
+        });
         m.reply("Pesan survei terkirim!");
     });
 
@@ -910,7 +910,7 @@ Berikut adalah daftar seluruh fitur yang tersedia untuk diuji, dikategorikan sec
             participant: m.message.extendedTextMessage.contextInfo.participant
         };
         try {
-            await conn.msg.replyQuestion(m.chat, m.query, key, { quoted: m });
+            await m.replyQuestion(m.query, key);
         } catch (e) {
             m.reply("Gagal mengirim balasan pertanyaan: " + e.message);
         }
@@ -951,7 +951,7 @@ Berikut adalah daftar seluruh fitur yang tersedia untuk diuji, dikategorikan sec
     conn.onCommand('statusquestion', async (m) => {
         if (!m.query) return m.reply("Gunakan: .statusquestion <jawaban>");
         try {
-            await conn.msg.sendStatusQuestion(m.query, { quoted: m });
+            await m.replyStatusQuestion(m.query);
             m.reply("Jawaban pertanyaan status terkirim!");
         } catch (e) {
             m.reply("Gagal mengirim jawaban pertanyaan status: " + e.message);

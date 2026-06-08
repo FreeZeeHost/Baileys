@@ -291,12 +291,19 @@ await originalMsg.forward(targetJid);
 #### 6. Respon Pertanyaan & Kuis (Reply Question)
 Mengirimkan jawaban atas pesan jenis pertanyaan/kuis interaktif.
 ```javascript
+// Menggunakan message helper (smsg) - membalas langsung ke pengirim
+await m.replyQuestion("Jawaban pertanyaan");
+
+// Menggunakan message helper (smsg) dengan kunci pesan tertentu
+await m.replyQuestion("Jawaban pertanyaan", targetMessageKey);
+
+// Menggunakan koneksi langsung
 await conn.msg.replyQuestion(jid, "Jawaban pertanyaan", targetMessageKey);
 ```
 
 #### 7. Kutip & Interaksi Status Broadcast (Status Actions)
 ```javascript
-// Mengutip status seseorang
+// Mengutip status seseorang secara langsung
 await conn.msg.quoteStatus(jid, {
     key: { remoteJid: "status@broadcast", id: "status_id", participant: "628xxx@s.whatsapp.net" },
     message: { conversation: "Status Uji" }
@@ -309,7 +316,10 @@ await conn.msg.interactStatusSticker(jid, {
     interactionType: 1
 });
 
-// Menjawab pertanyaan status broadcast
+// Menjawab pertanyaan status broadcast menggunakan message helper (smsg)
+await m.replyStatusQuestion("Jawaban Anda");
+
+// Menjawab pertanyaan status broadcast menggunakan koneksi langsung
 await conn.msg.sendStatusQuestion("Jawaban Anda");
 ```
 
@@ -344,6 +354,35 @@ await m.replyPollResult({
         { optionName: "JavaScript", voteCount: 10 },
         { optionName: "Python", voteCount: 5 }
     ]
+});
+```
+
+#### 10. Survei Dalam Obrolan (In-Thread Survey)
+Mengirim pesan ajakan survei (In-Thread Survey) interaktif bawaan WhatsApp yang akan membuka kuesioner pilihan ganda saat diklik oleh pengguna.
+```javascript
+// Menggunakan message helper (smsg)
+await m.replySurvey({
+    surveyTitle: "Survei Kepuasan",
+    invitationHeaderText: "Bantu Kami Meningkatkan Layanan",
+    invitationBodyText: "Silakan berikan masukan Anda melalui survei singkat ini.",
+    invitationCtaText: "Mulai Survei",
+    questions: [
+        {
+            questionId: "q1",
+            questionText: "Bagaimana kualitas pelayanan kami?",
+            questionOptions: [
+                { stringValue: "1", numericValue: 1, textTranslated: "Sangat Buruk" },
+                { stringValue: "2", numericValue: 2, textTranslated: "Cukup" },
+                { stringValue: "3", numericValue: 3, textTranslated: "Sangat Baik" }
+            ]
+        }
+    ]
+});
+
+// Menggunakan koneksi langsung (conn)
+await conn.msg.sendSurvey(jid, {
+    surveyTitle: "Survei Kepuasan",
+    // ... (data survei serupa)
 });
 ```
 </details>

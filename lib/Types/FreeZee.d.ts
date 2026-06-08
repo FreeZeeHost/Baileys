@@ -188,6 +188,9 @@ export interface FreeZeeMessage {
     replyStickerPack(pack: any, options?: any): Promise<any>
     pin(duration?: number, options?: any): Promise<any>
     keep(options?: any): Promise<any>
+    replyQuestion(text: string, key?: any, options?: any): Promise<any>
+    replySurvey(survey: any, options?: any): Promise<any>
+    replyStatusQuestion(text: string, options?: any): Promise<any>
     
     // AI Replies
     replyTable: FreeZeeSocket['msg']['aiTable']
