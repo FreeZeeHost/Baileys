@@ -425,118 +425,162 @@ conn.autoOptimize();
 <details>
 <summary><strong>🎨 Meta AI Style Messages (Visual Layout)</strong></summary>
 
-Gunakan API ini untuk merender visual pesan interaktif Meta AI yang elegan dan modern secara native pada client WhatsApp:
+Gunakan API ini untuk merender visual pesan interaktif Meta AI yang elegan dan modern secara native pada client WhatsApp. Pastikan Anda mendefinisikan seluruh variabel/data input sebelum memanggil fungsi untuk menghindari error seperti `ReferenceError: rows/reels is not defined`.
 
 #### 1. 📊 AI Table (Tabel Formatted Meta AI)
 Mengirimkan tabel terformat yang rapi dengan kolom dan baris tebal/normal.
-```javascript
-await conn.aiTable(jid, "Bot Pricing Plan", [
-    { items: ["Plan", "Price", "Features"], isHeading: true },
-    { items: ["Basic", "Free", "Auto-Reply"], isHeading: false },
-    { items: ["Premium", "$5/mo", "Meta AI Features"], isHeading: false }
-]);
-```
+*   **Cara Penggunaan:**
+    ```javascript
+    // Definisikan data baris (rows) terlebih dahulu
+    const tableTitle = "Bot Pricing Plan";
+    const tableRows = [
+        { items: ["Plan", "Price", "Features"], isHeading: true }, // Kolom Header (Tebal)
+        { items: ["Basic", "Free", "Auto-Reply"], isHeading: false },
+        { items: ["Premium", "$5/mo", "Meta AI Features"], isHeading: false }
+    ];
+
+    // Kirim menggunakan socket
+    await conn.aiTable(jid, tableTitle, tableRows);
+    ```
 
 #### 2. 💻 AI Code (Blok Kode Pemrograman)
 Kirim blok kode pemrograman dengan syntax highlighting yang rapi.
-```javascript
-const codeText = "const bot = makeFreeZeeSocket();\nconsole.log('Hello FreeZee!');";
-await conn.aiCode(jid, "javascript", codeText);
-```
+*   **Cara Penggunaan:**
+    ```javascript
+    const targetLanguage = "javascript"; // Bahasa pemrograman (javascript, python, cpp, html, css, dll.)
+    const codeContent = "const bot = makeFreeZeeSocket();\nbot.onCommand('ping', (m) => {\n    conn.sendMessage(m.chat, { text: 'Pong!' });\n});";
+
+    await conn.aiCode(jid, targetLanguage, codeContent);
+    ```
 
 #### 3. 🎬 AI Reels (Instagram/Facebook Reels Preview)
 Kirim daftar reels video vertikal yang dapat diputar secara native lengkap dengan thumbnail dan nama pembuat.
-```javascript
-await conn.aiReels(jid, "Tonton Reels Terpopuler Hari Ini:", [
-    {
-        title: "Belajar Coding 60 Detik",
-        description: "Tips cepat belajar JavaScript secara gratis.",
-        videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4",
-        thumbnailUrl: "https://toko.com/thumbnail.png",
-        profileIconUrl: "https://toko.com/avatar.png"
-    }
-]);
-```
+*   **Cara Penggunaan:**
+    ```javascript
+    const reelsTitle = "Tonton Reels Terpopuler Hari Ini:";
+    const reelsList = [
+        {
+            title: "Belajar Coding 60 Detik",
+            description: "Tips cepat belajar JavaScript secara gratis.",
+            videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4",
+            thumbnailUrl: "https://toko.com/thumbnail.png",
+            profileIconUrl: "https://toko.com/avatar.png"
+        }
+    ];
+
+    await conn.aiReels(jid, reelsTitle, reelsList);
+    ```
 
 #### 4. 🖼️ AI Grid (Grid Kolase Gambar)
 Kirim kolase grid gambar interaktif (seperti hasil generasi gambar Meta AI) yang menampung multi-gambar secara estetik.
-```javascript
-// Menggunakan message helper (smsg)
-await m.replyGridImage([
-    "https://toko.com/image1.jpg",
-    "https://toko.com/image2.jpg"
-]);
+*   **Cara Penggunaan:**
+    ```javascript
+    // Menggunakan message helper (smsg)
+    const images = [
+        "https://toko.com/image1.jpg",
+        "https://toko.com/image2.jpg"
+    ];
+    await m.replyGridImage(images);
 
-// Menggunakan koneksi langsung
-await conn.aiGridImage(jid, [
-    "https://toko.com/image1.jpg",
-    "https://toko.com/image2.jpg"
-]);
-```
+    // Menggunakan koneksi langsung (socket)
+    await conn.aiGridImage(jid, images);
+    ```
 
 #### 5. 📎 AI Inline Image (Gambar Inline dengan Teks)
 Mengirimkan gambar yang terintegrasi secara inline dengan deskripsi teks di bawahnya beserta link tautan eksternal.
-```javascript
-// Menggunakan message helper (smsg)
-await m.replyInlineImage("https://toko.com/gambar.jpg", "Ini adalah ilustrasi gambar inline Meta AI", 0, "https://freezeehost.com");
+*   **Cara Penggunaan:**
+    ```javascript
+    const imageUrl = "https://toko.com/gambar.jpg";
+    const captionText = "Ini adalah ilustrasi gambar inline Meta AI";
+    const alignment = 0; // 0 = LEADING (Kiri), 1 = TRAILING (Kanan), 2 = CENTER (Tengah)
+    const externalLink = "https://freezeehost.com";
 
-// Menggunakan koneksi langsung
-await conn.aiInlineImage(jid, "https://toko.com/gambar.jpg", "Ini adalah ilustrasi gambar inline Meta AI", 0, "https://freezeehost.com");
-```
+    // Menggunakan message helper (smsg)
+    await m.replyInlineImage(imageUrl, captionText, alignment, externalLink);
+
+    // Menggunakan koneksi langsung (socket)
+    await conn.aiInlineImage(jid, imageUrl, captionText, alignment, externalLink);
+    ```
 
 #### 6. 🔄 AI Dynamic Image (Gambar Dinamis / GIF)
 Mengirimkan gambar atau GIF dinamis dengan opsi looping yang berputar secara otomatis.
-```javascript
-// Parameter: jid, url, isGif, loopCount
-await conn.aiDynamic(jid, "https://toko.com/animation.gif", true, 0);
-```
+*   **Cara Penggunaan:**
+    ```javascript
+    const gifUrl = "https://toko.com/animation.gif";
+    const isGif = true; // true = Diputar sebagai GIF/Video Looping, false = Gambar statis biasa
+    const loopCount = 0; // Jumlah perulangan putaran (0 = loop terus-menerus/infinite)
+
+    await conn.aiDynamic(jid, gifUrl, isGif, loopCount);
+    ```
 
 #### 7. 📐 AI Latex (Rumus Matematika LaTeX)
 Mengirimkan teks beserta format rendering rumus matematika LaTeX yang kompleks.
-```javascript
-await conn.aiLatex(jid, "Rumus matematika kuadrat sempurna:", ["f(x) = a x^2 + b x + c", "E = m c^2"]);
-```
+*   **Cara Penggunaan:**
+    ```javascript
+    const introText = "Rumus matematika kuadrat sempurna:";
+    const formulas = [
+        "f(x) = a x^2 + b x + c",
+        "E = m c^2"
+    ];
+
+    await conn.aiLatex(jid, introText, formulas);
+    ```
 
 #### 8. 🗺️ AI Map (Anotasi Peta Interaktif)
 Mengirim peta interaktif dengan pin titik koordinat beserta judul dan deskripsi lokasinya.
-```javascript
-// Menggunakan message helper (smsg)
-await m.replyMap(-6.2088, 106.8456, [
-    { latitude: -6.2088, longitude: 106.8456, title: "Monas", body: "Monumen Nasional Indonesia" }
-]);
+*   **Cara Penggunaan:**
+    ```javascript
+    const latitude = -6.2088;
+    const longitude = 106.8456;
+    const annotations = [
+        { latitude: -6.2088, longitude: 106.8456, title: "Monas", body: "Monumen Nasional Indonesia" }
+    ];
 
-// Menggunakan koneksi langsung
-await conn.aiMap(jid, -6.2088, 106.8456, [
-    { latitude: -6.2088, longitude: 106.8456, title: "Monas", body: "Monumen Nasional Indonesia" }
-]);
-```
+    // Menggunakan message helper (smsg)
+    await m.replyMap(latitude, longitude, annotations);
+
+    // Menggunakan koneksi langsung (socket)
+    await conn.aiMap(jid, latitude, longitude, annotations);
+    ```
 
 #### 9. 🧠 AI Thinking / Reasoning Steps (Langkah Berpikir)
 Tampilkan status "Sedang berpikir..." beserta langkah-langkah penalaran detail di dalam thread chat.
-```javascript
-await conn.aiThinking(jid, "Sedang menganalisis basis data...", [
-    { title: "Melacak Log Pesan", body: "Memindai riwayat chat terakhir...", status: 3, isReasoning: true },
-    { title: "Mencari Informasi", body: "Menghubungkan ke API server...", status: 2, isEnhancedSearch: true },
-    { title: "Selesai", status: 1 }
-]);
-```
+*   **Cara Penggunaan:**
+    ```javascript
+    const progressDescription = "Sedang menganalisis basis data...";
+    const steps = [
+        { title: "Melacak Log Pesan", body: "Memindai riwayat chat terakhir...", status: 3, isReasoning: true }, // status 3 = FINISHED
+        { title: "Mencari Informasi", body: "Menghubungkan ke API server...", status: 2, isEnhancedSearch: true }, // status 2 = EXECUTING
+        { title: "Selesai", status: 1 } // status 1 = PLANNED
+    ];
+
+    await conn.aiThinking(jid, progressDescription, steps);
+    ```
 
 #### 10. 🏷️ AI Model Branding
 Tampilkan branding model kecerdasan buatan resmi di bawah balon pesan Anda.
-```javascript
-// Parameter: jid, teks, tipeModel, namaModel
-await conn.aiModel(jid, "Pesan ini diproses menggunakan model Llama Premium.", 2, "Llama 3.1 Instruct");
-```
+*   **Cara Penggunaan:**
+    ```javascript
+    const text = "Pesan ini diproses menggunakan model Llama Premium.";
+    const modelType = 2; // Tipe layout/logo model
+    const modelName = "Llama 3.1 Instruct";
+
+    await conn.aiModel(jid, text, modelType, modelName);
+    ```
 
 #### 11. 💡 AI Prompts (Saran Prompt Interaktif / Chips)
 Tampilkan tombol-tombol saran prompt kecil (quick chips) di bawah balon pesan untuk memandu obrolan pengguna selanjutnya.
-```javascript
-await conn.aiPrompts(jid, "Bagaimana saya bisa membantu Anda hari ini?", [
-    "Jelaskan fitur AI",
-    "Kirim tabel harga",
-    "Kirim carousel produk"
-]);
-```
+*   **Cara Penggunaan:**
+    ```javascript
+    const textPrompt = "Bagaimana saya bisa membantu Anda hari ini?";
+    const chipsList = [
+        "Jelaskan fitur AI",
+        "Kirim tabel harga",
+        "Kirim carousel produk"
+    ];
+
+    await conn.aiPrompts(jid, textPrompt, chipsList);
+    ```
 </details>
 
 <details>
@@ -546,85 +590,111 @@ Anda sekarang dapat meniru perilaku bot Meta AI secara mendalam (termasuk reason
 
 #### 1. 🧠 AI Memory (Ingatan Jangka Panjang)
 Kirim fakta yang ingin Anda simpan atau hapus dari memori AI tentang pengguna.
-```javascript
-await conn.aiMemory(jid, "Fakta memori berhasil diperbarui!", ["Fakta baru"], ["Fakta lama"], "Catatan disclaimer");
-```
+*   **Cara Penggunaan:**
+    ```javascript
+    const addedFacts = ["User menyukai JavaScript", "User lahir di Jakarta"];
+    const removedFacts = ["User menyukai Python"];
+    const disclaimer = "Memori disimpan otomatis untuk personalisasi respons.";
+
+    await conn.aiMemory(jid, "Fakta memori berhasil diperbarui!", addedFacts, removedFacts, disclaimer);
+    ```
 
 #### 2. 📊 AI Quota (Indikator Kuota Fitur)
 Tampilkan sisa kuota fitur AI untuk obrolan/user saat ini.
-```javascript
-// Sisa kuota 15 kali, reset dalam 24 jam (86400 detik)
-await conn.aiQuota(jid, "Sisa kuota harian Anda hampir habis.", 15, 86400);
-```
+*   **Cara Penggunaan:**
+    ```javascript
+    const remainingQuota = 15; // Sisa kuota
+    const expirationSecs = 86400; // Reset dalam 24 jam (86400 detik)
+
+    await conn.aiQuota(jid, "Sisa kuota harian Anda hampir habis.", remainingQuota, expirationSecs);
+    ```
 
 #### 3. 🎨 AI Imagine Metadata (Tipe Generator Gambar)
 Metadata tipe generator gambar (standard, avatar, real-time flash, edit).
-```javascript
-// Opsi tipe: 1 (IMAGINE), 2 (MEMU/Avatar), 3 (FLASH/Realtime), 4 (EDIT)
-await conn.aiImagineMetadata(jid, "Generasi Gambar AI...", 3); // Mode FLASH
-```
+*   **Cara Penggunaan:**
+    ```javascript
+    const imagineType = 3; // 1 = IMAGINE, 2 = MEMU/Avatar, 3 = FLASH/Realtime, 4 = EDIT
+
+    await conn.aiImagineMetadata(jid, "Generasi Gambar AI...", imagineType);
+    ```
 
 #### 4. 🧭 AI Progress & Reasoning (Langkah Berpikir DeepSeek/o1)
 Tampilkan langkah-langkah detail berpikir AI (penalaran/reasoning) dan status eksekusinya.
-```javascript
-await conn.aiProgress(jid, "Langkah Berpikir", [
-    { title: "Menganalisis Kode", body: "Memeriksa sintaks JavaScript...", status: 3, isReasoning: true },
-    { title: "Mencari di Google", body: "Mencari dokumentasi terbaru...", status: 2, isEnhancedSearch: true },
-    { title: "Selesai", status: 1 }
-]);
-```
+*   **Cara Penggunaan:**
+    ```javascript
+    const description = "Langkah Berpikir";
+    const progressSteps = [
+        { title: "Menganalisis Kode", body: "Memeriksa sintaks JavaScript...", status: 3, isReasoning: true },
+        { title: "Mencari di Google", body: "Mencari dokumentasi terbaru...", status: 2, isEnhancedSearch: true },
+        { title: "Selesai", status: 1 }
+    ];
+
+    await conn.aiProgress(jid, description, progressSteps);
+    ```
 
 #### 5. 🌐 AI Search Sources (Tombol Kutipan / Sumber)
 Tampilkan tombol/link referensi pencarian Google/Bing di bawah pesan.
-```javascript
-await conn.aiSources(jid, "Berikut adalah hasil pencarian yang ditemukan:", [
-    { provider: 2, title: "Google Search", url: "https://google.com", query: "baileys wa web" },
-    { provider: 1, title: "Bing Search", url: "https://bing.com", query: "whatsapp api" }
-]);
-```
+*   **Cara Penggunaan:**
+    ```javascript
+    const messageText = "Berikut adalah hasil pencarian yang ditemukan:";
+    const sources = [
+        { provider: 2, title: "Google Search", url: "https://google.com", query: "baileys wa web", citationNumber: 1 }, // provider: 2 = GOOGLE, 1 = BING
+        { provider: 1, title: "Bing Search", url: "https://bing.com", query: "whatsapp api", citationNumber: 2 }
+    ];
+
+    await conn.aiSources(jid, messageText, sources);
+    ```
 
 #### 6. 👍👎 AI Feedback (Tombol Penilaian Respons)
 Kirim penilaian jempol atas/bawah atas respons AI sebelumnya.
-```javascript
-// Memberikan jempol atas (positif)
-await conn.aiFeedback(jid, lastMessageKey, true);
+*   **Cara Penggunaan:**
+    ```javascript
+    const messageKey = lastMessageKey; // Objek Key pesan target ({ remoteJid, id, fromMe })
+    const positiveFeedback = true; // true = Jempol Atas, false = Jempol Bawah
 
-// Memberikan jempol bawah (negatif) dengan komentar keluhan
-await conn.aiFeedback(jid, lastMessageKey, false, "Penjelasan kurang akurat.");
-```
+    // Memberikan jempol atas (positif)
+    await conn.aiFeedback(jid, messageKey, positiveFeedback);
+
+    // Memberikan jempol bawah (negatif) dengan komentar keluhan
+    await conn.aiFeedback(jid, messageKey, false, "Penjelasan kurang akurat.");
+    ```
 
 #### 7. 📣 AI Message Origin (Pemicu Mandiri AI)
 Kirim pesan yang ditandai secara resmi dipicu atas inisiatif mandiri oleh AI (*AI-initiated*).
-```javascript
-await conn.aiMessageOrigin(jid, "Pesan inisiatif AI");
-```
+*   **Cara Penggunaan:**
+    ```javascript
+    await conn.aiMessageOrigin(jid, "Pesan inisiatif AI");
+    ```
 
 #### 8. 🛍️ Product Carousel (Carousel Produk)
 Kirim carousel produk dengan informasi detail produk (nama, harga, link, deskripsi, gambar) beserta tombol action di masing-masing kartu produk.
-```javascript
-await conn.productCarousel(jid, [
-    {
-        productId: "prod_1",
-        title: "Kopi Hitam Espresso",
-        description: "Kopi espresso murni pilihan.",
-        price: 25000,
-        image: "https://toko.com/espresso.jpg",
-        url: "https://toko.com/espresso",
-        body: "Dapatkan diskon pagi hari!",
-        buttons: [{ name: "quick_reply", params: { display_text: "Beli Kopi", id: "buy_kopi" } }]
-    },
-    {
-        productId: "prod_2",
-        title: "Matcha Latte Premium",
-        description: "Teh hijau matcha asli Jepang.",
-        price: 30000,
-        image: "https://toko.com/matcha.jpg",
-        url: "https://toko.com/matcha",
-        body: "Terlaris minggu ini!",
-        buttons: [{ name: "quick_reply", params: { display_text: "Beli Matcha", id: "buy_matcha" } }]
-    }
-], { text: "Silakan pilih produk terbaik kami:" });
-```
+*   **Cara Penggunaan:**
+    ```javascript
+    const productsList = [
+        {
+            productId: "prod_1",
+            title: "Kopi Hitam Espresso",
+            description: "Kopi espresso murni pilihan.",
+            price: 25000,
+            image: "https://toko.com/espresso.jpg",
+            url: "https://toko.com/espresso",
+            body: "Dapatkan diskon pagi hari!",
+            buttons: [{ name: "quick_reply", params: { display_text: "Beli Kopi", id: "buy_kopi" } }]
+        },
+        {
+            productId: "prod_2",
+            title: "Matcha Latte Premium",
+            description: "Teh hijau matcha asli Jepang.",
+            price: 30000,
+            image: "https://toko.com/matcha.jpg",
+            url: "https://toko.com/matcha",
+            body: "Terlaris minggu ini!",
+            buttons: [{ name: "quick_reply", params: { display_text: "Beli Matcha", id: "buy_matcha" } }]
+        }
+    ];
+
+    await conn.productCarousel(jid, productsList, { text: "Silakan pilih produk terbaik kami:" });
+    ```
 </details>
 
 ---
