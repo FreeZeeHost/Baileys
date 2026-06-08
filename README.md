@@ -429,283 +429,516 @@ Gunakan API ini untuk merender visual pesan interaktif Meta AI yang elegan dan m
 
 Sekarang Anda bisa menggunakan **Message Helper (smsg)** langsung melalui objek pesan `m` (seperti `m.aiTable`, `m.aiCode`, dll.) yang otomatis menargetkan room chat dan membalas pesan secara instan (quoted message) tanpa perlu mendefinisikan `jid`/`options` secara manual.
 
-#### 1. 📊 AI Table (Tabel Formatted Meta AI)
+---
+
+### 1. 📊 AI Table (Tabel Formatted Meta AI)
 Mengirimkan tabel terformat yang rapi dengan kolom dan baris tebal/normal.
-*   **Cara Penggunaan (Sangat Mudah via `m`):**
+*   **Penjelasan Parameter:**
+    - `title` (Tipe: `String` / `Array`): Judul tabel yang ditampilkan di bagian atas. Jika Anda langsung memasukkan Array, maka judul otomatis menggunakan teks `"Table"`, dan Array tersebut diproses sebagai baris pertama (kolom header).
+    - `...args` (Tipe: `Array`): Baris-baris tabel berikutnya. Setiap baris diwakili oleh Array berisi nilai kolom (`["Kolom1", "Kolom2"]`). Baris pertama otomatis dicetak tebal sebagai header tabel.
+*   **Contoh Kode via `m` (Paling Mudah):**
     ```javascript
-    // Tanpa Judul (Default Judul: "Table"):
+    // Membuat tabel dengan judul kustom:
     await m.aiTable(
-        ["Plan", "Price", "Features"], 
-        ["Basic", "Free", "Auto-Reply"],
-        ["Premium", "$5/mo", "Meta AI Features"]
+        "Daftar Harga Bot",
+        ["Paket", "Harga", "Fitur Utama"],
+        ["Basic", "Gratis", "Auto-Reply Standar"],
+        ["Pro", "Rp 50.000", "Semua Fitur Meta AI"]
     );
 
-    // Dengan Judul Kustom:
+    // Membuat tabel langsung tanpa menuliskan judul kustom:
     await m.aiTable(
-        "Bot Pricing Plan",
-        ["Plan", "Price", "Features"],
-        ["Basic", "Free", "Auto-Reply"],
-        ["Premium", "$5/mo", "Meta AI Features"]
+        ["Nama", "Jabatan", "Lokasi"],
+        ["Alice", "Developer", "Jakarta"],
+        ["Bob", "Designer", "Bandung"]
     );
     ```
-*   **Cara Penggunaan (via Socket `conn`):**
+*   **Contoh Kode via Socket `conn`:**
     ```javascript
-    await conn.aiTable(jid, "Judul Tabel", ["Col 1", "Col 2"], ["Row 1 Val 1", "Row 1 Val 2"]);
+    await conn.aiTable(
+        jid, 
+        "Laporan Penjualan", 
+        ["Bulan", "Omset"], 
+        ["Januari", "10 Juta"], 
+        ["Februari", "15 Juta"]
+    );
     ```
 
-#### 2. 💻 AI Code (Blok Kode Pemrograman)
-Kirim blok kode pemrograman dengan syntax highlighting yang rapi.
-*   **Cara Penggunaan (Sangat Mudah via `m`):**
-    ```javascript
-    // Otomatis mengenali sebagai bahasa "javascript":
-    await m.aiCode('console.log("Hello, World!");');
+---
 
-    // Menentukan bahasa pemrograman lain secara spesifik:
-    await m.aiCode('python', 'print("Hello, Python!")');
-    ```
-*   **Cara Penggunaan (via Socket `conn`):**
+### 2. 💻 AI Code (Blok Kode Pemrograman)
+Mengirimkan blok kode pemrograman dengan syntax highlighting yang rapi.
+*   **Penjelasan Parameter:**
+    - `language` (Tipe: `String`): Nama bahasa pemrograman untuk pewarnaan sintaks (contoh: `'javascript'`, `'python'`, `'cpp'`, `'html'`, `'css'`). Jika Anda melewatkan parameter ini dan langsung mengisinya dengan isi kode, sistem otomatis menggunakan format bahasa `'javascript'`.
+    - `code` (Tipe: `String`): Isi kode/script pemrograman lengkap yang ingin dikirimkan.
+*   **Contoh Kode via `m` (Paling Mudah):**
     ```javascript
-    await conn.aiCode(jid, 'console.log("Hello!");'); // Otomatis javascript
-    await conn.aiCode(jid, 'python', 'print("Hello!");');
+    // Mengirim kode JavaScript tanpa harus menuliskan nama bahasa pemrograman:
+    await m.aiCode('const sum = (a, b) => a + b;\nconsole.log(sum(5, 10));');
+
+    // Mengirim kode Python dengan menentukan bahasa pemrograman secara spesifik:
+    await m.aiCode('python', 'def greet(name):\n    print(f"Hello, {name}!")\n\ngreet("FreeZee")');
+    ```
+*   **Contoh Kode via Socket `conn`:**
+    ```javascript
+    await conn.aiCode(jid, 'javascript', 'console.log("Hello World");');
     ```
 
-#### 3. 🎬 AI Reels (Instagram/Facebook Reels Preview)
-Kirim daftar reels video vertikal yang dapat diputar secara native lengkap dengan thumbnail dan nama pembuat.
-*   **Cara Penggunaan (Sangat Mudah via `m`):**
+---
+
+### 3. 🎬 AI Reels (Instagram/Facebook Reels Preview)
+Mengirimkan daftar reels video vertikal horizontal-scrollable yang dapat diputar secara native lengkap dengan thumbnail dan nama pembuat.
+*   **Penjelasan Parameter:**
+    - `mainText` (Tipe: `String`): Deskripsi pesan utama yang tampil di atas barisan reels.
+    - `...args` (Tipe: `Object` / `Array`): Objek-objek video reels. Setiap objek wajib memiliki struktur:
+        - `title` (Tipe: `String`): Nama atau judul video reels.
+        - `description` (Tipe: `String`): Deskripsi singkat isi video.
+        - `videoUrl` (Tipe: `String`): Link URL langsung ke file video MP4.
+        - `thumbnailUrl` (Tipe: `String`): Link URL gambar cover/preview video.
+        - `profileIconUrl` (Tipe: `String`): Link URL foto profil pembuat video.
+*   **Contoh Kode via `m` (Paling Mudah):**
     ```javascript
     await m.aiReels(
-        "Tonton Reels Terpopuler Hari Ini:",
+        "Rekomendasi video hari ini:",
         {
-            title: "Belajar Coding 60 Detik",
-            description: "Tips cepat belajar JavaScript secara gratis.",
-            videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4"
+            title: "Belajar JavaScript 60 Detik",
+            description: "Belajar arrow function dengan mudah.",
+            videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4",
+            thumbnailUrl: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97",
+            profileIconUrl: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde"
         }
     );
     ```
-*   **Cara Penggunaan (via Socket `conn`):**
+*   **Contoh Kode via Socket `conn`:**
     ```javascript
-    await conn.aiReels(jid, "Tonton Reels:", [
-        { title: "Judul", videoUrl: "https://site.com/video.mp4" }
+    await conn.aiReels(jid, "Tonton video berikut:", [
+        {
+            title: "Tutorial Node.js",
+            description: "Membuat bot WhatsApp dari nol.",
+            videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4",
+            thumbnailUrl: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97",
+            profileIconUrl: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde"
+        }
     ]);
     ```
 
-#### 4. 🖼️ AI Grid (Grid Kolase Gambar)
-Kirim kolase grid gambar interaktif (seperti hasil generasi gambar Meta AI) yang menampung multi-gambar secara estetik.
-*   **Cara Penggunaan (Sangat Mudah via `m`):**
+---
+
+### 4. 🖼️ AI Grid (Grid Kolase Gambar)
+Mengirimkan kolase gambar interaktif estetik yang menampung banyak gambar dalam satu layout rapi secara native (seperti hasil generasi foto Meta AI).
+*   **Penjelasan Parameter:**
+    - `...args` (Tipe: `String` / `Array`): Daftar link URL gambar yang ingin dimasukkan ke dalam kolase grid.
+*   **Contoh Kode via `m` (Paling Mudah):**
     ```javascript
     await m.aiGridImage(
-        "https://toko.com/image1.jpg",
-        "https://toko.com/image2.jpg"
+        "https://images.unsplash.com/photo-1506744038136-46273834b3fb",
+        "https://images.unsplash.com/photo-1511576661531-b34d7da5d0bb"
     );
     ```
-*   **Cara Penggunaan (via Socket `conn`):**
+*   **Contoh Kode via Socket `conn`:**
     ```javascript
-    await conn.aiGridImage(jid, ["https://toko.com/image1.jpg", "https://toko.com/image2.jpg"]);
+    await conn.aiGridImage(jid, [
+        "https://images.unsplash.com/photo-1506744038136-46273834b3fb",
+        "https://images.unsplash.com/photo-1511576661531-b34d7da5d0bb"
+    ]);
     ```
 
-#### 5. 📎 AI Inline Image (Gambar Inline dengan Teks)
-Mengirimkan gambar yang terintegrasi secara inline dengan deskripsi teks di bawahnya beserta link tautan eksternal.
-*   **Cara Penggunaan (Sangat Mudah via `m`):**
+---
+
+### 5. 📎 AI Inline Image (Gambar Inline dengan Teks)
+Mengirimkan gambar yang terintegrasi secara inline dengan deskripsi teks di bawahnya beserta link tautan eksternal yang dapat diklik.
+*   **Penjelasan Parameter:**
+    - `imageUrl` (Tipe: `String`): Link URL file gambar utama yang ingin ditampilkan.
+    - `text` (Tipe: `String`): Teks caption atau deskripsi di bawah gambar.
+    - `alignment` (Tipe: `Number`): Posisinya rata teks (`0` untuk kiri/leading, `1` untuk kanan/trailing, `2` untuk tengah/center).
+    - `tapLink` (Tipe: `String`): Link URL eksternal yang akan otomatis dibuka saat user menekan gambar tersebut.
+*   **Contoh Kode via `m` (Paling Mudah):**
     ```javascript
-    await m.aiInlineImage("https://toko.com/gambar.jpg", "Deskripsi Gambar", 0, "https://freezeehost.com");
+    await m.aiInlineImage(
+        "https://images.unsplash.com/photo-1451187580459-43490279c0fa", 
+        "Jelajahi teknologi hosting super cepat FreeZeeHost.", 
+        0, 
+        "https://freezeehost.com"
+    );
     ```
-*   **Cara Penggunaan (via Socket `conn`):**
+*   **Contoh Kode via Socket `conn`:**
     ```javascript
-    await conn.aiInlineImage(jid, "https://toko.com/gambar.jpg", "Deskripsi", 0, "https://freezeehost.com");
+    await conn.aiInlineImage(
+        jid, 
+        "https://images.unsplash.com/photo-1451187580459-43490279c0fa", 
+        "Jelajahi teknologi kami.", 
+        0, 
+        "https://freezeehost.com"
+    );
     ```
 
-#### 6. 🔄 AI Dynamic Image (Gambar Dinamis / GIF)
-Mengirimkan gambar atau GIF dinamis dengan opsi looping yang berputar secara otomatis.
-*   **Cara Penggunaan (Sangat Mudah via `m`):**
+---
+
+### 6. 🔄 AI Dynamic Image (Gambar Dinamis / GIF)
+Mengirimkan gambar bergerak atau GIF dinamis dengan opsi jumlah putaran putar otomatis.
+*   **Penjelasan Parameter:**
+    - `url` (Tipe: `String`): Link URL file gambar/GIF bergerak.
+    - `isGif` (Tipe: `Boolean`): Nilai `true` jika ingin diputar sebagai video GIF/looping animasi bergerak, atau `false` untuk gambar biasa.
+    - `loopCount` (Tipe: `Number`): Jumlah perulangan putaran animasi. Isi dengan nilai `0` untuk putaran tanpa batas waktu (infinite loop).
+*   **Contoh Kode via `m` (Paling Mudah):**
     ```javascript
-    await m.aiDynamic("https://toko.com/animation.gif", true, 0); // isGif = true, loopCount = 0 (infinite)
+    await m.aiDynamic("https://media.giphy.com/media/3o7qE1YN7aBOFPRw8E/giphy.gif", true, 0);
     ```
-*   **Cara Penggunaan (via Socket `conn`):**
+*   **Contoh Kode via Socket `conn`:**
     ```javascript
-    await conn.aiDynamic(jid, "https://toko.com/animation.gif", true, 0);
+    await conn.aiDynamic(jid, "https://media.giphy.com/media/3o7qE1YN7aBOFPRw8E/giphy.gif", true, 0);
     ```
 
-#### 7. 📐 AI Latex (Rumus Matematika LaTeX)
-Mengirimkan teks beserta format rendering rumus matematika LaTeX yang kompleks.
-*   **Cara Penggunaan (Sangat Mudah via `m`):**
+---
+
+### 7. 📐 AI Latex (Rumus Matematika LaTeX)
+Mengirimkan teks pengantar beserta rendering format rumus matematika LaTeX yang rumit dengan hasil visual rapi secara native.
+*   **Penjelasan Parameter:**
+    - `text` (Tipe: `String`): Kalimat pembuka atau pengantar sebelum rumus matematika.
+    - `...args` (Tipe: `String`): Baris-baris ekspresi rumus matematika menggunakan sintaks penulisan LaTeX (contoh: `"E = m c^2"`).
+*   **Contoh Kode via `m` (Paling Mudah):**
     ```javascript
-    await m.aiLatex("Rumus matematika kuadrat sempurna:", "f(x) = a x^2 + b x + c", "E = m c^2");
+    await m.aiLatex(
+        "Berikut adalah rumus fisika dan kalkulus dasar:",
+        "E = m c^2",
+        "\\int_{a}^{b} x^2 \\, dx = \\frac{b^3 - a^3}{3}"
+    );
     ```
-*   **Cara Penggunaan (via Socket `conn`):**
+*   **Contoh Kode via Socket `conn`:**
     ```javascript
-    await conn.aiLatex(jid, "Rumus:", ["E = m c^2"]);
+    await conn.aiLatex(jid, "Rumus kuadratik:", ["x = \\frac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}"]);
     ```
 
-#### 8. 🗺️ AI Map (Anotasi Peta Interaktif)
-Mengirim peta interaktif dengan pin titik koordinat beserta judul dan deskripsi lokasinya.
-*   **Cara Penggunaan (Sangat Mudah via `m`):**
+---
+
+### 8. 🗺️ AI Map (Anotasi Peta Interaktif)
+Mengirimkan peta navigasi interaktif lengkap dengan penanda titik koordinat kustom (pin map) beserta judul dan deskripsi detail lokasi tersebut.
+*   **Penjelasan Parameter:**
+    - `lat` (Tipe: `Number`): Koordinat garis lintang (latitude) pusat peta.
+    - `lng` (Tipe: `Number`): Koordinat garis bujur (longitude) pusat peta.
+    - `annotations` (Tipe: `Array`): Daftar objek pin penanda lokasi pada peta. Setiap objek pin wajib memiliki data:
+        - `latitude` (Tipe: `Number`): Koordinat lintang pin tersebut.
+        - `longitude` (Tipe: `Number`): Koordinat bujur pin tersebut.
+        - `title` (Tipe: `String`): Judul nama lokasi pin penanda.
+        - `body` (Tipe: `String`): Deskripsi singkat mengenai lokasi pin tersebut.
+*   **Contoh Kode via `m` (Paling Mudah):**
     ```javascript
     await m.aiMap(-6.2088, 106.8456, [
-        { latitude: -6.2088, longitude: 106.8456, title: "Monas", body: "Monumen Nasional Indonesia" }
+        { 
+            latitude: -6.2088, 
+            longitude: 106.8456, 
+            title: "Monas Jakarta", 
+            body: "Pusat Monumen Nasional Indonesia" 
+        }
     ]);
     ```
-*   **Cara Penggunaan (via Socket `conn`):**
+*   **Contoh Kode via Socket `conn`:**
     ```javascript
     await conn.aiMap(jid, -6.2088, 106.8456, [
-        { latitude: -6.2088, longitude: 106.8456, title: "Monas", body: "Monumen Nasional" }
+        { 
+            latitude: -6.2088, 
+            longitude: 106.8456, 
+            title: "Monas", 
+            body: "Monumen Nasional" 
+        }
     ]);
     ```
 
-#### 9. 🧠 AI Thinking / Reasoning Steps (Langkah Berpikir)
-Tampilkan status "Sedang berpikir..." beserta langkah-langkah penalaran detail di dalam thread chat.
-*   **Cara Penggunaan (Sangat Mudah via `m`):**
+---
+
+### 9. 🧠 AI Thinking / Reasoning Steps (Langkah Berpikir)
+Menampilkan animasi status progress berjalan "Sedang berpikir..." beserta detail langkah log pemrosesan penalaran internal (seperti model o1/DeepSeek) dalam chat balon secara realtime.
+*   **Penjelasan Parameter:**
+    - `description` (Tipe: `String`): Teks keterangan utama yang ditampilkan di atas proses berpikir.
+    - `...args` (Tipe: `String` / `Object`): Langkah-langkah progress pemrosesan. Anda dapat memasukkan data berupa string teks langkah secara berurutan. Langkah terakhir akan otomatis dianggap sebagai langkah aktif yang sedang dikerjakan.
+*   **Contoh Kode via `m` (Paling Mudah):**
     ```javascript
     await m.aiThinking(
-        "Sedang menganalisis basis data...",
-        "Melacak Log Pesan",
-        "Mencari Informasi",
-        "Selesai"
+        "Menganalisis permintaan Anda...",
+        "Memeriksa parameter input",
+        "Mencari data di server pusat",
+        "Menyusun visual tabel respons"
     );
     ```
-*   **Cara Penggunaan (via Socket `conn`):**
+*   **Contoh Kode via Socket `conn`:**
     ```javascript
-    await conn.aiThinking(jid, "Sedang memikirkan jawaban...", ["Menganalisis", "Menghitung", "Selesai"]);
+    await conn.aiThinking(jid, "Sedang menghitung nilai matematika...", [
+        "Membaca angka input",
+        "Mengevaluasi operasi perkalian",
+        "Menyelesaikan hasil akhir"
+    ]);
     ```
 
-#### 10. 🏷️ AI Model Branding
-Tampilkan branding model kecerdasan buatan resmi di bawah balon pesan Anda.
-*   **Cara Penggunaan (Sangat Mudah via `m`):**
+---
+
+### 10. 🏷️ AI Model Branding
+Menempelkan tanda/logo branding model kecerdasan buatan resmi secara estetik di bagian bawah gelembung balon pesan respons.
+*   **Penjelasan Parameter:**
+    - `text` (Tipe: `String`): Isi teks pesan utama.
+    - `modelType` (Tipe: `Number`): Tipe layout/logo branding (contoh: gunakan angka `1` atau `2` untuk variasi visual logo AI yang berbeda).
+    - `modelName` (Tipe: `String`): Nama model kecerdasan buatan yang ingin dicantumkan (contoh: `'Llama 3.2 Instruct'`).
+*   **Contoh Kode via `m` (Paling Mudah):**
     ```javascript
-    await m.aiModel("Pesan ini diproses menggunakan model Llama Premium.", 2, "Llama 3.1 Instruct");
+    await m.aiModel(
+        "Hasil analisis server menunjukkan kestabilan server optimal.", 
+        2, 
+        "Llama 3.1 Pro"
+    );
     ```
-*   **Cara Penggunaan (via Socket `conn`):**
+*   **Contoh Kode via Socket `conn`:**
     ```javascript
-    await conn.aiModel(jid, "Teks pesan", 2, "Llama 3.1");
+    await conn.aiModel(jid, "Hasil kompilasi selesai.", 1, "Meta AI CodeLlama");
     ```
 
-#### 11. 💡 AI Prompts (Saran Prompt Interaktif / Chips)
-Tampilkan tombol-tombol saran prompt kecil (quick chips) di bawah balon pesan untuk memandu obrolan pengguna selanjutnya.
-*   **Cara Penggunaan (Sangat Mudah via `m`):**
+---
+
+### 11. 💡 AI Prompts (Saran Prompt Interaktif / Chips)
+Menampilkan deretan tombol kecil saran teks cepat (quick chips) di bawah balon respons untuk membantu memudahkan interaksi chat berikutnya bagi pengguna.
+*   **Penjelasan Parameter:**
+    - `text` (Tipe: `String`): Kalimat tanya atau arahan di atas tombol saran prompt.
+    - `...args` (Tipe: `String`): Judul teks tombol-tombol saran prompt yang ingin ditampilkan (contoh: `"Fitur Bot"`, `"Daftar Layanan"`).
+*   **Contoh Kode via `m` (Paling Mudah):**
     ```javascript
     await m.aiPrompts(
-        "Bagaimana saya bisa membantu Anda hari ini?",
-        "Jelaskan fitur AI",
-        "Kirim tabel harga"
+        "Ada hal lain yang ingin Anda ketahui?",
+        "Tunjukkan harga paket",
+        "Cara sewa bot",
+        "Hubungi Admin"
     );
     ```
-*   **Cara Penggunaan (via Socket `conn`):**
+*   **Contoh Kode via Socket `conn`:**
     ```javascript
-    await conn.aiPrompts(jid, "Saran obrolan:", ["Fitur AI", "Harga"]);
+    await conn.aiPrompts(jid, "Pilih bantuan:", ["Cek Kuota", "Ganti Bahasa"]);
     ```
+
 </details>
 
 <details>
 <summary><strong>🤖 Meta AI Advanced Protocol Features</strong></summary>
 
-Anda sekarang dapat meniru perilaku bot Meta AI secara mendalam (termasuk reasoning, ingatan, kuota, kutipan pencarian, dan feedback jempol).
+Gunakan fitur protokol tingkat lanjut untuk mensimulasikan fungsionalitas cerdas Meta AI yang mendalam (seperti sistem ingatan fakta, manajemen kuota, integrasi sumber pencarian web, tombol feedback jempol, hingga carousel produk).
 
-#### 1. 🧠 AI Memory (Ingatan Jangka Panjang)
-Kirim fakta yang ingin Anda simpan atau hapus dari memori AI tentang pengguna.
-*   **Cara Penggunaan:**
+Sekarang Anda bisa menggunakan **Message Helper (smsg)** langsung melalui objek pesan `m` (seperti `m.aiMemory`, `m.aiQuota`, dll.) yang otomatis menargetkan room chat dan membalas pesan secara instan (quoted message) tanpa perlu mendefinisikan `jid`/`options` secara manual.
+
+---
+
+### 1. 🧠 AI Memory (Ingatan Jangka Panjang)
+Kirim fakta yang ingin Anda simpan atau hapus secara resmi dari data memori AI tentang user bersangkutan.
+*   **Penjelasan Parameter:**
+    - `text` (Tipe: `String`): Pesan utama yang dikirim bersamaan dengan pembaruan memori.
+    - `addedFacts` (Tipe: `Array`): Daftar string fakta baru yang ingin disimpan ke memori user.
+    - `removedFacts` (Tipe: `Array`): Daftar string fakta lama yang ingin dihapus dari memori user.
+    - `disclaimer` (Tipe: `String`): Keterangan disclaimer kecil di bagian paling bawah.
+*   **Contoh Kode via `m` (Paling Mudah):**
     ```javascript
-    const addedFacts = ["User menyukai JavaScript", "User lahir di Jakarta"];
-    const removedFacts = ["User menyukai Python"];
-    const disclaimer = "Memori disimpan otomatis untuk personalisasi respons.";
-
-    await conn.aiMemory(jid, "Fakta memori berhasil diperbarui!", addedFacts, removedFacts, disclaimer);
+    await m.aiMemory(
+        "Sistem berhasil memperbarui ingatan profil Anda!",
+        ["User menyukai pemrograman Node.js", "User berlangganan paket Premium VPS"],
+        ["User menggunakan hosting gratisan"],
+        "Ingatan disimpan secara lokal untuk meningkatkan kecerdasan respons."
+    );
+    ```
+*   **Contoh Kode via Socket `conn`:**
+    ```javascript
+    await conn.aiMemory(
+        jid,
+        "Memori diperbarui.",
+        ["User tinggal di Jakarta"],
+        [],
+        "Memori AI aktif."
+    );
     ```
 
-#### 2. 📊 AI Quota (Indikator Kuota Fitur)
-Tampilkan sisa kuota fitur AI untuk obrolan/user saat ini.
-*   **Cara Penggunaan:**
-    ```javascript
-    const remainingQuota = 15; // Sisa kuota
-    const expirationSecs = 86400; // Reset dalam 24 jam (86400 detik)
+---
 
-    await conn.aiQuota(jid, "Sisa kuota harian Anda hampir habis.", remainingQuota, expirationSecs);
+### 2. 📊 AI Quota (Indikator Kuota Fitur)
+Menampilkan sisa kuota penggunaan fitur bot AI untuk pengguna saat ini.
+*   **Penjelasan Parameter:**
+    - `text` (Tipe: `String`): Pesan peringatan kuota kepada pengguna.
+    - `remainingQuota` (Tipe: `Number`): Jumlah angka sisa kuota pemakaian fitur yang masih dimiliki pengguna.
+    - `expirationSecs` (Tipe: `Number`): Waktu hitung mundur kapan kuota akan pulih kembali (dalam satuan detik).
+*   **Contoh Kode via `m` (Paling Mudah):**
+    ```javascript
+    await m.aiQuota(
+        "Anda telah menggunakan sebagian besar batas pembuatan gambar harian Anda.", 
+        5, 
+        86400
+    );
+    ```
+*   **Contoh Kode via Socket `conn`:**
+    ```javascript
+    await conn.aiQuota(jid, "Batas kuota harian:", 10, 3600);
     ```
 
-#### 3. 🎨 AI Imagine Metadata (Tipe Generator Gambar)
-Metadata tipe generator gambar (standard, avatar, real-time flash, edit).
-*   **Cara Penggunaan:**
-    ```javascript
-    const imagineType = 3; // 1 = IMAGINE, 2 = MEMU/Avatar, 3 = FLASH/Realtime, 4 = EDIT
+---
 
-    await conn.aiImagineMetadata(jid, "Generasi Gambar AI...", imagineType);
+### 3. 🎨 AI Imagine Metadata (Tipe Generator Gambar)
+Menandai pesan dengan metadata tipe operasi generator gambar kecerdasan buatan.
+*   **Penjelasan Parameter:**
+    - `text` (Tipe: `String`): Pesan konfirmasi/keterangan gambar.
+    - `imagineType` (Tipe: `Number`): Angka tipe operasi generator gambar (`1` untuk IMAGINE standar, `2` untuk MEMU/Avatar kustom, `3` untuk FLASH/real-time generation, `4` untuk EDIT/modifikasi gambar).
+*   **Contoh Kode via `m` (Paling Mudah):**
+    ```javascript
+    await m.aiImagineMetadata("Sistem sedang memproses avatar real-time Anda...", 3);
+    ```
+*   **Contoh Kode via Socket `conn`:**
+    ```javascript
+    await conn.aiImagineMetadata(jid, "Membuat gambar baru...", 1);
     ```
 
-#### 4. 🧭 AI Progress & Reasoning (Langkah Berpikir DeepSeek/o1)
-Tampilkan langkah-langkah detail berpikir AI (penalaran/reasoning) dan status eksekusinya.
-*   **Cara Penggunaan:**
-    ```javascript
-    const description = "Langkah Berpikir";
-    const progressSteps = [
-        { title: "Menganalisis Kode", body: "Memeriksa sintaks JavaScript...", status: 3, isReasoning: true },
-        { title: "Mencari di Google", body: "Mencari dokumentasi terbaru...", status: 2, isEnhancedSearch: true },
-        { title: "Selesai", status: 1 }
-    ];
+---
 
-    await conn.aiProgress(jid, description, progressSteps);
+### 4. 🧭 AI Progress & Reasoning (Langkah Berpikir Lanjut)
+Mengirimkan status progres tugas berjalan yang komprehensif lengkap dengan penanda tipe langkah (penalaran/pencarian web).
+*   **Penjelasan Parameter:**
+    - `description` (Tipe: `String`): Judul umum status progres.
+    - `steps` (Tipe: `Array`): Daftar objek detail langkah pekerjaan. Setiap objek langkah memiliki struktur data:
+        - `title` (Tipe: `String`): Judul langkah progres.
+        - `body` (Tipe: `String`): Deskripsi detail mengenai langkah tersebut.
+        - `status` (Tipe: `Number`): Status penyelesaian langkah (`1` untuk direncanakan/planned, `2` untuk sedang diproses/executing, `3` untuk selesai/finished).
+        - `isReasoning` (Tipe: `Boolean`): Nilai `true` jika langkah ini merupakan penalaran berpikir internal.
+        - `isEnhancedSearch` (Tipe: `Boolean`): Nilai `true` jika langkah ini melibatkan pencarian data secara eksternal (search web).
+*   **Contoh Kode via `m` (Paling Mudah):**
+    ```javascript
+    await m.aiProgress(
+        "Menjalankan Pemindaian Server...",
+        [
+            { title: "Verifikasi API Key", body: "Memeriksa kecocokan kunci keamanan...", status: 3, isReasoning: true },
+            { title: "Koneksi Database", body: "Membangun jembatan data...", status: 2, isEnhancedSearch: false },
+            { title: "Kirim Hasil Laporan", status: 1 }
+        ]
+    );
+    ```
+*   **Contoh Kode via Socket `conn`:**
+    ```javascript
+    await conn.aiProgress(jid, "Proses bot:", [
+        { title: "Inisialisasi", body: "Memuat modul pendukung...", status: 3 }
+    ]);
     ```
 
-#### 5. 🌐 AI Search Sources (Tombol Kutipan / Sumber)
-Tampilkan tombol/link referensi pencarian Google/Bing di bawah pesan.
-*   **Cara Penggunaan:**
-    ```javascript
-    const messageText = "Berikut adalah hasil pencarian yang ditemukan:";
-    const sources = [
-        { provider: 2, title: "Google Search", url: "https://google.com", query: "baileys wa web", citationNumber: 1 }, // provider: 2 = GOOGLE, 1 = BING
-        { provider: 1, title: "Bing Search", url: "https://bing.com", query: "whatsapp api", citationNumber: 2 }
-    ];
+---
 
-    await conn.aiSources(jid, messageText, sources);
+### 5. 🌐 AI Search Sources (Tombol Kutipan / Sumber)
+Menyematkan referensi sumber tepercaya dari hasil pencarian web mesin pencari Google/Bing di bagian bawah balon pesan.
+*   **Penjelasan Parameter:**
+    - `text` (Tipe: `String`): Isi teks jawaban pesan utama.
+    - `sources` (Tipe: `Array`): Daftar objek referensi website pencarian. Setiap objek sumber wajib berisi data:
+        - `provider` (Tipe: `Number`): Angka penanda penyedia mesin pencari (`1` untuk Bing, `2` untuk Google).
+        - `title` (Tipe: `String`): Judul halaman web/artikel sumber referensi.
+        - `url` (Tipe: `String`): Alamat link website sumber referensi yang dapat diklik langsung.
+        - `query` (Tipe: `String`): Kata kunci pencarian yang digunakan untuk menemukan referensi tersebut.
+        - `citationNumber` (Tipe: `Number`): Angka urutan nomor sitasi kutipan.
+*   **Contoh Kode via `m` (Paling Mudah):**
+    ```javascript
+    await m.aiSources(
+        "Berikut adalah dokumentasi referensi mengenai WhatsApp API:",
+        [
+            { 
+                provider: 2, 
+                title: "GitHub Baileys Library", 
+                url: "https://github.com/WhiskeySockets/Baileys", 
+                query: "baileys whatsapp node.js", 
+                citationNumber: 1 
+            },
+            { 
+                provider: 1, 
+                title: "Dokumentasi Resmi Meta API", 
+                url: "https://developers.facebook.com/docs/whatsapp", 
+                query: "whatsapp cloud api developer guide", 
+                citationNumber: 2 
+            }
+        ]
+    );
+    ```
+*   **Contoh Kode via Socket `conn`:**
+    ```javascript
+    await conn.aiSources(jid, "Sumber informasi:", [
+        { provider: 2, title: "Google", url: "https://google.com", query: "test", citationNumber: 1 }
+    ]);
     ```
 
-#### 6. 👍👎 AI Feedback (Tombol Penilaian Respons)
-Kirim penilaian jempol atas/bawah atas respons AI sebelumnya.
-*   **Cara Penggunaan:**
+---
+
+### 6. 👍👎 AI Feedback (Tombol Penilaian Respons)
+Mengirimkan rating penilaian umpan balik (jempol ke atas/bawah) terhadap pesan tertentu sebelumnya untuk optimalisasi kualitas obrolan.
+*   **Penjelasan Parameter:**
+    - `key` (Tipe: `Object`): Kunci pengenal unik dari pesan target yang ingin dinilai (`{ remoteJid, id, fromMe }`).
+    - `positive` (Tipe: `Boolean`): Nilai `true` jika memberikan jempol ke atas (menyukai respons), atau `false` untuk jempol ke bawah (kurang menyukai respons).
+    - `text` (Tipe: `String`): Kalimat penjelasan keluhan kustom jika memberikan rating negatif (opsional).
+*   **Contoh Kode via `m` (Paling Mudah):**
     ```javascript
-    const messageKey = lastMessageKey; // Objek Key pesan target ({ remoteJid, id, fromMe })
-    const positiveFeedback = true; // true = Jempol Atas, false = Jempol Bawah
+    // Memberi penilaian jempol ke atas pada pesan terakhir:
+    const targetKey = m.quoted ? m.quoted.key : m.key;
+    await m.aiFeedback(targetKey, true);
 
-    // Memberikan jempol atas (positif)
-    await conn.aiFeedback(jid, messageKey, positiveFeedback);
-
-    // Memberikan jempol bawah (negatif) dengan komentar keluhan
-    await conn.aiFeedback(jid, messageKey, false, "Penjelasan kurang akurat.");
+    // Memberi penilaian jempol ke bawah disertai alasan keluhan:
+    await m.aiFeedback(targetKey, false, "Respons yang diberikan keluar dari konteks pertanyaan.");
+    ```
+*   **Contoh Kode via Socket `conn`:**
+    ```javascript
+    await conn.aiFeedback(jid, targetKey, true);
     ```
 
-#### 7. 📣 AI Message Origin (Pemicu Mandiri AI)
-Kirim pesan yang ditandai secara resmi dipicu atas inisiatif mandiri oleh AI (*AI-initiated*).
-*   **Cara Penggunaan:**
+---
+
+### 7. 📣 AI Message Origin (Pemicu Mandiri AI)
+Mengirimkan pesan dengan label metadata khusus yang menandakan pesan tersebut dipicu atas inisiatif mandiri oleh AI (*AI-initiated*).
+*   **Penjelasan Parameter:**
+    - `text` (Tipe: `String`): Isi teks pesan yang dikirimkan.
+*   **Contoh Kode via `m` (Paling Mudah):**
     ```javascript
-    await conn.aiMessageOrigin(jid, "Pesan inisiatif AI");
+    await m.aiMessageOrigin("Halo! Saya mendeteksi ketidakaktifan obrolan, apakah ada yang bisa saya bantu kembali?");
+    ```
+*   **Contoh Kode via Socket `conn`:**
+    ```javascript
+    await conn.aiMessageOrigin(jid, "Pemberitahuan terjadwal otomatis dari AI.");
     ```
 
-#### 8. 🛍️ Product Carousel (Carousel Produk)
-Kirim carousel produk dengan informasi detail produk (nama, harga, link, deskripsi, gambar) beserta tombol action di masing-masing kartu produk.
-*   **Cara Penggunaan:**
+---
+
+### 8. 🛍️ Product Carousel (Carousel Produk)
+Mengirimkan kartu carousel produk yang dapat digeser secara horizontal lengkap dengan nama produk, deskripsi, harga, tautan pembelian, foto produk, serta tombol aksi quick reply di setiap kartu produk.
+*   **Penjelasan Parameter:**
+    - `products` (Tipe: `Array`): Daftar objek informasi kartu produk. Setiap kartu produk wajib berisi data:
+        - `productId` (Tipe: `String`): ID pengenal unik produk.
+        - `title` (Tipe: `String`): Nama produk.
+        - `description` (Tipe: `String`): Penjelasan singkat produk.
+        - `price` (Tipe: `Number`): Nominal harga produk (dalam angka utuh, contoh: `25000` untuk Rp 25.000).
+        - `image` (Tipe: `String`): Link URL gambar visual produk.
+        - `url` (Tipe: `String`): Link URL halaman pembelian produk.
+        - `body` (Tipe: `String`): Teks keterangan promo/layanan tambahan di bawah deskripsi kartu produk.
+        - `buttons` (Tipe: `Array`): Tombol aksi di bawah kartu produk. Berisi objek `{ name: "quick_reply", params: { display_text: "Label Tombol", id: "action_id" } }`.
+    - `options` (Tipe: `Object`): Pilihan opsi konfigurasi tambahan seperti deskripsi teks utama carousel (`text`) dan footer carousel (`footer`).
+*   **Contoh Kode via `m` (Paling Mudah):**
     ```javascript
-    const productsList = [
+    await m.productCarousel([
         {
-            productId: "prod_1",
-            title: "Kopi Hitam Espresso",
-            description: "Kopi espresso murni pilihan.",
+            productId: "kopi_01",
+            title: "Espresso Coffee Blend",
+            description: "Kopi robusta espresso berkualitas tinggi.",
             price: 25000,
-            image: "https://toko.com/espresso.jpg",
-            url: "https://toko.com/espresso",
-            body: "Dapatkan diskon pagi hari!",
-            buttons: [{ name: "quick_reply", params: { display_text: "Beli Kopi", id: "buy_kopi" } }]
+            image: "https://images.unsplash.com/photo-1510972527409-cca19de31749",
+            url: "https://toko.com/kopi-espresso",
+            body: "Diskon Hemat Pagi Hari",
+            buttons: [{ name: "quick_reply", params: { display_text: "Pesan Sekarang", id: "pesan_espresso" } }]
         },
         {
-            productId: "prod_2",
+            productId: "teh_02",
             title: "Matcha Latte Premium",
-            description: "Teh hijau matcha asli Jepang.",
+            description: "Teh matcha hijau murni dari Jepang.",
             price: 30000,
-            image: "https://toko.com/matcha.jpg",
-            url: "https://toko.com/matcha",
-            body: "Terlaris minggu ini!",
-            buttons: [{ name: "quick_reply", params: { display_text: "Beli Matcha", id: "buy_matcha" } }]
+            image: "https://images.unsplash.com/photo-1536256263959-770b48d82b0a",
+            url: "https://toko.com/matcha-latte",
+            body: "Terlaris Pekan Ini",
+            buttons: [{ name: "quick_reply", params: { display_text: "Pesan Sekarang", id: "pesan_matcha" } }]
         }
-    ];
-
-    await conn.productCarousel(jid, productsList, { text: "Silakan pilih produk terbaik kami:" });
+    ], { text: "Silakan pilih menu minuman terbaik kami di bawah ini:" });
     ```
+*   **Contoh Kode via Socket `conn`:**
+    ```javascript
+    await conn.productCarousel(jid, productsList, { text: "Daftar produk kami:" });
+    ```
+
 </details>
 
 ---

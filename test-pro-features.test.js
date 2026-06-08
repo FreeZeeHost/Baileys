@@ -90,6 +90,7 @@ describe('FreeZee Baileys Premium Features', () => {
         expect(m.aiTable).toBeDefined();
         expect(m.aiCode).toBeDefined();
         expect(m.aiReels).toBeDefined();
+        expect(m.productCarousel).toBeDefined();
         expect(m.command).toBe('hello');
     });
 });
