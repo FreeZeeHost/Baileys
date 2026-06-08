@@ -484,8 +484,12 @@ await conn.msg.aiTable(jid, "Judul Tabel", rowsArray);
 #### 2. 💻 AI Code (Blok Kode Pemrograman)
 Kirim blok kode pemrograman dengan syntax highlighting yang rapi.
 ```javascript
+// Menggunakan message helper (smsg)
 const codeText = "const bot = makeFreeZeeSocket();\nbot.onCommand('ping', (m) => m.reply('Pong!'));";
 await m.replyCode("javascript", codeText);
+
+// Menggunakan koneksi langsung (tanpa reply/quote)
+await conn.aiCode(jid, "javascript", codeText);
 ```
 
 #### 3. 🎬 AI Reels (Instagram/Facebook Reels Preview)
