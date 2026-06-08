@@ -425,161 +425,172 @@ conn.autoOptimize();
 <details>
 <summary><strong>🎨 Meta AI Style Messages (Visual Layout)</strong></summary>
 
-Gunakan API ini untuk merender visual pesan interaktif Meta AI yang elegan dan modern secara native pada client WhatsApp. Pastikan Anda mendefinisikan seluruh variabel/data input sebelum memanggil fungsi untuk menghindari error seperti `ReferenceError: rows/reels is not defined`.
+Gunakan API ini untuk merender visual pesan interaktif Meta AI yang elegan dan modern secara native pada client WhatsApp. 
+
+Sekarang Anda bisa menggunakan **Message Helper (smsg)** langsung melalui objek pesan `m` (seperti `m.aiTable`, `m.aiCode`, dll.) yang otomatis menargetkan room chat dan membalas pesan secara instan (quoted message) tanpa perlu mendefinisikan `jid`/`options` secara manual.
 
 #### 1. 📊 AI Table (Tabel Formatted Meta AI)
 Mengirimkan tabel terformat yang rapi dengan kolom dan baris tebal/normal.
-*   **Cara Penggunaan:**
+*   **Cara Penggunaan (Sangat Mudah via `m`):**
     ```javascript
-    // Definisikan data baris (rows) terlebih dahulu
-    const tableTitle = "Bot Pricing Plan";
-    const tableRows = [
-        { items: ["Plan", "Price", "Features"], isHeading: true }, // Kolom Header (Tebal)
-        { items: ["Basic", "Free", "Auto-Reply"], isHeading: false },
-        { items: ["Premium", "$5/mo", "Meta AI Features"], isHeading: false }
-    ];
+    // Tanpa Judul (Default Judul: "Table"):
+    await m.aiTable(
+        ["Plan", "Price", "Features"], 
+        ["Basic", "Free", "Auto-Reply"],
+        ["Premium", "$5/mo", "Meta AI Features"]
+    );
 
-    // Kirim menggunakan socket
-    await conn.aiTable(jid, tableTitle, tableRows);
+    // Dengan Judul Kustom:
+    await m.aiTable(
+        "Bot Pricing Plan",
+        ["Plan", "Price", "Features"],
+        ["Basic", "Free", "Auto-Reply"],
+        ["Premium", "$5/mo", "Meta AI Features"]
+    );
+    ```
+*   **Cara Penggunaan (via Socket `conn`):**
+    ```javascript
+    await conn.aiTable(jid, "Judul Tabel", ["Col 1", "Col 2"], ["Row 1 Val 1", "Row 1 Val 2"]);
     ```
 
 #### 2. 💻 AI Code (Blok Kode Pemrograman)
 Kirim blok kode pemrograman dengan syntax highlighting yang rapi.
-*   **Cara Penggunaan:**
+*   **Cara Penggunaan (Sangat Mudah via `m`):**
     ```javascript
-    const targetLanguage = "javascript"; // Bahasa pemrograman (javascript, python, cpp, html, css, dll.)
-    const codeContent = "const bot = makeFreeZeeSocket();\nbot.onCommand('ping', (m) => {\n    conn.sendMessage(m.chat, { text: 'Pong!' });\n});";
+    // Otomatis mengenali sebagai bahasa "javascript":
+    await m.aiCode('console.log("Hello, World!");');
 
-    await conn.aiCode(jid, targetLanguage, codeContent);
+    // Menentukan bahasa pemrograman lain secara spesifik:
+    await m.aiCode('python', 'print("Hello, Python!")');
+    ```
+*   **Cara Penggunaan (via Socket `conn`):**
+    ```javascript
+    await conn.aiCode(jid, 'console.log("Hello!");'); // Otomatis javascript
+    await conn.aiCode(jid, 'python', 'print("Hello!");');
     ```
 
 #### 3. 🎬 AI Reels (Instagram/Facebook Reels Preview)
 Kirim daftar reels video vertikal yang dapat diputar secara native lengkap dengan thumbnail dan nama pembuat.
-*   **Cara Penggunaan:**
+*   **Cara Penggunaan (Sangat Mudah via `m`):**
     ```javascript
-    const reelsTitle = "Tonton Reels Terpopuler Hari Ini:";
-    const reelsList = [
+    await m.aiReels(
+        "Tonton Reels Terpopuler Hari Ini:",
         {
             title: "Belajar Coding 60 Detik",
             description: "Tips cepat belajar JavaScript secara gratis.",
-            videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4",
-            thumbnailUrl: "https://toko.com/thumbnail.png",
-            profileIconUrl: "https://toko.com/avatar.png"
+            videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4"
         }
-    ];
-
-    await conn.aiReels(jid, reelsTitle, reelsList);
+    );
+    ```
+*   **Cara Penggunaan (via Socket `conn`):**
+    ```javascript
+    await conn.aiReels(jid, "Tonton Reels:", [
+        { title: "Judul", videoUrl: "https://site.com/video.mp4" }
+    ]);
     ```
 
 #### 4. 🖼️ AI Grid (Grid Kolase Gambar)
 Kirim kolase grid gambar interaktif (seperti hasil generasi gambar Meta AI) yang menampung multi-gambar secara estetik.
-*   **Cara Penggunaan:**
+*   **Cara Penggunaan (Sangat Mudah via `m`):**
     ```javascript
-    // Menggunakan message helper (smsg)
-    const images = [
+    await m.aiGridImage(
         "https://toko.com/image1.jpg",
         "https://toko.com/image2.jpg"
-    ];
-    await m.replyGridImage(images);
-
-    // Menggunakan koneksi langsung (socket)
-    await conn.aiGridImage(jid, images);
+    );
+    ```
+*   **Cara Penggunaan (via Socket `conn`):**
+    ```javascript
+    await conn.aiGridImage(jid, ["https://toko.com/image1.jpg", "https://toko.com/image2.jpg"]);
     ```
 
 #### 5. 📎 AI Inline Image (Gambar Inline dengan Teks)
 Mengirimkan gambar yang terintegrasi secara inline dengan deskripsi teks di bawahnya beserta link tautan eksternal.
-*   **Cara Penggunaan:**
+*   **Cara Penggunaan (Sangat Mudah via `m`):**
     ```javascript
-    const imageUrl = "https://toko.com/gambar.jpg";
-    const captionText = "Ini adalah ilustrasi gambar inline Meta AI";
-    const alignment = 0; // 0 = LEADING (Kiri), 1 = TRAILING (Kanan), 2 = CENTER (Tengah)
-    const externalLink = "https://freezeehost.com";
-
-    // Menggunakan message helper (smsg)
-    await m.replyInlineImage(imageUrl, captionText, alignment, externalLink);
-
-    // Menggunakan koneksi langsung (socket)
-    await conn.aiInlineImage(jid, imageUrl, captionText, alignment, externalLink);
+    await m.aiInlineImage("https://toko.com/gambar.jpg", "Deskripsi Gambar", 0, "https://freezeehost.com");
+    ```
+*   **Cara Penggunaan (via Socket `conn`):**
+    ```javascript
+    await conn.aiInlineImage(jid, "https://toko.com/gambar.jpg", "Deskripsi", 0, "https://freezeehost.com");
     ```
 
 #### 6. 🔄 AI Dynamic Image (Gambar Dinamis / GIF)
 Mengirimkan gambar atau GIF dinamis dengan opsi looping yang berputar secara otomatis.
-*   **Cara Penggunaan:**
+*   **Cara Penggunaan (Sangat Mudah via `m`):**
     ```javascript
-    const gifUrl = "https://toko.com/animation.gif";
-    const isGif = true; // true = Diputar sebagai GIF/Video Looping, false = Gambar statis biasa
-    const loopCount = 0; // Jumlah perulangan putaran (0 = loop terus-menerus/infinite)
-
-    await conn.aiDynamic(jid, gifUrl, isGif, loopCount);
+    await m.aiDynamic("https://toko.com/animation.gif", true, 0); // isGif = true, loopCount = 0 (infinite)
+    ```
+*   **Cara Penggunaan (via Socket `conn`):**
+    ```javascript
+    await conn.aiDynamic(jid, "https://toko.com/animation.gif", true, 0);
     ```
 
 #### 7. 📐 AI Latex (Rumus Matematika LaTeX)
 Mengirimkan teks beserta format rendering rumus matematika LaTeX yang kompleks.
-*   **Cara Penggunaan:**
+*   **Cara Penggunaan (Sangat Mudah via `m`):**
     ```javascript
-    const introText = "Rumus matematika kuadrat sempurna:";
-    const formulas = [
-        "f(x) = a x^2 + b x + c",
-        "E = m c^2"
-    ];
-
-    await conn.aiLatex(jid, introText, formulas);
+    await m.aiLatex("Rumus matematika kuadrat sempurna:", "f(x) = a x^2 + b x + c", "E = m c^2");
+    ```
+*   **Cara Penggunaan (via Socket `conn`):**
+    ```javascript
+    await conn.aiLatex(jid, "Rumus:", ["E = m c^2"]);
     ```
 
 #### 8. 🗺️ AI Map (Anotasi Peta Interaktif)
 Mengirim peta interaktif dengan pin titik koordinat beserta judul dan deskripsi lokasinya.
-*   **Cara Penggunaan:**
+*   **Cara Penggunaan (Sangat Mudah via `m`):**
     ```javascript
-    const latitude = -6.2088;
-    const longitude = 106.8456;
-    const annotations = [
+    await m.aiMap(-6.2088, 106.8456, [
         { latitude: -6.2088, longitude: 106.8456, title: "Monas", body: "Monumen Nasional Indonesia" }
-    ];
-
-    // Menggunakan message helper (smsg)
-    await m.replyMap(latitude, longitude, annotations);
-
-    // Menggunakan koneksi langsung (socket)
-    await conn.aiMap(jid, latitude, longitude, annotations);
+    ]);
+    ```
+*   **Cara Penggunaan (via Socket `conn`):**
+    ```javascript
+    await conn.aiMap(jid, -6.2088, 106.8456, [
+        { latitude: -6.2088, longitude: 106.8456, title: "Monas", body: "Monumen Nasional" }
+    ]);
     ```
 
 #### 9. 🧠 AI Thinking / Reasoning Steps (Langkah Berpikir)
 Tampilkan status "Sedang berpikir..." beserta langkah-langkah penalaran detail di dalam thread chat.
-*   **Cara Penggunaan:**
+*   **Cara Penggunaan (Sangat Mudah via `m`):**
     ```javascript
-    const progressDescription = "Sedang menganalisis basis data...";
-    const steps = [
-        { title: "Melacak Log Pesan", body: "Memindai riwayat chat terakhir...", status: 3, isReasoning: true }, // status 3 = FINISHED
-        { title: "Mencari Informasi", body: "Menghubungkan ke API server...", status: 2, isEnhancedSearch: true }, // status 2 = EXECUTING
-        { title: "Selesai", status: 1 } // status 1 = PLANNED
-    ];
-
-    await conn.aiThinking(jid, progressDescription, steps);
+    await m.aiThinking(
+        "Sedang menganalisis basis data...",
+        "Melacak Log Pesan",
+        "Mencari Informasi",
+        "Selesai"
+    );
+    ```
+*   **Cara Penggunaan (via Socket `conn`):**
+    ```javascript
+    await conn.aiThinking(jid, "Sedang memikirkan jawaban...", ["Menganalisis", "Menghitung", "Selesai"]);
     ```
 
 #### 10. 🏷️ AI Model Branding
 Tampilkan branding model kecerdasan buatan resmi di bawah balon pesan Anda.
-*   **Cara Penggunaan:**
+*   **Cara Penggunaan (Sangat Mudah via `m`):**
     ```javascript
-    const text = "Pesan ini diproses menggunakan model Llama Premium.";
-    const modelType = 2; // Tipe layout/logo model
-    const modelName = "Llama 3.1 Instruct";
-
-    await conn.aiModel(jid, text, modelType, modelName);
+    await m.aiModel("Pesan ini diproses menggunakan model Llama Premium.", 2, "Llama 3.1 Instruct");
+    ```
+*   **Cara Penggunaan (via Socket `conn`):**
+    ```javascript
+    await conn.aiModel(jid, "Teks pesan", 2, "Llama 3.1");
     ```
 
 #### 11. 💡 AI Prompts (Saran Prompt Interaktif / Chips)
 Tampilkan tombol-tombol saran prompt kecil (quick chips) di bawah balon pesan untuk memandu obrolan pengguna selanjutnya.
-*   **Cara Penggunaan:**
+*   **Cara Penggunaan (Sangat Mudah via `m`):**
     ```javascript
-    const textPrompt = "Bagaimana saya bisa membantu Anda hari ini?";
-    const chipsList = [
+    await m.aiPrompts(
+        "Bagaimana saya bisa membantu Anda hari ini?",
         "Jelaskan fitur AI",
-        "Kirim tabel harga",
-        "Kirim carousel produk"
-    ];
-
-    await conn.aiPrompts(jid, textPrompt, chipsList);
+        "Kirim tabel harga"
+    );
+    ```
+*   **Cara Penggunaan (via Socket `conn`):**
+    ```javascript
+    await conn.aiPrompts(jid, "Saran obrolan:", ["Fitur AI", "Harga"]);
     ```
 </details>
 

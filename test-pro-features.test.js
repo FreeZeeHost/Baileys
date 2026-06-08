@@ -70,13 +70,26 @@ describe('FreeZee Baileys Premium Features', () => {
         expect(mockConn.relayMessage).toHaveBeenCalled();
     });
 
-    test('smsg should add reply helpers to message', () => {
+    test('aiTable should allow omitting title and automatically formatting rows', async () => {
+        await mockConn.aiTable('jid', ['Header A', 'Header B'], ['Row 1 Cell 1', 'Row 1 Cell 2']);
+        expect(mockConn.relayMessage).toHaveBeenCalled();
+    });
+
+    test('aiCode should allow omitting language and default to javascript', async () => {
+        await mockConn.aiCode('jid', 'console.log("hello")');
+        expect(mockConn.relayMessage).toHaveBeenCalled();
+    });
+
+    test('smsg should add reply and ai helpers to message', () => {
         const rawMsg = {
             key: { remoteJid: 'jid', id: '123' },
             message: { conversation: 'hello' }
         };
         const m = mockConn.smsg(rawMsg);
         expect(m.reply).toBeDefined();
+        expect(m.aiTable).toBeDefined();
+        expect(m.aiCode).toBeDefined();
+        expect(m.aiReels).toBeDefined();
         expect(m.command).toBe('hello');
     });
 });
