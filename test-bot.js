@@ -7,9 +7,8 @@ async function startBot() {
     
     const conn = makeFreeZeeSocket({
         auth: state,
-        printQRInTerminal: false,
-        usePairingCode: true,
-        phoneNumber: '6285737389390',
+        printQRInTerminal: true,
+        usePairingCode: false,
         logger: pino({ level: 'info' })
     });
 
