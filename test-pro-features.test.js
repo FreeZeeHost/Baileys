@@ -51,6 +51,7 @@ describe('FreeZee Baileys Premium Features', () => {
         };
 
         patchSocket(mockConn);
+        jest.spyOn(mockConn, 'relayMessage');
     });
 
     test('should have all premium helpers installed', () => {
