@@ -93,6 +93,11 @@ export interface FreeZeeSocket {
         sendStatusMusic(text: string, music: { authorName?: string, songId?: string, title?: string, author?: string, artistAttribution?: string, isExplicit?: boolean }, options?: any): Promise<any>
         sendStatusWearable(text: string, glassesType?: 'RAY_BAN_META_GLASSES' | 'OAKLEY_META_GLASSES' | 'HYPERNOVA_GLASSES' | number, options?: any): Promise<any>
         sendStatusCloseFriends(content: string | any, options?: any): Promise<any>
+        sendStatusNotification(jid: string, responseKey: any, originalKey: any, notificationType?: number, options?: any): Promise<any>
+        sendStatusMention(jid: string, quotedStatus: any, options?: any): Promise<any>
+        sendStatusStickerInteraction(jid: string, statusKey: any, stickerKey?: string, type?: number, options?: any): Promise<any>
+        sendStatusQuestionAnswer(jid: string, questionKey: any, answerText: string, options?: any): Promise<any>
+        sendStatusQuotedMessage(jid: string, text: string, originalStatusId: any, type?: number, thumbnail?: Buffer | null, options?: any): Promise<any>
     }
 
     // --- 🔄 CONVENIENCE ALIASES ---
@@ -152,6 +157,11 @@ export interface FreeZeeSocket {
     sendStatusMusic: FreeZeeSocket['msg']['sendStatusMusic']
     sendStatusWearable: FreeZeeSocket['msg']['sendStatusWearable']
     sendStatusCloseFriends: FreeZeeSocket['msg']['sendStatusCloseFriends']
+    sendStatusNotification: FreeZeeSocket['msg']['sendStatusNotification']
+    sendStatusMention: FreeZeeSocket['msg']['sendStatusMention']
+    sendStatusStickerInteraction: FreeZeeSocket['msg']['sendStatusStickerInteraction']
+    sendStatusQuestionAnswer: FreeZeeSocket['msg']['sendStatusQuestionAnswer']
+    sendStatusQuotedMessage: FreeZeeSocket['msg']['sendStatusQuotedMessage']
 
     // --- 🤖 COMMAND HANDLER ---
     onCommand(cmd: string, callback: (m: any) => void | Promise<void>): void
@@ -244,4 +254,9 @@ export interface FreeZeeMessage {
     replyQuizPoll(name: string, values: string[], correctAnswerIndex?: number, options?: any): Promise<any>
     replyPollResultSnapshot(name: string, votes: any, pollType?: number, options?: any): Promise<any>
     replyNewsletterAdminInvite(invite: { newsletterJid?: string, newsletterName?: string, jpegThumbnail?: Buffer, caption?: string, inviteExpiration?: number }, options?: any): Promise<any>
+    replyStatusNotification(originalKey: any, notificationType?: number, options?: any): Promise<any>
+    replyStatusMention(quotedStatus: any, options?: any): Promise<any>
+    replyStatusStickerInteraction(stickerKey?: string, type?: number, options?: any): Promise<any>
+    replyStatusQuestionAnswer(answerText: string, options?: any): Promise<any>
+    replyStatusQuotedMessage(text: string, type?: number, thumbnail?: Buffer | null, options?: any): Promise<any>
 }

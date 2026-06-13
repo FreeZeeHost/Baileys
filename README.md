@@ -562,6 +562,62 @@ Membagikan status cerita hanya kepada daftar Teman Dekat (Close Friends) Anda me
         caption: "Rahasia kita aja ya!"
     });
     ```
+
+#### 25. Notifikasi Status Reshare & Add Yours (Status Notification)
+Mengirimkan pesan notifikasi secara native kepada pengguna ketika Anda membagikan ulang (reshare) cerita status mereka atau menanggapi stiker "Add Yours".
+*   **Contoh Kode via `m` (Paling Mudah):**
+    ```javascript
+    // Kirim notifikasi reshare (notificationType: 2)
+    await m.replyStatusNotification(originalMessageKey, 2);
+    ```
+*   **Contoh Kode via Socket `conn`:**
+    ```javascript
+    await conn.sendStatusNotification(jid, responseMessageKey, originalMessageKey, 2);
+    ```
+
+#### 26. Sebut Kontak di Status (Status Mention)
+Menyebut (mention) pengguna di dalam pembaruan status cerita WhatsApp Anda dengan mengutip status asli di dalam pesan chat pribadi secara native.
+*   **Contoh Kode via `m` (Paling Mudah):**
+    ```javascript
+    await m.replyStatusMention(quotedStatusMessage);
+    ```
+*   **Contoh Kode via Socket `conn`:**
+    ```javascript
+    await conn.sendStatusMention(jid, quotedStatusMessage);
+    ```
+
+#### 27. Interaksi Stiker Status (Status Sticker Interaction)
+Mengirim pesan interaksi native (seperti memberikan reaksi stiker) pada stiker interaktif cerita status pengguna lain.
+*   **Contoh Kode via `m` (Paling Mudah):**
+    ```javascript
+    await m.replyStatusStickerInteraction("sticker_key_abc", 1);
+    ```
+*   **Contoh Kode via Socket `conn`:**
+    ```javascript
+    await conn.sendStatusStickerInteraction(jid, statusMessageKey, "sticker_key_abc", 1);
+    ```
+
+#### 28. Jawab Pertanyaan Status (Status Question Answer)
+Mengirim pesan tanggapan/jawaban secara native atas stiker pertanyaan ("Question Sticker") yang diposting pada status pengguna lain.
+*   **Contoh Kode via `m` (Paling Mudah):**
+    ```javascript
+    await m.replyStatusQuestionAnswer("Jawaban saya adalah Bandung!");
+    ```
+*   **Contoh Kode via Socket `conn`:**
+    ```javascript
+    await conn.sendStatusQuestionAnswer(jid, questionMessageKey, "Jawaban saya adalah Bandung!");
+    ```
+
+#### 29. Kutip Status di Obrolan (Status Quoted Message)
+Mengutip pembaruan status cerita WhatsApp orang lain secara native di dalam obrolan chat pribadi dengan opsi menyertakan teks & gambar mini (thumbnail).
+*   **Contoh Kode via `m` (Paling Mudah):**
+    ```javascript
+    await m.replyStatusQuotedMessage("Ini status yang kamu buat kemarin kan?", 1, jpegBuffer);
+    ```
+*   **Contoh Kode via Socket `conn`:**
+    ```javascript
+    await conn.sendStatusQuotedMessage(jid, "Kutipan status Anda", originalStatusMessageKey, 1, jpegBuffer);
+    ```
 </details>
 
 <details>
