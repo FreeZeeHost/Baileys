@@ -1293,8 +1293,8 @@ This project is **not affiliated** with WhatsApp/Meta. Use at your own risk.
 Proyek ini dikembangkan untuk tujuan edukasi dan kemudahan pengembangan bot. Penyalahgunaan fitur dapat berakibat pada pemblokiran akun.
 
 ## ⚡ Contact & Support
-- **Site**: [zass.cloud](https://zass.cloud)
-- **Channel**: [Official Channel](https://zass.cloud/wa/channel/info)
+- **Telegram**: [t.me/@FreeZeeHost](https://t.me/FreeZeeHost)
+- **Gmail**: freezeehost@gmail.com
 
 ---
 <div align="center">
