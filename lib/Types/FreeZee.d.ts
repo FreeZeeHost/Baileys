@@ -79,6 +79,11 @@ export interface FreeZeeSocket {
         requestResend(key: any, options?: any) : Promise<any>
         sendPaymentInvite(jid: string, type?: number, options?: any) : Promise<any>
         sendPollV5(jid: string, poll: any, options?: any) : Promise<any>
+        sendVideoNote(jid: string, pathOrBuffer: string | Buffer, options?: any): Promise<any>
+        sendImagePoll(jid: string, name: string, optionsArray: any[], options?: any): Promise<any>
+        editScheduledCall(jid: string, callKey: any, title: string, timestampMs: number, editType?: number, callType?: number, options?: any): Promise<any>
+        sendAIReminder(jid: string, text: string, timestampMs: number, frequency?: number, options?: any): Promise<any>
+        sendLottieSticker(jid: string, pathOrBuffer: string | Buffer, options?: any): Promise<any>
     }
 
     // --- 🔄 CONVENIENCE ALIASES ---
@@ -124,6 +129,11 @@ export interface FreeZeeSocket {
     requestResend: FreeZeeSocket['msg']['requestResend']
     sendPaymentInvite: FreeZeeSocket['msg']['sendPaymentInvite']
     sendPollV5: FreeZeeSocket['msg']['sendPollV5']
+    sendVideoNote: FreeZeeSocket['msg']['sendVideoNote']
+    sendImagePoll: FreeZeeSocket['msg']['sendImagePoll']
+    editScheduledCall: FreeZeeSocket['msg']['editScheduledCall']
+    sendAIReminder: FreeZeeSocket['msg']['sendAIReminder']
+    sendLottieSticker: FreeZeeSocket['msg']['sendLottieSticker']
 
     // --- 🤖 COMMAND HANDLER ---
     onCommand(cmd: string, callback: (m: any) => void | Promise<void>): void
@@ -205,4 +215,8 @@ export interface FreeZeeMessage {
     replyModel: FreeZeeSocket['msg']['aiModel']
     replyPrompts: FreeZeeSocket['msg']['aiPrompts']
     aiFeedback: (isPositive?: boolean, text?: string, options?: any) => Promise<any>
+    replyVideoNote(urlOrBuffer: string | Buffer, options?: any): Promise<any>
+    replyImagePoll(name: string, optionsArray: any[], options?: any): Promise<any>
+    replyAIReminder(text: string, timestampMs: number, frequency?: number, options?: any): Promise<any>
+    replyLottieSticker(urlOrBuffer: string | Buffer, options?: any): Promise<any>
 }

@@ -355,6 +355,53 @@ await conn.sendSurvey(jid, {
     ]
 });
 ```
+
+#### 11. Circular Video Notes (Push-To-Video / Video Note)
+Mengirim pesan video bulat instan yang langsung diputar otomatis secara circular di obrolan penerima.
+*   **Contoh Kode via `m` (Paling Mudah):**
+    ```javascript
+    await m.replyVideoNote("./video.mp4");
+    ```
+*   **Contoh Kode via Socket `conn`:**
+    ```javascript
+    await conn.sendVideoNote(jid, "./video.mp4");
+    ```
+
+#### 12. Jajak Pendapat Bergambar (Image Polls)
+Mengirim jajak pendapat (poll) interaktif bawaan WhatsApp di mana setiap opsi pilihan dapat menyertakan gambar.
+*   **Contoh Kode via `m` (Paling Mudah):**
+    ```javascript
+    await m.replyImagePoll("Pilih desain kaos favoritmu:", [
+        { text: "Desain Hitam", image: "./black_shirt.png" },
+        { text: "Desain Putih", image: "./white_shirt.png" }
+    ]);
+    ```
+*   **Contoh Kode via Socket `conn`:**
+    ```javascript
+    await conn.sendImagePoll(jid, "Pilih desain kaos favoritmu:", [
+        { text: "Desain Hitam", image: "./black_shirt.png" },
+        { text: "Desain Putih", image: "./white_shirt.png" }
+    ]);
+    ```
+
+#### 13. Reschedule Panggilan Terjadwal (Scheduled Call Edit)
+Mengubah detail atau membatalkan panggilan suara/video terjadwal di grup WhatsApp.
+*   **Contoh Kode via Socket `conn`:**
+    // editType: 1 = Batal/Cancel, 2 = Ubah/Modify
+    ```javascript
+    await conn.editScheduledCall(jid, originalCallMessageKey, "Ulang: Meeting Proyek", Date.now() + 3600000, 2, 1);
+    ```
+
+#### 14. Stiker Vektor Animasi (Lottie Stickers)
+Mengirim stiker animasi berbasis vektor menggunakan format file Lottie secara native.
+*   **Contoh Kode via `m` (Paling Mudah):**
+    ```javascript
+    await m.replyLottieSticker("./sticker.tgs");
+    ```
+*   **Contoh Kode via Socket `conn`:**
+    ```javascript
+    await conn.sendLottieSticker(jid, "./sticker.tgs");
+    ```
 </details>
 
 <details>
@@ -937,6 +984,20 @@ Mengirimkan kartu carousel produk yang dapat digeser secara horizontal lengkap d
 *   **Contoh Kode via Socket `conn`:**
     ```javascript
     await conn.productCarousel(jid, productsList, { text: "Daftar produk kami:" });
+    ```
+
+---
+
+### 9. ⏰ AI Reminder (Pengingat Pesan Meta AI)
+Mengirimkan pesan penunjuk pengingat berbasis Meta AI untuk membuat, mengedit, atau menjadwalkan notifikasi asisten AI.
+*   **Contoh Kode via `m` (Paling Mudah):**
+    ```javascript
+    // Memasang pengingat sekali (frequency: 1) untuk 1 jam ke depan
+    await m.replyAIReminder("Mulai meeting evaluasi", Date.now() + 3600000, 1);
+    ```
+*   **Contoh Kode via Socket `conn`:**
+    ```javascript
+    await conn.sendAIReminder(jid, "Ingatkan untuk minum obat", Date.now() + 7200000, 1);
     ```
 
 </details>
