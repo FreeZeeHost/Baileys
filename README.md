@@ -618,6 +618,74 @@ Mengutip pembaruan status cerita WhatsApp orang lain secara native di dalam obro
     ```javascript
     await conn.sendStatusQuotedMessage(jid, "Kutipan status Anda", originalStatusMessageKey, 1, jpegBuffer);
     ```
+
+#### 30. Minta Pembayaran (Payment Request)
+Mengirimkan permintaan pembayaran secara native kepada pengguna lain dengan mata uang dan waktu kedaluwarsa kustom (mendukung ekosistem WA Pay).
+*   **Contoh Kode via `m` (Paling Mudah):**
+    ```javascript
+    // Meminta pembayaran sebesar Rp 50.000 dengan mata uang IDR
+    await m.replyPaymentRequest(50000, "IDR");
+    ```
+*   **Contoh Kode via Socket `conn`:**
+    ```javascript
+    await conn.sendPaymentRequest(jid, 50000, "IDR", 86400);
+    ```
+
+#### 31. Tolak Permintaan Pembayaran (Decline Payment Request)
+Menolak permintaan pembayaran yang dikirimkan oleh pengguna lain secara native.
+*   **Contoh Kode via `m` (Paling Mudah):**
+    ```javascript
+    await m.replyDeclinePaymentRequest();
+    ```
+*   **Contoh Kode via Socket `conn`:**
+    ```javascript
+    await conn.declinePaymentRequest(jid, requestPaymentMessageKey);
+    ```
+
+#### 32. Batalkan Permintaan Pembayaran (Cancel Payment Request)
+Membatalkan permintaan pembayaran yang telah Anda kirimkan kepada pengguna lain secara native.
+*   **Contoh Kode via `m` (Paling Mudah):**
+    ```javascript
+    await m.replyCancelPaymentRequest();
+    ```
+*   **Contoh Kode via Socket `conn`:**
+    ```javascript
+    await conn.cancelPaymentRequest(jid, requestPaymentMessageKey);
+    ```
+
+#### 33. Undangan Grup Native (Group Invite Message)
+Mengirim pesan undangan masuk grup secara native dengan kode undangan, nama grup, teks deskripsi, dan gambar mini (thumbnail) grup.
+*   **Contoh Kode via `m` (Paling Mudah):**
+    ```javascript
+    await m.replyGroupInvite("invite_code_abc", "120363024893892@g.us", "FreeZeeHost Developers", "Mari bergabung!");
+    ```
+*   **Contoh Kode via Socket `conn`:**
+    ```javascript
+    await conn.sendGroupInvite(jid, "invite_code_abc", "120363024893892@g.us", "FreeZeeHost Developers", "Mari bergabung!", 259200, thumbnailBuffer);
+    ```
+
+#### 34. Minta Nomor Telepon (Request Phone Number)
+Mengirim pesan khusus secara native kepada pengguna di chat pribadi untuk meminta persetujuan membagikan nomor telepon mereka (sangat berguna untuk bot kampanye/bisnis).
+*   **Contoh Kode via `m` (Paling Mudah):**
+    ```javascript
+    await m.replyRequestPhoneNumber();
+    ```
+*   **Contoh Kode via Socket `conn`:**
+    ```javascript
+    await conn.requestPhoneNumber(jid);
+    ```
+
+#### 35. Pesan Penahan Ruang Native (Placeholder Message)
+Mengirimkan pesan penahan ruang (placeholder message) native (seperti menyembunyikan detail perangkat terhubung).
+*   **Contoh Kode via `m` (Paling Mudah):**
+    ```javascript
+    // Mengirim placeholder tipe 0 (MASK_LINKED_DEVICES)
+    await m.replyPlaceholder(0);
+    ```
+*   **Contoh Kode via Socket `conn`:**
+    ```javascript
+    await conn.sendPlaceholder(jid, 0);
+    ```
 </details>
 
 <details>

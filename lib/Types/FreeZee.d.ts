@@ -98,6 +98,12 @@ export interface FreeZeeSocket {
         sendStatusStickerInteraction(jid: string, statusKey: any, stickerKey?: string, type?: number, options?: any): Promise<any>
         sendStatusQuestionAnswer(jid: string, questionKey: any, answerText: string, options?: any): Promise<any>
         sendStatusQuotedMessage(jid: string, text: string, originalStatusId: any, type?: number, thumbnail?: Buffer | null, options?: any): Promise<any>
+        sendPaymentRequest(jid: string, amount: number, currency?: string, expirationSeconds?: number, options?: any): Promise<any>
+        declinePaymentRequest(jid: string, requestKey: any, options?: any): Promise<any>
+        cancelPaymentRequest(jid: string, requestKey: any, options?: any): Promise<any>
+        sendGroupInvite(jid: string, inviteCode: string, groupJid: string, groupName: string, caption?: string, expirationInSeconds?: number, thumbnail?: Buffer | null, options?: any): Promise<any>
+        requestPhoneNumber(jid: string, options?: any): Promise<any>
+        sendPlaceholder(jid: string, type?: number, options?: any): Promise<any>
     }
 
     // --- 🔄 CONVENIENCE ALIASES ---
@@ -162,6 +168,12 @@ export interface FreeZeeSocket {
     sendStatusStickerInteraction: FreeZeeSocket['msg']['sendStatusStickerInteraction']
     sendStatusQuestionAnswer: FreeZeeSocket['msg']['sendStatusQuestionAnswer']
     sendStatusQuotedMessage: FreeZeeSocket['msg']['sendStatusQuotedMessage']
+    sendPaymentRequest: FreeZeeSocket['msg']['sendPaymentRequest']
+    declinePaymentRequest: FreeZeeSocket['msg']['declinePaymentRequest']
+    cancelPaymentRequest: FreeZeeSocket['msg']['cancelPaymentRequest']
+    sendGroupInvite: FreeZeeSocket['msg']['sendGroupInvite']
+    requestPhoneNumber: FreeZeeSocket['msg']['requestPhoneNumber']
+    sendPlaceholder: FreeZeeSocket['msg']['sendPlaceholder']
 
     // --- 🤖 COMMAND HANDLER ---
     onCommand(cmd: string, callback: (m: any) => void | Promise<void>): void
@@ -259,4 +271,10 @@ export interface FreeZeeMessage {
     replyStatusStickerInteraction(stickerKey?: string, type?: number, options?: any): Promise<any>
     replyStatusQuestionAnswer(answerText: string, options?: any): Promise<any>
     replyStatusQuotedMessage(text: string, type?: number, thumbnail?: Buffer | null, options?: any): Promise<any>
+    replyPaymentRequest(amount: number, currency?: string, expirationSeconds?: number, options?: any): Promise<any>
+    replyDeclinePaymentRequest(requestKey?: any, options?: any): Promise<any>
+    replyCancelPaymentRequest(requestKey?: any, options?: any): Promise<any>
+    replyGroupInvite(inviteCode: string, groupJid: string, groupName: string, caption?: string, expirationInSeconds?: number, thumbnail?: Buffer | null, options?: any): Promise<any>
+    replyRequestPhoneNumber(options?: any): Promise<any>
+    replyPlaceholder(type?: number, options?: any): Promise<any>
 }
