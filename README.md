@@ -402,6 +402,48 @@ Mengirim stiker animasi berbasis vektor menggunakan format file Lottie secara na
     ```javascript
     await conn.sendLottieSticker(jid, "./sticker.tgs");
     ```
+
+#### 15. Acara Grup Interaktif (Group Event)
+Membuat/mengirim pesan undangan acara grup (Group Event) secara terstruktur di mana anggota grup bisa memberikan tanggapan (RSVP).
+*   **Contoh Kode via `m` (Paling Mudah):**
+    ```javascript
+    await m.replyGroupEvent({
+        name: "Developer Meetup 2026",
+        description: "Temu santai developer membahas teknologi terbaru Meta AI.",
+        startTime: Math.floor(Date.now() / 1000) + 86400, // Besok
+        endTime: Math.floor(Date.now() / 1000) + 90000,
+        extraGuestsAllowed: true
+    });
+    ```
+*   **Contoh Kode via Socket `conn`:**
+    ```javascript
+    await conn.sendGroupEvent(jid, {
+        name: "Developer Meetup 2026",
+        description: "Temu santai developer membahas teknologi terbaru Meta AI.",
+        startTime: Math.floor(Date.now() / 1000) + 86400,
+        endTime: Math.floor(Date.now() / 1000) + 90000,
+        extraGuestsAllowed: true
+    });
+    ```
+
+#### 16. Album Media Native (Native Media Album)
+Mengelompokkan pengiriman gambar dan video ke dalam satu album native di WhatsApp menggunakan fitur `MessageAssociation`.
+*   **Contoh Kode via `m` (Paling Mudah):**
+    ```javascript
+    await m.replyAlbum([
+        { image: "./foto1.jpg", caption: "Caption Foto 1" },
+        { image: "./foto2.png", caption: "Caption Foto 2" },
+        { video: "./video.mp4", caption: "Caption Video" }
+    ]);
+    ```
+*   **Contoh Kode via Socket `conn`:**
+    ```javascript
+    await conn.sendAlbum(jid, [
+        { image: "./foto1.jpg", caption: "Caption Foto 1" },
+        { image: "./foto2.png", caption: "Caption Foto 2" },
+        { video: "./video.mp4", caption: "Caption Video" }
+    ]);
+    ```
 </details>
 
 <details>
