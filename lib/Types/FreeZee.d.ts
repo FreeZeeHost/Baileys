@@ -87,6 +87,12 @@ export interface FreeZeeSocket {
         sendLottieSticker(jid: string, pathOrBuffer: string | Buffer, options?: any): Promise<any>
         sendGroupEvent(jid: string, event: { name: string, description?: string, startTime: number, endTime?: number, location?: any, joinLink?: string, isCanceled?: boolean, isScheduleCall?: boolean, hasReminder?: boolean, reminderOffsetSec?: number, extraGuestsAllowed?: boolean }, options?: any): Promise<any>
         sendAlbum(jid: string, medias: { image?: string | Buffer, video?: string | Buffer, caption?: string }[], options?: any): Promise<any>
+        sendQuizPoll(jid: string, name: string, values: string[], correctAnswerIndex?: number, options?: any): Promise<any>
+        sendPollResultSnapshot(jid: string, name: string, votes: any, pollType?: number, options?: any): Promise<any>
+        sendNewsletterAdminInvite(jid: string, invite: { newsletterJid?: string, newsletterName?: string, jpegThumbnail?: Buffer, caption?: string, inviteExpiration?: number }, options?: any): Promise<any>
+        sendStatusMusic(text: string, music: { authorName?: string, songId?: string, title?: string, author?: string, artistAttribution?: string, isExplicit?: boolean }, options?: any): Promise<any>
+        sendStatusWearable(text: string, glassesType?: 'RAY_BAN_META_GLASSES' | 'OAKLEY_META_GLASSES' | 'HYPERNOVA_GLASSES' | number, options?: any): Promise<any>
+        sendStatusCloseFriends(content: string | any, options?: any): Promise<any>
     }
 
     // --- 🔄 CONVENIENCE ALIASES ---
@@ -140,6 +146,12 @@ export interface FreeZeeSocket {
     sendLottieSticker: FreeZeeSocket['msg']['sendLottieSticker']
     sendGroupEvent: FreeZeeSocket['msg']['sendGroupEvent']
     sendAlbum: FreeZeeSocket['msg']['sendAlbum']
+    sendQuizPoll: FreeZeeSocket['msg']['sendQuizPoll']
+    sendPollResultSnapshot: FreeZeeSocket['msg']['sendPollResultSnapshot']
+    sendNewsletterAdminInvite: FreeZeeSocket['msg']['sendNewsletterAdminInvite']
+    sendStatusMusic: FreeZeeSocket['msg']['sendStatusMusic']
+    sendStatusWearable: FreeZeeSocket['msg']['sendStatusWearable']
+    sendStatusCloseFriends: FreeZeeSocket['msg']['sendStatusCloseFriends']
 
     // --- 🤖 COMMAND HANDLER ---
     onCommand(cmd: string, callback: (m: any) => void | Promise<void>): void
@@ -229,4 +241,7 @@ export interface FreeZeeMessage {
     replyLottieSticker(urlOrBuffer: string | Buffer, options?: any): Promise<any>
     replyGroupEvent(event: { name: string, description?: string, startTime: number, endTime?: number, location?: any, joinLink?: string, isCanceled?: boolean, isScheduleCall?: boolean, hasReminder?: boolean, reminderOffsetSec?: number, extraGuestsAllowed?: boolean }, options?: any): Promise<any>
     replyAlbum(medias: { image?: string | Buffer, video?: string | Buffer, caption?: string }[], options?: any): Promise<any>
+    replyQuizPoll(name: string, values: string[], correctAnswerIndex?: number, options?: any): Promise<any>
+    replyPollResultSnapshot(name: string, votes: any, pollType?: number, options?: any): Promise<any>
+    replyNewsletterAdminInvite(invite: { newsletterJid?: string, newsletterName?: string, jpegThumbnail?: Buffer, caption?: string, inviteExpiration?: number }, options?: any): Promise<any>
 }

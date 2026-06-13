@@ -474,10 +474,93 @@ Menyimpan (keep) atau membatalkan penyimpanan (undo keep) pesan di dalam obrolan
     // Membatalkan penyimpanan pesan
     await m.undoKeep();
     ```
-*   **Contoh Kode via Socket `conn`:**
-    ```javascript
     // Menyimpan pesan target (keepType: 1 = Keep, 2 = Undo Keep)
     await conn.keepMessage(jid, targetMessageKey, 1);
+    ```
+
+#### 19. Kuis Interaktif (Quiz Poll)
+Membuat polling interaktif bertipe kuis (Quiz) di mana WhatsApp akan memvalidasi jawaban yang benar secara native.
+*   **Contoh Kode via `m` (Paling Mudah):**
+    ```javascript
+    // Membuat kuis dengan jawaban benar pada indeks ke-1 ("Jakarta")
+    await m.replyQuizPoll("Apa ibukota Indonesia?", ["Surabaya", "Jakarta", "Bandung"], 1);
+    ```
+*   **Contoh Kode via Socket `conn`:**
+    ```javascript
+    await conn.sendQuizPoll(jid, "Apa ibukota Indonesia?", ["Surabaya", "Jakarta", "Bandung"], 1);
+    ```
+
+#### 20. Ringkasan Hasil Polling (Poll Result Snapshot)
+Mengirimkan pesan ringkasan native berisi rekap hasil pemungutan suara/polling beserta jumlah suara masing-masing opsi.
+*   **Contoh Kode via `m` (Paling Mudah):**
+    ```javascript
+    // Mengirim rekap hasil polling
+    await m.replyPollResultSnapshot("Hasil Polling Makan Siang", {
+        "Nasi Goreng": 12,
+        "Bakso": 8,
+        "Mie Ayam": 4
+    });
+    ```
+*   **Contoh Kode via Socket `conn`:**
+    ```javascript
+    await conn.sendPollResultSnapshot(jid, "Hasil Polling Makan Siang", [
+        { optionName: "Nasi Goreng", optionVoteCount: 12 },
+        { optionName: "Bakso", optionVoteCount: 8 }
+    ]);
+    ```
+
+#### 21. Undangan Admin Saluran (Newsletter Admin Invite)
+Mengirim pesan undangan secara native kepada pengguna lain untuk menjadi admin/pengelola saluran (newsletter) WhatsApp Anda.
+*   **Contoh Kode via `m` (Paling Mudah):**
+    ```javascript
+    await m.replyNewsletterAdminInvite({
+        newsletterJid: "120363024893892@newsletter",
+        newsletterName: "FreeZeeHost Updates",
+        caption: "Bantu kelola saluran kami."
+    });
+    ```
+*   **Contoh Kode via Socket `conn`:**
+    ```javascript
+    await conn.sendNewsletterAdminInvite(jid, {
+        newsletterJid: "120363024893892@newsletter",
+        newsletterName: "FreeZeeHost Updates",
+        caption: "Silakan terima undangan untuk mengelola saluran ini."
+    });
+    ```
+
+#### 22. Musik pada Status (Status Music Story)
+Mengirim pembaruan status (story) teks yang dilengkapi dengan metadata lagu/musik native agar tampil interaktif seperti cerita Instagram.
+*   **Contoh Kode via Socket `conn`:**
+    ```javascript
+    await conn.sendStatusMusic("Lagu favorit hari ini!", {
+        title: "Kupu-Kupu",
+        authorName: "Tiara Andini",
+        songId: "music_id_12345",
+        artistAttribution: "Tiara Andini",
+        isExplicit: false
+    });
+    ```
+
+#### 23. Status via Kacamata Pintar Wearable (RLAttribution Status Story)
+Membuat status WhatsApp yang seolah-olah diposting langsung dari perangkat kacamata pintar Meta (Ray-Ban Meta / Oakley Meta / Hypernova).
+*   **Contoh Kode via Socket `conn`:**
+    ```javascript
+    // Pilihan tipe kacamata: 'RAY_BAN_META_GLASSES', 'OAKLEY_META_GLASSES', 'HYPERNOVA_GLASSES'
+    await conn.sendStatusWearable("Dilihat dari kacamata pintar saya 😎", "RAY_BAN_META_GLASSES");
+    ```
+
+#### 24. Status Khusus Teman Dekat (Close Friends Status Story)
+Membagikan status cerita hanya kepada daftar Teman Dekat (Close Friends) Anda menggunakan metadata target pemirsa native.
+*   **Contoh Kode via Socket `conn`:**
+    ```javascript
+    // Kirim status teks khusus Close Friends
+    await conn.sendStatusCloseFriends("Hanya untuk teman-teman terdekat!");
+
+    // Atau kirim status media khusus Close Friends
+    await conn.sendStatusCloseFriends({
+        image: { url: "https://catbox.moe/example.jpg" },
+        caption: "Rahasia kita aja ya!"
+    });
     ```
 </details>
 
