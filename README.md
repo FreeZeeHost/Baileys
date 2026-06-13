@@ -1296,6 +1296,11 @@ Proyek ini dikembangkan untuk tujuan edukasi dan kemudahan pengembangan bot. Pen
 - **Telegram**: [t.me/@FreeZeeHost](https://t.me/FreeZeeHost)
 - **Gmail**: freezeehost@gmail.com
 
+## 👥 Contributors & Credits
+- **FreeZeeHost Team** (Main Developer)
+- **Claude** (AI Assistant - Anthropic)
+- **Google Antigravity & Gemini CLI** (AI Assistant - Google DeepMind)
+
 ---
 <div align="center">
   Made with ❤️ by <b>FreeZeeHost Team</b>
