@@ -120,6 +120,11 @@ export interface FreeZeeSocket {
         aiAgeCollection(jid: string, text: string, eligible?: boolean, shouldTrigger?: boolean, type?: number, options?: any): Promise<any>
         aiVerification(jid: string, text: string, proofs?: any[], options?: any): Promise<any>
         aiUnifiedResponse(jid: string, text: string, primaryResponseId: string, surveyCtaHasRendered?: boolean, mediaDetails?: any[], options?: any): Promise<any>
+        aiAvatar(jid: string, text: string, sentiment: number, behaviorGraph: string, action: number, intensity: number, wordCount: number, options?: any): Promise<any>
+        aiLinkedAccounts(jid: string, text: string, accounts?: any[], acAuthTokens?: string | Buffer | null, acErrorCode?: number, options?: any): Promise<any>
+        aiMemu(jid: string, text: string, faceImages?: any[], options?: any): Promise<any>
+        aiPromotion(jid: string, text: string, promotionType?: number, buttonTitle?: string, options?: any): Promise<any>
+        aiModeSelection(jid: string, text: string, modes?: number[], options?: any): Promise<any>
     }
 
     // --- 🔄 CONVENIENCE ALIASES ---
@@ -206,6 +211,11 @@ export interface FreeZeeSocket {
     aiAgeCollection: FreeZeeSocket['msg']['aiAgeCollection']
     aiVerification: FreeZeeSocket['msg']['aiVerification']
     aiUnifiedResponse: FreeZeeSocket['msg']['aiUnifiedResponse']
+    aiAvatar: FreeZeeSocket['msg']['aiAvatar']
+    aiLinkedAccounts: FreeZeeSocket['msg']['aiLinkedAccounts']
+    aiMemu: FreeZeeSocket['msg']['aiMemu']
+    aiPromotion: FreeZeeSocket['msg']['aiPromotion']
+    aiModeSelection: FreeZeeSocket['msg']['aiModeSelection']
 
     // --- 🤖 COMMAND HANDLER ---
     onCommand(cmd: string, callback: (m: any) => void | Promise<void>): void
@@ -344,6 +354,16 @@ export interface FreeZeeMessage {
     replyVerification(text: string, proofs?: any[], options?: any): Promise<any>
     aiUnifiedResponse(text: string, primaryResponseId: string, surveyCtaHasRendered?: boolean, mediaDetails?: any[], options?: any): Promise<any>
     replyUnifiedResponse(text: string, primaryResponseId: string, surveyCtaHasRendered?: boolean, mediaDetails?: any[], options?: any): Promise<any>
+    aiAvatar(text: string, sentiment: number, behaviorGraph: string, action: number, intensity: number, wordCount: number, options?: any): Promise<any>
+    replyAvatar(text: string, sentiment: number, behaviorGraph: string, action: number, intensity: number, wordCount: number, options?: any): Promise<any>
+    aiLinkedAccounts(text: string, accounts?: any[], acAuthTokens?: string | Buffer | null, acErrorCode?: number, options?: any): Promise<any>
+    replyLinkedAccounts(text: string, accounts?: any[], acAuthTokens?: string | Buffer | null, acErrorCode?: number, options?: any): Promise<any>
+    aiMemu(text: string, faceImages?: any[], options?: any): Promise<any>
+    replyMemu(text: string, faceImages?: any[], options?: any): Promise<any>
+    aiPromotion(text: string, promotionType?: number, buttonTitle?: string, options?: any): Promise<any>
+    replyPromotion(text: string, promotionType?: number, buttonTitle?: string, options?: any): Promise<any>
+    aiModeSelection(text: string, modes?: number[], options?: any): Promise<any>
+    replyModeSelection(text: string, modes?: number[], options?: any): Promise<any>
 
     sendQuizPoll(name: string, values: string[], correctAnswerIndex?: number, options?: any): Promise<any>
     sendPollResultSnapshot(name: string, votes: any, pollType?: number, options?: any): Promise<any>
