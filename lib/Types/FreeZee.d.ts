@@ -104,6 +104,22 @@ export interface FreeZeeSocket {
         sendGroupInvite(jid: string, inviteCode: string, groupJid: string, groupName: string, caption?: string, expirationInSeconds?: number, thumbnail?: Buffer | null, options?: any): Promise<any>
         requestPhoneNumber(jid: string, options?: any): Promise<any>
         sendPlaceholder(jid: string, type?: number, options?: any): Promise<any>
+        sendEncEventResponse(jid: string, eventKey: any, options?: any): Promise<any>
+        sendEncComment(jid: string, targetKey: any, options?: any): Promise<any>
+        sendSecretEncrypted(jid: string, targetKey: any, secretEncType?: number, options?: any): Promise<any>
+        sendPollV4(jid: string, poll: any, options?: any): Promise<any>
+        sendPollResultSnapshotV3(jid: string, name: string, votes: any, pollType?: number, options?: any): Promise<any>
+        sendStatusAddYours(content: string | any, options?: any): Promise<any>
+        sendStatusGroupStatus(content: string | any, options?: any): Promise<any>
+        sendStatusGroupStatusV2(content: string | any, options?: any): Promise<any>
+        sendStatusGroupMention(content: string | any, options?: any): Promise<any>
+        sendAssociatedChild(jid: string, content: string | any, options?: any): Promise<any>
+        aiIncognito(jid: string, text: string, options?: any): Promise<any>
+        aiRegenerate(jid: string, targetKey: any, timestampMs?: number, options?: any): Promise<any>
+        aiTransparency(jid: string, text: string, disclaimerText: string, hcaId?: string, type?: number, options?: any): Promise<any>
+        aiAgeCollection(jid: string, text: string, eligible?: boolean, shouldTrigger?: boolean, type?: number, options?: any): Promise<any>
+        aiVerification(jid: string, text: string, proofs?: any[], options?: any): Promise<any>
+        aiUnifiedResponse(jid: string, text: string, primaryResponseId: string, surveyCtaHasRendered?: boolean, mediaDetails?: any[], options?: any): Promise<any>
     }
 
     // --- 🔄 CONVENIENCE ALIASES ---
@@ -174,6 +190,22 @@ export interface FreeZeeSocket {
     sendGroupInvite: FreeZeeSocket['msg']['sendGroupInvite']
     requestPhoneNumber: FreeZeeSocket['msg']['requestPhoneNumber']
     sendPlaceholder: FreeZeeSocket['msg']['sendPlaceholder']
+    sendEncEventResponse: FreeZeeSocket['msg']['sendEncEventResponse']
+    sendEncComment: FreeZeeSocket['msg']['sendEncComment']
+    sendSecretEncrypted: FreeZeeSocket['msg']['sendSecretEncrypted']
+    sendPollV4: FreeZeeSocket['msg']['sendPollV4']
+    sendPollResultSnapshotV3: FreeZeeSocket['msg']['sendPollResultSnapshotV3']
+    sendStatusAddYours: FreeZeeSocket['msg']['sendStatusAddYours']
+    sendStatusGroupStatus: FreeZeeSocket['msg']['sendStatusGroupStatus']
+    sendStatusGroupStatusV2: FreeZeeSocket['msg']['sendStatusGroupStatusV2']
+    sendStatusGroupMention: FreeZeeSocket['msg']['sendStatusGroupMention']
+    sendAssociatedChild: FreeZeeSocket['msg']['sendAssociatedChild']
+    aiIncognito: FreeZeeSocket['msg']['aiIncognito']
+    aiRegenerate: FreeZeeSocket['msg']['aiRegenerate']
+    aiTransparency: FreeZeeSocket['msg']['aiTransparency']
+    aiAgeCollection: FreeZeeSocket['msg']['aiAgeCollection']
+    aiVerification: FreeZeeSocket['msg']['aiVerification']
+    aiUnifiedResponse: FreeZeeSocket['msg']['aiUnifiedResponse']
 
     // --- 🤖 COMMAND HANDLER ---
     onCommand(cmd: string, callback: (m: any) => void | Promise<void>): void
@@ -280,6 +312,38 @@ export interface FreeZeeMessage {
     replyGroupInvite(inviteCode: string, groupJid: string, groupName: string, caption?: string, expirationInSeconds?: number, thumbnail?: Buffer | null, options?: any): Promise<any>
     replyRequestPhoneNumber(options?: any): Promise<any>
     replyPlaceholder(type?: number, options?: any): Promise<any>
+    replyEncEventResponse(eventKey: any, options?: any): Promise<any>
+    sendEncEventResponse(eventKey: any, options?: any): Promise<any>
+    replyEncComment(targetKey: any, options?: any): Promise<any>
+    sendEncComment(targetKey: any, options?: any): Promise<any>
+    replySecretEncrypted(targetKey: any, secretEncType?: number, options?: any): Promise<any>
+    sendSecretEncrypted(targetKey: any, secretEncType?: number, options?: any): Promise<any>
+    replyPollV4(poll: any, options?: any): Promise<any>
+    sendPollV4(poll: any, options?: any): Promise<any>
+    replyPollResultSnapshotV3(name: string, votes: any, pollType?: number, options?: any): Promise<any>
+    sendPollResultSnapshotV3(name: string, votes: any, pollType?: number, options?: any): Promise<any>
+    replyStatusAddYours(content: string | any, options?: any): Promise<any>
+    sendStatusAddYours(content: string | any, options?: any): Promise<any>
+    replyStatusGroupStatus(content: string | any, options?: any): Promise<any>
+    sendStatusGroupStatus(content: string | any, options?: any): Promise<any>
+    replyStatusGroupStatusV2(content: string | any, options?: any): Promise<any>
+    sendStatusGroupStatusV2(content: string | any, options?: any): Promise<any>
+    replyStatusGroupMention(content: string | any, options?: any): Promise<any>
+    sendStatusGroupMention(content: string | any, options?: any): Promise<any>
+    replyAssociatedChild(content: string | any, options?: any): Promise<any>
+    sendAssociatedChild(content: string | any, options?: any): Promise<any>
+    aiIncognito(text: string, options?: any): Promise<any>
+    replyIncognito(text: string, options?: any): Promise<any>
+    aiRegenerate(targetKey: any, timestampMs?: number, options?: any): Promise<any>
+    replyRegenerate(targetKey: any, timestampMs?: number, options?: any): Promise<any>
+    aiTransparency(text: string, disclaimerText: string, hcaId?: string, type?: number, options?: any): Promise<any>
+    replyTransparency(text: string, disclaimerText: string, hcaId?: string, type?: number, options?: any): Promise<any>
+    aiAgeCollection(text: string, eligible?: boolean, shouldTrigger?: boolean, type?: number, options?: any): Promise<any>
+    replyAgeCollection(text: string, eligible?: boolean, shouldTrigger?: boolean, type?: number, options?: any): Promise<any>
+    aiVerification(text: string, proofs?: any[], options?: any): Promise<any>
+    replyVerification(text: string, proofs?: any[], options?: any): Promise<any>
+    aiUnifiedResponse(text: string, primaryResponseId: string, surveyCtaHasRendered?: boolean, mediaDetails?: any[], options?: any): Promise<any>
+    replyUnifiedResponse(text: string, primaryResponseId: string, surveyCtaHasRendered?: boolean, mediaDetails?: any[], options?: any): Promise<any>
 
     sendQuizPoll(name: string, values: string[], correctAnswerIndex?: number, options?: any): Promise<any>
     sendPollResultSnapshot(name: string, votes: any, pollType?: number, options?: any): Promise<any>

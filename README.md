@@ -686,6 +686,72 @@ Mengirimkan pesan penahan ruang (placeholder message) native (seperti menyembuny
     ```javascript
     await conn.sendPlaceholder(jid, 0);
     ```
+
+#### 36. Respon Event Terenkripsi (Encrypted Event Response RSVP)
+Mengirim respon/kehadiran (RSVP) ke event grup secara terenkripsi.
+*   **Contoh Kode via `m` (Paling Mudah):**
+    ```javascript
+    await m.replyEncEventResponse(eventMessageKey, { encPayload, encIv });
+    ```
+*   **Contoh Kode via Socket `conn`:**
+    ```javascript
+    await conn.sendEncEventResponse(jid, eventMessageKey, { encPayload, encIv });
+    ```
+
+#### 37. Komentar Terenkripsi (Encrypted Comment)
+Mengirim komentar terenkripsi untuk postingan saluran (channel) atau utas (thread) grup.
+*   **Contoh Kode via `m` (Paling Mudah):**
+    ```javascript
+    await m.replyEncComment(targetMessageKey, { encPayload, encIv });
+    ```
+*   **Contoh Kode via Socket `conn`:**
+    ```javascript
+    await conn.sendEncComment(jid, targetMessageKey, { encPayload, encIv });
+    ```
+
+#### 38. Pesan Rahasia Terenkripsi (Secret Encrypted Message)
+Mengirim payload pesan rahasia terenkripsi (seperti suntingan event atau suntingan pesan kustom).
+*   **Contoh Kode via `m` (Paling Mudah):**
+    ```javascript
+    await m.replySecretEncrypted(targetMessageKey, 1, { encPayload, encIv });
+    ```
+*   **Contoh Kode via Socket `conn`:**
+    ```javascript
+    await conn.sendSecretEncrypted(jid, targetMessageKey, 1, { encPayload, encIv });
+    ```
+
+#### 39. Polling Native V4 (V4 Poll)
+Mengirimkan polling interaktif versi 4 yang mendukung enkripsi dan struktur meta yang lebih baru.
+*   **Contoh Kode via `m` (Paling Mudah):**
+    ```javascript
+    await m.replyPollV4({ name: "Pilih?", options: [...] });
+    ```
+*   **Contoh Kode via Socket `conn`:**
+    ```javascript
+    await conn.sendPollV4(jid, { name: "Pilih?", options: [...] });
+    ```
+
+#### 40. Snapshot Hasil Polling V3 (V3 Poll Result Snapshot)
+Mengirim ringkasan/snapshot hasil polling menggunakan versi V3.
+*   **Contoh Kode via `m` (Paling Mudah):**
+    ```javascript
+    await m.replyPollResultSnapshotV3("Hasil Polling Sesi 1", { "Pilihan A": 5, "Pilihan B": 10 });
+    ```
+*   **Contoh Kode via Socket `conn`:**
+    ```javascript
+    await conn.sendPollResultSnapshotV3(jid, "Hasil Polling Sesi 1", { "Pilihan A": 5, "Pilihan B": 10 });
+    ```
+
+#### 41. Undangan Pengikut Newsletter V2 (Newsletter Follower Invite V2)
+Mengirim undangan pengikut newsletter menggunakan versi V2 (newsletterFollowerInviteMessageV2).
+*   **Contoh Kode via `m` (Paling Mudah):**
+    ```javascript
+    await m.replyNewsletterFollowerInvite({ newsletterJid: "120363024893892@newsletter", newsletterName: "FreeZee Channel" });
+    ```
+*   **Contoh Kode via Socket `conn`:**
+    ```javascript
+    await conn.sendNewsletterFollowerInvite(jid, { newsletterJid: "120363024893892@newsletter", newsletterName: "FreeZee Channel" });
+    ```
 </details>
 
 <details>
@@ -748,9 +814,47 @@ console.log(`Prefetch selesai dalam ${result.duration}ms untuk ${result.count} p
 
 #### 5. Auto-Optimize Memory
 Mengosongkan cache store pesan yang tidak terpakai dan memicu Garbage Collector untuk menghemat RAM VPS.
-```javascript
-conn.autoOptimize();
-```
+*   **Contoh Kode via Socket `conn`:**
+    ```javascript
+    conn.autoOptimize();
+    ```
+
+#### 6. Stiker "Add Yours" Status Interaktif
+Mengirimkan status/cerita (story) dengan stiker interaktif "Add Yours" secara native.
+*   **Contoh Kode via `m` (Paling Mudah):**
+    ```javascript
+    await m.replyStatusAddYours("Tunjukkan foto kucingmu!");
+    ```
+*   **Contoh Kode via Socket `conn`:**
+    ```javascript
+    await conn.sendStatusAddYours("Tunjukkan foto kucingmu!");
+    ```
+
+#### 7. Pesan Status Grup & Group Status V2 / Group Status Mention
+Mengirimkan status/cerita yang ditargetkan untuk audiens grup tertentu secara native.
+*   **Contoh Kode via `m` (Paling Mudah):**
+    ```javascript
+    await m.replyStatusGroupStatus("Halo semua anggota grup!");
+    await m.replyStatusGroupStatusV2("Halo semua anggota grup (V2)!");
+    await m.replyStatusGroupMention("Halo @120363024893892@g.us!");
+    ```
+*   **Contoh Kode via Socket `conn`:**
+    ```javascript
+    await conn.sendStatusGroupStatus("Halo semua anggota grup!");
+    await conn.sendStatusGroupStatusV2("Halo semua anggota grup (V2)!");
+    await conn.sendStatusGroupMention("Halo @120363024893892@g.us!");
+    ```
+
+#### 8. Pesan Anak Terasosiasi (Associated Child Message)
+Mengirimkan pesan anak terasosiasi (associated child message) yang terhubung ke pesan status.
+*   **Contoh Kode via `m` (Paling Mudah):**
+    ```javascript
+    await m.replyAssociatedChild("Balasan pesan status ini.");
+    ```
+*   **Contoh Kode via Socket `conn`:**
+    ```javascript
+    await conn.sendAssociatedChild(jid, "Balasan pesan status ini.");
+    ```
 </details>
 
 <details>
@@ -1284,6 +1388,83 @@ Mengirimkan pesan penunjuk pengingat berbasis Meta AI untuk membuat, mengedit, a
     await conn.sendAIReminder(jid, "Ingatkan untuk minum obat", Date.now() + 7200000, 1);
     ```
 
+---
+
+### 10. 🕵️ Incognito AI Chat (AI Chat Penyamaran)
+Memulai obrolan penyamaran (*incognito*) dengan Meta AI di mana riwayat obrolan tidak disimpan di model memori AI.
+*   **Contoh Kode via `m` (Paling Mudah):**
+    ```javascript
+    await m.replyIncognito("Tanyakan sesuatu secara privat...");
+    ```
+*   **Contoh Kode via Socket `conn`:**
+    ```javascript
+    await conn.aiIncognito(jid, "Tanyakan sesuatu secara privat...");
+    ```
+
+---
+
+### 11. 🔄 AI Regenerate Response (Membuat Ulang Balasan AI)
+Mengirimkan perintah metadata untuk meminta Meta AI membuat ulang atau meregenerasi balasan terakhirnya.
+*   **Contoh Kode via `m` (Paling Mudah):**
+    ```javascript
+    await m.replyRegenerate(lastMessageKey, Date.now());
+    ```
+*   **Contoh Kode via Socket `conn`:**
+    ```javascript
+    await conn.aiRegenerate(jid, lastMessageKey, Date.now());
+    ```
+
+---
+
+### 12. 🛡️ AI Session Transparency (Transparansi Sesi AI)
+Mengirim pesan transparansi enkripsi dan informasi kepatuhan privasi untuk sesi Meta AI.
+*   **Contoh Kode via `m` (Paling Mudah):**
+    ```javascript
+    await m.replyTransparency("Teks penjelasan keselamatan", "Teks penolakan privasi", "hca_id_123", 1);
+    ```
+*   **Contoh Kode via Socket `conn`:**
+    ```javascript
+    await conn.aiTransparency(jid, "Teks penjelasan keselamatan", "Teks penolakan privasi", "hca_id_123", 1);
+    ```
+
+---
+
+### 13. 🎂 AI Age Collection (Koleksi Umur AI)
+Mengirimkan metadata verifikasi kelayakan umur pengguna untuk mengakses filter konten aman dari AI.
+*   **Contoh Kode via `m` (Paling Mudah):**
+    ```javascript
+    await m.replyAgeCollection("Memproses kelayakan umur...", true, false, 0);
+    ```
+*   **Contoh Kode via Socket `conn`:**
+    ```javascript
+    await conn.aiAgeCollection(jid, "Memproses kelayakan umur...", true, false, 0);
+    ```
+
+---
+
+### 14. 🔑 AI Signature Verification (Verifikasi Tanda Tangan AI)
+Mengirimkan metadata bukti tanda tangan verifikasi dari server Meta AI untuk memvalidasi keaslian respons obrolan.
+*   **Contoh Kode via `m` (Paling Mudah):**
+    ```javascript
+    await m.replyVerification("Verifikasi pesan...", proofsArray);
+    ```
+*   **Contoh Kode via Socket `conn`:**
+    ```javascript
+    await conn.aiVerification(jid, "Verifikasi pesan...", proofsArray);
+    ```
+
+---
+
+### 15. 📊 AI Unified Response SBS Mutation (Mutasi Respon Terpadu AI)
+Mengubah/memutasi balasan terpadu Meta AI untuk perbandingan respons side-by-side (SBS) atau detail media berkualitas tinggi.
+*   **Contoh Kode via `m` (Paling Mudah):**
+    ```javascript
+    await m.replyUnifiedResponse("Memuat perbandingan respons...", "primary_response_id_123", false, mediaDetailsList);
+    ```
+*   **Contoh Kode via Socket `conn`:**
+    ```javascript
+    await conn.aiUnifiedResponse(jid, "Memuat perbandingan respons...", "primary_response_id_123", false, mediaDetailsList);
+    ```
 </details>
 
 ---
