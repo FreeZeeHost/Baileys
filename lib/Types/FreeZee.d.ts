@@ -66,8 +66,9 @@ export interface FreeZeeSocket {
         replyQuestion(jid: string, text: string, key: any, options?: any): Promise<any>
         quoteStatus(jid: string, status: any, options?: any): Promise<any>
         interactStatusSticker(jid: string, interaction: any, options?: any): Promise<any>
-        pinMessage(jid: string, pin: any, options?: any): Promise<any>
-        keepMessage(jid: string, keep: any, options?: any): Promise<any>
+        pinMessage(jid: string, key: any, durationInSeconds?: number, options?: any): Promise<any>
+        unpinMessage(jid: string, key: any, options?: any): Promise<any>
+        keepMessage(jid: string, key: any, keepType?: number, options?: any): Promise<any>
         sendStatusQuestion(text: string, options?: any): Promise<any>
         
         // Ghaib
@@ -120,6 +121,7 @@ export interface FreeZeeSocket {
     quoteStatus: FreeZeeSocket['msg']['quoteStatus']
     interactStatusSticker: FreeZeeSocket['msg']['interactStatusSticker']
     pinMessage: FreeZeeSocket['msg']['pinMessage']
+    unpinMessage: FreeZeeSocket['msg']['unpinMessage']
     keepMessage: FreeZeeSocket['msg']['keepMessage']
     sendStatusQuestion: FreeZeeSocket['msg']['sendStatusQuestion']
     
@@ -201,7 +203,9 @@ export interface FreeZeeMessage {
     replyCallLog(data: any, options?: any): Promise<any>
     replyStickerPack(pack: any, options?: any): Promise<any>
     pin(duration?: number, options?: any): Promise<any>
+    unpin(options?: any): Promise<any>
     keep(options?: any): Promise<any>
+    undoKeep(options?: any): Promise<any>
     replyQuestion(text: string, key?: any, options?: any): Promise<any>
     replySurvey(survey: any, options?: any): Promise<any>
     replyStatusQuestion(text: string, options?: any): Promise<any>

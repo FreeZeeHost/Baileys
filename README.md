@@ -444,6 +444,41 @@ Mengelompokkan pengiriman gambar dan video ke dalam satu album native di WhatsAp
         { video: "./video.mp4", caption: "Caption Video" }
     ]);
     ```
+
+#### 17. Sematkan Pesan (Pin/Unpin Message)
+Menyematkan (pin) atau melepas sematan (unpin) pesan di dalam obrolan chat.
+*   **Contoh Kode via `m` (Paling Mudah):**
+    ```javascript
+    // Menyematkan pesan selama 24 jam (pilihan detik: 86400, 259200, 604800)
+    await m.pin(86400);
+
+    // Melepas sematan pesan
+    await m.unpin();
+    ```
+*   **Contoh Kode via Socket `conn`:**
+    ```javascript
+    // Menyematkan pesan target
+    await conn.pinMessage(jid, targetMessageKey, 86400);
+
+    // Melepas sematan pesan target
+    await conn.unpinMessage(jid, targetMessageKey);
+    ```
+
+#### 18. Simpan Pesan Percakapan Sementara (Keep/UndoKeep Message)
+Menyimpan (keep) atau membatalkan penyimpanan (undo keep) pesan di dalam obrolan chat yang menggunakan fitur pesan sementara (disappearing messages) agar pesan tersebut tidak hilang otomatis.
+*   **Contoh Kode via `m` (Paling Mudah):**
+    ```javascript
+    // Menyimpan pesan
+    await m.keep();
+
+    // Membatalkan penyimpanan pesan
+    await m.undoKeep();
+    ```
+*   **Contoh Kode via Socket `conn`:**
+    ```javascript
+    // Menyimpan pesan target (keepType: 1 = Keep, 2 = Undo Keep)
+    await conn.keepMessage(jid, targetMessageKey, 1);
+    ```
 </details>
 
 <details>
