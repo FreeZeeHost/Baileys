@@ -266,6 +266,9 @@ export interface FreeZeeMessage {
     replyQuizPoll(name: string, values: string[], correctAnswerIndex?: number, options?: any): Promise<any>
     replyPollResultSnapshot(name: string, votes: any, pollType?: number, options?: any): Promise<any>
     replyNewsletterAdminInvite(invite: { newsletterJid?: string, newsletterName?: string, jpegThumbnail?: Buffer, caption?: string, inviteExpiration?: number }, options?: any): Promise<any>
+    replyStatusMusic(text: string, music: { authorName?: string, songId?: string, title?: string, author?: string, artistAttribution?: string, isExplicit?: boolean }, options?: any): Promise<any>
+    replyStatusWearable(text: string, glassesType?: string | number, options?: any): Promise<any>
+    replyStatusCloseFriends(content: string | any, options?: any): Promise<any>
     replyStatusNotification(originalKey: any, notificationType?: number, options?: any): Promise<any>
     replyStatusMention(quotedStatus: any, options?: any): Promise<any>
     replyStatusStickerInteraction(stickerKey?: string, type?: number, options?: any): Promise<any>
@@ -277,4 +280,26 @@ export interface FreeZeeMessage {
     replyGroupInvite(inviteCode: string, groupJid: string, groupName: string, caption?: string, expirationInSeconds?: number, thumbnail?: Buffer | null, options?: any): Promise<any>
     replyRequestPhoneNumber(options?: any): Promise<any>
     replyPlaceholder(type?: number, options?: any): Promise<any>
+
+    sendQuizPoll(name: string, values: string[], correctAnswerIndex?: number, options?: any): Promise<any>
+    sendPollResultSnapshot(name: string, votes: any, pollType?: number, options?: any): Promise<any>
+    sendNewsletterAdminInvite(invite: { newsletterJid?: string, newsletterName?: string, jpegThumbnail?: Buffer, caption?: string, inviteExpiration?: number }, options?: any): Promise<any>
+    sendStatusMusic(text: string, music: { authorName?: string, songId?: string, title?: string, author?: string, artistAttribution?: string, isExplicit?: boolean }, options?: any): Promise<any>
+    sendStatusWearable(text: string, glassesType?: string | number, options?: any): Promise<any>
+    sendStatusCloseFriends(content: string | any, options?: any): Promise<any>
+    sendStatusNotification(originalKey: any, notificationType?: number, options?: any): Promise<any>
+    sendStatusMention(quotedStatus: any, options?: any): Promise<any>
+    sendStatusStickerInteraction(stickerKey?: string, type?: number, options?: any): Promise<any>
+    sendStatusQuestionAnswer(answerText: string, options?: any): Promise<any>
+    sendStatusQuotedMessage(text: string, type?: number, thumbnail?: Buffer | null, options?: any): Promise<any>
+    sendPaymentRequest(amount: number, currency?: string, expirationSeconds?: number, options?: any): Promise<any>
+    declinePaymentRequest(requestKey?: any, options?: any): Promise<any>
+    cancelPaymentRequest(requestKey?: any, options?: any): Promise<any>
+    sendGroupInvite(inviteCode: string, groupJid: string, groupName: string, caption?: string, expirationInSeconds?: number, thumbnail?: Buffer | null, options?: any): Promise<any>
+    requestPhoneNumber(options?: any): Promise<any>
+    sendPlaceholder(type?: number, options?: any): Promise<any>
+    sendGroupEvent(event: any, options?: any): Promise<any>
+    sendAlbum(medias: any[], options?: any): Promise<any>
+    pinMessage(duration?: number, options?: any): Promise<any>
+    keepMessage(type?: number, options?: any): Promise<any>
 }
