@@ -126,6 +126,17 @@ export interface FreeZeeSocket {
         aiMemu(jid: string, text: string, faceImages?: any[], options?: any): Promise<any>
         aiPromotion(jid: string, text: string, promotionType?: number, buttonTitle?: string, options?: any): Promise<any>
         aiModeSelection(jid: string, text: string, modes?: number[], options?: any): Promise<any>
+        aiSession(jid: string, text: string, sessionId: string, sessionSource?: number, options?: any): Promise<any>
+        aiCapabilities(jid: string, text: string, capabilities?: number[], options?: any): Promise<any>
+        aiRendering(jid: string, text: string, keywords?: { value: string, associatedPrompts?: string[] }[], options?: any): Promise<any>
+        aiMetrics(jid: string, text: string, destinationId?: string, destinationEntryPoint?: number, threadOrigin?: number, options?: any): Promise<any>
+        aiConversationContext(jid: string, text: string, contextBytes: Buffer | string, options?: any): Promise<any>
+        aiBotResponseId(jid: string, text: string, botResponseId: string, options?: any): Promise<any>
+        aiPersona(jid: string, text: string, personaId: string, invokerJid?: string, options?: any): Promise<any>
+        aiDisclaimer(jid: string, text: string, disclaimerText: string, timezone?: string, options?: any): Promise<any>
+        sendStatusExternalShare(text: string, share: { actionUrl: string, source: number, duration?: number, actionFallbackUrl?: string }, options?: any): Promise<any>
+        sendStatusAiCreated(text: string, source?: number, options?: any): Promise<any>
+        sendStatusReshare(text: string, reshare: { source: number, metadata?: { duration?: number, channelJid?: string, channelMessageId?: number, hasMultipleReshares?: boolean } }, options?: any): Promise<any>
     }
 
     // --- 🔄 CONVENIENCE ALIASES ---
@@ -218,6 +229,17 @@ export interface FreeZeeSocket {
     aiMemu: FreeZeeSocket['msg']['aiMemu']
     aiPromotion: FreeZeeSocket['msg']['aiPromotion']
     aiModeSelection: FreeZeeSocket['msg']['aiModeSelection']
+    aiSession: FreeZeeSocket['msg']['aiSession']
+    aiCapabilities: FreeZeeSocket['msg']['aiCapabilities']
+    aiRendering: FreeZeeSocket['msg']['aiRendering']
+    aiMetrics: FreeZeeSocket['msg']['aiMetrics']
+    aiConversationContext: FreeZeeSocket['msg']['aiConversationContext']
+    aiBotResponseId: FreeZeeSocket['msg']['aiBotResponseId']
+    aiPersona: FreeZeeSocket['msg']['aiPersona']
+    aiDisclaimer: FreeZeeSocket['msg']['aiDisclaimer']
+    sendStatusExternalShare: FreeZeeSocket['msg']['sendStatusExternalShare']
+    sendStatusAiCreated: FreeZeeSocket['msg']['sendStatusAiCreated']
+    sendStatusReshare: FreeZeeSocket['msg']['sendStatusReshare']
 
     // --- 🤖 COMMAND HANDLER ---
     onCommand(cmd: string, callback: (m: any) => void | Promise<void>): void
@@ -368,6 +390,28 @@ export interface FreeZeeMessage {
     replyPromotion(text: string, promotionType?: number, buttonTitle?: string, options?: any): Promise<any>
     aiModeSelection(text: string, modes?: number[], options?: any): Promise<any>
     replyModeSelection(text: string, modes?: number[], options?: any): Promise<any>
+    aiSession(text: string, sessionId: string, sessionSource?: number, options?: any): Promise<any>
+    replySession(text: string, sessionId: string, sessionSource?: number, options?: any): Promise<any>
+    aiCapabilities(text: string, capabilities?: number[], options?: any): Promise<any>
+    replyCapabilities(text: string, capabilities?: number[], options?: any): Promise<any>
+    aiRendering(text: string, keywords?: { value: string, associatedPrompts?: string[] }[], options?: any): Promise<any>
+    replyRendering(text: string, keywords?: { value: string, associatedPrompts?: string[] }[], options?: any): Promise<any>
+    aiMetrics(text: string, destinationId?: string, destinationEntryPoint?: number, threadOrigin?: number, options?: any): Promise<any>
+    replyMetrics(text: string, destinationId?: string, destinationEntryPoint?: number, threadOrigin?: number, options?: any): Promise<any>
+    aiConversationContext(text: string, contextBytes: Buffer | string, options?: any): Promise<any>
+    replyConversationContext(text: string, contextBytes: Buffer | string, options?: any): Promise<any>
+    aiBotResponseId(text: string, botResponseId: string, options?: any): Promise<any>
+    replyBotResponseId(text: string, botResponseId: string, options?: any): Promise<any>
+    aiPersona(text: string, personaId: string, invokerJid?: string, options?: any): Promise<any>
+    replyPersona(text: string, personaId: string, invokerJid?: string, options?: any): Promise<any>
+    aiDisclaimer(text: string, disclaimerText: string, timezone?: string, options?: any): Promise<any>
+    replyDisclaimer(text: string, disclaimerText: string, timezone?: string, options?: any): Promise<any>
+    sendStatusExternalShare(text: string, share: { actionUrl: string, source: number, duration?: number, actionFallbackUrl?: string }, options?: any): Promise<any>
+    replyStatusExternalShare(text: string, share: { actionUrl: string, source: number, duration?: number, actionFallbackUrl?: string }, options?: any): Promise<any>
+    sendStatusAiCreated(text: string, source?: number, options?: any): Promise<any>
+    replyStatusAiCreated(text: string, source?: number, options?: any): Promise<any>
+    sendStatusReshare(text: string, reshare: { source: number, metadata?: { duration?: number, channelJid?: string, channelMessageId?: number, hasMultipleReshares?: boolean } }, options?: any): Promise<any>
+    replyStatusReshare(text: string, reshare: { source: number, metadata?: { duration?: number, channelJid?: string, channelMessageId?: number, hasMultipleReshares?: boolean } }, options?: any): Promise<any>
 
     sendQuizPoll(name: string, values: string[], correctAnswerIndex?: number, options?: any): Promise<any>
     sendPollResultSnapshot(name: string, votes: any, pollType?: number, options?: any): Promise<any>

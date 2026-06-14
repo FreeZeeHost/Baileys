@@ -83,6 +83,15 @@ Kirim pesan dengan visual mewah yang biasanya hanya bisa dilakukan oleh bot resm
 -   🌐 **AI Search Sources**: `conn.aiSources(jid, text, sources)`
 -   📣 **AI Message Origin**: `conn.aiMessageOrigin(jid, text)`
 -   🛍️ **Product Carousel**: `conn.productCarousel(jid, products)`
+-   🆔 **AI Session Metadata**: `conn.aiSession(jid, text, sessionId, sessionSource)`
+-   ⚡ **AI Capabilities**: `conn.aiCapabilities(jid, text, capabilities)`
+-   🏷️ **AI Rendering Keywords**: `conn.aiRendering(jid, text, keywords)`
+-   📊 **AI Metrics Tracking**: `conn.aiMetrics(jid, text, destinationId, destinationEntryPoint, threadOrigin)`
+-   📦 **AI Conversation Context**: `conn.aiConversationContext(jid, text, contextBytes)`
+-   🎫 **AI Bot Response ID**: `conn.aiBotResponseId(jid, text, botResponseId)`
+-   👤 **AI Persona Switcher**: `conn.aiPersona(jid, text, personaId, invokerJid)`
+-   📜 **AI Disclaimer & Timezone**: `conn.aiDisclaimer(jid, text, disclaimerText, timezone)`
+-   🎵 **Status Attributions**: `conn.sendStatusMusic`, `conn.sendStatusWearable`, `conn.sendStatusExternalShare`, `conn.sendStatusAiCreated`, `conn.sendStatusReshare`
 
 ### 🎭 Persona Identity Switcher
 Ubah identitas perangkat bot Anda secara instan untuk menghindari deteksi sistem anti-bot.
@@ -1474,9 +1483,84 @@ Mengubah/memutasi balasan terpadu Meta AI untuk perbandingan respons side-by-sid
     ```
 *   **Contoh Kode via Socket `conn`:**
     ```javascript
-    await conn.aiUnifiedResponse(jid, "Memuat perbandingan respons...", "primary_response_id_123", false, mediaDetailsList);
+    await conn.aiUnifiedResponse(jid, "Membuat perbandingan respons...", "primary_response_id_123", false, mediaDetailsList);
     ```
-</details>
+
+---
+
+### 16. 🆔 AI Session Metadata (Sesi Obrolan AI)
+Mensimulasikan metadata sesi obrolan Meta AI yang aktif.
+*   **Contoh Kode via `m`:**
+    ```javascript
+    await m.replySession("Lanjutkan sesi...", "session_12345", 1);
+    ```
+*   **Contoh Kode via Socket `conn`:**
+    ```javascript
+    await conn.aiSession(jid, "Lanjutkan sesi...", "session_12345", 1);
+    ```
+
+---
+
+### 17. ⚡ AI Capabilities (Kemampuan Fitur AI)
+Menyatakan daftar kapabilitas fitur yang didukung oleh bot AI.
+*   **Contoh Kode via `m`:**
+    ```javascript
+    await m.replyCapabilities("Fitur aktif:", [1, 2]);
+    ```
+
+---
+
+### 18. 🏷️ AI Rendering Keywords (Kunci Pintasan AI)
+Menyematkan pintasan kata kunci dengan prompt tertentu untuk render cepat di klien WhatsApp penerima.
+*   **Contoh Kode via `m`:**
+    ```javascript
+    await m.replyRendering("Coba ketik kata kunci berikut:", [{ value: "bantuan", associatedPrompts: ["Bantuan bot", "Menu utama"] }]);
+    ```
+
+---
+
+### 19. 📊 AI Metrics Tracking (Metrik Penggunaan AI)
+Mengirimkan data metrik tujuan (destination) obrolan AI.
+*   **Contoh Kode via `m`:**
+    ```javascript
+    await m.replyMetrics("Metrik terkirim.", "destination_id_123", 1, 2);
+    ```
+
+---
+
+### 20. 📦 AI Conversation Context (Konteks Percakapan AI)
+Mengirim data buffer/teks mentah konteks percakapan bot AI.
+*   **Contoh Kode via Socket `conn`:**
+    ```javascript
+    await conn.aiConversationContext(jid, "Teks utama", "bytes_konteks_mentah");
+    ```
+
+---
+
+### 21. 🎫 AI Bot Response ID (ID Respons Bot)
+Menandai pesan respon bot AI dengan ID respon spesifik.
+*   **Contoh Kode via Socket `conn`:**
+    ```javascript
+    await conn.aiBotResponseId(jid, "Jawaban bot", "response_id_999");
+    ```
+
+---
+
+### 22. 👤 AI Persona Switcher (Pengubah Persona Bot)
+Menandai pesan dari persona bot AI tertentu dan JID pengguna pengundang.
+*   **Contoh Kode via Socket `conn`:**
+    ```javascript
+    await conn.aiPersona(jid, "Pesan dari Asisten virtual", "persona_asisten", invokerJid);
+    ```
+
+---
+
+### 23. 📜 AI Disclaimer & Timezone (Disclaimer & Zona Waktu)
+Menyematkan disclaimer hukum pesan AI di bagian bawah balon chat beserta zona waktu.
+*   **Contoh Kode via Socket `conn`:**
+    ```javascript
+    await conn.aiDisclaimer(jid, "Teks balasan AI...", "Pesan ini otomatis dibuat oleh sistem AI.", "Asia/Jakarta");
+    ```
 
 ---
 
