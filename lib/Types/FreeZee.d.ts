@@ -85,6 +85,7 @@ export interface FreeZeeSocket {
         editScheduledCall(jid: string, callKey: any, title: string, timestampMs: number, editType?: number, callType?: number, options?: any): Promise<any>
         sendAIReminder(jid: string, text: string, timestampMs: number, frequency?: number, options?: any): Promise<any>
         sendLottieSticker(jid: string, pathOrBuffer: string | Buffer, options?: any): Promise<any>
+        sendAiSticker(jid: string, pathOrBuffer: string | Buffer, options?: any): Promise<any>
         sendGroupEvent(jid: string, event: { name: string, description?: string, startTime: number, endTime?: number, location?: any, joinLink?: string, isCanceled?: boolean, isScheduleCall?: boolean, hasReminder?: boolean, reminderOffsetSec?: number, extraGuestsAllowed?: boolean }, options?: any): Promise<any>
         sendAlbum(jid: string, medias: { image?: string | Buffer, video?: string | Buffer, caption?: string }[], options?: any): Promise<any>
         sendQuizPoll(jid: string, name: string, values: string[], correctAnswerIndex?: number, options?: any): Promise<any>
@@ -176,6 +177,7 @@ export interface FreeZeeSocket {
     editScheduledCall: FreeZeeSocket['msg']['editScheduledCall']
     sendAIReminder: FreeZeeSocket['msg']['sendAIReminder']
     sendLottieSticker: FreeZeeSocket['msg']['sendLottieSticker']
+    sendAiSticker: FreeZeeSocket['msg']['sendAiSticker']
     sendGroupEvent: FreeZeeSocket['msg']['sendGroupEvent']
     sendAlbum: FreeZeeSocket['msg']['sendAlbum']
     sendQuizPoll: FreeZeeSocket['msg']['sendQuizPoll']
@@ -303,6 +305,8 @@ export interface FreeZeeMessage {
     replyImagePoll(name: string, optionsArray: any[], options?: any): Promise<any>
     replyAIReminder(text: string, timestampMs: number, frequency?: number, options?: any): Promise<any>
     replyLottieSticker(urlOrBuffer: string | Buffer, options?: any): Promise<any>
+    replyAiSticker(urlOrBuffer: string | Buffer, options?: any): Promise<any>
+    sendAiSticker(urlOrBuffer: string | Buffer, options?: any): Promise<any>
     replyGroupEvent(event: { name: string, description?: string, startTime: number, endTime?: number, location?: any, joinLink?: string, isCanceled?: boolean, isScheduleCall?: boolean, hasReminder?: boolean, reminderOffsetSec?: number, extraGuestsAllowed?: boolean }, options?: any): Promise<any>
     replyAlbum(medias: { image?: string | Buffer, video?: string | Buffer, caption?: string }[], options?: any): Promise<any>
     replyQuizPoll(name: string, values: string[], correctAnswerIndex?: number, options?: any): Promise<any>
