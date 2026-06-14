@@ -149,6 +149,9 @@ export interface FreeZeeSocket {
         setFavorite(jid: string, isFavorite?: boolean): Promise<any>
         lockChat(jid: string, locked?: boolean): Promise<any>
         editChatNote(jid: string, content: string, deleted?: boolean): Promise<any>
+        setLocale(locale: string): Promise<any>
+        setUnarchiveChats(unarchive?: boolean): Promise<any>
+        setTimeFormat(is24Hour?: boolean): Promise<any>
     }
 
     // --- 🔄 CONVENIENCE ALIASES ---
@@ -264,6 +267,9 @@ export interface FreeZeeSocket {
     setFavorite: FreeZeeSocket['msg']['setFavorite']
     lockChat: FreeZeeSocket['msg']['lockChat']
     editChatNote: FreeZeeSocket['msg']['editChatNote']
+    setLocale: FreeZeeSocket['msg']['setLocale']
+    setUnarchiveChats: FreeZeeSocket['msg']['setUnarchiveChats']
+    setTimeFormat: FreeZeeSocket['msg']['setTimeFormat']
 
     // --- 🤖 COMMAND HANDLER ---
     onCommand(cmd: string, callback: (m: any) => void | Promise<void>): void
@@ -455,6 +461,9 @@ export interface FreeZeeMessage {
     setFavorite(isFavorite?: boolean): Promise<any>
     lockChat(locked?: boolean): Promise<any>
     editChatNote(content: string, deleted?: boolean): Promise<any>
+    setLocale(locale: string): Promise<any>
+    setUnarchiveChats(unarchive?: boolean): Promise<any>
+    setTimeFormat(is24Hour?: boolean): Promise<any>
 
     sendQuizPoll(name: string, values: string[], correctAnswerIndex?: number, options?: any): Promise<any>
     sendPollResultSnapshot(name: string, votes: any, pollType?: number, options?: any): Promise<any>

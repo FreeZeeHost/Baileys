@@ -1852,6 +1852,45 @@ Membuat, memperbarui, atau menghapus catatan memo internal pada obrolan tertentu
     ```javascript
     await conn.editChatNote(jid, "Catatan penting untuk chat ini", false); // false = tidak dihapus
     ```
+
+---
+
+### 12. 🌐 Account Locale Setting (Pengaturan Bahasa / Lokasi Akun)
+Mengubah bahasa atau pengaturan lokal akun WhatsApp secara tersinkronisasi.
+*   **Contoh Kode via `m` (Paling Mudah):**
+    ```javascript
+    await m.setLocale("id_ID"); // Ubah lokal akun ke Indonesia
+    ```
+*   **Contoh Kode via Socket `conn`:**
+    ```javascript
+    await conn.setLocale("en_US"); // Ubah lokal akun ke Inggris (AS)
+    ```
+
+---
+
+### 13. 📂 Auto Unarchive Chats (Batalkan Arsip Chat Otomatis)
+Mengatur preferensi apakah obrolan yang diarsipkan akan otomatis dikembalikan ke daftar chat utama jika ada pesan masuk.
+*   **Contoh Kode via `m` (Paling Mudah):**
+    ```javascript
+    await m.setUnarchiveChats(true); // Aktifkan batalkan arsip otomatis
+    ```
+*   **Contoh Kode via Socket `conn`:**
+    ```javascript
+    await conn.setUnarchiveChats(false); // Matikan batalkan arsip otomatis
+    ```
+
+---
+
+### 14. ⏰ Time Format Preference (Pengaturan Format Waktu 24 Jam)
+Mengubah pengaturan format waktu (24 jam atau 12 jam) pada obrolan dan log WhatsApp.
+*   **Contoh Kode via `m` (Paling Mudah):**
+    ```javascript
+    await m.setTimeFormat(true); // Gunakan format waktu 24 jam
+    ```
+*   **Contoh Kode via Socket `conn`:**
+    ```javascript
+    await conn.setTimeFormat(false); // Gunakan format waktu 12 jam (AM/PM)
+    ```
 </details>
 
 <details>
