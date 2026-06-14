@@ -95,6 +95,8 @@ Kirim pesan dengan visual mewah yang biasanya hanya bisa dilakukan oleh bot resm
 -   🎨 **Media Annotations**: `conn.sendMediaWithAnnotations(jid, mediaType, pathOrBuffer, annotations)`
 -   🛑 **Limit Sharing**: `conn.sendLimitSharing(jid, sharingLimited, trigger, initiatedByMe)`
 -   🗳️ **Poll V2 & V3**: `conn.sendPollV2`, `conn.sendPollV3`
+-   ⏳ **Disappearing Setting**: `conn.setDisappearingMode(jid, durationSecs)`
+-   🔤 **Styled Text Message**: `conn.sendStyledText(jid, text, font, textColor, backgroundColor)`
 
 ### 🎭 Persona Identity Switcher
 Ubah identitas perangkat bot Anda secara instan untuk menghindari deteksi sistem anti-bot.
@@ -1627,6 +1629,32 @@ Membuat polling baru menggunakan versi protokol V2 atau V3.
 *   **Contoh Kode via Socket `conn`:**
     ```javascript
     await conn.sendPollV3(jid, { name: "Pilih?", options: ["A", "B"], selectableOptionsCount: 1 });
+    ```
+
+---
+
+### 4. ⏳ Disappearing Message Setting (Mode Pesan Sementara)
+Mengubah durasi mode pesan sementara (ephemeral/disappearing messages) untuk ruang obrolan tertentu.
+*   **Contoh Kode via `m` (Paling Mudah):**
+    ```javascript
+    await m.setDisappearingMode(86400); // Set ke 24 jam (dalam detik)
+    ```
+*   **Contoh Kode via Socket `conn`:**
+    ```javascript
+    await conn.setDisappearingMode(jid, 0); // Matikan mode pesan sementara
+    ```
+
+---
+
+### 5. 🔤 Styled Text Message (Pesan Teks Berwarna & Font)
+Mengirimkan pesan teks dengan kustomisasi jenis font, warna teks, dan warna latar belakang balon obrolan.
+*   **Contoh Kode via `m` (Paling Mudah):**
+    ```javascript
+    await m.sendStyledText("Halo Dunia!", 9, "#FFFFFF", "#FF0000"); // Font 9 (Exo2), teks putih, latar merah
+    ```
+*   **Contoh Kode via Socket `conn`:**
+    ```javascript
+    await conn.sendStyledText(jid, "Teks Kustom", 2, "#000000", "#00FF00"); // Font 2 (Script), teks hitam, latar hijau
     ```
 </details>
 
