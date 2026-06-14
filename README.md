@@ -1779,6 +1779,117 @@ Mengirimkan pesan teks dengan kustomisasi jenis font, warna teks, dan warna lata
     ```
 </details>
 
+<details>
+<summary><strong>🔍 Advanced Protobuf Fields & Settings (Low-Level Analysis)</strong></summary>
+
+Dokumentasi hasil analisis low-level file `WAProto.proto` mengenai fitur-fitur internal protokol WhatsApp yang dapat dimanipulasi atau dikonfigurasi melalui payload pesan:
+
+---
+
+### 1. 🛡️ Batasan Fitur Pesan (`FeatureEligibilities`)
+Disematkan di dalam `ContextInfo` -> `FeatureEligibilities` untuk mengontrol ketersediaan fitur interaktif balon chat secara spesifik:
+*   `cannotBeReactedTo` (Tipe: `bool`): Jika bernilai `true`, balon chat pesan tidak bisa diberi emoji reaksi oleh orang lain.
+*   `canReceiveMultiReact` (Tipe: `bool`): Mengizinkan pengirim/penerima menaruh lebih dari satu emoji reaksi pada balon pesan yang sama.
+*   `cannotBeRanked` (Tipe: `bool`): Menghentikan pesan dari pemeringkatan algoritma lokal.
+*   `canBeReshared` (Tipe: `bool`): Menentukan apakah pesan boleh dibagikan kembali.
+
+---
+
+### 2. 👥 Audit Mantan Anggota Grup (`PastParticipant` / `PastParticipants`)
+Menyimpan riwayat data anggota grup yang telah meninggalkan atau dikeluarkan dari obrolan grup:
+*   `userJid`: ID pengguna mantan anggota.
+*   `leaveReason`:
+    *   `LEFT` (Keluar secara sukarela).
+    *   `REMOVED` (Ditendang/dikeluarkan oleh administrator grup).
+*   `leaveTs`: Stempel waktu (timestamp) detik saat mereka keluar.
+
+---
+
+### 3. 📝 Catatan Chat / Memo Obrolan (`NoteEditAction`)
+Sinkronisasi memo kustom internal per room chat yang disimpan oleh pengguna:
+*   `chatJid`: Ruang obrolan tempat catatan disimpan.
+*   `unstructuredContent`: Teks catatan/memo bebas.
+*   `deleted`: Menandai apakah catatan telah dihapus.
+*   `createdAt`: Waktu pembuatan catatan.
+
+---
+
+### 4. 🎛️ Pengaturan Global Akun (`GlobalSettings`)
+Menyinkronkan preferensi akun utama ke perangkat pendamping (companion devices):
+*   `mediaVisibility` (Enum `MediaVisibility`): Mengatur kemunculan file media yang diunduh ke galeri ponsel secara global.
+*   `autoUnarchiveChats` (Tipe: `bool`): Menentukan apakah obrolan terarsip otomatis dikembalikan ke daftar chat aktif saat menerima pesan baru.
+*   `photoQualityMode` & `videoQualityMode`: Menentukan default resolusi media (HD/Standard) saat pengiriman.
+*   `fontSize`: Mengatur ukuran tampilan teks.
+
+---
+
+### 5. 👥 Privasi Cerita Status (`StatusPrivacyAction`)
+Menyinkronkan setelan siapa saja yang berhak melihat status/cerita Anda:
+*   `mode` (Enum `StatusDistributionMode`):
+    *   `ALLOW_LIST` (Hanya bagikan dengan daftar kontak terpilih).
+    *   `DENY_LIST` (Bagikan dengan semua kontak kecuali daftar terpilih).
+    *   `CONTACTS` (Bagikan ke seluruh kontak).
+    *   `CLOSE_FRIENDS` (Bagikan hanya ke Teman Dekat).
+*   `userJid`: Daftar kontak JID target filter.
+
+---
+
+### 6. ⭐ Daftar Kontak Favorit (`FavoritesAction`)
+Menyinkronkan kontak-kontak yang ditandai sebagai "Favorit" oleh pengguna untuk filter bilah navigasi chat:
+*   `Favorite.id`: JID kontak/chat favorit.
+
+---
+
+### 7. 🎨 Warna & Latar Belakang Kartu Uang (`PaymentBackground`)
+Mengatur kustomisasi visual latar belakang (background) kartu transfer uang pada fitur WhatsApp Pay secara terstruktur:
+*   `placeholderArgb`, `textArgb`, `subtextArgb` (Tipe: `fixed32`): Kode warna ARGB kustom untuk placeholder, teks utama, dan teks sekunder.
+*   `mediaData`: Aset gambar background kustom yang diunggah ke server media WhatsApp.
+
+---
+
+### 8. 💬 Relasi Utas Komentar (`CommentMetadata`)
+Metadata yang disematkan pada pesan bertipe komentar (commentMessage) untuk menunjuk ke pesan induk:
+*   `commentParentKey`: Kunci identitas (MessageKey) pesan induk yang dikomentari.
+*   `replyCount`: Jumlah balasan komentar di bawah utas pesan tersebut.
+
+---
+
+### 9. 📈 Parameter Pelacakan Kampanye Tautan (`UTMInfo`)
+Disematkan di dalam `ContextInfo` -> `utm` untuk mengirim parameter analitik URL pelacak tautan secara native:
+*   `utmSource`: Sumber link/iklan (seperti `facebook`, `google`).
+*   `utmCampaign`: Nama kampanye analitik.
+
+---
+
+### 10. 👥 Sebut Grup di Balon Chat (`GroupMention`)
+Menyebut/mentag satu grup utuh di dalam balon chat dengan metadata khusus:
+*   `groupJid`: JID grup yang disebutkan.
+*   `groupSubject`: Judul/nama grup.
+
+---
+
+### 11. 🔒 Pengaturan Penguncian Obrolan (`ChatLockSettings`)
+Mengatur setelan sinkronisasi fitur Chat Lock (Kunci Chat) antar perangkat:
+*   `hideLockedChats` (Tipe: `bool`): Menyembunyikan daftar chat yang dikunci dari tampilan depan.
+*   `secretCode`: Kata sandi rahasia untuk membuka daftar chat terkunci.
+
+---
+
+### 12. 🔔 Sinkronisasi Notifikasi Web (`WebNotificationsInfo`)
+Mengatur notifikasi push chat yang belum dibaca dari sisi browser pendamping:
+*   `unreadChats`: Jumlah chat yang belum dibaca.
+*   `notifyMessageCount`: Jumlah notifikasi aktif.
+*   `notifyMessages`: Rekap list pesan baru untuk notifikasi.
+
+---
+
+### 13. 🎫 Informasi Verifikasi Nama Bisnis (`VerifiedNameCertificate`)
+Sertifikat resmi yang ditandatangani oleh Meta untuk memvalidasi nama bisnis dan tanda centang hijau resmi pada akun WhatsApp Business:
+*   `details.verifiedName`: Nama resmi bisnis yang terverifikasi.
+*   `details.localizedNames` (`LocalizedName`): Kumpulan nama bisnis resmi yang disesuaikan per kode bahasa (`lg`) dan kode negara (`lc`).
+*   `signature` & `serverSignature`: Tanda tangan kriptografi otentikasi.
+</details>
+
 ---
 
 ## 🛡️ Disclaimer
