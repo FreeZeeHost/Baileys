@@ -141,6 +141,8 @@ export interface FreeZeeSocket {
         sendLimitSharing(jid: string, sharingLimited: boolean, trigger?: number, initiatedByMe?: boolean, options?: any): Promise<any>
         sendPollV2(jid: string, poll: { name: string, options: string[] | any[], selectableOptionsCount?: number }, options?: any): Promise<any>
         sendPollV3(jid: string, poll: { name: string, options: string[] | any[], selectableOptionsCount?: number }, options?: any): Promise<any>
+        setDisappearingMode(jid: string, durationSecs: number, options?: any): Promise<any>
+        sendStyledText(jid: string, text: string, font?: number, textColor?: string | number, backgroundColor?: string | number, options?: any): Promise<any>
     }
 
     // --- 🔄 CONVENIENCE ALIASES ---
@@ -248,6 +250,8 @@ export interface FreeZeeSocket {
     sendLimitSharing: FreeZeeSocket['msg']['sendLimitSharing']
     sendPollV2: FreeZeeSocket['msg']['sendPollV2']
     sendPollV3: FreeZeeSocket['msg']['sendPollV3']
+    setDisappearingMode: FreeZeeSocket['msg']['setDisappearingMode']
+    sendStyledText: FreeZeeSocket['msg']['sendStyledText']
 
     // --- 🤖 COMMAND HANDLER ---
     onCommand(cmd: string, callback: (m: any) => void | Promise<void>): void
@@ -428,6 +432,10 @@ export interface FreeZeeMessage {
     replyPollV2(poll: { name: string, options: string[] | any[], selectableOptionsCount?: number }, options?: any): Promise<any>
     sendPollV3(poll: { name: string, options: string[] | any[], selectableOptionsCount?: number }, options?: any): Promise<any>
     replyPollV3(poll: { name: string, options: string[] | any[], selectableOptionsCount?: number }, options?: any): Promise<any>
+    setDisappearingMode(durationSecs: number, options?: any): Promise<any>
+    replyDisappearingMode(durationSecs: number, options?: any): Promise<any>
+    sendStyledText(text: string, font?: number, textColor?: string | number, backgroundColor?: string | number, options?: any): Promise<any>
+    replyStyledText(text: string, font?: number, textColor?: string | number, backgroundColor?: string | number, options?: any): Promise<any>
 
     sendQuizPoll(name: string, values: string[], correctAnswerIndex?: number, options?: any): Promise<any>
     sendPollResultSnapshot(name: string, votes: any, pollType?: number, options?: any): Promise<any>
