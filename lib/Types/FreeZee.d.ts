@@ -143,6 +143,12 @@ export interface FreeZeeSocket {
         sendPollV3(jid: string, poll: { name: string, options: string[] | any[], selectableOptionsCount?: number }, options?: any): Promise<any>
         setDisappearingMode(jid: string, durationSecs: number, options?: any): Promise<any>
         sendStyledText(jid: string, text: string, font?: number, textColor?: string | number, backgroundColor?: string | number, options?: any): Promise<any>
+        editMessage(jid: string, key: any, text: string, options?: any): Promise<any>
+        setStatusPrivacy(mode: 'ALLOW_LIST' | 'DENY_LIST' | 'CONTACTS' | 'CLOSE_FRIENDS' | number, userJids?: string[]): Promise<any>
+        muteStatus(jid: string, muted?: boolean): Promise<any>
+        setFavorite(jid: string, isFavorite?: boolean): Promise<any>
+        lockChat(jid: string, locked?: boolean): Promise<any>
+        editChatNote(jid: string, content: string, deleted?: boolean): Promise<any>
     }
 
     // --- 🔄 CONVENIENCE ALIASES ---
@@ -252,6 +258,12 @@ export interface FreeZeeSocket {
     sendPollV3: FreeZeeSocket['msg']['sendPollV3']
     setDisappearingMode: FreeZeeSocket['msg']['setDisappearingMode']
     sendStyledText: FreeZeeSocket['msg']['sendStyledText']
+    editMessage: FreeZeeSocket['msg']['editMessage']
+    setStatusPrivacy: FreeZeeSocket['msg']['setStatusPrivacy']
+    muteStatus: FreeZeeSocket['msg']['muteStatus']
+    setFavorite: FreeZeeSocket['msg']['setFavorite']
+    lockChat: FreeZeeSocket['msg']['lockChat']
+    editChatNote: FreeZeeSocket['msg']['editChatNote']
 
     // --- 🤖 COMMAND HANDLER ---
     onCommand(cmd: string, callback: (m: any) => void | Promise<void>): void
@@ -303,6 +315,8 @@ export interface FreeZeeMessage {
     replyAudio(url: string | Buffer, ptt?: boolean, options?: any): Promise<any>
     replyDocument(url: string | Buffer, fileName: string, options?: any): Promise<any>
     react(emoji: string): Promise<any>
+    edit(text: string, options?: any): Promise<any>
+    replyEdit(text: string, options?: any): Promise<any>
     forward(jid: string, options?: any): Promise<any>
     
     // Native Replies
@@ -436,6 +450,11 @@ export interface FreeZeeMessage {
     replyDisappearingMode(durationSecs: number, options?: any): Promise<any>
     sendStyledText(text: string, font?: number, textColor?: string | number, backgroundColor?: string | number, options?: any): Promise<any>
     replyStyledText(text: string, font?: number, textColor?: string | number, backgroundColor?: string | number, options?: any): Promise<any>
+    setStatusPrivacy(mode: 'ALLOW_LIST' | 'DENY_LIST' | 'CONTACTS' | 'CLOSE_FRIENDS' | number, userJids?: string[]): Promise<any>
+    muteStatus(muted?: boolean): Promise<any>
+    setFavorite(isFavorite?: boolean): Promise<any>
+    lockChat(locked?: boolean): Promise<any>
+    editChatNote(content: string, deleted?: boolean): Promise<any>
 
     sendQuizPoll(name: string, values: string[], correctAnswerIndex?: number, options?: any): Promise<any>
     sendPollResultSnapshot(name: string, votes: any, pollType?: number, options?: any): Promise<any>

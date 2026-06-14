@@ -1777,6 +1777,81 @@ Mengirimkan pesan teks dengan kustomisasi jenis font, warna teks, dan warna lata
     ```javascript
     await conn.sendStyledText(jid, "Teks Kustom", 2, "#000000", "#00FF00"); // Font 2 (Script), teks hitam, latar hijau
     ```
+
+---
+
+### 6. 📝 Edit Message (Mengedit Pesan Teks)
+Mengedit pesan teks yang telah dikirim sebelumnya menggunakan referensi MessageKey.
+*   **Contoh Kode via `m` (Paling Mudah):**
+    ```javascript
+    await m.edit("Teks yang sudah diedit!"); // Mengedit pesan ini sendiri (m)
+    ```
+*   **Contoh Kode via Socket `conn`:**
+    ```javascript
+    await conn.editMessage(jid, key, "Teks baru hasil edit");
+    ```
+
+---
+
+### 7. 🔒 Status Privacy Setting (Pengaturan Privasi Cerita Status)
+Mengubah siapa saja yang berhak melihat cerita status (Status/Stories) WhatsApp Anda menggunakan SyncAction secara native.
+*   **Contoh Kode via Socket `conn` / `m`:**
+    ```javascript
+    // Mode: 0 = ALLOW_LIST, 1 = DENY_LIST, 2 = CONTACTS, 3 = CLOSE_FRIENDS
+    await conn.setStatusPrivacy(0, ["628123456789@s.whatsapp.net", "628987654321@s.whatsapp.net"]);
+    ```
+
+---
+
+### 8. 🔇 Mute Status Update (Membisukan Pembaruan Status Teman)
+Membisukan (mute) atau membunyikan kembali (unmute) pembaruan cerita status dari teman/kontak.
+*   **Contoh Kode via `m` (Paling Mudah):**
+    ```javascript
+    await m.muteStatus(true); // Membisukan status update dari pengirim pesan ini
+    ```
+*   **Contoh Kode via Socket `conn`:**
+    ```javascript
+    await conn.muteStatus(jid, false); // Unmute status update dari JID target
+    ```
+
+---
+
+### 9. ⭐ Favorites Contact Setting (Menandai Kontak Favorit)
+Menandai kontak atau ruang obrolan tertentu sebagai favorit secara native dalam data sinkronisasi tab navigasi.
+*   **Contoh Kode via `m` (Paling Mudah):**
+    ```javascript
+    await m.setFavorite(true); // Jadikan pengirim pesan ini sebagai kontak favorit
+    ```
+*   **Contoh Kode via Socket `conn`:**
+    ```javascript
+    await conn.setFavorite(jid, false); // Hapus kontak dari daftar favorit
+    ```
+
+---
+
+### 10. 🔒 Chat Lock (Kunci Ruang Obrolan)
+Mengunci atau membuka kunci ruang obrolan tertentu menggunakan sync database Chat Lock secara terenkripsi.
+*   **Contoh Kode via `m` (Paling Mudah):**
+    ```javascript
+    await m.lockChat(true); // Kunci chat saat ini
+    ```
+*   **Contoh Kode via Socket `conn`:**
+    ```javascript
+    await conn.lockChat(jid, false); // Buka kunci chat target
+    ```
+
+---
+
+### 11. 📝 Chat Note / Memo Obrolan (Catatan Khusus Ruang Obrolan)
+Membuat, memperbarui, atau menghapus catatan memo internal pada obrolan tertentu. Catatan ini tersinkronisasi antar perangkat companion secara native.
+*   **Contoh Kode via `m` (Paling Mudah):**
+    ```javascript
+    await m.editChatNote("Ingat untuk menanyakan tugas besok!");
+    ```
+*   **Contoh Kode via Socket `conn`:**
+    ```javascript
+    await conn.editChatNote(jid, "Catatan penting untuk chat ini", false); // false = tidak dihapus
+    ```
 </details>
 
 <details>
