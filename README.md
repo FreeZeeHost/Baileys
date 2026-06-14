@@ -752,6 +752,17 @@ Mengirim undangan pengikut newsletter menggunakan versi V2 (newsletterFollowerIn
     ```javascript
     await conn.sendNewsletterFollowerInvite(jid, { newsletterJid: "120363024893892@newsletter", newsletterName: "FreeZee Channel" });
     ```
+
+#### 42. Stiker Buatan AI (AI Sticker)
+Mengirimkan stiker yang ditandai secara resmi oleh WhatsApp sebagai stiker buatan AI (AI-generated Sticker) menggunakan flag `isAiSticker: true` di dalam `stickerMessage`.
+*   **Contoh Kode via `m` (Paling Mudah):**
+    ```javascript
+    await m.replyAiSticker(pathOrBuffer);
+    ```
+*   **Contoh Kode via Socket `conn`:**
+    ```javascript
+    await conn.sendAiSticker(jid, pathOrBuffer);
+    ```
 </details>
 
 <details>
