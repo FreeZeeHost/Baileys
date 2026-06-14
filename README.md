@@ -92,6 +92,9 @@ Kirim pesan dengan visual mewah yang biasanya hanya bisa dilakukan oleh bot resm
 -   👤 **AI Persona Switcher**: `conn.aiPersona(jid, text, personaId, invokerJid)`
 -   📜 **AI Disclaimer & Timezone**: `conn.aiDisclaimer(jid, text, disclaimerText, timezone)`
 -   🎵 **Status Attributions**: `conn.sendStatusMusic`, `conn.sendStatusWearable`, `conn.sendStatusExternalShare`, `conn.sendStatusAiCreated`, `conn.sendStatusReshare`
+-   🎨 **Media Annotations**: `conn.sendMediaWithAnnotations(jid, mediaType, pathOrBuffer, annotations)`
+-   🛑 **Limit Sharing**: `conn.sendLimitSharing(jid, sharingLimited, trigger, initiatedByMe)`
+-   🗳️ **Poll V2 & V3**: `conn.sendPollV2`, `conn.sendPollV3`
 
 ### 🎭 Persona Identity Switcher
 Ubah identitas perangkat bot Anda secara instan untuk menghindari deteksi sistem anti-bot.
@@ -1561,6 +1564,71 @@ Menyematkan disclaimer hukum pesan AI di bagian bawah balon chat beserta zona wa
     ```javascript
     await conn.aiDisclaimer(jid, "Teks balasan AI...", "Pesan ini otomatis dibuat oleh sistem AI.", "Asia/Jakarta");
     ```
+</details>
+
+<details>
+<summary><strong>🎨 Interactive Media & General Protocol Features</strong></summary>
+
+Di bawah ini adalah penjelasan API untuk fitur-fitur interaktif umum non-AI:
+
+---
+
+### 1. 🎨 Interactive Media Annotations (Clickable Stickers)
+Mengirimkan gambar atau video dengan stiker interaktif overlay yang bisa diklik (Tautan Website, Peta Lokasi, Saluran Newsletter).
+*   **Contoh Kode via `m` (Paling Mudah):**
+    ```javascript
+    await m.sendMediaWithAnnotations("image", buffer, [
+        {
+            action: {
+                type: 'link',
+                data: { title: "Buka Website", url: "https://freezeehost.com" }
+            }
+        }
+    ]);
+    ```
+*   **Contoh Kode via Socket `conn`:**
+    ```javascript
+    await conn.sendMediaWithAnnotations(
+        jid, 
+        "image", 
+        buffer, 
+        [
+            {
+                action: {
+                    type: 'location',
+                    data: { latitude: -6.2088, longitude: 106.8456, name: "Monas Jakarta" }
+                }
+            }
+        ]
+    );
+    ```
+
+---
+
+### 2. 🛑 Limit Sharing Message (Pembatasan Berbagi Chat)
+Mengirimkan sinyal pembatasan berbagi untuk obrolan/grup tertentu.
+*   **Contoh Kode via `m` (Paling Mudah):**
+    ```javascript
+    await m.sendLimitSharing(true, 1, true);
+    ```
+*   **Contoh Kode via Socket `conn`:**
+    ```javascript
+    await conn.sendLimitSharing(jid, true, 1, true);
+    ```
+
+---
+
+### 3. 🗳️ Poll Creation V2 & V3 (Polling Model Baru)
+Membuat polling baru menggunakan versi protokol V2 atau V3.
+*   **Contoh Kode via `m` (Paling Mudah):**
+    ```javascript
+    await m.sendPollV2({ name: "Pilih Menu?", options: ["Sate", "Soto"] });
+    ```
+*   **Contoh Kode via Socket `conn`:**
+    ```javascript
+    await conn.sendPollV3(jid, { name: "Pilih?", options: ["A", "B"], selectableOptionsCount: 1 });
+    ```
+</details>
 
 ---
 

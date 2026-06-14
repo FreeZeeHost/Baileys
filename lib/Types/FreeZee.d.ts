@@ -136,7 +136,11 @@ export interface FreeZeeSocket {
         aiDisclaimer(jid: string, text: string, disclaimerText: string, timezone?: string, options?: any): Promise<any>
         sendStatusExternalShare(text: string, share: { actionUrl: string, source: number, duration?: number, actionFallbackUrl?: string }, options?: any): Promise<any>
         sendStatusAiCreated(text: string, source?: number, options?: any): Promise<any>
-        sendStatusReshare(text: string, reshare: { source: number, metadata?: { duration?: number, channelJid?: string, channelMessageId?: number, hasMultipleReshares?: boolean } }, options?: any): Promise<any>
+        sendStatusReshare(jid: string, reshare: { source: number, metadata?: { duration?: number, channelJid?: string, channelMessageId?: number, hasMultipleReshares?: boolean } }, options?: any): Promise<any>
+        sendMediaWithAnnotations(jid: string, mediaType: 'image' | 'video', pathOrBuffer: string | Buffer, annotations?: any[], options?: any): Promise<any>
+        sendLimitSharing(jid: string, sharingLimited: boolean, trigger?: number, initiatedByMe?: boolean, options?: any): Promise<any>
+        sendPollV2(jid: string, poll: { name: string, options: string[] | any[], selectableOptionsCount?: number }, options?: any): Promise<any>
+        sendPollV3(jid: string, poll: { name: string, options: string[] | any[], selectableOptionsCount?: number }, options?: any): Promise<any>
     }
 
     // --- 🔄 CONVENIENCE ALIASES ---
@@ -240,6 +244,10 @@ export interface FreeZeeSocket {
     sendStatusExternalShare: FreeZeeSocket['msg']['sendStatusExternalShare']
     sendStatusAiCreated: FreeZeeSocket['msg']['sendStatusAiCreated']
     sendStatusReshare: FreeZeeSocket['msg']['sendStatusReshare']
+    sendMediaWithAnnotations: FreeZeeSocket['msg']['sendMediaWithAnnotations']
+    sendLimitSharing: FreeZeeSocket['msg']['sendLimitSharing']
+    sendPollV2: FreeZeeSocket['msg']['sendPollV2']
+    sendPollV3: FreeZeeSocket['msg']['sendPollV3']
 
     // --- 🤖 COMMAND HANDLER ---
     onCommand(cmd: string, callback: (m: any) => void | Promise<void>): void
@@ -412,6 +420,14 @@ export interface FreeZeeMessage {
     replyStatusAiCreated(text: string, source?: number, options?: any): Promise<any>
     sendStatusReshare(text: string, reshare: { source: number, metadata?: { duration?: number, channelJid?: string, channelMessageId?: number, hasMultipleReshares?: boolean } }, options?: any): Promise<any>
     replyStatusReshare(text: string, reshare: { source: number, metadata?: { duration?: number, channelJid?: string, channelMessageId?: number, hasMultipleReshares?: boolean } }, options?: any): Promise<any>
+    sendMediaWithAnnotations(mediaType: 'image' | 'video', pathOrBuffer: string | Buffer, annotations?: any[], options?: any): Promise<any>
+    replyMediaWithAnnotations(mediaType: 'image' | 'video', pathOrBuffer: string | Buffer, annotations?: any[], options?: any): Promise<any>
+    sendLimitSharing(sharingLimited: boolean, trigger?: number, initiatedByMe?: boolean, options?: any): Promise<any>
+    replyLimitSharing(sharingLimited: boolean, trigger?: number, initiatedByMe?: boolean, options?: any): Promise<any>
+    sendPollV2(poll: { name: string, options: string[] | any[], selectableOptionsCount?: number }, options?: any): Promise<any>
+    replyPollV2(poll: { name: string, options: string[] | any[], selectableOptionsCount?: number }, options?: any): Promise<any>
+    sendPollV3(poll: { name: string, options: string[] | any[], selectableOptionsCount?: number }, options?: any): Promise<any>
+    replyPollV3(poll: { name: string, options: string[] | any[], selectableOptionsCount?: number }, options?: any): Promise<any>
 
     sendQuizPoll(name: string, values: string[], correctAnswerIndex?: number, options?: any): Promise<any>
     sendPollResultSnapshot(name: string, votes: any, pollType?: number, options?: any): Promise<any>
