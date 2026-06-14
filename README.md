@@ -777,6 +777,127 @@ Mengirimkan stiker yang ditandai secara resmi oleh WhatsApp sebagai stiker buata
     ```javascript
     await conn.sendAiSticker(jid, pathOrBuffer);
     ```
+
+#### 43. Sesi Panggilan Siaran (Broadcast Call - BCall)
+Mengirim pesan indikator sesi panggilan siaran (broadcast call) secara native.
+*   **Contoh Kode via `m` (Paling Mudah):**
+    ```javascript
+    await m.replyBCall({ sessionId: "bcall_123", mediaType: 2, caption: "Mari gabung panggilan video!" });
+    ```
+*   **Contoh Kode via Socket `conn`:**
+    ```javascript
+    await conn.bcall(jid, { sessionId: "bcall_123", mediaType: 2, caption: "Mari gabung panggilan video!" });
+    ```
+
+#### 44. Undangan Layanan Pembayaran (Payment Invite)
+Mengirimkan pesan undangan pendaftaran layanan pembayaran WhatsApp Pay secara native.
+*   **Contoh Kode via `m` (Paling Mudah):**
+    ```javascript
+    await m.replyPaymentInvite(1); // 1: FBPAY, 2: NOVI, 3: UPI
+    ```
+*   **Contoh Kode via Socket `conn`:**
+    ```javascript
+    await conn.sendPaymentInvite(jid, 1);
+    ```
+
+#### 45. Sinkronisasi Stiker Klien (Client Sticker Sync)
+Mengirim pesan permintaan sinkronisasi koleksi stiker ke perangkat Anda sendiri.
+*   **Contoh Kode via Socket `conn`:**
+    ```javascript
+    await conn.syncStickers([Buffer.from("file_hash_here", "hex")]);
+    ```
+
+#### 46. Faktur Pembayaran Native (Invoice Message)
+Mengirimkan pesan tagihan/faktur (Invoice Message) resmi yang rapi dan terstruktur secara native.
+*   **Contoh Kode via `m` (Paling Mudah):**
+    ```javascript
+    await m.replyInvoice({
+        title: "VPS Hosting",
+        description: "Tagihan Bulanan Server VPS",
+        priceAmount1000: 150000 * 1000,
+        currencyCode: "IDR",
+        mimetype: "image/jpeg"
+    });
+    ```
+*   **Contoh Kode via Socket `conn`:**
+    ```javascript
+    await conn.sendInvoice(jid, {
+        title: "VPS Hosting",
+        description: "Tagihan Bulanan Server VPS",
+        priceAmount1000: 150000 * 1000,
+        currencyCode: "IDR",
+        mimetype: "image/jpeg"
+    });
+    ```
+
+#### 47. Resi Pesanan Toko (Order Message)
+Mengirimkan pesan ringkasan pesanan pembelian (Order Message) barang/jasa secara native.
+*   **Contoh Kode via `m` (Paling Mudah):**
+    ```javascript
+    await m.replyOrder({
+        orderId: "ord_9921",
+        title: "VPS Premium",
+        description: "CPU 4 Core, RAM 8GB",
+        priceAmount1000: 250000 * 1000,
+        currencyCode: "IDR",
+        mimetype: "image/jpeg",
+        orderTitle: "VPS Premium",
+        sellerJid: conn.user.id
+    });
+    ```
+*   **Contoh Kode via Socket `conn`:**
+    ```javascript
+    await conn.sendOrder(jid, {
+        orderId: "ord_9921",
+        title: "VPS Premium",
+        description: "CPU 4 Core, RAM 8GB",
+        priceAmount1000: 250000 * 1000,
+        currencyCode: "IDR",
+        mimetype: "image/jpeg",
+        orderTitle: "VPS Premium",
+        sellerJid: conn.user.id
+    });
+    ```
+
+#### 48. Menu Pilihan Interaktif (Interactive List Select)
+Mengirim pesan menu daftar pilihan (list select) interaktif menggunakan komponen native flow WhatsApp.
+*   **Contoh Kode via `m` (Paling Mudah):**
+    ```javascript
+    await m.replyList("Buka Menu", "Judul Menu", "Silakan pilih salah satu opsi:", "Footer Info", [
+        {
+            title: "Layanan Cloud",
+            rows: [
+                { title: "VPS Hosting", description: "VPS Linux SSD murah", id: "cloud_vps" },
+                { title: "Shared Hosting", description: "Hosting murah cPanel", id: "cloud_shared" }
+            ]
+        }
+    ]);
+    ```
+*   **Contoh Kode via Socket `conn`:**
+    ```javascript
+    await conn.sendList(jid, "Judul Menu", "Silakan pilih:", "Footer Info", "Buka Menu", [
+        {
+            title: "Layanan Cloud",
+            rows: [
+                { title: "VPS Hosting", description: "VPS Linux SSD murah", id: "cloud_vps" }
+            ]
+        }
+    ]);
+    ```
+
+#### 49. Tombol Interaktif Native (Interactive Quick Reply Buttons)
+Mengirim pesan dengan tombol pilihan cepat (Quick Reply Buttons) native.
+*   **Contoh Kode via Socket `conn`:**
+    ```javascript
+    await conn.sendMessage(jid, {
+        text: "Pilih salah satu tombol di bawah:",
+        footer: "Kemudahan Layanan",
+        buttons: [
+            { buttonId: "btn_yes", buttonText: { displayText: "Ya, Tentu" }, type: 1 },
+            { buttonId: "btn_no", buttonText: { displayText: "Tidak" }, type: 1 }
+        ]
+    });
+    ```
 </details>
 
 <details>
