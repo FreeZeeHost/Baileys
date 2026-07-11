@@ -248,13 +248,29 @@ await conn.newsletter.inviteAdmin("120363xxx@newsletter", "628xxxxxxxx@s.whatsap
 Kumpulan fitur interaktif native terbaru yang belum dirilis secara resmi tetapi didukung penuh oleh core engine FreeZee:
 
 #### 1. Korsel Pesan Native (Native Message Carousel)
-Kirim korsel non-produk menggunakan layout pesan bawaan WhatsApp.
-```javascript
-await conn.msg.carousel(jid, [
-    { message: { conversation: "Slide Pertama" } },
-    { message: { conversation: "Slide Kedua" } }
-]);
-```
+Kirim korsel non-produk (horizontal scroll cards) menggunakan layout pesan bawaan WhatsApp. Setiap kartu dapat memiliki gambar kustom, judul, isi teks, dan kumpulan tombol interaktifnya sendiri!
+* **Contoh Penggunaan:**
+  ```javascript
+  await conn.sendCarousel(jid, [
+      {
+          title: "Paket Starter",
+          body: "Spesifikasi: 1 Core CPU, 1GB RAM",
+          image: "./images/starter.jpg", // Bisa buffer, path lokal, atau URL gambar
+          buttons: [
+              { text: "Pesan Sekarang", id: "order_starter", type: "quick_reply" },
+              { text: "Info Detail", url: "https://freezeehost.com/starter", type: "url" }
+          ]
+      },
+      {
+          title: "Paket Pro",
+          body: "Spesifikasi: 2 Core CPU, 4GB RAM",
+          image: "./images/pro.jpg",
+          buttons: [
+              { text: "Pesan Sekarang", id: "order_pro", type: "quick_reply" }
+          ]
+      }
+  ], { text: "Silakan geser untuk memilih paket VPS terbaik kami:" });
+  ```
 
 #### 2. Tabel Interaktif Native (Native Flow Table)
 Kirim tabel interaktif dengan format kolom dan baris yang rapi secara terstruktur.
@@ -861,9 +877,9 @@ Mengirimkan pesan ringkasan pesanan pembelian (Order Message) barang/jasa secara
 
 #### 48. Menu Pilihan Interaktif (Interactive List Select)
 Mengirim pesan menu daftar pilihan (list select) interaktif menggunakan komponen native flow WhatsApp.
-*   **Contoh Kode via `m` (Paling Mudah):**
+*   **Contoh Kode Penggunaan (Dengan Gambar Header):**
     ```javascript
-    await m.replyList("Buka Menu", "Judul Menu", "Silakan pilih salah satu opsi:", "Footer Info", [
+    await conn.sendList(jid, null, "Silakan pilih salah satu opsi di bawah:", "Footer Info", "Buka Menu", [
         {
             title: "Layanan Cloud",
             rows: [
@@ -871,18 +887,9 @@ Mengirim pesan menu daftar pilihan (list select) interaktif menggunakan komponen
                 { title: "Shared Hosting", description: "Hosting murah cPanel", id: "cloud_shared" }
             ]
         }
-    ]);
-    ```
-*   **Contoh Kode via Socket `conn`:**
-    ```javascript
-    await conn.sendList(jid, "Judul Menu", "Silakan pilih:", "Footer Info", "Buka Menu", [
-        {
-            title: "Layanan Cloud",
-            rows: [
-                { title: "VPS Hosting", description: "VPS Linux SSD murah", id: "cloud_vps" }
-            ]
-        }
-    ]);
+    ], {
+        image: { url: "https://files.catbox.moe/example.jpg" } // Mendukung image, video, document, atau location
+    });
     ```
 
 #### 49. Tombol Interaktif Native (Interactive Quick Reply Buttons)
@@ -898,6 +905,152 @@ Mengirim pesan dengan tombol pilihan cepat (Quick Reply Buttons) native.
         ]
     });
     ```
+
+#### 50. Mengirim Raw Proto Messages (Meta AI & Custom Proto)
+Untuk menggunakan tipe pesan baru dari schema protobuf yang belum memiliki helper/wrapper bawaan (seperti pemanggilan Meta AI `botInvokeMessage`, `botTaskMessage`, dll), Anda dapat mengirimkannya secara mentah (raw) menggunakan format schema `FutureProofMessage` bawaan:
+* **Contoh Memanggil Meta AI (Bot Invoke):**
+  ```javascript
+  await conn.sendMessage(jid, {
+      botInvokeMessage: {
+          message: {
+              conversation: "Halo Meta AI, tolong carikan resep nasi goreng."
+          }
+      }
+  });
+  ```
+* **Contoh Mengirim Bot Task:**
+  ```javascript
+  await conn.sendMessage(jid, {
+      botTaskMessage: {
+          message: {
+              conversation: "Tugas: Analisis sentimen chat grup."
+          }
+      }
+  });
+  ```
+
+#### 51. Tombol Interaktif Native Baru (Interactive Buttons / Native Flow Buttons)
+Mengirim tombol interaktif modern WhatsApp (Quick Reply, URL click, Call, dan **Request Location**) secara native. Format ini lebih aman dari deteksi ban dibandingkan dengan format `buttonsMessage` lama yang sudah deprecated. Anda juga bisa menyertakan **Header Peta (Map Header)** atau **Gambar Kustom** di atas tombol tersebut!
+* **Contoh Tombol Share Location (Minta Lokasi Pengguna):**
+  ```javascript
+  await conn.sendInteractiveButtons(jid, "Minta Lokasi", "Silakan ketuk tombol di bawah untuk membagikan lokasi Anda:", "Lokasi Anda aman", [
+      { type: "location" } // Otomatis merender tombol "Kirim Lokasi" bawaan WA
+  ]);
+  ```
+* **Contoh Menggunakan Header Peta + Tombol Opsi:**
+  ```javascript
+  await conn.sendInteractiveButtons(jid, null, "Silakan kunjungi lokasi kami atau hubungi kami:", "FreeZeeHost Office", [
+      { text: "Buka Website", url: "https://freezeehost.com", type: "url" },
+      { text: "Hubungi Kantor", phoneNumber: "+628xxxxxxxx", type: "call" }
+  ], {
+      location: {
+          latitude: -6.200000,
+          longitude: 106.816666,
+          name: "Kantor FreeZeeHost Jakarta",
+          address: "Jl. Sudirman No. 12, Jakarta Pusat"
+      }
+  });
+  ```
+* **Contoh Menggunakan Header Gambar Kustom (Pengganti `externalAdReply`):**
+  ```javascript
+  await conn.sendInteractiveButtons(jid, null, "Ini adalah isi pesan dengan tombol dan gambar kustom di atasnya:", "FreeZeeHost Premium", [
+      { text: "Daftar Akun", id: "menu_register", type: "quick_reply" },
+      { text: "Lihat Paket", id: "menu_packages", type: "quick_reply" }
+  ], {
+      image: { url: "https://files.catbox.moe/example.jpg" } // Atau buffer, atau path file lokal
+  });
+  ```
+
+#### 52. Memanggil Meta AI (Bot Invoke & Bot Task Helpers)
+Fungsi pembungkus resmi untuk memicu asisten Meta AI bawaan di WhatsApp secara langsung:
+* **Contoh Penggunaan:**
+  ```javascript
+  await conn.sendBotInvoke(jid, "Halo Meta AI, tolong jelaskan apa itu black hole secara singkat.");
+  await conn.sendBotTask(jid, "Tugas: Tulis kode Hello World di Python.");
+  ```
+
+#### 53. Teruskan Pesan Seolah dari Saluran (Channel Forward Spoofing)
+Fitur promosi / branding untuk mengirimkan pesan yang seolah-olah diteruskan secara resmi dari saluran (channel/newsletter) WhatsApp tertentu:
+* **Contoh Penggunaan:**
+  ```javascript
+  await conn.sendChannelForward(
+      jid, 
+      "Dapatkan promo hosting gratis di saluran kami!", 
+      "120363024893892@newsletter", 
+      "FreeZeeHost Updates Channel"
+  );
+  ```
+
+#### 54. Menyukai / React Status Orang Lain (Like Status Story)
+Mendukung pengiriman tanggapan/reaksi suka secara native ke pembaruan status cerita WhatsApp orang lain:
+* **Contoh Penggunaan:**
+  ```javascript
+  await conn.likeStatus(statusMessageKey, "❤️"); // default emoji adalah ❤️, bisa diganti emoji lain
+  ```
+
+#### 55. Manajemen Daftar Chat Instan (Chat List Management)
+Fungsi kenyamanan langsung untuk memodifikasi, merapikan, dan menyematkan chat di daftar obrolan WhatsApp bot secara terprogram:
+```javascript
+// 1. Sematkan / Lepas Sematan Chat (Pin/Unpin Chat)
+await conn.pinChat(jid, true); // true = Pin, false = Unpin
+
+// 2. Arsipkan / Batal Arsipkan Chat (Archive/Unarchive Chat)
+await conn.archiveChat(jid, true); // true = Arsipkan, false = Keluarkan dari arsip
+
+// 3. Bisukan / Bunyikan Chat (Mute/Unmute Chat)
+await conn.muteChat(jid, 8 * 3600 * 1000); // Mute selama 8 jam (dalam milidetik)
+await conn.unmuteChat(jid); // Bunyikan kembali
+
+// 4. Tandai sebagai Sudah Dibaca / Belum Dibaca
+await conn.markChatAsRead(jid, true); // true = Tandai dibaca, false = Belum dibaca
+```
+
+#### 56. Kirim Toko & Koleksi Katalog E-Commerce (Shop & Collection Messages)
+Mengirimkan kartu interaktif native untuk Toko (Shop Storefront) dan Koleksi Katalog (Catalog Collection) WhatsApp Business secara langsung:
+* **Mengirim Kartu Toko (Shop Storefront):**
+  ```javascript
+  await conn.sendShopMessage(jid, "shop_id_12345", "WA", "Judul Toko", "Kunjungi toko kami!", "Footer");
+  ```
+* **Mengirim Kartu Koleksi Katalog (Catalog Collection):**
+  ```javascript
+  await conn.sendCollectionMessage(jid, "business_jid@s.whatsapp.net", "collection_id_9981", "Judul Koleksi", "Lihat koleksi produk terbaru kami:", "Footer");
+  ```
+
+#### 57. Kirim Bukti Pembayaran / Struk Transaksi (Payment Receipt Message)
+Mengirimkan kartu notifikasi bukti pembayaran (Send Payment Message) secara resmi ke obrolan pengguna:
+* **Contoh Penggunaan:**
+  ```javascript
+  await conn.sendPaymentReceipt(jid, 150000, "IDR", "Pembayaran VPS Starter berhasil!");
+  ```
+
+#### 58. Kirim Pesan Terusan AI / Bot (Bot Forwarded Message)
+Membungkus dan mengirimkan pesan dengan menyertakan tag / penanda resmi "Forwarded from AI" atau "Diteruskan dari Bot" secara native:
+* **Contoh Penggunaan:**
+  ```javascript
+  // Membungkus pesan teks sederhana
+  await conn.sendBotForwardedMessage(jid, "Halo, ini adalah balasan pintar dari asisten AI.");
+  
+  // Membungkus format pesan yang lebih kompleks
+  await conn.sendBotForwardedMessage(jid, {
+      extendedTextMessage: {
+          text: "Pesan ini memiliki header khusus terusan bot."
+      }
+  });
+  ```
+
+#### 59. Kirim Gambar Sampul Acara Grup (Event Cover Image Message)
+Menambahkan atau memperbarui gambar sampul (cover image) untuk pesan acara/event grup secara terprogram:
+* **Contoh Penggunaan:**
+  ```javascript
+  await conn.sendEventCoverImage(jid, eventMessageKey, "./images/event_banner.jpg");
+  ```
+
+#### 60. Sebutkan / Mention Grup di Status & Chat (Group Mentioned Message)
+Mengirimkan informasi penyebutan grup (Group Mentioned) secara native pada status cerita atau obrolan:
+* **Contoh Penggunaan:**
+  ```javascript
+  await conn.sendGroupMentionedMessage(jid, "120363024893892@g.us", "Grup FreeZeeHost resmi disebutkan!");
+  ```
 </details>
 
 <details>
