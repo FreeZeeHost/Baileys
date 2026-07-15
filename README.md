@@ -97,6 +97,8 @@ Kirim pesan dengan visual mewah yang biasanya hanya bisa dilakukan oleh bot resm
 -   🗳️ **Poll V2 & V3**: `conn.sendPollV2`, `conn.sendPollV3`
 -   ⏳ **Disappearing Setting**: `conn.setDisappearingMode(jid, durationSecs)`
 -   🔤 **Styled Text Message**: `conn.sendStyledText(jid, text, font, textColor, backgroundColor)`
+-   ❓ **Question Message**: `conn.sendQuestion(jid, content)`
+-   💬 **Question Reply**: `conn.sendQuestionReply(jid, content)`
 
 ### 🎭 Persona Identity Switcher
 Ubah identitas perangkat bot Anda secara instan untuk menghindari deteksi sistem anti-bot.
@@ -1050,6 +1052,25 @@ Mengirimkan informasi penyebutan grup (Group Mentioned) secara native pada statu
 * **Contoh Penggunaan:**
   ```javascript
   await conn.sendGroupMentionedMessage(jid, "120363024893892@g.us", "Grup FreeZeeHost resmi disebutkan!");
+  ```
+
+#### 61. Pertanyaan & Balasan Pertanyaan (Question & Question Reply Messages)
+Mengirimkan pesan tipe `questionMessage` atau `questionReplyMessage` (balasan pertanyaan) secara native yang dibungkus dalam format `FutureProofMessage`.
+* **Contoh Mengirim Pertanyaan (Question Message):**
+  ```javascript
+  // Menggunakan socket (conn)
+  await conn.sendQuestion(jid, "Bagaimana pendapat Anda tentang teknologi Meta AI?");
+
+  // Menggunakan objek pesan (m)
+  await m.sendQuestion("Bagaimana pendapat Anda tentang teknologi Meta AI?");
+  ```
+* **Contoh Mengirim Balasan Pertanyaan (Question Reply Message):**
+  ```javascript
+  // Menggunakan socket (conn)
+  await conn.sendQuestionReply(jid, "Balasan atas pertanyaan survei Anda.");
+
+  // Menggunakan objek pesan (m)
+  await m.sendQuestionReply("Balasan atas pertanyaan survei Anda.");
   ```
 </details>
 
