@@ -62,6 +62,8 @@ export interface FreeZeeSocket {
         sendComment(jid: string, text: string, key: any, options?: any): Promise<any>
         sendPollResult(jid: string, pollResult: any, options?: any): Promise<any>
         sendProduct(jid: string, businessOwnerJid: string, product: any, options?: any): Promise<any>
+        sendCatalog(jid: string, businessOwnerJid: string, title: string, description: string, imageOrUrl?: any, options?: any): Promise<any>
+        sendProductList(jid: string, title: string, text: string, footer: string, buttonText: string, sections?: any[], businessOwnerJid?: string, options?: any): Promise<any>
         sendLiveLocation(jid: string, liveLocation: any, options?: any): Promise<any>
         replyQuestion(jid: string, text: string, key: any, options?: any): Promise<any>
         quoteStatus(jid: string, status: any, options?: any): Promise<any>
@@ -183,6 +185,8 @@ export interface FreeZeeSocket {
     sendComment: FreeZeeSocket['msg']['sendComment']
     sendPollResult: FreeZeeSocket['msg']['sendPollResult']
     sendProduct: FreeZeeSocket['msg']['sendProduct']
+    sendCatalog: FreeZeeSocket['msg']['sendCatalog']
+    sendProductList: FreeZeeSocket['msg']['sendProductList']
     sendLiveLocation: FreeZeeSocket['msg']['sendLiveLocation']
     replyQuestion: FreeZeeSocket['msg']['replyQuestion']
     sendQuestion: FreeZeeSocket['msg']['sendQuestion']
@@ -335,6 +339,10 @@ export interface FreeZeeMessage {
     replyComment(text: string, options?: any): Promise<any>
     replyPollResult(votes: any, options?: any): Promise<any>
     replyProduct(owner: string, data: any, options?: any): Promise<any>
+    replyCatalog(businessOwnerJid: string, title: string, description: string, imageOrUrl?: any, options?: any): Promise<any>
+    sendCatalog(businessOwnerJid: string, title: string, description: string, imageOrUrl?: any, options?: any): Promise<any>
+    replyProductList(title: string, text: string, footer: string, buttonText: string, sections?: any[], businessOwnerJid?: string, options?: any): Promise<any>
+    sendProductList(title: string, text: string, footer: string, buttonText: string, sections?: any[], businessOwnerJid?: string, options?: any): Promise<any>
     replyLiveLocation(lat: number, lng: number, options?: any): Promise<any>
     replyCallLog(data: any, options?: any): Promise<any>
     replyStickerPack(pack: any, options?: any): Promise<any>
