@@ -26,7 +26,7 @@
     "WAProto/**/*"
   ],
   "scripts": {
-    "test": "jest",
+    "test": "jest --passWithNoTests",
     "build:proto": "pbjs -t static-module -w commonjs -o ./WAProto/index.js ./WAProto/WAProto.proto && pbts -o ./WAProto/index.d.ts ./WAProto/index.js"
   },
   "dependencies": {
