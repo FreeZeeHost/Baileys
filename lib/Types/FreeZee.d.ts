@@ -57,6 +57,7 @@ export interface FreeZeeSocket {
         bcall(jid: string, bcall: any, options?: any): Promise<any>
         sendSurvey(jid: string, survey: any, options?: any): Promise<any>
         sendStickerPack(jid: string, pack: any, options?: any): Promise<any>
+        sendSticker(jid: string, content: { sticker: any, packname?: string, author?: string }, options?: any): Promise<any>
         sendInvoice(jid: string, invoice: any, options?: any): Promise<any>
         sendOrder(jid: string, order: any, options?: any): Promise<any>
         sendComment(jid: string, text: string, key: any, options?: any): Promise<any>
@@ -180,6 +181,7 @@ export interface FreeZeeSocket {
     bcall: FreeZeeSocket['msg']['bcall']
     sendSurvey: FreeZeeSocket['msg']['sendSurvey']
     sendStickerPack: FreeZeeSocket['msg']['sendStickerPack']
+    sendSticker: FreeZeeSocket['msg']['sendSticker']
     sendInvoice: FreeZeeSocket['msg']['sendInvoice']
     sendOrder: FreeZeeSocket['msg']['sendOrder']
     sendComment: FreeZeeSocket['msg']['sendComment']
@@ -346,6 +348,8 @@ export interface FreeZeeMessage {
     replyLiveLocation(lat: number, lng: number, options?: any): Promise<any>
     replyCallLog(data: any, options?: any): Promise<any>
     replyStickerPack(pack: any, options?: any): Promise<any>
+    replySticker(content: { sticker: any, packname?: string, author?: string }, options?: any): Promise<any>
+    sendSticker(content: { sticker: any, packname?: string, author?: string }, options?: any): Promise<any>
     pin(duration?: number, options?: any): Promise<any>
     unpin(options?: any): Promise<any>
     keep(options?: any): Promise<any>
