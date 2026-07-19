@@ -143,12 +143,630 @@ start();
 
 ## 📜 Full Documentation
 Silakan cek [GitHub Wiki](https://github.com/FreeZeeHostProject/Baileys/wiki) atau scroll ke bawah untuk detail teknis lainnya:
+- [Basic & Media Messages](#-basic--media-messaging-helpers)
 - [Connecting Account](#-connecting-account)
 - [Handling Events](#-handling-events)
 - [Groups & Privacy](#-groups)
 - [Advanced Features](#-advanced)
 
 <br>
+
+<details>
+<summary><strong>✉️ Basic & Media Messaging Helpers</strong></summary>
+
+Di bawah ini adalah panduan lengkap cara mengirim berbagai tipe pesan dasar dan media menggunakan socket (`sock` / `conn` / `RyuuBotz`):
+
+### 1. 💬 Pesan Teks (Text Message)
+*   **Teks Biasa:**
+    ```javascript
+    await sock.sendMessage(jid, { text: 'Hello!' });
+    ```
+*   **Teks dengan Preview Link:**
+    ```javascript
+    await sock.sendMessage(jid, {
+      text: 'Visit https://example.com',
+      linkPreview: {
+        'canonical-url': 'https://example.com',
+        title: 'Example Domain',
+        description: 'A demo website',
+        jpegThumbnail: fs.readFileSync('preview.jpg') // opsional
+      }
+    });
+    ```
+*   **Membalas Pesan (Quoted Reply):**
+    ```javascript
+    await sock.sendMessage(jid, { text: 'Hello Shiroko!' }, { quoted: message });
+    ```
+
+---
+
+### 2. 🖼️ Pesan Gambar (Image Message)
+*   **Menggunakan Local Buffer/File:**
+    ```javascript
+    await sock.sendMessage(jid, { 
+      image: fs.readFileSync('shiroko.jpg'),
+      caption: 'My wife!',
+      mentions: ['1234567890@s.whatsapp.net'] // Tag/mention pengguna
+    });
+    ```
+*   **Menggunakan URL:**
+    ```javascript
+    await sock.sendMessage(jid, { 
+      image: { url: 'https://example.com/shiroko.jpg' },
+      caption: 'Ayang nya zass'
+    });
+    ```
+
+---
+
+### 3. 🎥 Pesan Video (Video Message)
+*   **Menggunakan Local File:**
+    ```javascript
+    await sock.sendMessage(jid, { 
+      video: fs.readFileSync('video.mp4'),
+      caption: 'Funny clip!'
+    });
+    ```
+*   **Menggunakan URL:**
+    ```javascript
+    await sock.sendMessage(jid, { 
+      video: { url: 'https://example.com/video.mp4' },
+      caption: 'Streamed video'
+    });
+    ```
+*   **Pesan Sekali Lihat (View Once):**
+    ```javascript
+    await sock.sendMessage(jid, {
+      video: fs.readFileSync('secret.mp4'),
+      viewOnce: true // Pesan otomatis terhapus setelah dibuka
+    });
+    ```
+
+---
+
+### 4. 🎵 Pesan Audio / Voice Note (Audio & PTT)
+*   **Audio Biasa (Musik):**
+    ```javascript
+    await sock.sendMessage(jid, { 
+      audio: fs.readFileSync('audio.mp3'),
+      ptt: false // Dikirim sebagai file musik biasa
+    });
+    ```
+*   **Voice Note (Push-to-Talk / PTT):**
+    ```javascript
+    await sock.sendMessage(jid, { 
+      audio: fs.readFileSync('voice.ogg'),
+      ptt: true, // Dikirim sebagai Voice Note resmi dengan gelombang suara
+      waveform: [0, 1, 0, 1, 0] // Opsional: bentuk gelombang visual
+    });
+    ```
+
+---
+
+### 5. 👤 Kartu Kontak (Contact Message)
+Mengirimkan kartu kontak tunggal dengan format vCard:
+```javascript
+const vcard = 'BEGIN:VCARD\n'
+  + 'VERSION:3.0\n' 
+  + 'FN:Jeff Singh\n' // Nama lengkap
+  + 'ORG:Ashoka Uni\n' // Organisasi
+  + 'TEL;type=CELL;type=VOICE;waid=911234567890:+91 12345 67890\n' // WhatsApp ID + Nomor Telepon
+  + 'END:VCARD';
+
+await sock.sendMessage(jid, { 
+  contacts: { 
+    displayName: 'Your Name', 
+    contacts: [{ vcard }] 
+  }
+});
+```
+
+---
+
+### 6. 🔥 Mengirim Stiker (Sticker Message)
+Mendukung path file lokal, buffer, maupun URL dengan kustomisasi nama pack stiker:
+*   **Menggunakan Path File:**
+    ```javascript
+    await sock.sendSticker(jid, { 
+       sticker: './your/path.webp',
+       packname: "FreeZeePack", 
+       author: "FreeZeeHost" 
+    });
+    ```
+*   **Menggunakan URL:**
+    ```javascript
+    await sock.sendSticker(jid, { 
+       sticker: { url: "https://your.url.com/image.webp" },
+       packname: "FreeZeePack", 
+       author: "FreeZeeHost" 
+    });
+    ```
+*   **Menggunakan Buffer:**
+    ```javascript
+    await sock.sendSticker(jid, { 
+       sticker: fs.readFileSync('sticker.webp'),
+       packname: "FreeZeePack", 
+       author: "FreeZeeHost" 
+    });
+    ```
+
+---
+
+### 7. 💥 Reaksi Pesan (React Message)
+Mengirimkan reaksi emoji untuk pesan tertentu:
+```javascript
+await sock.sendMessage(jid, {
+  react: {
+    text: '👍', // Kirim string kosong "" untuk menghapus reaksi
+    key: message.key
+  }
+});
+```
+
+---
+
+### 8. 📌 Menyematkan & Menyimpan Pesan (Pin & Keep Message)
+*   **Menyematkan Pesan (Pin Message):**
+    
+    | Durasi Semat | Detik |
+    | :--- | :--- |
+    | 24 Jam | `86400` |
+    | 7 Hari | `604800` |
+    | 30 Hari | `2592000` |
+
+    ```javascript
+    await sock.sendMessage(jid, {
+      pin: {
+        type: 1, // 1 = Sematkan, 2 = Batal sematkan
+        time: 86400, // durasi semat dalam detik
+        key: message.key
+      }
+    });
+    ```
+*   **Menyimpan Pesan Percakapan Sementara (Keep Message):**
+    ```javascript
+    await sock.sendMessage(jid, {
+      keep: {
+        key: message.key,
+        type: 1 // 1 = Simpan pesan, 2 = Batal simpan pesan
+      }
+    });
+    ```
+
+---
+
+### 9. 📍 Lokasi (Location Message)
+*   **Lokasi Statis:**
+    ```javascript
+    await sock.sendMessage(jid, {
+      location: {
+        degreesLatitude: 37.422,
+        degreesLongitude: -122.084,
+        name: 'Google HQ'
+      }
+    });
+    ```
+*   **Lokasi dengan Gambar Pratinjau:**
+    ```javascript
+    await sock.sendMessage(jid, {
+      location: {
+        degreesLatitude: 37.422,
+        degreesLongitude: -122.084,
+        name: 'Google HQ',
+        jpegThumbnail: fs.readFileSync('preview.jpg')
+      }
+    });
+    ```
+*   **Berbagi Lokasi Terkini (Live Location):**
+    ```javascript
+    await sock.sendMessage(jid, {
+      location: {
+        degreesLatitude: 37.422,
+        degreesLongitude: -122.084,
+        accuracyInMeters: 10
+      },
+      live: true, // Aktifkan live tracking
+      caption: 'Saya di sini!'
+    });
+    ```
+
+---
+
+### 10. 📞 Panggilan & Acara (Call & Event Message)
+*   **Notifikasi Panggilan (Call Message):**
+    ```javascript
+    await sock.sendMessage(jid, {
+      call: {
+        name: 'Sesi Diskusi Baru',
+        type: 1 // 1 = Panggilan Suara, 2 = Panggilan Video
+      }
+    });
+    ```
+*   **Pesan Acara Grup (Event Message):**
+    ```javascript
+    await sock.sendMessage(jid, {
+      event: {
+        isCanceled: false, // Set true jika dibatalkan
+        name: 'Developer Meetup',
+        description: 'Membahas pembaruan Baileys',
+        location: {
+          degreesLatitude: 0,
+          degreesLongitude: 0,
+          name: 'Gedung Pertemuan'
+        },
+        startTime: 1784345000, // Unix timestamp waktu mulai
+        endTime: 1784350000, // Unix timestamp waktu selesai
+        extraGuestsAllowed: true
+      }
+    });
+    ```
+
+---
+
+### 11. 🛒 Transaksi & Produk (Order & Product Message)
+*   **Resi Pesanan Toko (Order Message):**
+    ```javascript
+    await sock.sendMessage(jid, {
+      order: {
+        orderId: 'ord_123',
+        thumbnail: fs.readFileSync('preview.jpg'),
+        itemCount: '1',
+        status: 'INQUIRY', // INQUIRY || ACCEPTED || DECLINED
+        surface: 'CATALOG',
+        message: 'Detail pesanan VPS Anda',
+        orderTitle: 'Pesanan VPS Starter',
+        sellerJid: '628xxx@s.whatsapp.net',
+        token: 'token_here',
+        totalAmount1000: '50000000', // Nominal x 1000 (misal Rp 50.000)
+        totalCurrencyCode: 'IDR'
+      }
+    });
+    ```
+*   **Kartu Jajak Pendapat / Polling (Poll Message):**
+    ```javascript
+    // Membuat Polling Baru:
+    await sock.sendMessage(jid, {
+      poll: {
+        name: 'Warna favorit Anda?',
+        values: ['Merah', 'Biru', 'Hijau'],
+        selectableCount: 1 // 1 = Single choice, >1 = Multiple choice
+      }
+    });
+
+    // Mengirim Snapshot Hasil Polling:
+    await sock.sendMessage(jid, {
+      pollResult: {
+        name: 'Warna favorit Anda?',
+        values: [['Merah', 10], ['Biru', 20]] // [Opsi, Jumlah Vote]
+      }
+    });
+    ```
+*   **Pesan Detail Produk (Product Message):**
+    ```javascript
+    await sock.sendMessage(jid, {
+      product: {
+        productId: 'prod_123',
+        title: 'Cool T-Shirt',
+        description: 'Bahan katun 100%',
+        price: 15000000, // Dalam sen (misal Rp 150.000)
+        currencyCode: 'IDR',
+        productImage: fs.readFileSync('shirt.jpg')
+      }
+    });
+    ```
+
+---
+
+### 12. 💳 Pembayaran & Indikator (Payment Message)
+*   **Pesan Pembayaran / Kirim Uang (Payment Message):**
+    ```javascript
+    await sock.sendMessage(jid, {
+      payment: {
+        note: 'Pembayaran VPS bulan ini',
+        currency: 'IDR', 
+        offset: 0,
+        amount: '50000000', // Nominal nominal pembayaran
+        expiry: 0,
+        from: '628xxx@s.whatsapp.net',
+        image: {
+          placeholderArgb: "your_background",
+          textArgb: "your_text", 
+          subtextArgb: "your_subtext"
+        }
+      }
+    });
+    ```
+*   **Undangan Pembayaran (Payment Invite):**
+    ```javascript
+    await sock.sendMessage(jid, { 
+      paymentInvite: {
+        type: 1, // 1 = FBPAY, 2 = NOVI, 3 = UPI
+        expiry: 0 
+      }   
+    });
+    ```
+
+---
+
+### 13. 👥 Undangan Admin & Grup (Invite Message)
+*   **Undangan Admin Saluran (Channel Admin Invite):**
+    ```javascript
+    await sock.sendMessage(jid, {
+      adminInvite: {
+        jid: '172xxx@newsletter',
+        name: 'Saluran Update', 
+        caption: 'Silakan klik untuk menjadi admin saluran',
+        expiration: 86400,
+        jpegThumbnail: fs.readFileSync('preview.jpg')
+      }
+    });
+    ```
+*   **Undangan Grup Resmi (Group Invite Message):**
+    ```javascript
+    await sock.sendMessage(jid, {
+      groupInvite: {
+        jid: '123xxx@g.us',
+        name: 'Komunitas Developer', 
+        caption: 'Bergabunglah dengan grup resmi kami',
+        code: 'xYz3yAtf...', // Kode unik tautan grup
+        expiration: 86400,
+        jpegThumbnail: fs.readFileSync('preview.jpg')
+      }
+    });
+    ```
+
+---
+
+### 14. 🔢 Minta & Bagikan Nomor Telepon (Phone Number Message)
+*   **Minta Nomor Telepon:**
+    ```javascript
+    await sock.sendMessage(jid, {
+      requestPhoneNumber: {}
+    });
+    ```
+*   **Bagikan Nomor Telepon:**
+    ```javascript
+    await sock.sendMessage(jid, {
+      sharePhoneNumber: {}
+    });
+    ```
+
+---
+
+### 15. ↪️ Balasan Tombol (Reply Button Message)
+Mendukung simulasi respons tombol dari pengguna untuk tujuan otomatisasi pengetesan bot:
+*   **Balasan Daftar Menu (List Reply):**
+    ```javascript
+    await sock.sendMessage(jid, {
+      buttonReply: {
+        title: 'Pilih Menu',
+        description: 'Menu Hosting', 
+        rowId: 'hosting_vps'
+      }, 
+      type: 'list'
+    });
+    ```
+*   **Balasan Tombol Biasa (Plain Button Reply):**
+    ```javascript
+    await sock.sendMessage(jid, {
+      buttonReply: {
+        displayText: 'Ya', 
+        id: 'yes_button'
+      }, 
+      type: 'plain'
+    });
+    ```
+*   **Balasan Tombol Templat (Template Button Reply):**
+    ```javascript
+    await sock.sendMessage(jid, {
+      buttonReply: {
+        displayText: 'Kunjungi Web',
+        id: 'visit_web',
+        index: 1
+      }, 
+      type: 'template'
+    });
+    ```
+*   **Balasan Aliran Menu Interaktif (Interactive Flow Button Reply):**
+    ```javascript
+    await sock.sendMessage(jid, {
+      buttonReply: {
+        body: 'Menu terpilih', 
+        nativeFlows: {
+          name: 'menu_options', 
+          paramsJson: JSON.stringify({ id: 'opt_1', description: 'VPS Pro' }),
+          version: 1
+        }
+      }, 
+      type: 'interactive'
+    });
+    ```
+
+---
+
+### 16. #️⃣ Sebut Kontak pada Status (Status Mentions Message)
+Mengirimkan status cerita dengan menyembunyikan tag/mention kontak tertentu secara native:
+```javascript
+await sock.sendStatusMentions({
+  image: { url: 'https://example.com/image.jpg' }, 
+  caption: 'Semoga hari Anda menyenangkan!'
+}, ["628xxx@s.whatsapp.net", "628yyyy@s.whatsapp.net"]);
+```
+
+---
+
+### 17. 📸 Album Media Native (Album Message)
+Mengirimkan gabungan foto dan video dalam satu balon pesan berupa album (grid) WhatsApp secara native:
+```javascript
+await sock.sendAlbumMessage(jid, [
+  { image: { url: 'https://example.com/image1.jpg' }, caption: 'Foto pertama' },
+  { image: fs.readFileSync('image2.jpg'), caption: 'Foto kedua' },
+  { video: { url: 'https://example.com/video1.mp4' }, caption: 'Video pertama' },
+  { video: fs.readFileSync('video2.mp4'), caption: 'Video kedua' }
+], { quoted: message, delay: 3000 });
+```
+
+---
+
+### 18. 📸 Pesan Interaktif & Aliran Bisnis (Interactive Flows)
+Membuat menu interaktif native WhatsApp Business. Jika pesan tidak berfungsi di klien tertentu, hal tersebut karena WhatsApp secara berkala membatasi rendering bebas di luar partner resmi Meta.
+
+#### **A. Toko Interaktif (Shop Flow Message):**
+*   **Header Teks:**
+    ```javascript
+    await sock.sendMessage(jid, {      
+      text: 'Silakan kunjungi toko resmi kami di Facebook',
+      title: 'Toko FreeZeeHost', 
+      subtitle: 'Diskon 50%', 
+      footer: '© FreeZeeHost',
+      viewOnce: true,
+      shop: {
+        surface: 1, // 1 | 2 | 3 | 4
+        id: 'facebook_store_name'
+      }
+    });
+    ```
+*   **Header Media (Gambar/Video/Dokumen):**
+    ```javascript
+    await sock.sendMessage(jid, { 
+      image: { url: 'https://www.example.com/image.jpg' },    
+      caption: 'Detail katalog toko kami:',
+      title: 'Toko Utama', 
+      footer: '© FreeZeeHost',
+      shop: {
+        surface: 1,
+        id: 'facebook_store_name'
+      }, 
+      hasMediaAttachment: true,
+      viewOnce: true
+    });
+    ```
+
+#### **B. Pesan Korsel (Carousel Message):**
+Mengirimkan barisan kartu produk horizontal yang dapat di-scroll (horizontal scrollable):
+```javascript
+await sock.sendMessage(jid, {
+  text: 'Pilihan layanan Cloud kami:',
+  title: 'Cloud Services', 
+  footer: '© FreeZeeHost',
+  cards: [
+    {
+      image: { url: 'https://www.example.com/vps.jpg' },
+      title: 'VPS Hosting',
+      body: 'Mulai dari Rp 50.000/bulan',
+      footer: 'Kinerja Tinggi',
+      buttons: [
+        {
+          name: 'quick_reply',
+          buttonParamsJson: JSON.stringify({ display_text: 'Pesan VPS', id: 'order_vps' })
+        },
+        {
+          name: 'cta_url',
+          buttonParamsJson: JSON.stringify({ display_text: 'Buka Web', url: 'https://freezeehost.com' })
+        }
+      ]
+    },
+    {
+      image: { url: 'https://www.example.com/shared.jpg' },
+      title: 'Shared Hosting',
+      body: 'Mulai dari Rp 15.000/bulan',
+      footer: 'Cocok untuk Pemula',
+      buttons: [
+        {
+          name: 'quick_reply',
+          buttonParamsJson: JSON.stringify({ display_text: 'Pesan Hosting', id: 'order_hosting' })
+        }
+      ]
+    }
+  ]
+});
+```
+
+#### **C. Tombol Aliran Native (Native Flow Buttons):**
+Tombol fungsional dengan parameter parameter JSON fleksibel:
+```javascript
+// Header Teks + Tombol Aliran Native
+await sock.sendMessage(jid, {
+  text: 'Klik tombol di bawah ini untuk beraksi:',
+  title: 'Menu Layanan',
+  footer: '© FreeZeeHost',
+  interactive: native_flow_button
+});
+```
+
+*Beberapa contoh konfigurasi `native_flow_button`:*
+
+*   **Quick Reply Button:**
+    ```javascript
+    const native_flow_button = [{
+      name: 'quick_reply',
+      buttonParamsJson: JSON.stringify({ display_text: 'Quick Reply', id: 'btn_1' })
+    }];
+    ```
+*   **CTA URL Button:**
+    ```javascript
+    const native_flow_button = [{
+      name: 'cta_url',
+      buttonParamsJson: JSON.stringify({ display_text: 'Visit Website', url: 'https://google.com' })
+    }];
+    ```
+*   **CTA Copy Code Button:**
+    ```javascript
+    const native_flow_button = [{
+      name: 'cta_copy',
+      buttonParamsJson: JSON.stringify({ display_text: 'Salin Kode Kupon', copy_code: 'FREEZEE50' })
+    }];
+    ```
+*   **CTA Call Phone Button:**
+    ```javascript
+    const native_flow_button = [{
+      name: 'cta_call',
+      buttonParamsJson: JSON.stringify({ display_text: 'Hubungi Kami', phone_number: '+628123456789' })
+    }];
+    ```
+*   **Formulir/Pilihan Terintegrasi (Galaxy Message):**
+    ```javascript
+    const native_flow_button = [{
+      name: 'galaxy_message',
+      buttonParamsJson: JSON.stringify({
+        mode: 'published',
+        flow_message_version: '3',
+        flow_token: '1:1307913409923914:293680f87029',
+        flow_id: '1307913409923914',
+        flow_cta: 'Isi Formulir',
+        flow_action: 'navigate',
+        flow_action_payload: {
+          screen: 'QUESTION_ONE',
+          params: { user_id: '12345', referral: 'ads_campaign' }
+        },
+        flow_metadata: {
+          flow_json_version: '201',
+          data_api_protocol: 'v2',
+          flow_name: 'Lead Generation',
+          data_api_version: 'v2',
+          categories: ['Sales']
+        }
+      })
+    }];
+    ```
+*   **Single Select (Pilihan Menu):**
+    ```javascript
+    const native_flow_button = [{
+      name: 'single_select',
+      buttonParamsJson: JSON.stringify({
+        title: 'Buka Pilihan',
+        sections: [{
+          title: 'Menu Utama',
+          rows: [
+            { header: 'Pilihan 1', title: 'VPS Starter', description: 'RAM 1GB', id: 'vps_1' },
+            { header: 'Pilihan 2', title: 'VPS Pro', description: 'RAM 4GB', id: 'vps_2' }
+          ]
+        }]
+      })
+    }];
+    ```
+
+</details>
 
 <details>
 <summary><strong>🔌 Connecting Account Detail</strong></summary>
