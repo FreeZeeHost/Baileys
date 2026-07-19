@@ -99,6 +99,9 @@ Kirim pesan dengan visual mewah yang biasanya hanya bisa dilakukan oleh bot resm
 -   🔤 **Styled Text Message**: `conn.sendStyledText(jid, text, font, textColor, backgroundColor)`
 -   ❓ **Question Message**: `conn.sendQuestion(jid, content)`
 -   💬 **Question Reply**: `conn.sendQuestionReply(jid, content)`
+-   🛍️ **Send Catalog**: `conn.sendCatalog(jid, businessOwnerJid, title, desc, imageOrUrl)`
+-   📦 **Send Product List**: `conn.sendProductList(jid, title, text, footer, btnText, sections, businessJid)`
+-   🛡️ **Get Deleted Message**: `conn.getDeletedMessage(jid, id)`
 
 ### 🎭 Persona Identity Switcher
 Ubah identitas perangkat bot Anda secara instan untuk menghindari deteksi sistem anti-bot.
@@ -1007,8 +1010,8 @@ await conn.unmuteChat(jid); // Bunyikan kembali
 await conn.markChatAsRead(jid, true); // true = Tandai dibaca, false = Belum dibaca
 ```
 
-#### 56. Kirim Toko & Koleksi Katalog E-Commerce (Shop & Collection Messages)
-Mengirimkan kartu interaktif native untuk Toko (Shop Storefront) dan Koleksi Katalog (Catalog Collection) WhatsApp Business secara langsung:
+#### 56. Kirim Toko, Koleksi, Katalog & Daftar Produk (E-Commerce Storefront)
+Mengirimkan kartu interaktif native untuk Toko (Shop), Koleksi Katalog (Collection), Katalog Individu (Catalog), dan Daftar Multi-Produk (Product List) secara langsung:
 * **Mengirim Kartu Toko (Shop Storefront):**
   ```javascript
   await conn.sendShopMessage(jid, "shop_id_12345", "WA", "Judul Toko", "Kunjungi toko kami!", "Footer");
@@ -1016,6 +1019,35 @@ Mengirimkan kartu interaktif native untuk Toko (Shop Storefront) dan Koleksi Kat
 * **Mengirim Kartu Koleksi Katalog (Catalog Collection):**
   ```javascript
   await conn.sendCollectionMessage(jid, "business_jid@s.whatsapp.net", "collection_id_9981", "Judul Koleksi", "Lihat koleksi produk terbaru kami:", "Footer");
+  ```
+* **Mengirim Katalog Bisnis (Send Catalog):**
+  Mengirim katalog bisnis lengkap dengan judul, deskripsi, dan gambar sampul secara native:
+  ```javascript
+  await conn.sendCatalog(jid, businessOwnerJid, "Judul Katalog", "Deskripsi lengkap katalog produk kami", "./images/cover.jpg");
+  // Atau balas instan via objek pesan m:
+  await m.replyCatalog(businessOwnerJid, "Judul Katalog", "Deskripsi katalog", "./images/cover.jpg");
+  ```
+* **Mengirim Daftar Produk Multi-Kategori (Send Product List):**
+  Mengirim daftar produk dengan bagian/seksi terpisah untuk navigasi belanja yang mudah:
+  ```javascript
+  const sections = [
+      {
+          title: "Paket VPS",
+          products: [
+              { productId: "vps_starter" },
+              { productId: "vps_pro" }
+          ]
+      },
+      {
+          title: "Paket Hosting",
+          products: [
+              { productId: "hosting_basic" }
+          ]
+      }
+  ];
+  await conn.sendProductList(jid, "Daftar Produk Kami", "Pilih produk favorit Anda di bawah ini:", "Footer Teks", "Lihat Produk", sections, businessOwnerJid);
+  // Atau balas instan via objek pesan m:
+  await m.replyProductList("Daftar Produk", "Silakan pilih:", "Footer", "Tombol", sections, businessOwnerJid);
   ```
 
 #### 57. Kirim Bukti Pembayaran / Struk Transaksi (Payment Receipt Message)
@@ -1087,7 +1119,14 @@ conn.ghostMode = true; // Aktifkan tanpa mengirim laporan baca otomatis
 conn.setVIP("628xxxxxxxx@s.whatsapp.net", true);
 ```
 
-#### 2. Auto-Typing & Auto-VN (Simulasi Ketikan & Rekaman VN Realistis)
+#### 2. Anti-Delete (Retrieve Deleted Message)
+Menyimpan cache pesan secara otomatis sehingga Anda dapat mengambil pesan asli yang telah dihapus oleh pengirim.
+```javascript
+// Dapatkan objek pesan asli yang dihapus oleh pengirim
+const originalMessage = conn.getDeletedMessage(jid, messageId);
+```
+
+#### 3. Auto-Typing & Auto-VN (Simulasi Ketikan & Rekaman VN Realistis)
 Secara otomatis memicu status "sedang mengetik..." (composing) sebelum mengirim pesan teks, atau "sedang merekam audio..." (recording) sebelum mengirim Voice Note.
 
 ##### **Global Toggle (Otomatis):**
@@ -1118,28 +1157,28 @@ await conn.simulateTyping(jid, 2000);
 await conn.simulateRecording(jid, 3000);
 ```
 
-#### 3. Model Penyamaran Browser Perangkat (Persona Identity)
+#### 4. Model Penyamaran Browser Perangkat (Persona Identity)
 Ubah platform perangkat WhatsApp Web Anda (IOS, Android, Windows, macOS, WearOS, Portal) secara instan.
 ```javascript
 // Opsi: 'ios', 'android', 'windows', 'macos', 'portal', 'wearos'
 conn.setPersona('ios'); 
 ```
 
-#### 4. Prefetch Plugin (Turbo-Loader)
+#### 5. Prefetch Plugin (Turbo-Loader)
 Prapemanasan cache file javascript pada folder plugin agar eksekusi perintah bot lebih instan.
 ```javascript
 const result = await conn.prefetchPlugins("./plugins");
 console.log(`Prefetch selesai dalam ${result.duration}ms untuk ${result.count} plugin.`);
 ```
 
-#### 5. Auto-Optimize Memory
+#### 6. Auto-Optimize Memory
 Mengosongkan cache store pesan yang tidak terpakai dan memicu Garbage Collector untuk menghemat RAM VPS.
 *   **Contoh Kode via Socket `conn`:**
     ```javascript
     conn.autoOptimize();
     ```
 
-#### 6. Stiker "Add Yours" Status Interaktif
+#### 7. Stiker "Add Yours" Status Interaktif
 Mengirimkan status/cerita (story) dengan stiker interaktif "Add Yours" secara native.
 *   **Contoh Kode via `m` (Paling Mudah):**
     ```javascript
@@ -1150,7 +1189,7 @@ Mengirimkan status/cerita (story) dengan stiker interaktif "Add Yours" secara na
     await conn.sendStatusAddYours("Tunjukkan foto kucingmu!");
     ```
 
-#### 7. Pesan Status Grup & Group Status V2 / Group Status Mention
+#### 8. Pesan Status Grup & Group Status V2 / Group Status Mention
 Mengirimkan status/cerita yang ditargetkan untuk audiens grup tertentu secara native.
 *   **Contoh Kode via `m` (Paling Mudah):**
     ```javascript
